@@ -12,7 +12,7 @@ namespace CleanProFinder.Server.Services.Implementations
         public async Task<ServiceResponse> ValidateAsync<T>(T item)
         {
             var validatorType = Assembly.GetExecutingAssembly().GetTypes()
-                .FirstOrDefault(t => t.BaseType != null && t.BaseType.IsGenericType &&
+                 .FirstOrDefault(t => t.BaseType != null && t.BaseType.IsGenericType &&
                                      t.BaseType.GetGenericTypeDefinition() == typeof(AbstractValidator<>) &&
                                      t.BaseType.GetGenericArguments().Any(genericArg => genericArg == typeof(T)));
 
