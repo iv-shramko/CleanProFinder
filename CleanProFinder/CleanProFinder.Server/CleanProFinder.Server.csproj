@@ -19,12 +19,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\CleanProFinder.Db\CleanProFinder.Db.csproj" />
+    <ProjectReference Include="..\CleanProFinder.Shared\CleanProFinder.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CleanProFinder.Db\CleanProFinder.Db.csproj" />
-    <ProjectReference Include="..\CleanProFinder.Shared\CleanProFinder.Shared.csproj" />
+    <Folder Include="Services\Interfaces\" />
+    <Folder Include="Services\Implementations\" />
   </ItemGroup>
 
 </Project>
