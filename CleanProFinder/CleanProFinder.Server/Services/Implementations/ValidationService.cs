@@ -21,9 +21,9 @@ namespace CleanProFinder.Server.Services.Implementations
             var validationContext = new ValidationContext<T>(item);
             var validationResult = await validator.ValidateAsync(validationContext);
 
-            var errors = validationResult.Errors.Select(error => new ValidationError() { FieldCode = error.PropertyName, ErrorMessage = error.ErrorMessage });
+            var errors = validationResult.Errors.Select(error => new ValidationError() { FieldCode = error.PropertyName, ErrorMessage = error.ErrorMessage }).ToList();
 
-            return ServiceResponseBuilder.Failure(new List<ValidationError>());
+            return ServiceResponseBuilder.Failure(errors);
         }
     }
 }
