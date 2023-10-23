@@ -20,7 +20,7 @@ namespace CleanProFinder.Server.Services.Implementations
         {
             Type validatorType = null; 
 
-?           _assemblies.ToList().ForEach(assembly =>
+           _assemblies.ToList().ForEach(assembly =>
             {
                 if (validatorType == null)
                 {
