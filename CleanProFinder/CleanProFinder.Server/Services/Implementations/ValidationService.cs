@@ -9,13 +9,25 @@ namespace CleanProFinder.Server.Services.Implementations
 {
     public class ValidationService : IValidationService
     {
+        private readonly Assembly[] _assemblies;
+
+        public ValidationService(params Assembly[] assemblies)
+        {
+            _assemblies = assemblies;
+        }
+
         public async Task<ServiceResponse> ValidateAsync<T>(T item)
         {
-            var validatorType = Assembly.GetExecutingAssembly().GetTypes()
-                 .FirstOrDefault(t => t.BaseType != null && t.BaseType.IsGenericType &&
-                                     t.BaseType.GetGenericTypeDefinition() == typeof(AbstractValidator<>) &&
-                                     t.BaseType.GetGenericArguments().Any(genericArg => genericArg == typeof(T)));
+            Type validatorType = null; 
 
+?           _assemblies.ToList().ForEach(assembly =>
+            {
+                if (validatorType == null)
+                {
+                    var types = assembly.GetTypes();
+                    validatorType = types.FirstOrDefault(t => typeof(AbstractValidator<>).IsAssignableFrom(t));
+                }
+            });
 
             var validator = (IValidator)Activator.CreateInstance(validatorType);
             var validationContext = new ValidationContext<T>(item);
@@ -23,7 +35,9 @@ namespace CleanProFinder.Server.Services.Implementations
 
             var errors = validationResult.Errors.Select(error => new ValidationError() { FieldCode = error.PropertyName, ErrorMessage = error.ErrorMessage }).ToList();
 
-            return ServiceResponseBuilder.Failure(errors);
+            
+
+            return errors.Count > 0 ? ServiceResponseBuilder.Failure(errors) : ServiceResponseBuilder.Success();
         }
     }
 }
