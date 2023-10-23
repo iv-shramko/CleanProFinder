@@ -19,8 +19,7 @@ namespace CleanProFinder.Server.Services.Implementations
         public async Task<ServiceResponse> ValidateAsync<T>(T item)
         {
             Type validatorType = null; 
-
-?           _assemblies.ToList().ForEach(assembly =>
+           _assemblies.ToList().ForEach(assembly =>
             {
                 if (validatorType == null)
                 {
