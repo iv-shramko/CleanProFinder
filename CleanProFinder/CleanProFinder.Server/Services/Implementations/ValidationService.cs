@@ -24,7 +24,7 @@ namespace CleanProFinder.Server.Services.Implementations
                 if (validatorType == null)
                 {
                     var types = assembly.GetTypes();
-                    validatorType = types.FirstOrDefault(t => typeof(AbstractValidator<>).IsAssignableFrom(t));
+                    validatorType = types.FirstOrDefault(t => typeof(AbstractValidator<T>).IsAssignableFrom(t));
                 }
             });
 
