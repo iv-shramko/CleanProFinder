@@ -2,8 +2,8 @@
 using CleanProFinder.Shared.Errors.Base;
 using CleanProFinder.Shared.ServiceResponseHandling;
 using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
 using Shouldly;
-using System.Security.Cryptography.X509Certificates;
 
 namespace CleanProFinder.Tests.Tests
 {
@@ -18,7 +18,7 @@ namespace CleanProFinder.Tests.Tests
                 Age = 10
             };
 
-            var validationService = new ValidationService(typeof(TestValidator).Assembly);
+            var validationService = ConstructorValidationService();
             var expectedResult = ServiceResponseBuilder.Success();
 
             var validationResult = await validationService.ValidateAsync(testClass);
@@ -35,7 +35,7 @@ namespace CleanProFinder.Tests.Tests
                 Age = -1
             };
 
-            var validationService = new ValidationService(typeof(TestValidator).Assembly);
+            var validationService = ConstructorValidationService();
             var expectedResult = ServiceResponseBuilder.Failure(
                 new List<ValidationError> 
                 { 
@@ -56,13 +56,20 @@ namespace CleanProFinder.Tests.Tests
             validationResult.ShouldBeEquivalentTo(expectedResult);
         }
 
-        public class TestClass
+        private static ValidationService ConstructorValidationService()
+        {
+            var services = new ServiceCollection();
+            services.AddTransient<IValidator<TestClass>, TestValidator>();
+            return new ValidationService(services.BuildServiceProvider());
+        }
+
+        private class TestClass
         {
             public string Name { get; set; }
             public int Age { get; set; }
         }
 
-        public class TestValidator : AbstractValidator<TestClass> 
+        private class TestValidator : AbstractValidator<TestClass> 
         {
             public static string NameError = "Must not be empty";
             public static string AgeError = "Must be greater than 0";
