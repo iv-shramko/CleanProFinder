@@ -42,6 +42,8 @@ namespace CleanProFinder.Mobile
 
             builder.Services.AddSingleton<IHttpService, HttpService>();
             builder.Services.AddSingleton<IAuthService, AuthService>();
+            builder.Services.AddSingleton<IDialogService, DialogService>();
+
             return builder.Build();
         }
     }
