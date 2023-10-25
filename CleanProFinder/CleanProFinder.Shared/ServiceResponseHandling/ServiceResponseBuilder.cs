@@ -69,5 +69,23 @@ namespace CleanProFinder.Shared.ServiceResponseHandling
                 Error = new Error(serviceErrors: new List<ServiceError>() { serviceErrors })
             };
         }
+
+        public static ServiceResponse<TResult> Failure<TResult>(Error error)
+        {
+            return new ServiceResponse<TResult>
+            {
+                IsSuccess = false,
+                Error = error
+            };
+        }
+
+        public static ServiceResponse Failure(Error error)
+        {
+            return new ServiceResponse
+            {
+                IsSuccess = false,
+                Error = error
+            };
+        }
     }
 }
