@@ -3,8 +3,11 @@
     x:Class="CleanProFinder.Mobile.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:CleanProFinder.Mobile"
+    xmlns:views="clr-namespace:CleanProFinder.Mobile.Views"
     Shell.FlyoutBehavior="Disabled">
 
+    <TabBar>
+        <ShellContent ContentTemplate="{DataTemplate views:RolePage}" Route="LoginPage" />
+    </TabBar>
 
 </Shell>

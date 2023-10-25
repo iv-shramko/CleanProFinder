@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using CleanProFinder.Mobile.ViewModels;
+using CleanProFinder.Mobile.Views;
 
 namespace CleanProFinder.Mobile
 {
@@ -18,6 +20,8 @@ namespace CleanProFinder.Mobile
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
+            builder.Services.AddTransient<RolePage>();
+            builder.Services.AddTransient<RoleViewModel>();
 
             return builder.Build();
         }
