@@ -1,8 +1,9 @@
-﻿using Microsoft.Extensions.Logging;
 ﻿using System.Reflection;
 using CleanProFinder.Mobile.ViewModels;
 using CleanProFinder.Mobile.Views;
 using CleanProFinder.Mobile.Services;
+using Microsoft.Extensions.Logging;
+using CommunityToolkit.Maui;
 using Microsoft.Extensions.Configuration;
 
 namespace CleanProFinder.Mobile
@@ -14,6 +15,7 @@ namespace CleanProFinder.Mobile
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -39,6 +41,9 @@ namespace CleanProFinder.Mobile
             
             builder.Services.AddTransient<RolePage>();
             builder.Services.AddTransient<RoleViewModel>();
+
+            builder.Services.AddTransient<RegistrationPage>();
+            builder.Services.AddTransient<RegistrationViewModel>();
 
             builder.Services.AddSingleton<IHttpService, HttpService>();
             builder.Services.AddSingleton<IAuthService, AuthService>();

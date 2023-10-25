@@ -9,11 +9,13 @@ public partial class RoleViewModel : ObservableObject
     [RelayCommand]
     private async Task OnCustomerRoleClicked()
     {
+        await Shell.Current.GoToAsync($"{nameof(RegistrationPage)}?{nameof(RegistrationViewModel.IsCustomer)}={true}");
     }
 
     [RelayCommand]
     private async Task OnServiceProviderRoleClicked()
     {
+        await Shell.Current.GoToAsync($"{nameof(RegistrationPage)}?{nameof(RegistrationViewModel.IsCustomer)}={false}");
     }
 
     [RelayCommand]
