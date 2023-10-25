@@ -2,6 +2,7 @@
 ﻿using System.Reflection;
 using CleanProFinder.Mobile.ViewModels;
 using CleanProFinder.Mobile.Views;
+using CleanProFinder.Mobile.Services;
 using Microsoft.Extensions.Configuration;
 
 namespace CleanProFinder.Mobile
@@ -39,6 +40,7 @@ namespace CleanProFinder.Mobile
             builder.Services.AddTransient<RolePage>();
             builder.Services.AddTransient<RoleViewModel>();
 
+            builder.Services.AddSingleton<IHttpService, HttpService>();
             return builder.Build();
         }
     }
