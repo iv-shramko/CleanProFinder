@@ -6,9 +6,5 @@
     xmlns:local="clr-namespace:CleanProFinder.Mobile"
     Shell.FlyoutBehavior="Disabled">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
 
 </Shell>
