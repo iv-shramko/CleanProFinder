@@ -41,6 +41,7 @@ namespace CleanProFinder.Mobile
             builder.Services.AddTransient<RoleViewModel>();
 
             builder.Services.AddSingleton<IHttpService, HttpService>();
+            builder.Services.AddSingleton<IAuthService, AuthService>();
             return builder.Build();
         }
     }
