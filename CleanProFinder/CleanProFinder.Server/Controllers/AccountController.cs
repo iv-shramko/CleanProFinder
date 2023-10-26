@@ -39,5 +39,14 @@ namespace CleanProFinder.Server.Controllers
             var result = await _mediator.Send(request, cancellationToken);
             return ConvertFromServiceResponse(result);
         }
+
+        [HttpPost("service-provider/account/create")]
+        [ProducesResponseType(typeof(SignUpResultDto), 200)]
+        [ProducesResponseType(typeof(ErrorDto), 400)]
+        public async Task<IActionResult> SignUpServiceProvider(CreateServiceProviderCommand request, CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(request, cancellationToken);
+            return ConvertFromServiceResponse(result);
+        }
     }
 }
