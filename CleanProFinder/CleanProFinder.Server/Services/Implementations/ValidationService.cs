@@ -2,39 +2,37 @@
 using CleanProFinder.Shared.Errors.Base;
 using CleanProFinder.Shared.ServiceResponseHandling;
 using FluentValidation;
-using System.Reflection;
-
 
 namespace CleanProFinder.Server.Services.Implementations
 {
     public class ValidationService : IValidationService
     {
-        private readonly Assembly[] _assemblies;
+        private readonly IServiceProvider _serviceProvider;
 
-        public ValidationService(params Assembly[] assemblies)
+        public ValidationService(IServiceProvider serviceProvider)
         {
-            _assemblies = assemblies;
+            _serviceProvider = serviceProvider;
         }
 
         public async Task<ServiceResponse> ValidateAsync<T>(T item)
         {
-            Type validatorType = null; 
-           _assemblies.ToList().ForEach(assembly =>
+            var validator = _serviceProvider.GetService<IValidator<T>>();
+            
+            if(validator is null)
             {
-                if (validatorType == null)
-                {
-                    var types = assembly.GetTypes();
-                    validatorType = types.FirstOrDefault(t => typeof(AbstractValidator<T>).IsAssignableFrom(t));
-                }
-            });
+                return ServiceResponseBuilder.Success();
+            }
 
-            var validator = (IValidator)Activator.CreateInstance(validatorType);
             var validationContext = new ValidationContext<T>(item);
             var validationResult = await validator.ValidateAsync(validationContext);
 
-            var errors = validationResult.Errors.Select(error => new ValidationError() { FieldCode = error.PropertyName, ErrorMessage = error.ErrorMessage }).ToList();
-
-            
+            var errors = validationResult.Errors.Select(error => 
+                new ValidationError() 
+                { 
+                    FieldCode = error.PropertyName, 
+                    ErrorMessage = error.ErrorMessage 
+                })
+            .ToList();            
 
             return errors.Count > 0 ? ServiceResponseBuilder.Failure(errors) : ServiceResponseBuilder.Success();
         }
