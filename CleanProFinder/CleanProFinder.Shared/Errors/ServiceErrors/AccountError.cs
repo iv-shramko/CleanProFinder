@@ -16,5 +16,8 @@ namespace CleanProFinder.Shared.Errors.ServiceErrors
 
         public static AccountError UserCreateError =>
             new AccountError("Account creation error", "Error when creating account", 2);
+
+        public static AccountError ProviderCreateError =>
+            new AccountError("Account creation error", "Error when creating account", 3);
     }
 }
