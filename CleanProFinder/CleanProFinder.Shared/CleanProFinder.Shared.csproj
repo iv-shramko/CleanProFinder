@@ -6,12 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Dto\NewFolder\**" />
-    <EmbeddedResource Remove="Dto\NewFolder\**" />
-    <None Remove="Dto\NewFolder\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="FluentValidation" Version="11.8.0" />
   </ItemGroup>
 
