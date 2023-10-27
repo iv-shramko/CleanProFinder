@@ -45,6 +45,8 @@ namespace CleanProFinder.Mobile
             builder.Services.AddTransient<RegistrationPage>();
             builder.Services.AddTransient<RegistrationViewModel>();
 
+            builder.Services.AddTransient<LoginPage>();
+            builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddSingleton<IHttpService, HttpService>();
             builder.Services.AddSingleton<IAuthService, AuthService>();
             builder.Services.AddSingleton<IDialogService, DialogService>();

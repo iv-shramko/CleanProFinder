@@ -21,5 +21,6 @@ public partial class RoleViewModel : ObservableObject
     [RelayCommand]
     private async Task OnSignInClicked()
     {
+        await Shell.Current.GoToAsync($"{nameof(LoginPage)}");
     }
 }

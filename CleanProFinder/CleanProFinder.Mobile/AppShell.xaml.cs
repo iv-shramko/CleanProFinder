@@ -8,6 +8,7 @@ namespace CleanProFinder.Mobile
         {
             InitializeComponent();
             Routing.RegisterRoute(nameof(RegistrationPage), typeof(RegistrationPage));
+            Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
         }
     }
 }

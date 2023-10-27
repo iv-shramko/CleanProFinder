@@ -7,7 +7,7 @@
     Shell.FlyoutBehavior="Disabled">
 
     <TabBar>
-        <ShellContent ContentTemplate="{DataTemplate views:RolePage}" Route="LoginPage" />
+        <ShellContent ContentTemplate="{DataTemplate views:RolePage}" Route="RolePage" />
     </TabBar>
 
 </Shell>
