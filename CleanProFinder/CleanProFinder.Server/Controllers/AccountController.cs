@@ -30,10 +30,30 @@ namespace CleanProFinder.Server.Controllers
         /// If there is a bad request, it will return an ErrorDto.
         /// </remarks>
         /// <returns>An IActionResult representing the result of the operation.</returns>
-        [HttpPost("service-user/account/create")]
+        [HttpPost("service-user/create")]
         [ProducesResponseType(typeof(SignUpResultDto), 200)]
         [ProducesResponseType(typeof(ErrorDto), 400)]
         public async Task<IActionResult> SignUpServiceUser(CreateServiceUserCommand request, 
+            CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(request, cancellationToken);
+            return ConvertFromServiceResponse(result);
+        }
+
+        /// <summary>
+        /// Perform user login
+        /// </summary>
+        /// <param name="request">The request to perform user login</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <remarks>
+        /// If the operation is successful, it will return a SignInResultDto.
+        /// If there is a bad request, it will return an ErrorDto.
+        /// </remarks>
+        /// <returns>An IActionResult representing the result of the operation.</returns>
+        [HttpPost("sign-in")]
+        [ProducesResponseType(typeof(SignInResultDto), 200)]
+        [ProducesResponseType(typeof(ErrorDto), 400)]
+        public async Task<IActionResult> SignIn(SignInCommand request,
             CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(request, cancellationToken);
