@@ -2,7 +2,7 @@
 {
     public static class Roles
     {
-        public static string ServiceUser => "service-user";
-        public static string ServiceProvider => "service-provider";
+        public const string ServiceUser = "service-user";
+        public const string ServiceProvider = "service-provider";
     }
 }
