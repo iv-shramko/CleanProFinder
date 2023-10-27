@@ -30,7 +30,7 @@ namespace CleanProFinder.Server.Controllers
         /// If there is a bad request, it will return an ErrorDto.
         /// </remarks>
         /// <returns>An IActionResult representing the result of the operation.</returns>
-        [HttpPost("account/service-user/create")]
+        [HttpPost("service-user/create")]
         [ProducesResponseType(typeof(SignUpResultDto), 200)]
         [ProducesResponseType(typeof(ErrorDto), 400)]
         public async Task<IActionResult> SignUpServiceUser(CreateServiceUserCommand request, 
@@ -50,7 +50,7 @@ namespace CleanProFinder.Server.Controllers
         /// If there is a bad request, it will return an ErrorDto.
         /// </remarks>
         /// <returns>An IActionResult representing the result of the operation.</returns>
-        [HttpPost("account/sign-in")]
+        [HttpPost("sign-in")]
         [ProducesResponseType(typeof(SignInResultDto), 200)]
         [ProducesResponseType(typeof(ErrorDto), 400)]
         public async Task<IActionResult> SignIn(SignInCommand request,
