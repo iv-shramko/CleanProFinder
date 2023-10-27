@@ -30,7 +30,7 @@ namespace CleanProFinder.Server.Controllers
         /// If there is a bad request, it will return an ErrorDto.
         /// </remarks>
         /// <returns>An IActionResult representing the result of the operation.</returns>
-        [HttpPost("service-user/account/create")]
+        [HttpPost("account/service-user/create")]
         [ProducesResponseType(typeof(SignUpResultDto), 200)]
         [ProducesResponseType(typeof(ErrorDto), 400)]
         public async Task<IActionResult> SignUpServiceUser(CreateServiceUserCommand request, 
@@ -40,7 +40,17 @@ namespace CleanProFinder.Server.Controllers
             return ConvertFromServiceResponse(result);
         }
 
-        [HttpPost("service-provider/account/create")]
+        /// <summary>
+        /// Create a new service provider account.
+        /// </summary>
+        /// <param name="request">The request to create a service provider account.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <remarks>
+        /// If the operation is successful, it will return a SignUpResultDto.
+        /// If there is a bad request, it will return an ErrorDto.
+        /// </remarks>
+        /// <returns>An IActionResult representing the result of the operation.</returns>
+        [HttpPost("account/service-provider/create")]
         [ProducesResponseType(typeof(SignUpResultDto), 200)]
         [ProducesResponseType(typeof(ErrorDto), 400)]
         public async Task<IActionResult> SignUpServiceProvider(CreateServiceProviderCommand request, CancellationToken cancellationToken)
