@@ -8,6 +8,7 @@ namespace CleanProFinder.Server.Mapper
     {
         public UserProfiles()
         {
+            CreateMap<UserProfileDto, ServiceUser>();
             CreateMap<ServiceUser, UserProfileDto>();
         }
     }

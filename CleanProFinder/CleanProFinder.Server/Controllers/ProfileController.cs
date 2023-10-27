@@ -5,7 +5,9 @@ using CleanProFinder.Server.Features.Profile;
 using CleanProFinder.Shared.Dto.Account;
 using CleanProFinder.Shared.Dto.Error;
 using CleanProFinder.Shared.Dto.Profile;
+using CleanProFinder.Shared.Helpers;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanProFinder.Server.Controllers
@@ -33,9 +35,10 @@ namespace CleanProFinder.Server.Controllers
         /// </remarks>
         /// <returns>An IActionResult representing the result of the operation.</returns>
         [HttpPost("service-user/edit")]
+        [Authorize(Roles = Roles.ServiceUser)]
         [ProducesResponseType(typeof(UserProfileDto), 200)]
         [ProducesResponseType(typeof(ErrorDto), 400)]
-        public async Task<IActionResult> SignUpServiceUser(EditUserProfileCommand request,
+        public async Task<IActionResult> EditServiceUserProfile(EditUserProfileCommand request,
             CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(request, cancellationToken);
