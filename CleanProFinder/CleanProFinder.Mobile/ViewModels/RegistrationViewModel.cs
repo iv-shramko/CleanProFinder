@@ -32,7 +32,6 @@ public partial class RegistrationViewModel : ObservableObject
 
         if (response.IsSuccess)
         {
-            await _authService.SaveCurrentUserAsync(response.Result.Bearer);
             await _dialogService.ShowAlertAsync("Sign Up Successful", "You are now a registered user.", "OK");
             return;
         }
