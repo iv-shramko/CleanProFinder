@@ -37,11 +37,16 @@ public partial class RegistrationViewModel : ObservableObject
             return;
         }
 
-        string errors = "";
+        var errors = "";
 
         foreach (var serviceError in response.Error.ServiceErrors)
         {
             errors += serviceError.ErrorMessage + "\n";
+        }
+
+        foreach (var validationError in response.Error.ValidationErrors)
+        {
+            errors += validationError.ErrorMessage + "\n";
         }
         
         await _dialogService.ShowAlertAsync("Sign Up Failed", errors, "OK");
