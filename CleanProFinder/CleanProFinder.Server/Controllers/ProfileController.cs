@@ -44,5 +44,26 @@ namespace CleanProFinder.Server.Controllers
             var result = await _mediator.Send(request, cancellationToken);
             return ConvertFromServiceResponse(result);
         }
+
+        /// <summary>
+        /// Update a service provider profile.
+        /// </summary>
+        /// <param name="request">The request to update a service provider profile.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <remarks>
+        /// If the operation is successful, it will return a ProviderProfileDto.
+        /// If there is a bad request, it will return an ErrorDto.
+        /// </remarks>
+        /// <returns>An IActionResult representing the result of the operation.</returns>
+        [HttpPost("service-provider/edit")]
+        [Authorize(Roles = Roles.ServiceProvider)]
+        [ProducesResponseType(typeof(ProviderProfileDto), 200)]
+        [ProducesResponseType(typeof(ErrorDto), 400)]
+        public async Task<IActionResult> EditServiceProviderProfile(EditProviderProfileCommand request,
+            CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(request, cancellationToken);
+            return ConvertFromServiceResponse(result);
+        }
     }
 }

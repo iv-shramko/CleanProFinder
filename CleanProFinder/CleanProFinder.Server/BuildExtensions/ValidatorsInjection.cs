@@ -12,6 +12,7 @@ namespace CleanProFinder.Server.BuildExtensions
         {
             services.AddTransient<IValidator<CreateServiceUserCommand>, CreateServiceUserCommandValidator>();
             services.AddTransient<IValidator<EditUserProfileCommand>, EditUserProfileCommandValidator>();
+            services.AddTransient<IValidator<EditProviderProfileCommand>, EditProviderProfileCommandValidator>();
         }
     }
 }
