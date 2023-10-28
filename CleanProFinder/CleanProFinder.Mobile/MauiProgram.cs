@@ -1,7 +1,10 @@
-﻿using Microsoft.Extensions.Logging;
+using System.Reflection;
 using CleanProFinder.Mobile.ViewModels;
 using CleanProFinder.Mobile.Views;
+using CleanProFinder.Mobile.Services;
+using Microsoft.Extensions.Logging;
 using CommunityToolkit.Maui;
+using Microsoft.Extensions.Configuration;
 
 namespace CleanProFinder.Mobile
 {
@@ -19,13 +22,41 @@ namespace CleanProFinder.Mobile
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            var stream = Assembly
+                .GetExecutingAssembly()
+                .GetManifestResourceStream("CleanProFinder.Mobile.Properties.appsettings.json");
+            
+            if (stream != null)
+            {
+                var config = new ConfigurationBuilder()
+                    .AddJsonStream(stream)
+                    .Build();
+
+                builder.Configuration.AddConfiguration(config);
+            }
+
 #if DEBUG
-		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
+            
+            builder.Services.AddTransient<RolePage>();
+            builder.Services.AddTransient<RoleViewModel>();
+
+            builder.Services.AddTransient<RegistrationPage>();
+            builder.Services.AddTransient<RegistrationViewModel>();
+
+            builder.Services.AddTransient<LoginPage>();
+            builder.Services.AddTransient<LoginViewModel>();
+            
             builder.Services.AddTransient<CustomerStartingPage>();
             builder.Services.AddTransient<CustomerStartingViewModel>();
+
             builder.Services.AddTransient<ServiceProviderStartingPage>();
             builder.Services.AddTransient<ServiceProviderStartingViewModel>();
+
+            builder.Services.AddSingleton<IHttpService, HttpService>();
+            builder.Services.AddSingleton<IAuthService, AuthService>();
+            builder.Services.AddSingleton<IDialogService, DialogService>();
 
             return builder.Build();
         }

@@ -44,4 +44,8 @@
             Route="ProfilePage" />
     </TabBar>
 
+    <TabBar>
+        <ShellContent ContentTemplate="{DataTemplate views:RolePage}" Route="RolePage" />
+    </TabBar>
+    
 </Shell>
