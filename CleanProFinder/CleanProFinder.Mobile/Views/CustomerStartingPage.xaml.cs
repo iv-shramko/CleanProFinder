@@ -6,7 +6,7 @@ public partial class CustomerStartingPage : ContentPage
 {
 	public CustomerStartingPage(CustomerStartingViewModel viewModel)
 	{
-        InitializeComponent();
-        BindingContext = viewModel;
+        	InitializeComponent();
+        	BindingContext = viewModel;
 	}
 }
