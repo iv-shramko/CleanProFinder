@@ -22,6 +22,8 @@ namespace CleanProFinder.Mobile
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
+            builder.Services.AddTransient<CustomerStartingPage>();
+            builder.Services.AddTransient<CustomerStartingViewModel>();
 
             return builder.Build();
         }
