@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using CleanProFinder.Mobile.ViewModels;
 using CleanProFinder.Mobile.Views;
 using CleanProFinder.Mobile.Services;
@@ -47,6 +47,13 @@ namespace CleanProFinder.Mobile
 
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<LoginViewModel>();
+            
+            builder.Services.AddTransient<CustomerStartingPage>();
+            builder.Services.AddTransient<CustomerStartingViewModel>();
+
+            builder.Services.AddTransient<ServiceProviderStartingPage>();
+            builder.Services.AddTransient<ServiceProviderStartingViewModel>();
+
             builder.Services.AddSingleton<IHttpService, HttpService>();
             builder.Services.AddSingleton<IAuthService, AuthService>();
             builder.Services.AddSingleton<IDialogService, DialogService>();
