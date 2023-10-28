@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Net.Http.Headers;
 using System.Text;
 using Newtonsoft.Json;
 using CleanProFinder.Shared.Errors.Base;
@@ -16,6 +17,12 @@ public class HttpService : IHttpService
     {
         _httpClient = new HttpClient();
         _baseUrl = configuration["BaseUrl"];
+    }
+
+    public async Task ApplyAuthorizationAsync()
+    {
+        var bearerToken = await SecureStorage.GetAsync("BearerToken");
+        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
     }
 
     public async Task<ServiceResponse<T>> SendAsync<T>(HttpMethod method, string endpoint, object payload = default)

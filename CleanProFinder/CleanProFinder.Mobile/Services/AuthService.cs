@@ -55,5 +55,6 @@ public class AuthService : IAuthService
     public async Task SaveCurrentUserAsync(string bearerToken)
     {
         await SecureStorage.SetAsync("BearerToken", bearerToken);
+        await _httpService.ApplyAuthorizationAsync();
     }
 }
