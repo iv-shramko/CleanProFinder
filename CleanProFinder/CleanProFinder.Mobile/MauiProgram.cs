@@ -1,4 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
+using CleanProFinder.Mobile.ViewModels;
+using CleanProFinder.Mobile.Views;
+using CommunityToolkit.Maui;
 
 namespace CleanProFinder.Mobile
 {
@@ -9,6 +12,7 @@ namespace CleanProFinder.Mobile
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
