@@ -50,7 +50,7 @@ namespace CleanProFinder.Server.Features.Account
                 {
                     Email = request.Email,
                     Password = request.Password,
-                    Role = Roles.ServiceUser
+                    Role = Roles.ServiceProvider
                 };
                 var createIdentityResponse = await _mediator.Send(createIdentityUserCommand, cancellationToken);
                 if (createIdentityResponse.IsSuccess is false)
