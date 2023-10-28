@@ -24,6 +24,8 @@ namespace CleanProFinder.Mobile
 #endif
             builder.Services.AddTransient<CustomerStartingPage>();
             builder.Services.AddTransient<CustomerStartingViewModel>();
+            builder.Services.AddTransient<ServiceProviderStartingPage>();
+            builder.Services.AddTransient<ServiceProviderStartingViewModel>();
 
             return builder.Build();
         }
