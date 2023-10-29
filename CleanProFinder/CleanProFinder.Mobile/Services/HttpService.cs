@@ -29,14 +29,14 @@ public class HttpService : IHttpService
     {
         var url = ConstructUrl(method, endpoint, payload);
         var request = CreateRequest(method, url, payload);
-        return await SendRequest<T>(request);
+        return await SendRequestAsync<T>(request);
     }
 
     public async Task<ServiceResponse> SendAsync(HttpMethod method, string endpoint, object payload = default)
     {
         var url = ConstructUrl(method, endpoint, payload);
         var request = CreateRequest(method, url, payload);
-        return await SendRequest(request);
+        return await SendRequestAsync(request);
     }
 
     private string ConstructUrl(HttpMethod method, string endpoint, object payload)
@@ -69,7 +69,7 @@ public class HttpService : IHttpService
         return request;
     }
 
-    private async Task<ServiceResponse<T>> SendRequest<T>(HttpRequestMessage request)
+    private async Task<ServiceResponse<T>> SendRequestAsync<T>(HttpRequestMessage request)
     {
         var httpResponseMessage = await _httpClient.SendAsync(request);
         var json = await httpResponseMessage.Content.ReadAsStringAsync();
@@ -84,7 +84,7 @@ public class HttpService : IHttpService
         return ServiceResponseBuilder.Failure<T>(error);
     }
 
-    private async Task<ServiceResponse> SendRequest(HttpRequestMessage request)
+    private async Task<ServiceResponse> SendRequestAsync(HttpRequestMessage request)
     {
         var httpResponseMessage = await _httpClient.SendAsync(request);
         var json = await httpResponseMessage.Content.ReadAsStringAsync();

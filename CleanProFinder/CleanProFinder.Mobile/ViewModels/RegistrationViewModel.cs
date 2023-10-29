@@ -28,7 +28,7 @@ public partial class RegistrationViewModel : ObservableObject
     [RelayCommand]
     private async Task SignUp()
     {
-        var response = await _authService.SignUp(Email, Password);
+        var response = await _authService.SignUpAsync(Email, Password);
 
         if (response.IsSuccess)
         {
