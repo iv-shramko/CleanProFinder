@@ -28,7 +28,9 @@ public partial class LoginViewModel : ObservableObject
 
         if (response.IsSuccess)
         {
-            await _dialogService.ShowAlertAsync("Login Successful", "You are signed in", "OK");
+            await Shell.Current.GoToAsync(_authService.IsCustomer
+                ? "//CustomerStartingPage"
+                : "//ServiceProviderStartingPage");
             return;
         }
 

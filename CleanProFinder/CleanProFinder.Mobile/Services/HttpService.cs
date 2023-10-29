@@ -24,9 +24,8 @@ public class HttpService : IHttpService
         _baseUrl = configuration["BaseUrl"];
     }
 
-    public async Task ApplyAuthorizationAsync()
+    public void SetAuthorizationHeader(string bearerToken)
     {
-        var bearerToken = await SecureStorage.GetAsync("BearerToken");
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
     }
 

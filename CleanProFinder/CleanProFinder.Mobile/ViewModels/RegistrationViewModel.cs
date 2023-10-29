@@ -32,7 +32,9 @@ public partial class RegistrationViewModel : ObservableObject
 
         if (response.IsSuccess)
         {
-            await _dialogService.ShowAlertAsync("Sign Up Successful", "You are now a registered user.", "OK");
+            await Shell.Current.GoToAsync(IsCustomer
+                ? "//CustomerStartingPage"
+                : "//ServiceProviderStartingPage");
             return;
         }
 
