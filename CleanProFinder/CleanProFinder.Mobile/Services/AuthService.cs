@@ -15,6 +15,18 @@ public class AuthService : IAuthService
         _httpService = httpService;
     }
 
+    public bool IsAuthenticated { get; private set; }
+
+    public void Initialize()
+    {
+        var bearerToken = SecureStorage.GetAsync("BearerToken").Result;
+        IsAuthenticated = !string.IsNullOrEmpty(bearerToken);
+        if (IsAuthenticated)
+        {
+            _httpService.SetAuthorizationHeader(bearerToken);
+        }
+    }
+
     public async Task<ServiceResponse<SignUpResultDto>> SignUp(string email, string password)
     {
         var signUpCommand = new CreateServiceUserCommandDto
@@ -51,10 +63,11 @@ public class AuthService : IAuthService
         return response;
     }
 
-
     public async Task SaveCurrentUserAsync(string bearerToken)
     {
         await SecureStorage.SetAsync("BearerToken", bearerToken);
-        await _httpService.ApplyAuthorizationAsync();
+        _httpService.SetAuthorizationHeader(bearerToken);
+        IsAuthenticated = true;
+    }
     }
 }
