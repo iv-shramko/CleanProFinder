@@ -24,7 +24,7 @@ public partial class LoginViewModel : ObservableObject
     [RelayCommand]
     private async Task Login()
     {
-        var response = await _authService.SignIn(Email, Password);
+        var response = await _authService.SignInAsync(Email, Password);
 
         if (response.IsSuccess)
         {
@@ -34,18 +34,6 @@ public partial class LoginViewModel : ObservableObject
             return;
         }
 
-        var errors = "";
-
-        foreach (var serviceError in response.Error.ServiceErrors)
-        {
-            errors += serviceError.ErrorMessage + "\n";
-        }
-
-        foreach (var validationError in response.Error.ValidationErrors)
-        {
-            errors += validationError.ErrorMessage + "\n";
-        }
-        
-        await _dialogService.ShowAlertAsync("Sign In Failed", errors, "OK");
+        await _dialogService.ShowErrorAlertAsync("Sign In Failed", response.Error);
     }
 }

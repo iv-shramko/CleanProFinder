@@ -28,7 +28,7 @@ public partial class RegistrationViewModel : ObservableObject
     [RelayCommand]
     private async Task SignUp()
     {
-        var response = await _authService.SignUp(Email, Password);
+        var response = await _authService.SignUpAsync(Email, Password);
 
         if (response.IsSuccess)
         {
@@ -38,18 +38,6 @@ public partial class RegistrationViewModel : ObservableObject
             return;
         }
 
-        var errors = "";
-
-        foreach (var serviceError in response.Error.ServiceErrors)
-        {
-            errors += serviceError.ErrorMessage + "\n";
-        }
-
-        foreach (var validationError in response.Error.ValidationErrors)
-        {
-            errors += validationError.ErrorMessage + "\n";
-        }
-        
-        await _dialogService.ShowAlertAsync("Sign Up Failed", errors, "OK");
+        await _dialogService.ShowErrorAlertAsync("Sign Up Failed", response.Error);
     }
 }

@@ -10,12 +10,17 @@ namespace CleanProFinder.Mobile.Services;
 
 public class HttpService : IHttpService
 {
+    private const int TimeoutSeconds = 5;
+
     private readonly HttpClient _httpClient;
     private readonly string _baseUrl;
 
     public HttpService(IConfiguration configuration)
     {
-        _httpClient = new HttpClient();
+        _httpClient = new HttpClient()
+        {
+            Timeout = TimeSpan.FromSeconds(TimeoutSeconds)
+        };
         _baseUrl = configuration["BaseUrl"];
     }
 
@@ -28,14 +33,14 @@ public class HttpService : IHttpService
     {
         var url = ConstructUrl(method, endpoint, payload);
         var request = CreateRequest(method, url, payload);
-        return await SendRequest<T>(request);
+        return await SendRequestAsync<T>(request);
     }
 
     public async Task<ServiceResponse> SendAsync(HttpMethod method, string endpoint, object payload = default)
     {
         var url = ConstructUrl(method, endpoint, payload);
         var request = CreateRequest(method, url, payload);
-        return await SendRequest(request);
+        return await SendRequestAsync(request);
     }
 
     private string ConstructUrl(HttpMethod method, string endpoint, object payload)
@@ -68,33 +73,35 @@ public class HttpService : IHttpService
         return request;
     }
 
-    private async Task<ServiceResponse<T>> SendRequest<T>(HttpRequestMessage request)
+    private async Task<ServiceResponse<T>> SendRequestAsync<T>(HttpRequestMessage request)
     {
-        var httpResponseMessage = await _httpClient.SendAsync(request);
-        var json = await httpResponseMessage.Content.ReadAsStringAsync();
-
-        if (httpResponseMessage.IsSuccessStatusCode)
+        try
         {
-            var result = JsonConvert.DeserializeObject<T>(json);
-            return ServiceResponseBuilder.Success(result);
-        }
+            var httpResponseMessage = await _httpClient.SendAsync(request);
+            var json = await httpResponseMessage.Content.ReadAsStringAsync();
 
-        var error = JsonConvert.DeserializeObject<Error>(json);
-        return ServiceResponseBuilder.Failure<T>(error);
+            if (httpResponseMessage.IsSuccessStatusCode)
+            {
+                var result = JsonConvert.DeserializeObject<T>(json);
+                return ServiceResponseBuilder.Success(result);
+            }
+
+            var error = JsonConvert.DeserializeObject<Error>(json);
+            return ServiceResponseBuilder.Failure<T>(error);
+        }
+        catch (TaskCanceledException)
+        {
+            var timeoutServiceError = new ServiceError
+            {
+                ErrorMessage = "Connection timed out."
+            };
+            return ServiceResponseBuilder.Failure<T>(timeoutServiceError);
+        }
     }
 
-    private async Task<ServiceResponse> SendRequest(HttpRequestMessage request)
+    private async Task<ServiceResponse> SendRequestAsync(HttpRequestMessage request)
     {
-        var httpResponseMessage = await _httpClient.SendAsync(request);
-        var json = await httpResponseMessage.Content.ReadAsStringAsync();
-
-        if (httpResponseMessage.IsSuccessStatusCode)
-        {
-            return ServiceResponseBuilder.Success();
-        }
-
-        var error = JsonConvert.DeserializeObject<Error>(json);
-        return ServiceResponseBuilder.Failure(error);
+        return await SendRequestAsync<object>(request);
     }
 
     private static string CreateQueryString(Dictionary<string, object> parameters)

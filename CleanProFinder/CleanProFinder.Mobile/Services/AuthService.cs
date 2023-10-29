@@ -34,7 +34,7 @@ public class AuthService : IAuthService
         }
     }
 
-    public async Task<ServiceResponse<SignUpResultDto>> SignUp(string email, string password)
+    public async Task<ServiceResponse<SignUpResultDto>> SignUpAsync(string email, string password)
     {
         var signUpCommand = new CreateServiceUserCommandDto
         {
@@ -52,7 +52,7 @@ public class AuthService : IAuthService
         return response;
     }
 
-    public async Task<ServiceResponse<SignInResultDto>> SignIn(string email, string password)
+    public async Task<ServiceResponse<SignInResultDto>> SignInAsync(string email, string password)
     {
         var signInCommand = new SignInCommandDto
         {
