@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="CleanProFinder.Mobile.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:CleanProFinder.Mobile.Views"
+    Shell.FlyoutBehavior="Disabled">
+
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="Shell.ForegroundColor" Value="White" />
+                <Setter Property="Shell.TitleColor" Value="White" />
+                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="White" />
+                <Setter Property="Shell.TabBarUnselectedColor" Value="#F9F9F9" />
+                <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource Secondary}" />
+            </Style>
+            <Style BasedOn="{StaticResource BaseStyle}" TargetType="TabBar" />
+            <Style BasedOn="{StaticResource BaseStyle}" TargetType="FlyoutItem" />
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <TabBar>
+        <ShellContent
+            Title="Home"
+            ContentTemplate="{DataTemplate views:CustomerStartingPage}"
+            Icon="home.svg"
+            IsVisible="True"
+            Route="CustomerStartingPage" />
+        <ShellContent
+            Title="Home"
+            ContentTemplate="{DataTemplate views:ServiceProviderStartingPage}"
+            Icon="home.svg"
+            IsVisible="True"
+            Route="ServiceProviderStartingPage" />
+        <ShellContent
+            Title="Profile"
+            ContentTemplate="{DataTemplate views:ServiceProviderStartingPage}"
+            Icon="profile.svg"
+            Route="ProfilePage" />
+    </TabBar>
+
+    <TabBar>
+        <ShellContent ContentTemplate="{DataTemplate views:RolePage}" Route="RolePage" />
+    </TabBar>
+    
+</Shell>

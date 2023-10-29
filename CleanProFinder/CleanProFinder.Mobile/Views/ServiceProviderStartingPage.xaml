@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CleanProFinder.Mobile.Views.ServiceProviderStartingPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewmodel="clr-namespace:CleanProFinder.Mobile.ViewModels"
+    Title="Premises"
+    x:DataType="viewmodel:ServiceProviderStartingViewModel"
+    Background="{StaticResource Secondary}">
+
+    <VerticalStackLayout Margin="10">
+        <Border
+            Background="{StaticResource Secondary}"
+            Stroke="{StaticResource Tertiary}"
+            StrokeShape="RoundRectangle 10,10,10,10"
+            StrokeThickness="2.4">
+            <Grid ColumnDefinitions=".7*,.3*">
+                <Entry
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Margin="10"
+                    FontFamily="OpenSans"
+                    FontSize="16"
+                    Placeholder="Type to search"
+                    PlaceholderColor="{x:StaticResource Primary}"
+                    Text="{Binding SearchQuery}"
+                    TextColor="{StaticResource Primary}" />
+                <Button
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="0,10,10,10"
+                    Command="{Binding SearchCommand}"
+                    FontAttributes="Bold"
+                    FontFamily="OpenSans"
+                    FontSize="16"
+                    Text="Search" />
+            </Grid>
+        </Border>
+        <CollectionView ItemsSource="{Binding Premises}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border
+                        Margin="0,5,0,3"
+                        Background="{StaticResource Tertiary}"
+                        Stroke="{StaticResource Tertiary}"
+                        StrokeShape="RoundRectangle 10,10,10,10">
+                        <VerticalStackLayout Margin="10">
+                            <Label
+                                FontAttributes="Bold"
+                                FontFamily="OpenSans"
+                                FontSize="20"
+                                Text="City, Building Address"
+                                TextColor="White" />
+                            <Grid ColumnDefinitions=".75*,.25*">
+                                <Border
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Background="{StaticResource Tertiary}"
+                                    Stroke="{StaticResource Tertiary}" >
+                                    <Label
+                                        FontFamily="OpenSans"
+                                        FontSize="20"
+                                        Text="Cleaning Space Type"
+                                        TextColor="{StaticResource Secondary}" />
+                                </Border>
+                                <Border
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Background="{StaticResource Tertiary}"
+                                    Stroke="{StaticResource Tertiary}">
+                                    <Label
+                                        FontFamily="OpenSans"
+                                        FontSize="20"
+                                        Text="Square"
+                                        TextColor="{StaticResource Secondary}" />
+                                </Border>
+                            </Grid>
+                            <Label
+                                Grid.ColumnSpan="2"
+                                FontFamily="OpenSans"
+                                FontSize="16"
+                                Text="Description Description Description Description Description Description Description Description Description Description"
+                                TextColor="White" />
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>
