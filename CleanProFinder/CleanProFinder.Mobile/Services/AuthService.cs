@@ -1,5 +1,8 @@
 ﻿using CleanProFinder.Shared.Dto.Account;
 using CleanProFinder.Shared.ServiceResponseHandling;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using CleanProFinder.Shared.Helpers;
 
 namespace CleanProFinder.Mobile.Services;
 
@@ -10,12 +13,15 @@ public class AuthService : IAuthService
 
     private readonly IHttpService _httpService;
 
+    private string _userRole;
+
     public AuthService(IHttpService httpService)
     {
         _httpService = httpService;
     }
 
     public bool IsAuthenticated { get; private set; }
+    public bool IsCustomer => _userRole == Roles.ServiceUser;
 
     public void Initialize()
     {
@@ -24,6 +30,7 @@ public class AuthService : IAuthService
         if (IsAuthenticated)
         {
             _httpService.SetAuthorizationHeader(bearerToken);
+            _userRole = GetUserRoleFromBearer(bearerToken);
         }
     }
 
@@ -68,6 +75,13 @@ public class AuthService : IAuthService
         await SecureStorage.SetAsync("BearerToken", bearerToken);
         _httpService.SetAuthorizationHeader(bearerToken);
         IsAuthenticated = true;
+        _userRole = GetUserRoleFromBearer(bearerToken);
     }
+
+    private string GetUserRoleFromBearer(string bearerToken)
+    {
+        var jwtHandler = new JwtSecurityTokenHandler();
+        var jwtSecurityToken = jwtHandler.ReadJwtToken(bearerToken);
+        return jwtSecurityToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
     }
 }
