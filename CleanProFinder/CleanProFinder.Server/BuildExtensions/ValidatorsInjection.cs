@@ -11,6 +11,8 @@ namespace CleanProFinder.Server.BuildExtensions
         internal static void AddValidators(this IServiceCollection services)
         {
             services.AddTransient<IValidator<CreateServiceUserCommand>, CreateServiceUserCommandValidator>();
+            services.AddTransient<IValidator<CreateServiceProviderCommand>, CreateServiceProviderCommandValidator>();
+            services.AddTransient<IValidator<CreateIdentityUserCommand>, CreateIdentityUserCommandValidator>();
             services.AddTransient<IValidator<EditUserProfileCommand>, EditUserProfileCommandValidator>();
             services.AddTransient<IValidator<EditProviderProfileCommand>, EditProviderProfileCommandValidator>();
         }
