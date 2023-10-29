@@ -1,6 +1,6 @@
+using CleanProFinder.Db;
 using CleanProFinder.Server.BuildExtensions;
 using System.Reflection;
-using CleanProFinder.Db;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,11 +19,8 @@ builder.Services.AddValidators();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 app.UseCors(CorsInjection.PolicyName);
