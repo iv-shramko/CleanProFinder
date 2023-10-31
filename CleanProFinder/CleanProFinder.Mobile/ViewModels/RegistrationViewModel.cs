@@ -43,9 +43,7 @@ public partial class RegistrationViewModel : ObservableObject
 
         if (response.IsSuccess)
         {
-            await Shell.Current.GoToAsync(IsServiceUser
-                ? "//ServiceUserStartingPage"
-                : "//ServiceProviderStartingPage");
+            await Shell.Current.GoToAsync($"{nameof(InitialEditProfilePage)}?IsServiceUser={IsServiceUser}");
             return;
         }
 

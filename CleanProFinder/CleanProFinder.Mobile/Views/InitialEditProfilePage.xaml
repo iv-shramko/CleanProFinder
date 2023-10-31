@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    x:Class="CleanProFinder.Mobile.Views.InitialEditProfilePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewmodel="clr-namespace:CleanProFinder.Mobile.ViewModels"
+    Title="InitialEditProfilePage"
+    x:DataType="viewmodel:InitialEditProfileViewModel">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <VerticalStackLayout
+            Padding="10,0,10,0"
+            Spacing="20"
+            VerticalOptions="Center">
+            <Entry
+                FontSize="18"
+                IsVisible="{Binding IsServiceUser}"
+                Placeholder="First Name"
+                Text="{Binding FirstName}" />
+            <Entry
+                FontSize="18"
+                IsVisible="{Binding IsServiceUser}"
+                Placeholder="Last Name"
+                Text="{Binding LastName}" />
+            <Entry
+                FontSize="18"
+                IsVisible="{Binding IsServiceUser, Converter={StaticResource InvertedBoolConverter}}"
+                Placeholder="Service Provider Name"
+                Text="{Binding ServiceProviderName}" />
+            <HorizontalStackLayout>
+                <Image
+                    HeightRequest="150"
+                    IsVisible="{Binding IsServiceUser, Converter={StaticResource InvertedBoolConverter}}"
+                    Source="{Binding LogoImage.Source}"
+                    WidthRequest="150" />
+                <Button
+                    Margin="30"
+                    Command="{Binding AddLogoImageCommand}"
+                    FontSize="18"
+                    HeightRequest="45"
+                    IsVisible="{Binding IsServiceUser, Converter={StaticResource InvertedBoolConverter}}"
+                    Text="Add logo image"
+                    VerticalOptions="Center" />
+            </HorizontalStackLayout>
+            <Entry
+                FontSize="18"
+                Keyboard="Numeric"
+                Placeholder="Phone Number"
+                Text="{Binding PhoneNumber}" />
+            <Entry
+                FontSize="18"
+                IsVisible="{Binding IsServiceUser, Converter={StaticResource InvertedBoolConverter}}"
+                Placeholder="Website Url"
+                Text="{Binding WebsiteUrl}" />
+            <Button
+                Command="{Binding UpdateProfileCommand}"
+                FontSize="18"
+                Text="Update profile" />
+        </VerticalStackLayout>
+    </ContentPage.Content>
+</ContentPage>
