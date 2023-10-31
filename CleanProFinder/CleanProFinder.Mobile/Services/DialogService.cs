@@ -1,4 +1,5 @@
 ﻿using CleanProFinder.Shared.Errors.Base;
+using CleanProFinder.Shared.ServiceResponseHandling;
 
 namespace CleanProFinder.Mobile.Services;
 
@@ -16,8 +17,17 @@ public class DialogService : IDialogService
 
     public async Task ShowErrorAlertAsync(string title, Error error)
     {
-        var errorText = "";
+        if (error == null || !(error.ServiceErrors.Any() || error.ValidationErrors.Any()))
+        {
+            var serviceError = new ServiceError
+            {
+                ErrorMessage = "An unknown error has occurred."
+            };
+            error = new Error(serviceErrors: new List<ServiceError>() { serviceError });
+        }
 
+        var errorText = "";
+        
         foreach (var serviceError in error.ServiceErrors)
         {
             errorText += serviceError.ErrorMessage + "\n";
