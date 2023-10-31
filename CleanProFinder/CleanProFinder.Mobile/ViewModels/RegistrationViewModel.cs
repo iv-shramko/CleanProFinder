@@ -1,4 +1,6 @@
 ﻿using CleanProFinder.Mobile.Services;
+using CleanProFinder.Mobile.Views;
+using CleanProFinder.Shared.ServiceResponseHandling;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -28,7 +30,16 @@ public partial class RegistrationViewModel : ObservableObject
     [RelayCommand]
     private async Task SignUp()
     {
-        var response = await _authService.SignUpAsync(Email, Password);
+        ServiceResponse response;
+
+        if (IsCustomer)
+        {
+            response = await _authService.SignUpServiceUserAsync(Email, Password);
+        }
+        else
+        {
+            response = await _authService.SignUpServiceProviderAsync(Email, Password);
+        }
 
         if (response.IsSuccess)
         {

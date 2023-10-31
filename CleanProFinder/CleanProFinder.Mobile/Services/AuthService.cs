@@ -8,7 +8,8 @@ namespace CleanProFinder.Mobile.Services;
 
 public class AuthService : IAuthService
 {
-    private const string SignUpEndpoint = "api/account/service-user/create";
+    private const string SignUpServiceUserEndpoint = "api/account/service-user/create";
+    private const string SignUpServiceProviderEndpoint = "api/account/service-provider/create";
     private const string SignInEndpoint = "api/account/sign-in";
 
     private readonly IHttpService _httpService;
@@ -34,15 +35,33 @@ public class AuthService : IAuthService
         }
     }
 
-    public async Task<ServiceResponse<SignUpResultDto>> SignUpAsync(string email, string password)
+    public async Task<ServiceResponse<SignUpResultDto>> SignUpServiceUserAsync(string email, string password)
     {
-        var signUpCommand = new CreateServiceUserCommandDto
+        var signUpServiceUserCommand = new CreateServiceUserCommandDto
         {
             Email = email,
             Password = password
         };
 
-        var response = await _httpService.SendAsync<SignUpResultDto>(HttpMethod.Post, SignUpEndpoint, signUpCommand);
+        var response = await _httpService.SendAsync<SignUpResultDto>(HttpMethod.Post, SignUpServiceUserEndpoint, signUpServiceUserCommand);
+
+        if (response.IsSuccess)
+        {
+            await SaveCurrentUserAsync(response.Result.Bearer);
+        }
+
+        return response;
+    }
+
+    public async Task<ServiceResponse<SignUpResultDto>> SignUpServiceProviderAsync(string email, string password)
+    {
+        var signUpServiceProviderCommand = new CreateServiceProviderCommandDto
+        {
+            Email = email,
+            Password = password
+        };
+
+        var response = await _httpService.SendAsync<SignUpResultDto>(HttpMethod.Post, SignUpServiceProviderEndpoint, signUpServiceProviderCommand);
 
         if (response.IsSuccess)
         {
