@@ -7,19 +7,19 @@ namespace CleanProFinder.Mobile.ViewModels;
 public partial class RoleViewModel : ObservableObject
 {
     [RelayCommand]
-    private async Task OnServiceUserRoleClicked()
+    private async Task SignUpAsServiceUser()
     {
         await Shell.Current.GoToAsync($"{nameof(RegistrationPage)}?{nameof(RegistrationViewModel.IsServiceUser)}={true}");
     }
 
     [RelayCommand]
-    private async Task OnServiceProviderRoleClicked()
+    private async Task SignUpAsServiceProvider()
     {
         await Shell.Current.GoToAsync($"{nameof(RegistrationPage)}?{nameof(RegistrationViewModel.IsServiceUser)}={false}");
     }
 
     [RelayCommand]
-    private async Task OnSignInClicked()
+    private async Task SignIn()
     {
         await Shell.Current.GoToAsync($"{nameof(LoginPage)}");
     }
