@@ -4,14 +4,14 @@ using System.Collections.ObjectModel;
 
 namespace CleanProFinder.Mobile.ViewModels;
 
-    public class ServiceProviderStartingMockData
-    {
-        public string BuildingAddress { get; set; }
-        public string CleaningSpaceType { get; set; }
-        public string City { get; set; }
-        public float Square { get; set; }
-        public string Description { get; set; }
-    }
+public class ServiceProviderStartingMockData
+{
+    public string BuildingAddress { get; set; }
+    public string CleaningSpaceType { get; set; }
+    public string City { get; set; }
+    public float Square { get; set; }
+    public string Description { get; set; }
+}
 
 public partial class ServiceProviderStartingViewModel : ObservableObject
 {
