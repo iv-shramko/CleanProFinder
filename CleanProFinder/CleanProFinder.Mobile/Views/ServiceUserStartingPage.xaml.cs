@@ -2,9 +2,9 @@ using CleanProFinder.Mobile.ViewModels;
 
 namespace CleanProFinder.Mobile.Views;
 
-public partial class CustomerStartingPage : ContentPage
+public partial class ServiceUserStartingPage : ContentPage
 {
-	public CustomerStartingPage(CustomerStartingViewModel viewModel)
+	public ServiceUserStartingPage(ServiceUserStartingViewModel viewModel)
 	{
         	InitializeComponent();
         	BindingContext = viewModel;

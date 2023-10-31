@@ -4,9 +4,9 @@ using System.Collections.ObjectModel;
 
 namespace CleanProFinder.Mobile.ViewModels;
 
-public partial class CustomerStartingViewModel : ObservableObject
+public partial class ServiceUserStartingViewModel : ObservableObject
 {
-    public class CustomerStartingMockData
+    public class ServiceUserStartingMockData
     {
         public string CleaningServiceName { get; set; }
         public string CleaningSpacePhoto { get; set; }
@@ -14,17 +14,17 @@ public partial class CustomerStartingViewModel : ObservableObject
         public string PriceType { get; set; }
         public string Description { get; set; }
     }
-    public CustomerStartingViewModel() 
+    public ServiceUserStartingViewModel() 
     {
-        ServiceProviders = new ObservableCollection<CustomerStartingMockData>()
+        ServiceProviders = new ObservableCollection<ServiceUserStartingMockData>()
         {
-            new CustomerStartingMockData {
+            new ServiceUserStartingMockData {
                 CleaningServiceName = "Cleaning Service Name",
                 CleaningSpacePhoto = "dotnet_bot.png",
                 Price = (float)123.45,
                 PriceType = "$",
                 Description = "Description Description Description Description Description Description Description Description Description Description" },
-            new CustomerStartingMockData {
+            new ServiceUserStartingMockData {
                 CleaningServiceName = "Cleaning Service Name",
                 CleaningSpacePhoto = "dotnet_bot.png",
                 Price = (float)543.21,
@@ -34,7 +34,7 @@ public partial class CustomerStartingViewModel : ObservableObject
     }
 
     [ObservableProperty]
-    ObservableCollection<CustomerStartingMockData> _serviceProviders;
+    ObservableCollection<ServiceUserStartingMockData> _serviceProviders;
 
     [ObservableProperty]
     private string _searchQuery;

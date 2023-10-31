@@ -28,8 +28,8 @@ public partial class LoginViewModel : ObservableObject
 
         if (response.IsSuccess)
         {
-            await Shell.Current.GoToAsync(_authService.IsCustomer
-                ? "//CustomerStartingPage"
+            await Shell.Current.GoToAsync(_authService.IsServiceUser
+                ? "//ServiceUserStartingPage"
                 : "//ServiceProviderStartingPage");
             return;
         }

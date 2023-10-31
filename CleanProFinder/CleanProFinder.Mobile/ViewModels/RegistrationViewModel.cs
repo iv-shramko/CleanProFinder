@@ -1,10 +1,12 @@
 ﻿using CleanProFinder.Mobile.Services;
+using CleanProFinder.Mobile.Views;
+using CleanProFinder.Shared.ServiceResponseHandling;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 namespace CleanProFinder.Mobile.ViewModels;
 
-[QueryProperty(nameof(IsCustomer), nameof(IsCustomer))]
+[QueryProperty(nameof(IsServiceUser), nameof(IsServiceUser))]
 public partial class RegistrationViewModel : ObservableObject
 {
     private readonly IDialogService _dialogService;
@@ -17,7 +19,7 @@ public partial class RegistrationViewModel : ObservableObject
     }
 
     [ObservableProperty]
-    private bool _isCustomer;
+    private bool _isServiceUser;
 
     [ObservableProperty]
     private string _email;
@@ -28,13 +30,20 @@ public partial class RegistrationViewModel : ObservableObject
     [RelayCommand]
     private async Task SignUp()
     {
-        var response = await _authService.SignUpAsync(Email, Password);
+        ServiceResponse response;
+
+        if (IsServiceUser)
+        {
+            response = await _authService.SignUpServiceUserAsync(Email, Password);
+        }
+        else
+        {
+            response = await _authService.SignUpServiceProviderAsync(Email, Password);
+        }
 
         if (response.IsSuccess)
         {
-            await Shell.Current.GoToAsync(IsCustomer
-                ? "//CustomerStartingPage"
-                : "//ServiceProviderStartingPage");
+            await Shell.Current.GoToAsync($"{nameof(InitialEditProfilePage)}?IsServiceUser={IsServiceUser}");
             return;
         }
 
