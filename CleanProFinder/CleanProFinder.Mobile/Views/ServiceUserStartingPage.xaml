@@ -40,7 +40,7 @@
         </Border>
         </CollectionView.Header>
             <CollectionView.ItemTemplate>
-                <DataTemplate>
+            <DataTemplate x:DataType="{x:Type viewmodel:ServiceUserStartingMockData}">
                     <Border
                         Margin="0,5,0,3"
                         Background="{StaticResource Tertiary}"
@@ -55,7 +55,7 @@
                                 BorderWidth="0"
                                 CornerRadius="100"
                                 HeightRequest="85"
-                                ImageSource="dotnet_bot.png"
+                            ImageSource="{Binding CleaningSpacePhoto}"
                                 Text="N/A"
                                 TextColor="{StaticResource Tertiary}"
                                 WidthRequest="85" />
@@ -67,13 +67,19 @@
                                     FontAttributes="Bold"
                                     FontFamily="OpenSans"
                                     FontSize="20"
-                                    Text="Cleaning Service Name"
+                                Text="{Binding CleaningServiceName}"
                                     TextColor="White" />
                                 <Label
                                     FontFamily="OpenSans"
                                     FontSize="20"
-                                    Text="Price PriceType"
-                                    TextColor="{StaticResource Secondary}" />
+                                TextColor="{StaticResource Secondary}">
+                                <Label.Text>
+                                    <MultiBinding StringFormat="{}{0}{1}/m²">
+                                        <Binding Path="Price" />
+                                        <Binding Path="PriceType" />
+                                    </MultiBinding>
+                                </Label.Text>
+                            </Label>
                             </VerticalStackLayout>
                             <Label
                                 Grid.Row="1"
@@ -82,7 +88,7 @@
                                 Margin="10,0,10,10"
                                 FontFamily="OpenSans"
                                 FontSize="16"
-                                Text="Description Description Description Description Description Description Description Description Description Description"
+                            Text="{Binding Description}"
                                 TextColor="White" />
                         </Grid>
                     </Border>
