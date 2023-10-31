@@ -25,6 +25,46 @@ namespace CleanProFinder.Server.Controllers
         }
 
         /// <summary>
+        /// Get the info about service user profile.
+        /// </summary>
+        /// <param name="request">The request to get the info about service user profile.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <remarks>
+        /// If the operation is successful, it will return a ViewUserProfileInfoDto.
+        /// If there is a bad request, it will return an ErrorDto.
+        /// </remarks>
+        /// <returns>An IActionResult representing the result of the operation.</returns>
+        [HttpGet("service-user/info")]
+        [Authorize(Roles = Roles.ServiceUser)]
+        [ProducesResponseType(typeof(ViewUserProfileInfoDto), 200)]
+        [ProducesResponseType(typeof(ErrorDto), 400)]
+        public async Task<IActionResult> ViewUserProfileInfo()
+        {
+            var result = await _mediator.Send(new ViewUserProfileInfoQuery());
+            return ConvertFromServiceResponse(result);
+        }
+
+        /// <summary>
+        /// Get the info about service provider profile.
+        /// </summary>
+        /// <param name="request">The request to get the info about service provider profile.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <remarks>
+        /// If the operation is successful, it will return a ViewProviderProfileInfoDto.
+        /// If there is a bad request, it will return an ErrorDto.
+        /// </remarks>
+        /// <returns>An IActionResult representing the result of the operation.</returns>
+        [HttpGet("service-provider/info")]
+        [Authorize(Roles = Roles.ServiceProvider)]
+        [ProducesResponseType(typeof(ViewProviderProfileInfoDto), 200)]
+        [ProducesResponseType(typeof(ErrorDto), 400)]
+        public async Task<IActionResult> ViewProviderProfileInfo()
+        {
+            var result = await _mediator.Send(new ViewProviderProfileInfoQuery());
+            return ConvertFromServiceResponse(result);
+        }
+
+        /// <summary>
         /// Update a service user profile.
         /// </summary>
         /// <param name="request">The request to update a service user profile.</param>

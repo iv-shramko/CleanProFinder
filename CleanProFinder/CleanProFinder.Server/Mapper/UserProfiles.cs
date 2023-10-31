@@ -12,6 +12,10 @@ namespace CleanProFinder.Server.Mapper
             CreateMap<ServiceUser, UserProfileDto>();
             CreateMap<ProviderProfileDto, CleaningServiceProvider>();
             CreateMap<CleaningServiceProvider, ProviderProfileDto>();
+            CreateMap<ViewUserProfileInfoDto, ServiceUser>();
+            CreateMap<ServiceUser, ViewUserProfileInfoDto>();
+            CreateMap<ViewProviderProfileInfoDto, CleaningServiceProvider>();
+            CreateMap<CleaningServiceProvider, ViewProviderProfileInfoDto>();
         }
     }
 }
