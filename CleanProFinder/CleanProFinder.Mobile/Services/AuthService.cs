@@ -22,7 +22,7 @@ public class AuthService : IAuthService
     }
 
     public bool IsAuthenticated { get; private set; }
-    public bool IsCustomer => _userRole == Roles.ServiceUser;
+    public bool IsServiceUser => _userRole == Roles.ServiceUser;
 
     public void Initialize()
     {

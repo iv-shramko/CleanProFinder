@@ -16,12 +16,12 @@
             HorizontalOptions="Center"
             Text="Select your role" />
         <Button
-            Command="{Binding CustomerRoleClickedCommand}"
+            Command="{Binding SignUpAsServiceUserCommand}"
             FontSize="18"
             HorizontalOptions="FillAndExpand"
             Text="Customer" />
         <Button
-            Command="{Binding ServiceProviderRoleClickedCommand}"
+            Command="{Binding SignUpAsServiceProviderCommand}"
             FontSize="18"
             HorizontalOptions="FillAndExpand"
             Text="Service Provider" />
@@ -30,7 +30,7 @@
             HorizontalOptions="Center"
             Text="Already registered?" />
         <Button
-            Command="{Binding SignInClickedCommand}"
+            Command="{Binding SignInCommand}"
             FontSize="18"
             HorizontalOptions="FillAndExpand"
             Text="Sign in" />

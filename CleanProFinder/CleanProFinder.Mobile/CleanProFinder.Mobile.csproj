@@ -80,7 +80,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Views\CustomerStartingPage.xaml">
+	  <MauiXaml Update="Views\ServiceUserStartingPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\ServiceProviderStartingPage.xaml">
