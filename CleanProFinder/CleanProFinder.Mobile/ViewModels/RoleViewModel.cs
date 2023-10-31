@@ -9,13 +9,13 @@ public partial class RoleViewModel : ObservableObject
     [RelayCommand]
     private async Task SignUpAsServiceUser()
     {
-        await Shell.Current.GoToAsync($"{nameof(RegistrationPage)}?{nameof(RegistrationViewModel.IsServiceUser)}={true}");
+        await Shell.Current.GoToAsync($"{nameof(RegistrationPage)}?IsServiceUser={true}");
     }
 
     [RelayCommand]
     private async Task SignUpAsServiceProvider()
     {
-        await Shell.Current.GoToAsync($"{nameof(RegistrationPage)}?{nameof(RegistrationViewModel.IsServiceUser)}={false}");
+        await Shell.Current.GoToAsync($"{nameof(RegistrationPage)}?IsServiceUser={false}");
     }
 
     [RelayCommand]
