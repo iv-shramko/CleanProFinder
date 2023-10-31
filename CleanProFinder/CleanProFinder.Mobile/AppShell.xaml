@@ -27,10 +27,10 @@
     <TabBar>
         <ShellContent
             Title="Home"
-            ContentTemplate="{DataTemplate views:CustomerStartingPage}"
+            ContentTemplate="{DataTemplate views:ServiceUserStartingPage}"
             Icon="home.svg"
             IsVisible="True"
-            Route="CustomerStartingPage" />
+            Route="ServiceUserStartingPage" />
         <ShellContent
             Title="Home"
             ContentTemplate="{DataTemplate views:ServiceProviderStartingPage}"
@@ -47,5 +47,5 @@
     <TabBar>
         <ShellContent ContentTemplate="{DataTemplate views:RolePage}" Route="RolePage" />
     </TabBar>
-    
+
 </Shell>

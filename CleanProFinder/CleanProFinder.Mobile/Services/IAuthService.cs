@@ -6,7 +6,7 @@ namespace CleanProFinder.Mobile.Services;
 public interface IAuthService
 {
     public bool IsAuthenticated { get; }
-    public bool IsCustomer { get; }
+    public bool IsServiceUser { get; }
 
     void Initialize();
     Task<ServiceResponse<SignUpResultDto>> SignUpServiceUserAsync(string email, string password);

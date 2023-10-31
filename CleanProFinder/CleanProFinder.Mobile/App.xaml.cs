@@ -14,8 +14,8 @@ namespace CleanProFinder.Mobile
 
             if (authService.IsAuthenticated)
             {
-                Shell.Current.GoToAsync(authService.IsCustomer
-                    ? "//CustomerStartingPage"
+                Shell.Current.GoToAsync(authService.IsServiceUser
+                    ? "//ServiceUserStartingPage"
                     : "//ServiceProviderStartingPage");
             }
             else

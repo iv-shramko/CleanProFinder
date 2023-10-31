@@ -6,7 +6,7 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace CleanProFinder.Mobile.ViewModels;
 
-[QueryProperty(nameof(IsCustomer), nameof(IsCustomer))]
+[QueryProperty(nameof(IsServiceUser), nameof(IsServiceUser))]
 public partial class RegistrationViewModel : ObservableObject
 {
     private readonly IDialogService _dialogService;
@@ -19,7 +19,7 @@ public partial class RegistrationViewModel : ObservableObject
     }
 
     [ObservableProperty]
-    private bool _isCustomer;
+    private bool _isServiceUser;
 
     [ObservableProperty]
     private string _email;
@@ -32,7 +32,7 @@ public partial class RegistrationViewModel : ObservableObject
     {
         ServiceResponse response;
 
-        if (IsCustomer)
+        if (IsServiceUser)
         {
             response = await _authService.SignUpServiceUserAsync(Email, Password);
         }
@@ -43,8 +43,8 @@ public partial class RegistrationViewModel : ObservableObject
 
         if (response.IsSuccess)
         {
-            await Shell.Current.GoToAsync(IsCustomer
-                ? "//CustomerStartingPage"
+            await Shell.Current.GoToAsync(IsServiceUser
+                ? "//ServiceUserStartingPage"
                 : "//ServiceProviderStartingPage");
             return;
         }

@@ -16,7 +16,7 @@
             HorizontalOptions="Center"
             Text="Select your role" />
         <Button
-            Command="{Binding CustomerRoleClickedCommand}"
+            Command="{Binding ServiceUserRoleClickedCommand}"
             FontSize="18"
             HorizontalOptions="FillAndExpand"
             Text="Customer" />
