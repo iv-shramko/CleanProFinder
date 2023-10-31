@@ -40,7 +40,7 @@
         </Border>
         </CollectionView.Header>
             <CollectionView.ItemTemplate>
-                <DataTemplate>
+            <DataTemplate x:DataType="{x:Type viewmodel:ServiceProviderStartingMockData}">
                     <Border
                         Margin="0,5,0,3"
                         Background="{StaticResource Tertiary}"
@@ -51,18 +51,24 @@
                                 FontAttributes="Bold"
                                 FontFamily="OpenSans"
                                 FontSize="20"
-                                Text="City, Building Address"
-                                TextColor="White" />
-                            <Grid ColumnDefinitions=".75*,.25*">
+                            TextColor="White">
+                            <Label.Text>
+                                <MultiBinding StringFormat="{}{0}, {1}">
+                                    <Binding Path="City" />
+                                    <Binding Path="BuildingAddress" />
+                                </MultiBinding>
+                            </Label.Text>
+                        </Label>
+                        <Grid ColumnDefinitions="230,*">
                                 <Border
                                     Grid.Row="0"
                                     Grid.Column="0"
                                     Background="{StaticResource Tertiary}"
-                                    Stroke="{StaticResource Tertiary}" >
+                                Stroke="{StaticResource Tertiary}">
                                     <Label
                                         FontFamily="OpenSans"
                                         FontSize="20"
-                                        Text="Cleaning Space Type"
+                                    Text="{Binding CleaningSpaceType}"
                                         TextColor="{StaticResource Secondary}" />
                                 </Border>
                                 <Border
@@ -73,7 +79,8 @@
                                     <Label
                                         FontFamily="OpenSans"
                                         FontSize="20"
-                                        Text="Square"
+                                    HorizontalOptions="End"
+                                    Text="{Binding Square, StringFormat='{0} m²'}"
                                         TextColor="{StaticResource Secondary}" />
                                 </Border>
                             </Grid>
@@ -81,7 +88,7 @@
                                 Grid.ColumnSpan="2"
                                 FontFamily="OpenSans"
                                 FontSize="16"
-                                Text="Description Description Description Description Description Description Description Description Description Description"
+                            Text="{Binding Description}"
                                 TextColor="White" />
                         </VerticalStackLayout>
                     </Border>
