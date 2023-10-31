@@ -9,7 +9,8 @@
     x:DataType="viewmodel:ServiceProviderStartingViewModel"
     Background="{StaticResource Secondary}">
 
-    <VerticalStackLayout Margin="10">
+    <CollectionView Margin="10" ItemsSource="{Binding Premises}">
+        <CollectionView.Header>
         <Border
             Background="{StaticResource Secondary}"
             Stroke="{StaticResource Tertiary}"
@@ -37,7 +38,7 @@
                     Text="Search" />
             </Grid>
         </Border>
-        <CollectionView ItemsSource="{Binding Premises}">
+        </CollectionView.Header>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Border
@@ -87,5 +88,4 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-    </VerticalStackLayout>
 </ContentPage>
