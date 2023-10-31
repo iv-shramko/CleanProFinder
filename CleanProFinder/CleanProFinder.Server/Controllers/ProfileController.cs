@@ -36,11 +36,11 @@ namespace CleanProFinder.Server.Controllers
         /// <returns>An IActionResult representing the result of the operation.</returns>
         [HttpGet("service-user/info")]
         [Authorize(Roles = Roles.ServiceUser)]
-        [ProducesResponseType(typeof(ViewUserProfileInfoDto), 200)]
+        [ProducesResponseType(typeof(UserProfileViewInfoDto), 200)]
         [ProducesResponseType(typeof(ErrorDto), 400)]
-        public async Task<IActionResult> ViewUserProfileInfo()
+        public async Task<IActionResult> GetUserProfileViewInfo()
         {
-            var result = await _mediator.Send(new ViewUserProfileInfoQuery());
+            var result = await _mediator.Send(new GetUserProfileViewInfoQuery());
             return ConvertFromServiceResponse(result);
         }
 
@@ -56,11 +56,11 @@ namespace CleanProFinder.Server.Controllers
         /// <returns>An IActionResult representing the result of the operation.</returns>
         [HttpGet("service-provider/info")]
         [Authorize(Roles = Roles.ServiceProvider)]
-        [ProducesResponseType(typeof(ViewProviderProfileInfoDto), 200)]
+        [ProducesResponseType(typeof(ProviderProfileViewInfoDto), 200)]
         [ProducesResponseType(typeof(ErrorDto), 400)]
-        public async Task<IActionResult> ViewProviderProfileInfo()
+        public async Task<IActionResult> GetProviderProfileViewInfo()
         {
-            var result = await _mediator.Send(new ViewProviderProfileInfoQuery());
+            var result = await _mediator.Send(new GetProviderProfileViewInfoQuery());
             return ConvertFromServiceResponse(result);
         }
 

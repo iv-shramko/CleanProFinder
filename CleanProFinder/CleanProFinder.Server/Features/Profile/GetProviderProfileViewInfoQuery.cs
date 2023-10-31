@@ -6,24 +6,25 @@ using CleanProFinder.Shared.Errors.ServiceErrors;
 using CleanProFinder.Shared.ServiceResponseHandling;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using CleanProFinder.Shared.Errors.ServiceErrors;
 
 namespace CleanProFinder.Server.Features.Profile
 {
-    public class ViewUserProfileInfoQuery : ViewUserProfileInfoDto, IRequest<ServiceResponse<ViewUserProfileInfoDto>>
+    public class GetProviderProfileViewInfoQuery : ProviderProfileViewInfoDto, IRequest<ServiceResponse<ProviderProfileViewInfoDto>>
     {
-        public class UserProfileViewInfoQueryHandler : IRequestHandler<ViewUserProfileInfoQuery,
-    ServiceResponse<ViewUserProfileInfoDto>>
+        public class ProviderProfileViewInfoQueryHandler : IRequestHandler<GetProviderProfileViewInfoQuery,
+    ServiceResponse<ProviderProfileViewInfoDto>>
         {
             private readonly IMediator _mediator;
             private readonly ApplicationDbContext _context;
             private readonly IMapper _mapper;
-            private readonly ILogger<UserProfileViewInfoQueryHandler> _logger;
+            private readonly ILogger<ProviderProfileViewInfoQueryHandler> _logger;
             private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public UserProfileViewInfoQueryHandler(IMediator mediator,
+            public ProviderProfileViewInfoQueryHandler(IMediator mediator,
                     ApplicationDbContext context,
                     IMapper mapper,
-                    ILogger<UserProfileViewInfoQueryHandler> logger,
+                    ILogger<ProviderProfileViewInfoQueryHandler> logger,
                     IHttpContextAccessor httpContextAccessor)
             {
                 _mediator = mediator;
@@ -33,7 +34,7 @@ namespace CleanProFinder.Server.Features.Profile
                 _httpContextAccessor = httpContextAccessor;
             }
 
-            public async Task<ServiceResponse<ViewUserProfileInfoDto>> Handle(ViewUserProfileInfoQuery request, CancellationToken cancellationToken)
+            public async Task<ServiceResponse<ProviderProfileViewInfoDto>> Handle(GetProviderProfileViewInfoQuery request, CancellationToken cancellationToken)
             {
                 try
                 {
@@ -42,27 +43,27 @@ namespace CleanProFinder.Server.Features.Profile
                 catch (Exception ex)
                 {
                     _logger.LogCritical(ex, "view profile info error");
-                    return ServiceResponseBuilder.Failure<ViewUserProfileInfoDto>(ProfileInfoError.ViewProfileInfoError);
+                    return ServiceResponseBuilder.Failure<ProviderProfileViewInfoDto>(ProfileInfoError.ViewProfileInfoError);
                 }
             }
 
-            public async Task<ServiceResponse<ViewUserProfileInfoDto>> UnsafeHandleAsync(ViewUserProfileInfoQuery request, CancellationToken cancellationToken)
+            public async Task<ServiceResponse<ProviderProfileViewInfoDto>> UnsafeHandleAsync(GetProviderProfileViewInfoQuery request, CancellationToken cancellationToken)
             {
                 var userIdRetrieved = _httpContextAccessor.TryGetUserId(out var userId);
 
                 if (userIdRetrieved is false)
                 {
-                    return ServiceResponseBuilder.Failure<ViewUserProfileInfoDto>(UserError.InvalidAuthorization);
+                    return ServiceResponseBuilder.Failure<ProviderProfileViewInfoDto>(UserError.InvalidAuthorization);
                 }
 
-                var user = await _context.ServiceUsers.FirstOrDefaultAsync(x => x.Id == userId, cancellationToken);
+                var user = await _context.CleaningServiceProviders.FirstOrDefaultAsync(x => x.Id == userId, cancellationToken);
 
                 if (user is null)
                 {
-                    return ServiceResponseBuilder.Failure<ViewUserProfileInfoDto>(UserError.UserNotFound);
+                    return ServiceResponseBuilder.Failure<ProviderProfileViewInfoDto>(UserError.UserNotFound);
                 }
 
-                var result = _mapper.Map<ViewUserProfileInfoDto>(user);
+                var result = _mapper.Map<ProviderProfileViewInfoDto>(user);
 
                 return ServiceResponseBuilder.Success(result);
             }
