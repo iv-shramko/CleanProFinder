@@ -6,7 +6,7 @@ public partial class ServiceUserStartingPage : ContentPage
 {
 	public ServiceUserStartingPage(ServiceUserStartingViewModel viewModel)
 	{
-        InitializeComponent();
-        BindingContext = viewModel;
+        	InitializeComponent();
+        	BindingContext = viewModel;
 	}
 }
