@@ -17,9 +17,6 @@ namespace CleanProFinder.Shared.Validators.Profile
             RuleFor(p => p.Site)
                 .NotNull();
 
-            RuleFor(p => p.LogoUrl)
-                .NotNull();
-
         }
     }
 }
