@@ -4,10 +4,12 @@ using System.Text;
 
 namespace CleanProFinder.Shared.Dto.Profile
 {
-    public class ProviderProfileDto
+    public class ProviderProfileViewInfoDto
     {
         public string Name { get; set; }
-        public string PhoneNumber { get; set; } 
+        public string PhoneNumber { get; set; }
         public string Site { get; set; }
+        public string Email { get; set; }
+
     }
 }
