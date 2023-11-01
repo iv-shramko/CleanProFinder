@@ -39,6 +39,8 @@ namespace CleanProFinder.Mobile
             builder.Logging.AddDebug();
 #endif
             
+            builder.Services.AddSingleton<AppShellViewModel>();
+
             builder.Services.AddTransient<RolePage>();
             builder.Services.AddTransient<RoleViewModel>();
 
@@ -61,6 +63,7 @@ namespace CleanProFinder.Mobile
             builder.Services.AddSingleton<IAuthService, AuthService>();
             builder.Services.AddSingleton<IDialogService, DialogService>();
             builder.Services.AddSingleton<IUserProfileService, UserProfileService>();
+            builder.Services.AddSingleton<IProviderService, ProviderService>();
 
             return builder.Build();
         }

@@ -3,8 +3,11 @@
     x:Class="CleanProFinder.Mobile.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewModels="clr-namespace:CleanProFinder.Mobile.ViewModels"
     xmlns:views="clr-namespace:CleanProFinder.Mobile.Views"
-    Shell.FlyoutBehavior="Disabled">
+    x:DataType="viewModels:AppShellViewModel"
+    FlyoutBehavior="Disabled">
 
     <Shell.Resources>
         <ResourceDictionary>
@@ -16,30 +19,34 @@
                 <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
                 <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource Primary}" />
                 <Setter Property="Shell.TabBarForegroundColor" Value="White" />
-                <Setter Property="Shell.TabBarUnselectedColor" Value="#F9F9F9" />
-                <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource Secondary}" />
+                <Setter Property="Shell.TabBarUnselectedColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.TabBarTitleColor" Value="White" />
             </Style>
             <Style BasedOn="{StaticResource BaseStyle}" TargetType="TabBar" />
             <Style BasedOn="{StaticResource BaseStyle}" TargetType="FlyoutItem" />
         </ResourceDictionary>
     </Shell.Resources>
 
+    <Shell.Behaviors>
+        <behaviors:EventToCommandBehavior Command="{Binding SetTabVisibilityCommand}" EventName="Navigating" />
+    </Shell.Behaviors>
+
     <TabBar>
         <ShellContent
             Title="Home"
             ContentTemplate="{DataTemplate views:ServiceUserStartingPage}"
             Icon="home.svg"
-            IsVisible="True"
+            IsVisible="{Binding IsServiceUserTabVisible}"
             Route="ServiceUserStartingPage" />
         <ShellContent
             Title="Home"
             ContentTemplate="{DataTemplate views:ServiceProviderStartingPage}"
             Icon="home.svg"
-            IsVisible="True"
+            IsVisible="{Binding IsServiceProviderTabVisible}"
             Route="ServiceProviderStartingPage" />
         <ShellContent
             Title="Profile"
-            ContentTemplate="{DataTemplate views:ServiceProviderStartingPage}"
+            ContentTemplate="{DataTemplate views:InitialEditProfilePage}"
             Icon="profile.svg"
             Route="ProfilePage" />
     </TabBar>
