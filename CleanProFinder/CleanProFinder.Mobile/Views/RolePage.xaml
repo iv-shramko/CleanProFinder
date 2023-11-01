@@ -14,25 +14,27 @@
         <Label
             FontSize="20"
             HorizontalOptions="Center"
-            Text="Select your role" />
-        <Button
-            Command="{Binding SignUpAsServiceUserCommand}"
-            FontSize="18"
-            HorizontalOptions="FillAndExpand"
-            Text="Customer" />
-        <Button
-            Command="{Binding SignUpAsServiceProviderCommand}"
-            FontSize="18"
-            HorizontalOptions="FillAndExpand"
-            Text="Service Provider" />
-        <Label
-            FontSize="16"
-            HorizontalOptions="Center"
-            Text="Already registered?" />
-        <Button
-            Command="{Binding SignInCommand}"
-            FontSize="18"
-            HorizontalOptions="FillAndExpand"
-            Text="Sign in" />
+            Text="Create new account as:" />
+        <VerticalStackLayout Padding="20,0" Spacing="20">
+            <Button
+                Command="{Binding SignUpAsServiceUserCommand}"
+                FontSize="18"
+                HorizontalOptions="FillAndExpand"
+                Text="Customer" />
+            <Button
+                Command="{Binding SignUpAsServiceProviderCommand}"
+                FontSize="18"
+                HorizontalOptions="FillAndExpand"
+                Text="Service Provider" />
+            <Label
+                FontSize="18"
+                HorizontalOptions="Center"
+                Text="Already registered?" />
+            <Button
+                Command="{Binding SignInCommand}"
+                FontSize="18"
+                HorizontalOptions="FillAndExpand"
+                Text="Sign in" />
+        </VerticalStackLayout>
     </VerticalStackLayout>
 </ContentPage>
