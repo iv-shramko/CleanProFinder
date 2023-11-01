@@ -13,5 +13,6 @@ namespace CleanProFinder.Shared.Errors.ServiceErrors
 
         public static PremiseError EditPremiseError => new PremiseError("Server error", "Edit Premise Error", 1);
         public static PremiseError CreatePremiseError => new PremiseError("Server error", "Create Premise Error", 2);
+        public static PremiseError GetOwnPremisesError => new PremiseError("Server error", "Get Own Premises Error", 3);
     }
 }

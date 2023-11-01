@@ -11,7 +11,8 @@ namespace CleanProFinder.Server.Mapper
         {
             CreateMap<CreatePremiseCommand, Premise>();
             CreateMap<EditPremiseCommand, Premise>();
-            CreateMap<Premise, UserPremiseViewInfo>();
+            CreateMap<Premise, OwnPremiseFullInfoDto>();
+            CreateMap<Premise, OwnPremiseShortInfoDto>();
         }
     }
 }

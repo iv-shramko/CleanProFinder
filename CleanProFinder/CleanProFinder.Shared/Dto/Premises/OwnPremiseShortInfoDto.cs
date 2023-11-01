@@ -2,8 +2,9 @@
 
 namespace CleanProFinder.Shared.Dto.Premises
 {
-    public class UserPremiseViewInfo : EditablePremiseDto
+    public class OwnPremiseShortInfoDto
     {
         public Guid Id { get; set; }
+        public string Address { get; set; }
     }
 }
