@@ -10,9 +10,9 @@ using MediatR;
 
 namespace CleanProFinder.Server.Features.Premises
 {
-    public class CreatePremiseCommand : CreatePremiseCommandDto, IRequest<ServiceResponse<UserPremiseViewInfo>>
+    public class CreatePremiseCommand : CreatePremiseCommandDto, IRequest<ServiceResponse<OwnPremiseFullInfoDto>>
     {
-        public class CreatePremiseCommandHandler : BaseHandler<CreatePremiseCommand, ServiceResponse<UserPremiseViewInfo>>
+        public class CreatePremiseCommandHandler : BaseHandler<CreatePremiseCommand, ServiceResponse<OwnPremiseFullInfoDto>>
         {
             private readonly ApplicationDbContext _context;
             private readonly IHttpContextAccessor _contextAccessor;
@@ -31,7 +31,7 @@ namespace CleanProFinder.Server.Features.Premises
                 _mapper = mapper;
             }
 
-            public override async Task<ServiceResponse<UserPremiseViewInfo>> Handle(CreatePremiseCommand request, 
+            public override async Task<ServiceResponse<OwnPremiseFullInfoDto>> Handle(CreatePremiseCommand request, 
                 CancellationToken cancellationToken)
             {
                 try
@@ -41,17 +41,17 @@ namespace CleanProFinder.Server.Features.Premises
                 catch (Exception ex)
                 {
                     _logger.LogError("Create Premise", ex);
-                    return ServiceResponseBuilder.Failure<UserPremiseViewInfo>(ServerError.CreatePremiseError);
+                    return ServiceResponseBuilder.Failure<OwnPremiseFullInfoDto>(ServerError.CreatePremiseError);
                 }
             }
 
-            private async Task<ServiceResponse<UserPremiseViewInfo>> UnsafeHandleAsync(CreatePremiseCommand request, 
+            private async Task<ServiceResponse<OwnPremiseFullInfoDto>> UnsafeHandleAsync(CreatePremiseCommand request, 
                 CancellationToken cancellationToken)
             {
                 var validUserId = _contextAccessor.TryGetUserId(out var userId);
                 if (validUserId is false)
                 {
-                    return ServiceResponseBuilder.Failure<UserPremiseViewInfo>(UserError.InvalidAuthorization);
+                    return ServiceResponseBuilder.Failure<OwnPremiseFullInfoDto>(UserError.InvalidAuthorization);
                 }
 
                 var newPremise = _mapper.Map<Premise>(request);
@@ -60,7 +60,7 @@ namespace CleanProFinder.Server.Features.Premises
                 _context.Add(newPremise);
                 await _context.SaveChangesAsync(cancellationToken);
 
-                var result = _mapper.Map<UserPremiseViewInfo>(newPremise);
+                var result = _mapper.Map<OwnPremiseFullInfoDto>(newPremise);
                 return ServiceResponseBuilder.Success(result);
             }
         }
