@@ -39,6 +39,8 @@ namespace CleanProFinder.Mobile
             builder.Logging.AddDebug();
 #endif
             
+            builder.Services.AddSingleton<AppShellViewModel>();
+
             builder.Services.AddTransient<RolePage>();
             builder.Services.AddTransient<RoleViewModel>();
 
