@@ -80,5 +80,25 @@ namespace CleanProFinder.Server.Controllers
             var result = await _mediator.Send(new GetOwnPremisesQuery(), cancellationToken);
             return ConvertFromServiceResponse(result);
         }
+
+        /// <summary>
+        /// Get user premise full info
+        /// </summary>
+        /// <param name="premiseId">Premise id.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <remarks>
+        /// If the operation is successful, it will return a List of OwnPremiseFullInfoDto.
+        /// If there is a bad request, it will return an ErrorDto.
+        /// </remarks>
+        /// <returns>An IActionResult representing the result of the operation.</returns>
+        [HttpGet("premise-full-info")]
+        [Authorize(Roles = Roles.ServiceUser)]
+        [ProducesResponseType(typeof(OwnPremiseFullInfoDto), 200)]
+        [ProducesResponseType(typeof(ErrorDto), 400)]
+        public async Task<IActionResult> GetPremiseFullInfo(Guid premiseId, CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(new GetOwnPremiseFullQuery() { PremiseId = premiseId }, cancellationToken);
+            return ConvertFromServiceResponse(result);
+        }
     }
 }
