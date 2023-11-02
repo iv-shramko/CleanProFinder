@@ -64,6 +64,7 @@ namespace CleanProFinder.Mobile
             builder.Services.AddSingleton<IDialogService, DialogService>();
             builder.Services.AddSingleton<IUserProfileService, UserProfileService>();
             builder.Services.AddSingleton<IProviderService, ProviderService>();
+            builder.Services.AddSingleton<IUserPremiseService, UserPremiseService>();
 
             return builder.Build();
         }
