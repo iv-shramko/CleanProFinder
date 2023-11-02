@@ -49,6 +49,12 @@
             ContentTemplate="{DataTemplate views:EditProfilePage}"
             Icon="profile.svg"
             Route="EditProfilePage" />
+        <ShellContent
+            Title="Premises"
+            ContentTemplate="{DataTemplate views:ServiceUserPremisesPage}"
+            Icon="home.svg"
+            IsVisible="{Binding IsServiceUserTabVisible}"
+            Route="ServiceUserPremiseListPage" />
     </TabBar>
 
     <TabBar>
