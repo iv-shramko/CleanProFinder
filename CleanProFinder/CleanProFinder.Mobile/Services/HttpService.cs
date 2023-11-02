@@ -47,11 +47,11 @@ public class HttpService : IHttpService
     {
         var url = $"{_baseUrl}{endpoint}";
 
-        if (method == HttpMethod.Get && payload != null)
+        if ((method == HttpMethod.Get || method == HttpMethod.Delete) && payload != null)
         {
             if (payload is not Dictionary<string, object> parameters)
             {
-                throw new Exception("Parameters for GET method should be in Dictionary<string, object>");
+                throw new Exception("Parameters for GET and DELETE method should be in Dictionary<string, object>");
             }
 
             url += CreateQueryString(parameters);
@@ -64,7 +64,7 @@ public class HttpService : IHttpService
     {
         var request = new HttpRequestMessage(method, url);
 
-        if (method != HttpMethod.Get)
+        if (method != HttpMethod.Get && method != HttpMethod.Delete)
         {
             var json = JsonConvert.SerializeObject(payload);
             request.Content = new StringContent(json, Encoding.UTF8, "application/json");

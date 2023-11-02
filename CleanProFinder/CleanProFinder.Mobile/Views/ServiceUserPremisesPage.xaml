@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CleanProFinder.Mobile.Views.ServiceUserPremisesPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:premises="clr-namespace:CleanProFinder.Shared.Dto.Premises;assembly=CleanProFinder.Shared"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewmodel="clr-namespace:CleanProFinder.Mobile.ViewModels"
+    Title="Your Premises"
+    x:DataType="viewmodel:ServiceUserPremisesViewModel"
+    Background="{StaticResource Secondary}">
+    <Grid>
+        <Grid Margin="10">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Border
+                Grid.Row="0"
+                Background="{StaticResource Secondary}"
+                Stroke="{StaticResource Tertiary}"
+                StrokeShape="RoundRectangle 10,10,10,10"
+                StrokeThickness="2.4">
+                <Grid ColumnDefinitions=".7*,.3*">
+                    <Entry
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Margin="10"
+                        FontFamily="OpenSans"
+                        FontSize="16"
+                        Placeholder="Type to search"
+                        PlaceholderColor="{x:StaticResource Primary}"
+                        Text="{Binding SearchQuery}"
+                        TextColor="{StaticResource Primary}" />
+                    <Button
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="0,10,10,10"
+                        Command="{Binding SearchCommand}"
+                        FontAttributes="Bold"
+                        FontFamily="OpenSans"
+                        FontSize="16"
+                        Text="Search" />
+                </Grid>
+            </Border>
+            <RefreshView
+                Grid.Row="1"
+                Command="{Binding LoadPremisesCommand}"
+                IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}">
+                <CollectionView Margin="10,85,10,10" ItemsSource="{Binding Premises}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="{x:Type premises:OwnPremiseShortInfoDto}">
+                            <Border
+                                Margin="0,5,0,3"
+                                Background="{StaticResource Tertiary}"
+                                Stroke="{StaticResource Tertiary}"
+                                StrokeShape="RoundRectangle 10,10,10,10">
+                                <Label
+                                    Margin="12"
+                                    FontAttributes="Bold"
+                                    FontFamily="OpenSans"
+                                    FontSize="18"
+                                    Text="{Binding Address}"
+                                    TextColor="White" />
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ServiceUserPremisesViewModel}}, Path=EditPremiseCommand}"
+                                        CommandParameter="{Binding .}"
+                                        NumberOfTapsRequired="1" />
+                                </Border.GestureRecognizers>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                    <CollectionView.EmptyView>
+                        <ContentView>
+                            <StackLayout
+                                HorizontalOptions="CenterAndExpand"
+                                Spacing="10"
+                                VerticalOptions="CenterAndExpand">
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="20"
+                                    HorizontalTextAlignment="Center"
+                                    Text="You currently don't have any Premises"
+                                    TextColor="{StaticResource Tertiary}" />
+                                <Label
+                                    FontSize="16"
+                                    HorizontalTextAlignment="Center"
+                                    Text="Tap the plus in the bottom right to add a new Premise"
+                                    TextColor="{StaticResource Tertiary}" />
+                            </StackLayout>
+                        </ContentView>
+                    </CollectionView.EmptyView>
+                </CollectionView>
+            </RefreshView>
+        </Grid>
+        <AbsoluteLayout>
+            <Button
+                AbsoluteLayout.LayoutBounds="290, 590"
+                Background="{StaticResource Primary}"
+                Command="{Binding AddPremiseCommand}"
+                CornerRadius="100"
+                FontSize="40"
+                Text=" + "
+                TextColor="White" />
+        </AbsoluteLayout>
+    </Grid>
+</ContentPage>
