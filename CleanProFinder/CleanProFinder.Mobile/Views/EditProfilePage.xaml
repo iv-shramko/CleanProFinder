@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CleanProFinder.Mobile.Views.EditProfilePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewmodel="clr-namespace:CleanProFinder.Mobile.ViewModels"
+    Title="Profile"
+    x:DataType="viewmodel:EditProfileViewModel"
+    Background="{StaticResource Secondary}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+        <Style x:Key="entryGreenStyle" TargetType="Entry">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="TextColor" Value="{StaticResource Tertiary}" />
+            <Setter Property="PlaceholderColor" Value="{StaticResource Primary}" />
+            <Setter Property="IsReadOnly" Value="{Binding IsEditing, Converter={StaticResource InvertedBoolConverter}}" />
+        </Style>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <VerticalStackLayout
+            Padding="10,0,10,0"
+            Spacing="20"
+            VerticalOptions="Center">
+            <Entry
+                IsVisible="{Binding IsServiceUser}"
+                Placeholder="First Name"
+                Style="{StaticResource entryGreenStyle}"
+                Text="{Binding FirstName}" />
+            <Entry
+                IsVisible="{Binding IsServiceUser}"
+                Placeholder="Last Name"
+                Style="{StaticResource entryGreenStyle}"
+                Text="{Binding LastName}" />
+            <Entry
+                IsVisible="{Binding IsServiceUser, Converter={StaticResource InvertedBoolConverter}}"
+                Placeholder="Service Provider Name"
+                Style="{StaticResource entryGreenStyle}"
+                Text="{Binding ServiceProviderName}" />
+            <HorizontalStackLayout HorizontalOptions="Center" IsVisible="{Binding IsServiceUser, Converter={StaticResource InvertedBoolConverter}}">
+                <Image
+                    HeightRequest="150"
+                    IsVisible="{Binding IsServiceUser, Converter={StaticResource InvertedBoolConverter}}"
+                    Source="{Binding LogoImage.Source}"
+                    WidthRequest="150" />
+                <Button
+                    Margin="30,0,0,0"
+                    Command="{Binding AddLogoImageCommand}"
+                    FontSize="18"
+                    HeightRequest="45"
+                    IsVisible="{Binding IsServiceUser, Converter={StaticResource InvertedBoolConverter}}"
+                    Text="Add logo image"
+                    VerticalOptions="Center" />
+            </HorizontalStackLayout>
+            <Editor
+                AutoSize="TextChanges"
+                IsVisible="{Binding IsServiceUser, Converter={StaticResource InvertedBoolConverter}}"
+                MaximumHeightRequest="100"
+                Placeholder="Description"
+                Style="{StaticResource entryGreenStyle}"
+                Text="{Binding Description}" />
+            <Entry
+                Keyboard="Numeric"
+                Placeholder="Phone Number"
+                Style="{StaticResource entryGreenStyle}"
+                Text="{Binding PhoneNumber}" />
+            <Entry
+                IsVisible="{Binding IsServiceUser, Converter={StaticResource InvertedBoolConverter}}"
+                Placeholder="Website Url"
+                Style="{StaticResource entryGreenStyle}"
+                Text="{Binding WebsiteUrl}" />
+            <VerticalStackLayout Spacing="10">
+                <Button
+                    Background="{StaticResource Primary}"
+                    Command="{Binding StartEditingCommand}"
+                    FontAttributes="Bold"
+                    FontFamily="OpenSans"
+                    FontSize="20"
+                    IsVisible="{Binding IsEditing, Converter={StaticResource InvertedBoolConverter}}"
+                    Text="Edit Profile"
+                    TextColor="White" />
+                <Button
+                    Background="{StaticResource Tertiary}"
+                    Command="{Binding UpdateProfileCommand}"
+                    FontAttributes="Bold"
+                    FontFamily="OpenSans"
+                    FontSize="20"
+                    IsVisible="{Binding IsEditing}"
+                    Text="Update Profile"
+                    TextColor="White" />
+                <Button
+                    Background="{StaticResource Primary}"
+                    Command="{Binding LogoutCommand}"
+                    FontAttributes="Bold"
+                    FontFamily="OpenSans"
+                    FontSize="20"
+                    Text="Logout"
+                    TextColor="White" />
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ContentPage.Content>
+</ContentPage>
