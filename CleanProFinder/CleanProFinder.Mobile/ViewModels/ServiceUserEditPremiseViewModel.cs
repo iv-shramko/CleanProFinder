@@ -86,6 +86,7 @@ public partial class ServiceUserEditPremiseViewModel : ObservableObject
         if (response.IsSuccess)
         {
             await _dialogService.ShowAlertAsync("Updating Premise succeeded", String.Empty, "Ok");
+            IsEditing = false;
             return;
         }
 
