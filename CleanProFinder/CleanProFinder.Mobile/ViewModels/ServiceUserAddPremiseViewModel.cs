@@ -28,20 +28,8 @@ public partial class ServiceUserAddPremiseViewModel : ObservableObject
     [RelayCommand]
     private async void AddPremise()
     {
-        float squareAsFloat;
-
-        if (float.TryParse(Square, out float result))
-        {
-            squareAsFloat = result;
-        }
-        else
-        {
-            await _dialogService.ShowAlertAsync("Incorect Square Format", String.Empty, "Ok");
-            return;
-        }
-
         ServiceResponse response = 
-            await _userPremiseService.AddServiceUserPremiseAsync(squareAsFloat, Description, Address);
+            await _userPremiseService.AddServiceUserPremiseAsync(float.Parse(Square), Description, Address);
 
         if (response.IsSuccess)
         {

@@ -68,20 +68,8 @@ public partial class ServiceUserEditPremiseViewModel : ObservableObject
     [RelayCommand]
     private async void EditPremise()
     {
-        float squareAsFloat;
-
-        if (float.TryParse(Square, out float result))
-        {
-            squareAsFloat = result;
-        }
-        else
-        {
-            await _dialogService.ShowAlertAsync("Incorect Square Format", String.Empty, "Ok");
-            return;
-        }
-
         ServiceResponse response = 
-            await _userPremiseService.EditServiceUserPremiseAsync(Guid.Parse(PremiseId), squareAsFloat, Description, Address);
+            await _userPremiseService.EditServiceUserPremiseAsync(Guid.Parse(PremiseId), float.Parse(Square), Description, Address);
 
         if (response.IsSuccess)
         {
