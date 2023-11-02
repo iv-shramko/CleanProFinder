@@ -36,6 +36,7 @@ public partial class ServiceUserAddPremiseViewModel : ObservableObject
             await Shell.Current.GoToAsync("..");
             return;
         }
+
         await _dialogService.ShowErrorAlertAsync("Adding Premise failed", response.Error);
     }
 }
