@@ -46,9 +46,9 @@
             Route="ServiceProviderStartingPage" />
         <ShellContent
             Title="Profile"
-            ContentTemplate="{DataTemplate views:InitialEditProfilePage}"
+            ContentTemplate="{DataTemplate views:EditProfilePage}"
             Icon="profile.svg"
-            Route="InitialEditProfilePage" />
+            Route="EditProfilePage" />
         <ShellContent
             Title="Premises"
             ContentTemplate="{DataTemplate views:ServiceUserPremisesPage}"

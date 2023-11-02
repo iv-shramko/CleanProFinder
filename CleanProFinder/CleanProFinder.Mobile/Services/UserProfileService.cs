@@ -5,6 +5,8 @@ namespace CleanProFinder.Mobile.Services;
 
 public class UserProfileService : IUserProfileService
 {
+    private const string EditServiceUserProfileInfoEndpoint = "api/profile/service-user/info";
+    private const string EditServiceProviderProfileInfoEndpoint = "api/Profile/service-provider/info";
     private const string EditServiceUserProfileEndpoint = "api/profile/service-user/edit";
     private const string EditServiceProviderProfileEndpoint = "api/profile/service-provider/edit";
 
@@ -13,6 +15,16 @@ public class UserProfileService : IUserProfileService
     public UserProfileService(IHttpService httpService)
     {
         _httpService = httpService;
+    }
+
+    public async Task<ServiceResponse<UserProfileViewInfoDto>> GetServiceUserProfileAsync()
+    {
+        return await _httpService.SendAsync<UserProfileViewInfoDto>(HttpMethod.Get, EditServiceUserProfileInfoEndpoint);
+    }
+
+    public async Task<ServiceResponse<ProviderProfileViewInfoDto>> GetServiceProviderProfileAsync()
+    {
+        return await _httpService.SendAsync<ProviderProfileViewInfoDto>(HttpMethod.Get, EditServiceProviderProfileInfoEndpoint);
     }
 
     public async Task<ServiceResponse> EditServiceUserProfileAsync(string firstName, string lastName, string phoneNumber)
@@ -27,11 +39,12 @@ public class UserProfileService : IUserProfileService
         return await _httpService.SendAsync(HttpMethod.Post, EditServiceUserProfileEndpoint, userProfileDto);
     }
 
-    public async Task<ServiceResponse> EditServiceProviderProfileAsync(string providerName, Image logoImage, string phoneNumber, string websiteUrl)
+    public async Task<ServiceResponse> EditServiceProviderProfileAsync(string providerName, string description, string phoneNumber, string websiteUrl)
     {
         var providerProfileDto = new ProviderProfileDto
         {
             Name = providerName,
+            Description = description,
             PhoneNumber = phoneNumber,
             Site = websiteUrl
         };

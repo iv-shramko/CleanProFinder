@@ -70,7 +70,7 @@ public partial class InitialEditProfileViewModel : ObservableObject
         }
         else
         {
-            response = await _userProfileService.EditServiceProviderProfileAsync(ServiceProviderName, LogoImage, PhoneNumber, WebsiteUrl);
+            response = await _userProfileService.EditServiceProviderProfileAsync(ServiceProviderName, String.Empty, PhoneNumber, WebsiteUrl);
         }
 
         if (response.IsSuccess)
