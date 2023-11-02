@@ -74,6 +74,12 @@
     <ProjectReference Include="..\CleanProFinder.Shared\CleanProFinder.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Views\ServiceUserPremisesPage.xaml.cs">
+      <DependentUpon>ServiceUserPremisesPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 	<ItemGroup>
 	<MauiXaml Update="Views\RolePage.xaml">
 	  <Generator>MSBuild:Compile</Generator>
