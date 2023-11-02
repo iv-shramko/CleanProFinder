@@ -5,6 +5,8 @@ namespace CleanProFinder.Mobile.Services;
 
 public interface IUserProfileService
 {
+    Task<ServiceResponse<UserProfileViewInfoDto>> GetServiceUserProfileAsync();
+    Task<ServiceResponse<ProviderProfileViewInfoDto>> GetServiceProviderProfileAsync();
     Task<ServiceResponse> EditServiceUserProfileAsync(string firstName, string lastName, string phoneNumber);
-    Task<ServiceResponse> EditServiceProviderProfileAsync(string providerName, Image logoImage, string phoneNumber, string websiteUrl);
+    Task<ServiceResponse> EditServiceProviderProfileAsync(string providerName, string description, string phoneNumber, string websiteUrl);
 }
