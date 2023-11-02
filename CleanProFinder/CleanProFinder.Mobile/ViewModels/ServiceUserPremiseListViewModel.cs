@@ -47,7 +47,7 @@ public partial class ServiceUserPremisesViewModel : ObservableObject
             return;
         }
 
-        await _dialogService.ShowErrorAlertAsync("Loading Premises failed", response.Error);
+        await _dialogService.ShowErrorAlertAsync("Loading Premises Failed", response.Error);
 
         IsRefreshing = false;
     }

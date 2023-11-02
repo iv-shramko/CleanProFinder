@@ -67,7 +67,7 @@ public partial class ServiceUserEditPremiseViewModel : ObservableObject
             return;
         }
 
-        await _dialogService.ShowErrorAlertAsync("Loading Premise failed", response.Error);
+        await _dialogService.ShowErrorAlertAsync("Loading Premise Failed", response.Error);
     }
 
     [RelayCommand]
@@ -78,12 +78,12 @@ public partial class ServiceUserEditPremiseViewModel : ObservableObject
 
         if (response.IsSuccess)
         {
-            await _dialogService.ShowAlertAsync("Updating Premise succeeded", String.Empty, "Ok");
+            await _dialogService.ShowAlertAsync("Updating Premise Succeeded", String.Empty, "Ok");
             IsEditing = false;
             return;
         }
 
-        await _dialogService.ShowErrorAlertAsync("Updating Premise failed", response.Error);
+        await _dialogService.ShowErrorAlertAsync("Updating Premise Failed", response.Error);
     }
 
     [RelayCommand]
@@ -103,6 +103,6 @@ public partial class ServiceUserEditPremiseViewModel : ObservableObject
             return;
         }
 
-        await _dialogService.ShowErrorAlertAsync("Deleting Premise failed", response.Error);
+        await _dialogService.ShowErrorAlertAsync("Deleting Premise Failed", response.Error);
     }
 }
