@@ -78,6 +78,9 @@
     <MauiXaml Update="Views\RolePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
+	  <MauiXaml Update="Views\ServiceUserAddPremisePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
   </ItemGroup>
 
 
