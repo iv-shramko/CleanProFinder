@@ -50,8 +50,9 @@
                 <Button
                     Margin="30,0,0,0"
                     Command="{Binding AddLogoImageCommand}"
-                    FontSize="18"
-                    HeightRequest="45"
+                    FontAttributes="Bold"
+                    FontFamily="OpenSans"
+                    FontSize="20"
                     IsVisible="{Binding IsServiceUser, Converter={StaticResource InvertedBoolConverter}}"
                     Text="Add logo image"
                     VerticalOptions="Center" />
