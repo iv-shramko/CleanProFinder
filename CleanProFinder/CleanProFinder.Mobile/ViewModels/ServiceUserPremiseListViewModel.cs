@@ -8,15 +8,15 @@ using CleanProFinder.Shared.Dto.Premises;
 
 namespace CleanProFinder.Mobile.ViewModels;
 
-public partial class ServiceUserPremiseListViewModel : ObservableObject
+public partial class ServiceUserPremisesViewModel : ObservableObject
 {
     private readonly IDialogService _dialogService;
-    private readonly IUserPremiseService _userPremisesService;
+    private readonly IUserPremiseService _userPremiseService;
 
-    public ServiceUserPremiseListViewModel(IDialogService dialogService, IUserPremiseService userPremisesServic)
+    public ServiceUserPremisesViewModel(IDialogService dialogService, IUserPremiseService userPremisesServic)
     {
         _dialogService = dialogService;
-        _userPremisesService = userPremisesServic;
+        _userPremiseService = userPremisesServic;
         IsRefreshing = true;
     }
 
@@ -38,7 +38,7 @@ public partial class ServiceUserPremiseListViewModel : ObservableObject
         IsRefreshing = true;
 
         ServiceResponse<IEnumerable<OwnPremiseShortInfoDto>> response =
-            await _userPremisesService.GetServiceUserPremiseListAsync();
+            await _userPremiseService.GetServiceUserPremisesAsync();
         
         if (response.IsSuccess)
         {

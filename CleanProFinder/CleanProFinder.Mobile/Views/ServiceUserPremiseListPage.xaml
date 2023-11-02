@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="CleanProFinder.Mobile.Views.ServiceUserPremiseListPage"
+    x:Class="CleanProFinder.Mobile.Views.ServiceUserPremisesPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:premises="clr-namespace:CleanProFinder.Shared.Dto.Premises;assembly=CleanProFinder.Shared"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:CleanProFinder.Mobile.ViewModels"
     Title="Your Premises"
-    x:DataType="viewmodel:ServiceUserPremiseListViewModel"
+    x:DataType="viewmodel:ServiceUserPremisesViewModel"
     Background="{StaticResource Secondary}">
     <Grid>
         <Grid Margin="10">
@@ -66,7 +66,7 @@
                                     TextColor="White" />
                                 <Border.GestureRecognizers>
                                     <TapGestureRecognizer
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ServiceUserPremiseListViewModel}}, Path=EditPremiseCommand}"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ServiceUserPremisesViewModel}}, Path=EditPremiseCommand}"
                                         CommandParameter="{Binding .}"
                                         NumberOfTapsRequired="1" />
                                 </Border.GestureRecognizers>

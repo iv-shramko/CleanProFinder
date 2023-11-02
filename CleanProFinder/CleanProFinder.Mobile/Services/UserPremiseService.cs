@@ -7,8 +7,8 @@ public class UserPremiseService : IUserPremiseService
 {
     private const string CreateServiceUserPremiseEndpoint = "api/premise/create";
     private const string EditServiceUserPremiseEndpoint = "api/premise/edit";
-    private const string GetServiceUserPremiseListEndpoint = "api/premise/my-premises";
-    private const string GetServiceUserPremiseFullInfoEndpoint = "api/premise/full-info";
+    private const string GetServiceUserPremisesEndpoint = "api/premise/my-premises";
+    private const string GetServiceUserPremiseEndpoint = "api/premise/full-info";
     private const string DeleteServiceUserPremiseEndpoint = "api/premise";
 
     private readonly IHttpService _httpService;
@@ -43,14 +43,14 @@ public class UserPremiseService : IUserPremiseService
         return await _httpService.SendAsync(HttpMethod.Post, EditServiceUserPremiseEndpoint, editPremiseCommand);
     }
 
-    public async Task<ServiceResponse<IEnumerable<OwnPremiseShortInfoDto>>> GetServiceUserPremiseListAsync()
+    public async Task<ServiceResponse<IEnumerable<OwnPremiseShortInfoDto>>> GetServiceUserPremisesAsync()
     {
-        return await _httpService.SendAsync<IEnumerable<OwnPremiseShortInfoDto>>(HttpMethod.Get, GetServiceUserPremiseListEndpoint);
+        return await _httpService.SendAsync<IEnumerable<OwnPremiseShortInfoDto>>(HttpMethod.Get, GetServiceUserPremisesEndpoint);
     }
 
-    public async Task<ServiceResponse<OwnPremiseFullInfoDto>> GetServiceUserPremiseFullInfoAsync(Dictionary<string, object> payload)
+    public async Task<ServiceResponse<OwnPremiseFullInfoDto>> GetServiceUserPremiseAsync(Dictionary<string, object> payload)
     {
-        return await _httpService.SendAsync<OwnPremiseFullInfoDto>(HttpMethod.Get, GetServiceUserPremiseFullInfoEndpoint, payload);
+        return await _httpService.SendAsync<OwnPremiseFullInfoDto>(HttpMethod.Get, GetServiceUserPremiseEndpoint, payload);
     }
 
     public async Task<ServiceResponse> DeleteServiceUserPremiseAsync(Dictionary<string, object> payload)

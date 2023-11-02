@@ -10,12 +10,12 @@ namespace CleanProFinder.Mobile.ViewModels;
 public partial class ServiceUserEditPremiseViewModel : ObservableObject
 {
     private readonly IDialogService _dialogService;
-    private readonly IUserPremiseService _userPremisesService;
+    private readonly IUserPremiseService _userPremiseService;
 
     public ServiceUserEditPremiseViewModel(IDialogService dialogService, IUserPremiseService userPremisesServic)
     {
         _dialogService = dialogService;
-        _userPremisesService = userPremisesServic;
+        _userPremiseService = userPremisesServic;
         IsEditing = false;
     }
 
@@ -52,7 +52,7 @@ public partial class ServiceUserEditPremiseViewModel : ObservableObject
     private async void LoadPremise(string premiseId)
     {
         ServiceResponse<OwnPremiseFullInfoDto> response =
-           await _userPremisesService.GetServiceUserPremiseFullInfoAsync(new Dictionary<string, object> { { "premiseId", premiseId } });
+           await _userPremiseService.GetServiceUserPremiseAsync(new Dictionary<string, object> { { "premiseId", premiseId } });
 
         if (response.IsSuccess)
         {
@@ -81,7 +81,7 @@ public partial class ServiceUserEditPremiseViewModel : ObservableObject
         }
 
         ServiceResponse response = 
-            await _userPremisesService.EditServiceUserPremiseAsync(Guid.Parse(PremiseId), squareAsFloat, Description, Address);
+            await _userPremiseService.EditServiceUserPremiseAsync(Guid.Parse(PremiseId), squareAsFloat, Description, Address);
 
         if (response.IsSuccess)
         {
@@ -97,7 +97,7 @@ public partial class ServiceUserEditPremiseViewModel : ObservableObject
     private async void DeletePremise()
     {
         ServiceResponse response =
-           await _userPremisesService.DeleteServiceUserPremiseAsync(new Dictionary<string, object> { { "premiseId", PremiseId } });
+           await _userPremiseService.DeleteServiceUserPremiseAsync(new Dictionary<string, object> { { "premiseId", PremiseId } });
 
         if (response.IsSuccess)
         {

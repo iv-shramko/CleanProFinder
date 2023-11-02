@@ -8,12 +8,12 @@ namespace CleanProFinder.Mobile.ViewModels;
 public partial class ServiceUserAddPremiseViewModel : ObservableObject
 {
     private readonly IDialogService _dialogService;
-    private readonly IUserPremiseService _userPremisesService;
+    private readonly IUserPremiseService _userPremiseService;
 
-    public ServiceUserAddPremiseViewModel(IDialogService dialogService, IUserPremiseService userPremisesServic)
+    public ServiceUserAddPremiseViewModel(IDialogService dialogService, IUserPremiseService userPremiseService)
     {
         _dialogService = dialogService;
-        _userPremisesService = userPremisesServic;
+        _userPremiseService = userPremiseService;
     }
 
     [ObservableProperty]
@@ -41,7 +41,7 @@ public partial class ServiceUserAddPremiseViewModel : ObservableObject
         }
 
         ServiceResponse response = 
-            await _userPremisesService.AddServiceUserPremiseAsync(squareAsFloat, Description, Address);
+            await _userPremiseService.AddServiceUserPremiseAsync(squareAsFloat, Description, Address);
 
         if (response.IsSuccess)
         {
