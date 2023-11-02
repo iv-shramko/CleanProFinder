@@ -51,8 +51,13 @@ public partial class ServiceUserEditPremiseViewModel : ObservableObject
 
     private async void LoadPremise(string premiseId)
     {
+        Dictionary<string, object> payload = new Dictionary<string, object>
+        {
+            { "premiseId", premiseId }
+        };
+
         ServiceResponse<OwnPremiseFullInfoDto> response =
-           await _userPremiseService.GetServiceUserPremiseAsync(new Dictionary<string, object> { { "premiseId", premiseId } });
+           await _userPremiseService.GetServiceUserPremiseAsync(payload);
 
         if (response.IsSuccess)
         {
@@ -84,8 +89,13 @@ public partial class ServiceUserEditPremiseViewModel : ObservableObject
     [RelayCommand]
     private async void DeletePremise()
     {
+        Dictionary<string, object> payload = new Dictionary<string, object>
+        {
+            { "premiseId", PremiseId }
+        };
+
         ServiceResponse response =
-           await _userPremiseService.DeleteServiceUserPremiseAsync(new Dictionary<string, object> { { "premiseId", PremiseId } });
+           await _userPremiseService.DeleteServiceUserPremiseAsync(payload);
 
         if (response.IsSuccess)
         {
