@@ -14,5 +14,21 @@ namespace CleanProFinder.Db.DbContexts
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) { }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<CleaningServiceServiceProvider>()
+                .HasKey(cssp => new { cssp.CleaningServiceId, cssp.CleaningServiceProviderId });
+
+            modelBuilder.Entity<CleaningServiceServiceProvider>()
+                .HasOne(cssp => cssp.CleaningService)
+                .WithMany(cs => cs.CleaningServiceServiceProviders)
+                .HasForeignKey(cssp => cssp.CleaningServiceId);
+
+            modelBuilder.Entity<CleaningServiceServiceProvider>()
+                .HasOne(cssp => cssp.CleaningServiceProvider)
+                .WithMany(csp => csp.CleaningServiceServiceProviders)
+                .HasForeignKey(cssp => cssp.CleaningServiceProviderId);
+        }
     }
 }
