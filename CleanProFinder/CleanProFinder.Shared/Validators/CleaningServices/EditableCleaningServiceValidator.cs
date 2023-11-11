@@ -9,7 +9,6 @@ namespace CleanProFinder.Shared.Validators.CleaningServices
         {
             RuleFor(s => s.Name).NotEmpty();
             RuleFor(s => s.Description).NotEmpty();
-            RuleFor(s => s.Price).GreaterThan(0);
         }
     }
 }
