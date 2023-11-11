@@ -48,15 +48,8 @@ namespace CleanProFinder.Server.Features.CleaningServices
             private async Task<ServiceResponse<CleaningServiceFullInfoDto>> UnsafeHandleAsync(CreateCleaningServiceCommand request,
                 CancellationToken cancellationToken)
             {
-                var validUserId = _contextAccessor.TryGetUserId(out var userId);
-                if (validUserId is false)
-                {
-                    return ServiceResponseBuilder.Failure<CleaningServiceFullInfoDto>(UserError.InvalidAuthorization);
-                }
 
                 var newCleaningService = _mapper.Map<CleaningService>(request);
-                newCleaningService.ServiceProviderId = userId;
-
                 _context.Add(newCleaningService);
                 await _context.SaveChangesAsync(cancellationToken);
 

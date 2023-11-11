@@ -51,14 +51,9 @@ namespace CleanProFinder.Server.Features.CleaningServices
             private async Task<ServiceResponse<CleaningServiceFullInfoDto>> UnsafeHandleAsync(GetAvailableServiceQuery request,
                 CancellationToken cancellationToken)
             {
-                var userValid = _contextAccessor.TryGetUserId(out var userId);
-                if (!userValid)
-                {
-                    return ServiceResponseBuilder.Failure<CleaningServiceFullInfoDto>(UserError.UserNotFound);
-                }
-
                 var cleaningService = await _applicationDbContext.CleaningServices
-                    .FirstOrDefaultAsync(s => s.Id == request.ServiceId && s.ServiceProviderId == userId, cancellationToken);
+                    .FirstOrDefaultAsync(s => s.Id == request.ServiceId, cancellationToken);
+                
                 if (cleaningService is null)
                 {
                     return ServiceResponseBuilder.Failure<CleaningServiceFullInfoDto>(CleaningServiceError.MatchCleaningServiceError);

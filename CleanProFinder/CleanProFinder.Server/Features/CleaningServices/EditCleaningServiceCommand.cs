@@ -47,15 +47,11 @@ namespace CleanProFinder.Server.Features.CleaningServices
 
             private async Task<ServiceResponse<CleaningServiceFullInfoDto>> UnsafeHandleAsync(EditCleaningServiceCommand request, CancellationToken cancellationToken)
             {
-                var validUserId = _contextAccessor.TryGetUserId(out var userId);
-                if (validUserId is false)
-                {
-                    return ServiceResponseBuilder.Failure<CleaningServiceFullInfoDto>(UserError.InvalidAuthorization);
-                }
-
                 var existedService = await _context
                     .Set<CleaningService>()
-                    .FirstOrDefaultAsync(s => s.ServiceProviderId == userId && s.Id == request.Id, cancellationToken);
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(s => s.Id == request.Id, cancellationToken);
+
                 if (existedService is null)
                 {
                     return ServiceResponseBuilder.Failure<CleaningServiceFullInfoDto>(CleaningServiceError.MatchCleaningServiceError);

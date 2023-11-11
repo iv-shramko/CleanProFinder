@@ -48,13 +48,7 @@ namespace CleanProFinder.Server.Features.CleaningServices
             private async Task<ServiceResponse<List<CleaningServiceShortInfoDto>>> UnsafeHandleAsync(GetServicesQuery request,
                 CancellationToken cancellationToken)
             {
-                var userValid = _contextAccessor.TryGetUserId(out var userId);
-                if (!userValid)
-                {
-                    return ServiceResponseBuilder.Failure<List<CleaningServiceShortInfoDto>>(UserError.UserNotFound);
-                }
-
-                var premises = await _applicationDbContext.CleaningServices.Where(s => s.ServiceProviderId == userId).ToListAsync(cancellationToken);
+                var premises = await _applicationDbContext.CleaningServices.ToListAsync(cancellationToken);
 
                 var result = _mapper.Map<List<CleaningServiceShortInfoDto>>(premises);
 

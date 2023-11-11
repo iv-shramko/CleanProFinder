@@ -71,7 +71,7 @@ namespace CleanProFinder.Server.Controllers
         /// If there is a bad request, it will return an ErrorDto.
         /// </remarks>
         /// <returns>An IActionResult representing the result of the operation.</returns>
-        [HttpGet("my-services")]
+        [HttpGet("services")]
         [Authorize(Roles = Roles.ServiceProvider)]
         [ProducesResponseType(typeof(List<CleaningServiceShortInfoDto>), 200)]
         [ProducesResponseType(typeof(ErrorDto), 400)]
@@ -91,7 +91,7 @@ namespace CleanProFinder.Server.Controllers
         /// If there is a bad request, it will return an ErrorDto.
         /// </remarks>
         /// <returns>An IActionResult representing the result of the operation.</returns>
-        [HttpGet("full-info")]
+        [HttpGet("{id}")]
         [Authorize(Roles = Roles.ServiceProvider)]
         [ProducesResponseType(typeof(CleaningServiceFullInfoDto), 200)]
         [ProducesResponseType(typeof(ErrorDto), 400)]

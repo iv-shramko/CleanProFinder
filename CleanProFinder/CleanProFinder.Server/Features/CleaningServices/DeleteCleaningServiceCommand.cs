@@ -49,14 +49,9 @@ namespace CleanProFinder.Server.Features.CleaningServices
             private async Task<ServiceResponse> UnsafeHandleAsync(DeleteCleaningServiceCommand request,
                 CancellationToken cancellationToken)
             {
-                var userValid = _contextAccessor.TryGetUserId(out var userId);
-                if (!userValid)
-                {
-                    return ServiceResponseBuilder.Failure(UserError.UserNotFound);
-                }
 
                 var serviceQuery = _applicationDbContext.CleaningServices
-                    .Where(s => s.Id == request.ServiceId && s.ServiceProviderId == userId);
+                    .Where(s => s.Id == request.ServiceId);
 
                 var deleted = await serviceQuery.ExecuteDeleteAsync(cancellationToken);
 
