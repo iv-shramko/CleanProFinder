@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CleanProFinder.Db.Models
 {
-    public class CleaningServiceServiceProvider
+    public class CleaningServiceServiceProvider : Entity
     {
         public Guid CleaningServiceId { get; set; }
         public CleaningService CleaningService { get; set; }

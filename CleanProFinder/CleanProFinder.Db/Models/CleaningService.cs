@@ -8,8 +8,6 @@ namespace CleanProFinder.Db.Models
 {
     public class CleaningService : Entity
     {
-        public Guid ServiceProviderId { get; set; }
-        public CleaningServiceProvider ServiceProvider { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public ICollection<CleaningServiceServiceProvider> CleaningServiceServiceProviders { get; set; }
