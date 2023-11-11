@@ -10,9 +10,9 @@ using MediatR;
 
 namespace CleanProFinder.Server.Features.CleaningServices
 {
-    public class CreateCleaningServiceCommand : CreateCleaningServiceCommandDto, IRequest<ServiceResponse<OwnCleaningServiceFullInfoDto>>
+    public class CreateCleaningServiceCommand : CreateCleaningServiceCommandDto, IRequest<ServiceResponse<CleaningServiceFullInfoDto>>
     {
-        public class CreateCleaningServiceCommandHandler : BaseHandler<CreateCleaningServiceCommand, ServiceResponse<OwnCleaningServiceFullInfoDto>>
+        public class CreateCleaningServiceCommandHandler : BaseHandler<CreateCleaningServiceCommand, ServiceResponse<CleaningServiceFullInfoDto>>
         {
             private readonly ApplicationDbContext _context;
             private readonly IHttpContextAccessor _contextAccessor;
@@ -31,7 +31,7 @@ namespace CleanProFinder.Server.Features.CleaningServices
                 _mapper = mapper;
             }
 
-            public override async Task<ServiceResponse<OwnCleaningServiceFullInfoDto>> Handle(CreateCleaningServiceCommand request,
+            public override async Task<ServiceResponse<CleaningServiceFullInfoDto>> Handle(CreateCleaningServiceCommand request,
                 CancellationToken cancellationToken)
             {
                 try
@@ -41,17 +41,17 @@ namespace CleanProFinder.Server.Features.CleaningServices
                 catch (Exception ex)
                 {
                     _logger.LogError("Create Cleaning Service", ex);
-                    return ServiceResponseBuilder.Failure<OwnCleaningServiceFullInfoDto>(ServerError.CreateCleaningServiceError);
+                    return ServiceResponseBuilder.Failure<CleaningServiceFullInfoDto>(ServerError.CreateCleaningServiceError);
                 }
             }
 
-            private async Task<ServiceResponse<OwnCleaningServiceFullInfoDto>> UnsafeHandleAsync(CreateCleaningServiceCommand request,
+            private async Task<ServiceResponse<CleaningServiceFullInfoDto>> UnsafeHandleAsync(CreateCleaningServiceCommand request,
                 CancellationToken cancellationToken)
             {
                 var validUserId = _contextAccessor.TryGetUserId(out var userId);
                 if (validUserId is false)
                 {
-                    return ServiceResponseBuilder.Failure<OwnCleaningServiceFullInfoDto>(UserError.InvalidAuthorization);
+                    return ServiceResponseBuilder.Failure<CleaningServiceFullInfoDto>(UserError.InvalidAuthorization);
                 }
 
                 var newCleaningService = _mapper.Map<CleaningService>(request);
@@ -60,7 +60,7 @@ namespace CleanProFinder.Server.Features.CleaningServices
                 _context.Add(newCleaningService);
                 await _context.SaveChangesAsync(cancellationToken);
 
-                var result = _mapper.Map<OwnCleaningServiceFullInfoDto>(newCleaningService);
+                var result = _mapper.Map<CleaningServiceFullInfoDto>(newCleaningService);
                 return ServiceResponseBuilder.Success(result);
             }
         }

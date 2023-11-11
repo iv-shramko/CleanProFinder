@@ -33,8 +33,8 @@ namespace CleanProFinder.Server.Controllers
         /// </remarks>
         /// <returns>An IActionResult representing the result of the operation.</returns>
         [HttpPost("create")]
-        [Authorize(Roles = Roles.ServiceProvider)]
-        [ProducesResponseType(typeof(OwnCleaningServiceFullInfoDto), 200)]
+        [Authorize(Roles = Roles.Administrator)]
+        [ProducesResponseType(typeof(CleaningServiceFullInfoDto), 200)]
         [ProducesResponseType(typeof(ErrorDto), 400)]
         public async Task<IActionResult> CreateService(CreateCleaningServiceCommand request, CancellationToken cancellationToken)
         {
@@ -53,8 +53,8 @@ namespace CleanProFinder.Server.Controllers
         /// </remarks>
         /// <returns>An IActionResult representing the result of the operation.</returns>
         [HttpPost("edit")]
-        [Authorize(Roles = Roles.ServiceProvider)]
-        [ProducesResponseType(typeof(OwnCleaningServiceFullInfoDto), 200)]
+        [Authorize(Roles = Roles.Administrator)]
+        [ProducesResponseType(typeof(CleaningServiceFullInfoDto), 200)]
         [ProducesResponseType(typeof(ErrorDto), 400)]
         public async Task<IActionResult> EditService(EditCleaningServiceCommand request, CancellationToken cancellationToken)
         {
@@ -73,11 +73,11 @@ namespace CleanProFinder.Server.Controllers
         /// <returns>An IActionResult representing the result of the operation.</returns>
         [HttpGet("my-services")]
         [Authorize(Roles = Roles.ServiceProvider)]
-        [ProducesResponseType(typeof(List<OwnCleaningServiceShortInfoDto>), 200)]
+        [ProducesResponseType(typeof(List<CleaningServiceShortInfoDto>), 200)]
         [ProducesResponseType(typeof(ErrorDto), 400)]
         public async Task<IActionResult> GetServices(CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new GetOwnServicesQuery(), cancellationToken);
+            var result = await _mediator.Send(new GetServicesQuery(), cancellationToken);
             return ConvertFromServiceResponse(result);
         }
 
@@ -93,11 +93,11 @@ namespace CleanProFinder.Server.Controllers
         /// <returns>An IActionResult representing the result of the operation.</returns>
         [HttpGet("full-info")]
         [Authorize(Roles = Roles.ServiceProvider)]
-        [ProducesResponseType(typeof(OwnCleaningServiceFullInfoDto), 200)]
+        [ProducesResponseType(typeof(CleaningServiceFullInfoDto), 200)]
         [ProducesResponseType(typeof(ErrorDto), 400)]
-        public async Task<IActionResult> GetCleaningServiceFullInfo(Guid serviceId, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetAvailableService(Guid serviceId, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new GetOwnCleaningServiceFullInfoQuery { ServiceId = serviceId }, cancellationToken);
+            var result = await _mediator.Send(new GetAvailableServiceQuery { ServiceId = serviceId }, cancellationToken);
             return ConvertFromServiceResponse(result);
         }
 
@@ -111,7 +111,7 @@ namespace CleanProFinder.Server.Controllers
         /// </remarks>
         /// <returns>An IActionResult representing the result of the operation.</returns>
         [HttpDelete]
-        [Authorize(Roles = Roles.ServiceProvider)]
+        [Authorize(Roles = Roles.Administrator)]
         [ProducesResponseType(typeof(ErrorDto), 400)]
         public async Task<IActionResult> DeleteCleaningService(Guid serviceId, CancellationToken cancellationToken)
         {

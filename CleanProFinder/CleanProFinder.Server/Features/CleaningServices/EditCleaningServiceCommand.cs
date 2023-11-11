@@ -11,9 +11,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CleanProFinder.Server.Features.CleaningServices
 {
-    public class EditCleaningServiceCommand : EditCleaningServiceCommandDto, IRequest<ServiceResponse<OwnCleaningServiceFullInfoDto>>
+    public class EditCleaningServiceCommand : EditCleaningServiceCommandDto, IRequest<ServiceResponse<CleaningServiceFullInfoDto>>
     {
-        public class EditCleaningServiceCommandHandler : BaseHandler<EditCleaningServiceCommand, ServiceResponse<OwnCleaningServiceFullInfoDto>>
+        public class EditCleaningServiceCommandHandler : BaseHandler<EditCleaningServiceCommand, ServiceResponse<CleaningServiceFullInfoDto>>
         {
             private readonly ApplicationDbContext _context;
             private readonly IHttpContextAccessor _contextAccessor;
@@ -32,7 +32,7 @@ namespace CleanProFinder.Server.Features.CleaningServices
                 _mapper = mapper;
             }
 
-            public override async Task<ServiceResponse<OwnCleaningServiceFullInfoDto>> Handle(EditCleaningServiceCommand request, CancellationToken cancellationToken)
+            public override async Task<ServiceResponse<CleaningServiceFullInfoDto>> Handle(EditCleaningServiceCommand request, CancellationToken cancellationToken)
             {
                 try
                 {
@@ -41,16 +41,16 @@ namespace CleanProFinder.Server.Features.CleaningServices
                 catch (Exception ex)
                 {
                     _logger.LogError("Edit Cleaning Service", ex);
-                    return ServiceResponseBuilder.Failure<OwnCleaningServiceFullInfoDto>(ServerError.EditCleaningServiceError);
+                    return ServiceResponseBuilder.Failure<CleaningServiceFullInfoDto>(ServerError.EditCleaningServiceError);
                 }
             }
 
-            private async Task<ServiceResponse<OwnCleaningServiceFullInfoDto>> UnsafeHandleAsync(EditCleaningServiceCommand request, CancellationToken cancellationToken)
+            private async Task<ServiceResponse<CleaningServiceFullInfoDto>> UnsafeHandleAsync(EditCleaningServiceCommand request, CancellationToken cancellationToken)
             {
                 var validUserId = _contextAccessor.TryGetUserId(out var userId);
                 if (validUserId is false)
                 {
-                    return ServiceResponseBuilder.Failure<OwnCleaningServiceFullInfoDto>(UserError.InvalidAuthorization);
+                    return ServiceResponseBuilder.Failure<CleaningServiceFullInfoDto>(UserError.InvalidAuthorization);
                 }
 
                 var existedService = await _context
@@ -58,13 +58,13 @@ namespace CleanProFinder.Server.Features.CleaningServices
                     .FirstOrDefaultAsync(s => s.ServiceProviderId == userId && s.Id == request.Id, cancellationToken);
                 if (existedService is null)
                 {
-                    return ServiceResponseBuilder.Failure<OwnCleaningServiceFullInfoDto>(CleaningServiceError.MatchCleaningServiceError);
+                    return ServiceResponseBuilder.Failure<CleaningServiceFullInfoDto>(CleaningServiceError.MatchCleaningServiceError);
                 }
 
                 _mapper.Map(request, existedService);
                 await _context.SaveChangesAsync(cancellationToken);
 
-                var result = _mapper.Map<OwnCleaningServiceFullInfoDto>(existedService);
+                var result = _mapper.Map<CleaningServiceFullInfoDto>(existedService);
 
                 return ServiceResponseBuilder.Success(result);
             }

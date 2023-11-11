@@ -11,19 +11,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CleanProFinder.Server.Features.CleaningServices
 {
-    public class GetOwnCleaningServiceFullInfoQuery : IRequest<ServiceResponse<OwnCleaningServiceFullInfoDto>>
+    public class GetAvailableServiceQuery : IRequest<ServiceResponse<CleaningServiceFullInfoDto>>
     {
         public Guid ServiceId { get; set; }
 
-        public class GetOwnCleaningServiceFullInfoQueryHandler : BaseHandler<GetOwnCleaningServiceFullInfoQuery, ServiceResponse<OwnCleaningServiceFullInfoDto>>
+        public class GetAvailableServiceQueryHandler : BaseHandler<GetAvailableServiceQuery, ServiceResponse<CleaningServiceFullInfoDto>>
         {
-            private readonly ILogger<GetOwnCleaningServiceFullInfoQueryHandler> _logger;
+            private readonly ILogger<GetAvailableServiceQueryHandler> _logger;
             private readonly IHttpContextAccessor _contextAccessor;
             private readonly ApplicationDbContext _applicationDbContext;
             private readonly IMapper _mapper;
 
-            public GetOwnCleaningServiceFullInfoQueryHandler(
-                ILogger<GetOwnCleaningServiceFullInfoQueryHandler> logger,
+            public GetAvailableServiceQueryHandler(
+                ILogger<GetAvailableServiceQueryHandler> logger,
                 IHttpContextAccessor contextAccessor,
                 ApplicationDbContext applicationDbContext,
                 IMapper mapper)
@@ -34,7 +34,7 @@ namespace CleanProFinder.Server.Features.CleaningServices
                 _mapper = mapper;
             }
 
-            public override async Task<ServiceResponse<OwnCleaningServiceFullInfoDto>> Handle(GetOwnCleaningServiceFullInfoQuery request,
+            public override async Task<ServiceResponse<CleaningServiceFullInfoDto>> Handle(GetAvailableServiceQuery request,
                 CancellationToken cancellationToken)
             {
                 try
@@ -43,28 +43,28 @@ namespace CleanProFinder.Server.Features.CleaningServices
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError("get own cleaning service error", ex);
-                    return ServiceResponseBuilder.Failure<OwnCleaningServiceFullInfoDto>(ServerError.GetOwnCleaningServiceError);
+                    _logger.LogError("get cleaning service error", ex);
+                    return ServiceResponseBuilder.Failure<CleaningServiceFullInfoDto>(ServerError.GetOwnCleaningServiceError);
                 }
             }
 
-            private async Task<ServiceResponse<OwnCleaningServiceFullInfoDto>> UnsafeHandleAsync(GetOwnCleaningServiceFullInfoQuery request,
+            private async Task<ServiceResponse<CleaningServiceFullInfoDto>> UnsafeHandleAsync(GetAvailableServiceQuery request,
                 CancellationToken cancellationToken)
             {
                 var userValid = _contextAccessor.TryGetUserId(out var userId);
                 if (!userValid)
                 {
-                    return ServiceResponseBuilder.Failure<OwnCleaningServiceFullInfoDto>(UserError.UserNotFound);
+                    return ServiceResponseBuilder.Failure<CleaningServiceFullInfoDto>(UserError.UserNotFound);
                 }
 
                 var cleaningService = await _applicationDbContext.CleaningServices
                     .FirstOrDefaultAsync(s => s.Id == request.ServiceId && s.ServiceProviderId == userId, cancellationToken);
                 if (cleaningService is null)
                 {
-                    return ServiceResponseBuilder.Failure<OwnCleaningServiceFullInfoDto>(CleaningServiceError.MatchCleaningServiceError);
+                    return ServiceResponseBuilder.Failure<CleaningServiceFullInfoDto>(CleaningServiceError.MatchCleaningServiceError);
                 }
 
-                var result = _mapper.Map<OwnCleaningServiceFullInfoDto>(cleaningService);
+                var result = _mapper.Map<CleaningServiceFullInfoDto>(cleaningService);
 
                 return ServiceResponseBuilder.Success(result);
             }

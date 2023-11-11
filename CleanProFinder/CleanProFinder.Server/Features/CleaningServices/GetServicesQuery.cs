@@ -11,16 +11,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CleanProFinder.Server.Features.CleaningServices
 {
-    public class GetOwnServicesQuery : IRequest<ServiceResponse<List<OwnCleaningServiceShortInfoDto>>>
+    public class GetServicesQuery : IRequest<ServiceResponse<List<CleaningServiceShortInfoDto>>>
     {
-        public class GetOwnServicesQueryHandler : BaseHandler<GetOwnServicesQuery, ServiceResponse<List<OwnCleaningServiceShortInfoDto>>>
+        public class GetServicesQueryHandler : BaseHandler<GetServicesQuery, ServiceResponse<List<CleaningServiceShortInfoDto>>>
         {
-            private readonly ILogger<GetOwnServicesQueryHandler> _logger;
+            private readonly ILogger<GetServicesQueryHandler> _logger;
             private readonly IHttpContextAccessor _contextAccessor;
             private readonly ApplicationDbContext _applicationDbContext;
             private readonly IMapper _mapper;
 
-            public GetOwnServicesQueryHandler(ILogger<GetOwnServicesQueryHandler> logger,
+            public GetServicesQueryHandler(ILogger<GetServicesQueryHandler> logger,
                 IHttpContextAccessor contextAccessor,
                 ApplicationDbContext applicationDbContext,
                 IMapper mapper)
@@ -31,7 +31,7 @@ namespace CleanProFinder.Server.Features.CleaningServices
                 _mapper = mapper;
             }
 
-            public override async Task<ServiceResponse<List<OwnCleaningServiceShortInfoDto>>> Handle(GetOwnServicesQuery request,
+            public override async Task<ServiceResponse<List<CleaningServiceShortInfoDto>>> Handle(GetServicesQuery request,
                 CancellationToken cancellationToken)
             {
                 try
@@ -40,23 +40,23 @@ namespace CleanProFinder.Server.Features.CleaningServices
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError("get own services error", ex);
-                    return ServiceResponseBuilder.Failure<List<OwnCleaningServiceShortInfoDto>>(ServerError.GetOwnCleaningServicesError);
+                    _logger.LogError("get services error", ex);
+                    return ServiceResponseBuilder.Failure<List<CleaningServiceShortInfoDto>>(ServerError.GetOwnCleaningServicesError);
                 }
             }
 
-            private async Task<ServiceResponse<List<OwnCleaningServiceShortInfoDto>>> UnsafeHandleAsync(GetOwnServicesQuery request,
+            private async Task<ServiceResponse<List<CleaningServiceShortInfoDto>>> UnsafeHandleAsync(GetServicesQuery request,
                 CancellationToken cancellationToken)
             {
                 var userValid = _contextAccessor.TryGetUserId(out var userId);
                 if (!userValid)
                 {
-                    return ServiceResponseBuilder.Failure<List<OwnCleaningServiceShortInfoDto>>(UserError.UserNotFound);
+                    return ServiceResponseBuilder.Failure<List<CleaningServiceShortInfoDto>>(UserError.UserNotFound);
                 }
 
                 var premises = await _applicationDbContext.CleaningServices.Where(s => s.ServiceProviderId == userId).ToListAsync(cancellationToken);
 
-                var result = _mapper.Map<List<OwnCleaningServiceShortInfoDto>>(premises);
+                var result = _mapper.Map<List<CleaningServiceShortInfoDto>>(premises);
 
                 return ServiceResponseBuilder.Success(result);
             }
