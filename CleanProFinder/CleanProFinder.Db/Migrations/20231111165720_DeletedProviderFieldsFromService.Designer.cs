@@ -3,6 +3,7 @@ using System;
 using CleanProFinder.Db.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CleanProFinder.Db.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231111165720_DeletedProviderFieldsFromService")]
+    partial class DeletedProviderFieldsFromService
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,6 +31,9 @@ namespace CleanProFinder.Db.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<Guid?>("CleaningServiceProviderId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
@@ -37,6 +43,8 @@ namespace CleanProFinder.Db.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CleaningServiceProviderId");
 
                     b.ToTable("CleaningServices");
                 });
@@ -344,6 +352,13 @@ namespace CleanProFinder.Db.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("CleanProFinder.Db.Models.CleaningService", b =>
+                {
+                    b.HasOne("CleanProFinder.Db.Models.CleaningServiceProvider", null)
+                        .WithMany("CleaningServices")
+                        .HasForeignKey("CleaningServiceProviderId");
+                });
+
             modelBuilder.Entity("CleanProFinder.Db.Models.CleaningServiceServiceProvider", b =>
                 {
                     b.HasOne("CleanProFinder.Db.Models.CleaningService", "CleaningService")
@@ -433,6 +448,8 @@ namespace CleanProFinder.Db.Migrations
             modelBuilder.Entity("CleanProFinder.Db.Models.CleaningServiceProvider", b =>
                 {
                     b.Navigation("CleaningServiceServiceProviders");
+
+                    b.Navigation("CleaningServices");
                 });
 
             modelBuilder.Entity("CleanProFinder.Db.Models.ServiceUser", b =>

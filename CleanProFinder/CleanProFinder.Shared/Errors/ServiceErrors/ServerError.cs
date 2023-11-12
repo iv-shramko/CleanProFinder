@@ -15,5 +15,10 @@ namespace CleanProFinder.Shared.Errors.ServiceErrors
         public static PremiseError CreatePremiseError => new PremiseError("Server error", "Create Premise Error", 2);
         public static PremiseError GetOwnPremisesError => new PremiseError("Server error", "Get Own Premises Error", 3);
         public static PremiseError GetOwnPremiseError => new PremiseError("Server error", "Get Own Premise Error", 4);
+        public static CleaningServiceError EditCleaningServiceError => new CleaningServiceError("Server error", "Edit Cleaning Service Error", 5);
+        public static CleaningServiceError CreateCleaningServiceError => new CleaningServiceError("Server error", "Create Cleaning Service Error", 6);
+        public static CleaningServiceError GetOwnCleaningServicesError => new CleaningServiceError("Server error", "Get Cleaning Services Error", 7);
+        public static CleaningServiceError GetOwnCleaningServiceError => new CleaningServiceError("Server error", "Get Cleaning Service Error", 8);
+        public static CleaningServiceError DeleteCleaningServiceError => new CleaningServiceError("Server error", "Delete Cleaning Service Error", 9);
     }
 }

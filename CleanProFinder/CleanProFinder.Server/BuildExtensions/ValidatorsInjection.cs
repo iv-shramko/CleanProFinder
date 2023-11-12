@@ -1,7 +1,9 @@
 ﻿using CleanProFinder.Server.Features.Account;
+using CleanProFinder.Server.Features.CleaningServices;
 using CleanProFinder.Server.Features.Premises;
 using CleanProFinder.Server.Features.Profile;
 using CleanProFinder.Shared.Validators.Account;
+using CleanProFinder.Shared.Validators.CleaningServices;
 using CleanProFinder.Shared.Validators.Premises;
 using CleanProFinder.Shared.Validators.Profile;
 using FluentValidation;
@@ -18,7 +20,9 @@ namespace CleanProFinder.Server.BuildExtensions
             services.AddTransient<IValidator<EditUserProfileCommand>, EditUserProfileCommandValidator>();
             services.AddTransient<IValidator<EditProviderProfileCommand>, EditProviderProfileCommandValidator>();
             services.AddTransient<IValidator<CreatePremiseCommand>, EditablePremiseValidator<CreatePremiseCommand>>();
+            services.AddTransient<IValidator<CreateCleaningServiceCommand>, EditableCleaningServiceValidator<CreateCleaningServiceCommand>>();
             services.AddTransient<IValidator<EditPremiseCommand>, EditPremiseCommandValidator>();
+            services.AddTransient<IValidator<EditCleaningServiceCommand>, EditCleaningServiceCommandValidator>();
         }
     }
 }
