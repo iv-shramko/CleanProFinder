@@ -67,7 +67,7 @@ namespace CleanProFinder.Server.Controllers
         /// </summary>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <remarks>
-        /// If the operation is successful, it will return a List of OwnCleaningServiceDto.
+        /// If the operation is successful, it will return a List of CleaningServiceDto.
         /// If there is a bad request, it will return an ErrorDto.
         /// </remarks>
         /// <returns>An IActionResult representing the result of the operation.</returns>

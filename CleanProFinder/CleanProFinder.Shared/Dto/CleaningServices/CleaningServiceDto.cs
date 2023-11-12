@@ -4,9 +4,8 @@ using System.Text;
 
 namespace CleanProFinder.Shared.Dto.CleaningServices
 {
-    public class CleaningServiceShortInfoDto
+    public class CleaningServiceDto : EditableCleaningServiceDto
     {
         public Guid Id { get; set; }
-        public string Name { get; set; }
     }
 }
