@@ -11,11 +11,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CleanProFinder.Server.Features.CleaningServices
 {
-    public class GetAvailableServiceQuery : IRequest<ServiceResponse<CleaningServiceFullInfoDto>>
+    public class GetAvailableServiceQuery : IRequest<ServiceResponse<CleaningServiceDto>>
     {
         public Guid ServiceId { get; set; }
 
-        public class GetAvailableServiceQueryHandler : BaseHandler<GetAvailableServiceQuery, ServiceResponse<CleaningServiceFullInfoDto>>
+        public class GetAvailableServiceQueryHandler : BaseHandler<GetAvailableServiceQuery, ServiceResponse<CleaningServiceDto>>
         {
             private readonly ILogger<GetAvailableServiceQueryHandler> _logger;
             private readonly IHttpContextAccessor _contextAccessor;
@@ -34,7 +34,7 @@ namespace CleanProFinder.Server.Features.CleaningServices
                 _mapper = mapper;
             }
 
-            public override async Task<ServiceResponse<CleaningServiceFullInfoDto>> Handle(GetAvailableServiceQuery request,
+            public override async Task<ServiceResponse<CleaningServiceDto>> Handle(GetAvailableServiceQuery request,
                 CancellationToken cancellationToken)
             {
                 try
@@ -44,11 +44,11 @@ namespace CleanProFinder.Server.Features.CleaningServices
                 catch (Exception ex)
                 {
                     _logger.LogError("get cleaning service error", ex);
-                    return ServiceResponseBuilder.Failure<CleaningServiceFullInfoDto>(ServerError.GetOwnCleaningServiceError);
+                    return ServiceResponseBuilder.Failure<CleaningServiceDto>(ServerError.GetOwnCleaningServiceError);
                 }
             }
 
-            private async Task<ServiceResponse<CleaningServiceFullInfoDto>> UnsafeHandleAsync(GetAvailableServiceQuery request,
+            private async Task<ServiceResponse<CleaningServiceDto>> UnsafeHandleAsync(GetAvailableServiceQuery request,
                 CancellationToken cancellationToken)
             {
                 var cleaningService = await _applicationDbContext.CleaningServices
@@ -56,10 +56,10 @@ namespace CleanProFinder.Server.Features.CleaningServices
                 
                 if (cleaningService is null)
                 {
-                    return ServiceResponseBuilder.Failure<CleaningServiceFullInfoDto>(CleaningServiceError.MatchCleaningServiceError);
+                    return ServiceResponseBuilder.Failure<CleaningServiceDto>(CleaningServiceError.MatchCleaningServiceError);
                 }
 
-                var result = _mapper.Map<CleaningServiceFullInfoDto>(cleaningService);
+                var result = _mapper.Map<CleaningServiceDto>(cleaningService);
 
                 return ServiceResponseBuilder.Success(result);
             }

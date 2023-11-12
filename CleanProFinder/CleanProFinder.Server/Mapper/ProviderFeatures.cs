@@ -11,8 +11,7 @@ namespace CleanProFinder.Server.Mapper
         {
             CreateMap<CreateCleaningServiceCommand, CleaningService>();
             CreateMap<EditCleaningServiceCommand, CleaningService>();
-            CreateMap<CleaningService, CleaningServiceFullInfoDto>();
-            CreateMap<CleaningService, CleaningServiceShortInfoDto>();
+            CreateMap<CleaningService, CleaningServiceDto>();
         }
     }
 }

@@ -11,9 +11,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CleanProFinder.Server.Features.CleaningServices
 {
-    public class GetServicesQuery : IRequest<ServiceResponse<List<CleaningServiceShortInfoDto>>>
+    public class GetServicesQuery : IRequest<ServiceResponse<List<CleaningServiceDto>>>
     {
-        public class GetServicesQueryHandler : BaseHandler<GetServicesQuery, ServiceResponse<List<CleaningServiceShortInfoDto>>>
+        public class GetServicesQueryHandler : BaseHandler<GetServicesQuery, ServiceResponse<List<CleaningServiceDto>>>
         {
             private readonly ILogger<GetServicesQueryHandler> _logger;
             private readonly IHttpContextAccessor _contextAccessor;
@@ -31,7 +31,7 @@ namespace CleanProFinder.Server.Features.CleaningServices
                 _mapper = mapper;
             }
 
-            public override async Task<ServiceResponse<List<CleaningServiceShortInfoDto>>> Handle(GetServicesQuery request,
+            public override async Task<ServiceResponse<List<CleaningServiceDto>>> Handle(GetServicesQuery request,
                 CancellationToken cancellationToken)
             {
                 try
@@ -41,16 +41,16 @@ namespace CleanProFinder.Server.Features.CleaningServices
                 catch (Exception ex)
                 {
                     _logger.LogError("get services error", ex);
-                    return ServiceResponseBuilder.Failure<List<CleaningServiceShortInfoDto>>(ServerError.GetOwnCleaningServicesError);
+                    return ServiceResponseBuilder.Failure<List<CleaningServiceDto>>(ServerError.GetOwnCleaningServicesError);
                 }
             }
 
-            private async Task<ServiceResponse<List<CleaningServiceShortInfoDto>>> UnsafeHandleAsync(GetServicesQuery request,
+            private async Task<ServiceResponse<List<CleaningServiceDto>>> UnsafeHandleAsync(GetServicesQuery request,
                 CancellationToken cancellationToken)
             {
                 var premises = await _applicationDbContext.CleaningServices.ToListAsync(cancellationToken);
 
-                var result = _mapper.Map<List<CleaningServiceShortInfoDto>>(premises);
+                var result = _mapper.Map<List<CleaningServiceDto>>(premises);
 
                 return ServiceResponseBuilder.Success(result);
             }

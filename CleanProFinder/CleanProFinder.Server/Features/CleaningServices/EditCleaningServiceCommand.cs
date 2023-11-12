@@ -11,9 +11,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CleanProFinder.Server.Features.CleaningServices
 {
-    public class EditCleaningServiceCommand : EditCleaningServiceCommandDto, IRequest<ServiceResponse<CleaningServiceFullInfoDto>>
+    public class EditCleaningServiceCommand : EditCleaningServiceCommandDto, IRequest<ServiceResponse<CleaningServiceDto>>
     {
-        public class EditCleaningServiceCommandHandler : BaseHandler<EditCleaningServiceCommand, ServiceResponse<CleaningServiceFullInfoDto>>
+        public class EditCleaningServiceCommandHandler : BaseHandler<EditCleaningServiceCommand, ServiceResponse<CleaningServiceDto>>
         {
             private readonly ApplicationDbContext _context;
             private readonly IHttpContextAccessor _contextAccessor;
@@ -32,7 +32,7 @@ namespace CleanProFinder.Server.Features.CleaningServices
                 _mapper = mapper;
             }
 
-            public override async Task<ServiceResponse<CleaningServiceFullInfoDto>> Handle(EditCleaningServiceCommand request, CancellationToken cancellationToken)
+            public override async Task<ServiceResponse<CleaningServiceDto>> Handle(EditCleaningServiceCommand request, CancellationToken cancellationToken)
             {
                 try
                 {
@@ -41,11 +41,11 @@ namespace CleanProFinder.Server.Features.CleaningServices
                 catch (Exception ex)
                 {
                     _logger.LogError("Edit Cleaning Service", ex);
-                    return ServiceResponseBuilder.Failure<CleaningServiceFullInfoDto>(ServerError.EditCleaningServiceError);
+                    return ServiceResponseBuilder.Failure<CleaningServiceDto>(ServerError.EditCleaningServiceError);
                 }
             }
 
-            private async Task<ServiceResponse<CleaningServiceFullInfoDto>> UnsafeHandleAsync(EditCleaningServiceCommand request, CancellationToken cancellationToken)
+            private async Task<ServiceResponse<CleaningServiceDto>> UnsafeHandleAsync(EditCleaningServiceCommand request, CancellationToken cancellationToken)
             {
                 var existedService = await _context
                     .Set<CleaningService>()
@@ -54,13 +54,13 @@ namespace CleanProFinder.Server.Features.CleaningServices
 
                 if (existedService is null)
                 {
-                    return ServiceResponseBuilder.Failure<CleaningServiceFullInfoDto>(CleaningServiceError.MatchCleaningServiceError);
+                    return ServiceResponseBuilder.Failure<CleaningServiceDto>(CleaningServiceError.MatchCleaningServiceError);
                 }
 
                 _mapper.Map(request, existedService);
                 await _context.SaveChangesAsync(cancellationToken);
 
-                var result = _mapper.Map<CleaningServiceFullInfoDto>(existedService);
+                var result = _mapper.Map<CleaningServiceDto>(existedService);
 
                 return ServiceResponseBuilder.Success(result);
             }

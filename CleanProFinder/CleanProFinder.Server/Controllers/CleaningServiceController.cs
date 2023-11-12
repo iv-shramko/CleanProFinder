@@ -34,7 +34,7 @@ namespace CleanProFinder.Server.Controllers
         /// <returns>An IActionResult representing the result of the operation.</returns>
         [HttpPost("create")]
         [Authorize(Roles = Roles.Administrator)]
-        [ProducesResponseType(typeof(CleaningServiceFullInfoDto), 200)]
+        [ProducesResponseType(typeof(CleaningServiceDto), 200)]
         [ProducesResponseType(typeof(ErrorDto), 400)]
         public async Task<IActionResult> CreateService(CreateCleaningServiceCommand request, CancellationToken cancellationToken)
         {
@@ -54,7 +54,7 @@ namespace CleanProFinder.Server.Controllers
         /// <returns>An IActionResult representing the result of the operation.</returns>
         [HttpPost("edit")]
         [Authorize(Roles = Roles.Administrator)]
-        [ProducesResponseType(typeof(CleaningServiceFullInfoDto), 200)]
+        [ProducesResponseType(typeof(CleaningServiceDto), 200)]
         [ProducesResponseType(typeof(ErrorDto), 400)]
         public async Task<IActionResult> EditService(EditCleaningServiceCommand request, CancellationToken cancellationToken)
         {
@@ -67,13 +67,13 @@ namespace CleanProFinder.Server.Controllers
         /// </summary>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <remarks>
-        /// If the operation is successful, it will return a List of OwnCleaningServiceShortInfoDto.
+        /// If the operation is successful, it will return a List of OwnCleaningServiceDto.
         /// If there is a bad request, it will return an ErrorDto.
         /// </remarks>
         /// <returns>An IActionResult representing the result of the operation.</returns>
         [HttpGet("services")]
         [Authorize(Roles = Roles.ServiceProvider)]
-        [ProducesResponseType(typeof(List<CleaningServiceShortInfoDto>), 200)]
+        [ProducesResponseType(typeof(List<CleaningServiceDto>), 200)]
         [ProducesResponseType(typeof(ErrorDto), 400)]
         public async Task<IActionResult> GetServices(CancellationToken cancellationToken)
         {
@@ -81,25 +81,6 @@ namespace CleanProFinder.Server.Controllers
             return ConvertFromServiceResponse(result);
         }
 
-        /// <summary>
-        /// Get cleaning service full info
-        /// </summary>
-        /// <param name="serviceId">Cleaning service id.</param>
-        /// <param name="cancellationToken">The cancellation token.</param>
-        /// <remarks>
-        /// If the operation is successful, it will return a List of OwnCleaningServiceFullInfoDto.
-        /// If there is a bad request, it will return an ErrorDto.
-        /// </remarks>
-        /// <returns>An IActionResult representing the result of the operation.</returns>
-        [HttpGet("{id}")]
-        [Authorize(Roles = Roles.ServiceProvider)]
-        [ProducesResponseType(typeof(CleaningServiceFullInfoDto), 200)]
-        [ProducesResponseType(typeof(ErrorDto), 400)]
-        public async Task<IActionResult> GetAvailableService(Guid serviceId, CancellationToken cancellationToken)
-        {
-            var result = await _mediator.Send(new GetAvailableServiceQuery { ServiceId = serviceId }, cancellationToken);
-            return ConvertFromServiceResponse(result);
-        }
 
         /// <summary>
         /// Delete cleaning service

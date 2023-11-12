@@ -10,9 +10,9 @@ using MediatR;
 
 namespace CleanProFinder.Server.Features.CleaningServices
 {
-    public class CreateCleaningServiceCommand : CreateCleaningServiceCommandDto, IRequest<ServiceResponse<CleaningServiceFullInfoDto>>
+    public class CreateCleaningServiceCommand : CreateCleaningServiceCommandDto, IRequest<ServiceResponse<CleaningServiceDto>>
     {
-        public class CreateCleaningServiceCommandHandler : BaseHandler<CreateCleaningServiceCommand, ServiceResponse<CleaningServiceFullInfoDto>>
+        public class CreateCleaningServiceCommandHandler : BaseHandler<CreateCleaningServiceCommand, ServiceResponse<CleaningServiceDto>>
         {
             private readonly ApplicationDbContext _context;
             private readonly IHttpContextAccessor _contextAccessor;
@@ -31,7 +31,7 @@ namespace CleanProFinder.Server.Features.CleaningServices
                 _mapper = mapper;
             }
 
-            public override async Task<ServiceResponse<CleaningServiceFullInfoDto>> Handle(CreateCleaningServiceCommand request,
+            public override async Task<ServiceResponse<CleaningServiceDto>> Handle(CreateCleaningServiceCommand request,
                 CancellationToken cancellationToken)
             {
                 try
@@ -41,11 +41,11 @@ namespace CleanProFinder.Server.Features.CleaningServices
                 catch (Exception ex)
                 {
                     _logger.LogError("Create Cleaning Service", ex);
-                    return ServiceResponseBuilder.Failure<CleaningServiceFullInfoDto>(ServerError.CreateCleaningServiceError);
+                    return ServiceResponseBuilder.Failure<CleaningServiceDto>(ServerError.CreateCleaningServiceError);
                 }
             }
 
-            private async Task<ServiceResponse<CleaningServiceFullInfoDto>> UnsafeHandleAsync(CreateCleaningServiceCommand request,
+            private async Task<ServiceResponse<CleaningServiceDto>> UnsafeHandleAsync(CreateCleaningServiceCommand request,
                 CancellationToken cancellationToken)
             {
 
@@ -53,7 +53,7 @@ namespace CleanProFinder.Server.Features.CleaningServices
                 _context.Add(newCleaningService);
                 await _context.SaveChangesAsync(cancellationToken);
 
-                var result = _mapper.Map<CleaningServiceFullInfoDto>(newCleaningService);
+                var result = _mapper.Map<CleaningServiceDto>(newCleaningService);
                 return ServiceResponseBuilder.Success(result);
             }
         }
