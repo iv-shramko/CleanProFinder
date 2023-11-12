@@ -8,7 +8,6 @@
         public string? Email { get; set; }
         public string? Site { get; set; }
         public string? LogoUrl { get; set; }
-        public ICollection<CleaningService>? CleaningServices { get; set; }
         public ICollection<CleaningServiceServiceProvider> CleaningServiceServiceProviders { get; set; }
 
 
