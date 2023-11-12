@@ -3,6 +3,7 @@ using System;
 using CleanProFinder.Db.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CleanProFinder.Db.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231112192013_AddedRequests")]
+    partial class AddedRequests
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,7 +39,12 @@ namespace CleanProFinder.Db.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<Guid?>("RequestId")
+                        .HasColumnType("uuid");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("RequestId");
 
                     b.ToTable("CleaningServices");
                 });
@@ -162,21 +170,6 @@ namespace CleanProFinder.Db.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ServiceUsers");
-                });
-
-            modelBuilder.Entity("CleaningServiceRequest", b =>
-                {
-                    b.Property<Guid>("RequestId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("ServicesId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("RequestId", "ServicesId");
-
-                    b.HasIndex("ServicesId");
-
-                    b.ToTable("CleaningServiceRequest");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -379,6 +372,13 @@ namespace CleanProFinder.Db.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("CleanProFinder.Db.Models.CleaningService", b =>
+                {
+                    b.HasOne("CleanProFinder.Db.Models.Request", null)
+                        .WithMany("Services")
+                        .HasForeignKey("RequestId");
+                });
+
             modelBuilder.Entity("CleanProFinder.Db.Models.CleaningServiceServiceProvider", b =>
                 {
                     b.HasOne("CleanProFinder.Db.Models.CleaningService", "CleaningService")
@@ -418,21 +418,6 @@ namespace CleanProFinder.Db.Migrations
                         .IsRequired();
 
                     b.Navigation("Premise");
-                });
-
-            modelBuilder.Entity("CleaningServiceRequest", b =>
-                {
-                    b.HasOne("CleanProFinder.Db.Models.Request", null)
-                        .WithMany()
-                        .HasForeignKey("RequestId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CleanProFinder.Db.Models.CleaningService", null)
-                        .WithMany()
-                        .HasForeignKey("ServicesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -494,6 +479,11 @@ namespace CleanProFinder.Db.Migrations
             modelBuilder.Entity("CleanProFinder.Db.Models.CleaningServiceProvider", b =>
                 {
                     b.Navigation("CleaningServiceServiceProviders");
+                });
+
+            modelBuilder.Entity("CleanProFinder.Db.Models.Request", b =>
+                {
+                    b.Navigation("Services");
                 });
 
             modelBuilder.Entity("CleanProFinder.Db.Models.ServiceUser", b =>
