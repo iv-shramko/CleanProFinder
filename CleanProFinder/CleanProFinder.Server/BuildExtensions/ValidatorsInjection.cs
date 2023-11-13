@@ -7,7 +7,7 @@ using CleanProFinder.Shared.Validators.Account;
 using CleanProFinder.Shared.Validators.CleaningServices;
 using CleanProFinder.Shared.Validators.Premises;
 using CleanProFinder.Shared.Validators.Profile;
-using CleanProFinder.Shared.Validators.Request;
+using CleanProFinder.Shared.Validators.Requests;
 using FluentValidation;
 
 namespace CleanProFinder.Server.BuildExtensions

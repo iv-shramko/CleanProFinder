@@ -2,6 +2,7 @@
 using CleanProFinder.Server.Controllers.Base;
 using CleanProFinder.Server.Features.Requests;
 using CleanProFinder.Shared.Dto.Error;
+using CleanProFinder.Shared.Dto.Requests;
 using CleanProFinder.Shared.Helpers;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -33,9 +34,23 @@ namespace CleanProFinder.Server.Controllers
         [HttpPost("create")]
         [Authorize(Roles = Roles.ServiceUser)]
         [ProducesResponseType(typeof(ErrorDto), 400)]
-        public async Task<IActionResult> GetUserProfileViewInfo(CreateRequestCommand request, CancellationToken cancellationToken)
+        public async Task<IActionResult> CreateRequest(CreateRequestCommand request, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(request, cancellationToken);
+            return ConvertFromServiceResponse(result);
+        }
+
+        /// <summary>
+        /// Get active requests.
+        /// </summary>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        [HttpGet("active-requests")]
+        [Authorize(Roles = Roles.ServiceProvider)]
+        [ProducesResponseType(typeof(List<RequestShortInfoDto>), 200)]
+        [ProducesResponseType(typeof(ErrorDto), 400)]
+        public async Task<IActionResult> GetActiveRequests(CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(new GetActiveRequestsQuery(), cancellationToken);
             return ConvertFromServiceResponse(result);
         }
     }

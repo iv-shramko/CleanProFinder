@@ -21,5 +21,6 @@ namespace CleanProFinder.Shared.Errors.ServiceErrors
         public static CleaningServiceError GetOwnCleaningServiceError => new CleaningServiceError("Server error", "Get Cleaning Service Error", 8);
         public static CleaningServiceError DeleteCleaningServiceError => new CleaningServiceError("Server error", "Delete Cleaning Service Error", 9);
         public static ServerError CreateRequestError => new ServerError("Server error", "Create request Error", 10);
+        public static ServerError ActiveRequestsError => new ServerError("Server error", "Get Active Requests Error", 11);
     }
 }
