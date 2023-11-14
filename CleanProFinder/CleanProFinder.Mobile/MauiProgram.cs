@@ -20,6 +20,7 @@ namespace CleanProFinder.Mobile
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    fonts.AddFont("Chillax-Semibold.ttf", "Chillax");
                 });
 
             var stream = Assembly
