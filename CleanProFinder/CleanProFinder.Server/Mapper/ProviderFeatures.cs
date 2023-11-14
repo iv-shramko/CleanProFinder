@@ -9,9 +9,10 @@ namespace CleanProFinder.Server.Mapper
     {
         public ProviderFeatures()
         {
-            CreateMap<CreateCleaningServiceCommand, CleaningService>();
-            CreateMap<EditCleaningServiceCommand, CleaningService>();
-            CreateMap<CleaningService, CleaningServiceDto>();
+            CreateMap<AddProviderServiceDto, CleaningService>();
+            CreateMap<CleaningService, AddProviderServiceDto>();            CreateMap<AddProviderServiceDto, CleaningServiceServiceProvider>();
+            CreateMap<CleaningServiceServiceProvider, AddProviderServiceDto>();
+
         }
     }
 }

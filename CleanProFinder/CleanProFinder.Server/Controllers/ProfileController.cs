@@ -125,5 +125,31 @@ namespace CleanProFinder.Server.Controllers
             var result = await _mediator.Send(request, cancellationToken);
             return ConvertFromServiceResponse(result);
         }
+
+        /// <summary>
+        /// Add a service to provider's services list.
+        /// </summary>
+        /// <param name="serviceId">Service id.</param>
+        /// <param name="price">Service price.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <remarks>
+        /// If the operation is successful, it will return a ProviderProfileDto.
+        /// If there is a bad request, it will return an ErrorDto.
+        /// </remarks>
+        /// <returns>An IActionResult representing the result of the operation.</returns>
+        [HttpPost("service-provider/add-service")]
+        [Authorize(Roles = Roles.ServiceProvider)]
+        [ProducesResponseType(typeof(ProviderProfileDto), 200)]
+        [ProducesResponseType(typeof(ErrorDto), 400)]
+        public async Task<IActionResult> AddServiceToProvider(Guid serviceId, decimal price,
+            CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(new AddServiceToProviderCommand 
+            { 
+                CleaningServiceId = serviceId, 
+                Price = price 
+            }, cancellationToken);
+            return ConvertFromServiceResponse(result);
+        }
     }
 }
