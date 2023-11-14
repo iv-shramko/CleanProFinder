@@ -11,6 +11,8 @@ namespace CleanProFinder.Db.DbContexts
         public virtual DbSet<CleaningServiceProvider> CleaningServiceProviders { get; set; }
         public virtual DbSet<Premise> Premises { get; set; }
         public virtual DbSet<CleaningService> CleaningServices { get; set; }
+        public virtual DbSet<CleaningServiceServiceProvider> CleaningServiceServiceProviders { get; set; }
+
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) { }
