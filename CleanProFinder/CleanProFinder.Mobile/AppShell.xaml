@@ -27,10 +27,6 @@
         </ResourceDictionary>
     </Shell.Resources>
 
-    <Shell.Behaviors>
-        <behaviors:EventToCommandBehavior Command="{Binding SetTabVisibilityCommand}" EventName="Navigating" />
-    </Shell.Behaviors>
-
     <TabBar>
         <ShellContent
             Title="Home"

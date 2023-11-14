@@ -1,16 +1,19 @@
-﻿using CleanProFinder.Mobile.Services;
+﻿using CleanProFinder.Mobile.Messages;
+using CleanProFinder.Mobile.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace CleanProFinder.Mobile.ViewModels;
 
-public partial class AppShellViewModel : ObservableObject
+public partial class AppShellViewModel : ObservableObject, IRecipient<UserAuthenticatedMessage>
 {
     private readonly IAuthService _authService;
 
     public AppShellViewModel(IAuthService authService)
     {
         _authService = authService;
+        WeakReferenceMessenger.Default.Register(this);
     }
 
     [ObservableProperty]
@@ -19,14 +22,13 @@ public partial class AppShellViewModel : ObservableObject
     [ObservableProperty]
     private bool _isServiceProviderTabVisible = true;
 
-    [RelayCommand]
+    public void Receive(UserAuthenticatedMessage message)
+    {
+        SetTabVisibility();
+    }
+
     private void SetTabVisibility()
     {
-        if (_authService is not { IsAuthenticated: true })
-        {
-            return;
-        }
-
         IsServiceUserTabVisible = _authService.IsServiceUser;
         IsServiceProviderTabVisible = !_authService.IsServiceUser;
     }
