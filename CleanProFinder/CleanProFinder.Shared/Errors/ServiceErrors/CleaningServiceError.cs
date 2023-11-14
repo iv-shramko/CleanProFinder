@@ -14,6 +14,11 @@ namespace CleanProFinder.Shared.Errors.ServiceErrors
             Code = code;
         }
         public static CleaningServiceError MatchCleaningServiceError =>
-            new CleaningServiceError("Edit Cleaning Service Error", "Can not find cleaning service", 1);
+            new CleaningServiceError("Edit Cleaning Service Error", "Can not find cleaning service", 1);        public static CleaningServiceError AddServiceToProvider =>
+            new CleaningServiceError("Add Service To Provider Error", "Can not add service to provider's service list", 2);        
+        public static CleaningServiceError InvaidServiceId =>
+            new CleaningServiceError("Invalid Cleaning Service Id Error", "Ivalid service Id", 3);   
+        public static CleaningServiceError ServiceAlreadyAdded =>
+            new CleaningServiceError("Service Already Added Error", "This service is already added to your services list", 4);
     }
 }
