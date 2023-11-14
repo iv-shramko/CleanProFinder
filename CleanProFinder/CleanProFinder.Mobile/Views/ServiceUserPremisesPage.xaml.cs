@@ -9,4 +9,14 @@ public partial class ServiceUserPremisesPage : ContentPage
 		InitializeComponent();
 		BindingContext = viewModel;
 	}
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        if (BindingContext is ServiceUserPremisesViewModel viewModel)
+        {
+            viewModel.IsRefreshing = true;
+        }
+    }
 }

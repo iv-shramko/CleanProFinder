@@ -5,8 +5,8 @@ namespace CleanProFinder.Mobile.Services;
 
 public class UserProfileService : IUserProfileService
 {
-    private const string EditServiceUserProfileInfoEndpoint = "api/profile/service-user/info";
-    private const string EditServiceProviderProfileInfoEndpoint = "api/Profile/service-provider/info";
+    private const string GetServiceUserProfileInfoEndpoint = "api/profile/service-user/info";
+    private const string GetServiceProviderProfileInfoEndpoint = "api/Profile/service-provider/info";
     private const string EditServiceUserProfileEndpoint = "api/profile/service-user/edit";
     private const string EditServiceProviderProfileEndpoint = "api/profile/service-provider/edit";
 
@@ -19,12 +19,12 @@ public class UserProfileService : IUserProfileService
 
     public async Task<ServiceResponse<UserProfileViewInfoDto>> GetServiceUserProfileAsync()
     {
-        return await _httpService.SendAsync<UserProfileViewInfoDto>(HttpMethod.Get, EditServiceUserProfileInfoEndpoint);
+        return await _httpService.SendAsync<UserProfileViewInfoDto>(HttpMethod.Get, GetServiceUserProfileInfoEndpoint);
     }
 
     public async Task<ServiceResponse<ProviderProfileViewInfoDto>> GetServiceProviderProfileAsync()
     {
-        return await _httpService.SendAsync<ProviderProfileViewInfoDto>(HttpMethod.Get, EditServiceProviderProfileInfoEndpoint);
+        return await _httpService.SendAsync<ProviderProfileViewInfoDto>(HttpMethod.Get, GetServiceProviderProfileInfoEndpoint);
     }
 
     public async Task<ServiceResponse> EditServiceUserProfileAsync(string firstName, string lastName, string phoneNumber)

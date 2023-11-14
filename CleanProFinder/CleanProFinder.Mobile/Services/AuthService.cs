@@ -2,7 +2,9 @@
 using CleanProFinder.Shared.ServiceResponseHandling;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using CleanProFinder.Mobile.Messages;
 using CleanProFinder.Shared.Helpers;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace CleanProFinder.Mobile.Services;
 
@@ -14,6 +16,7 @@ public class AuthService : IAuthService
 
     private readonly IHttpService _httpService;
 
+    private bool _isAuthenticated;
     private string _userRole;
 
     public AuthService(IHttpService httpService)
@@ -21,7 +24,16 @@ public class AuthService : IAuthService
         _httpService = httpService;
     }
 
-    public bool IsAuthenticated { get; private set; }
+    public bool IsAuthenticated
+    {
+        get => _isAuthenticated;
+        private set
+        {
+            _isAuthenticated = value;
+            WeakReferenceMessenger.Default.Send(new UserAuthenticatedMessage(_isAuthenticated));
+        }
+    }
+
     public bool IsServiceUser => _userRole == Roles.ServiceUser;
 
     public void Initialize()
