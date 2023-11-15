@@ -43,7 +43,7 @@ public partial class ServiceProviderProfileViewModel : ObservableObject
         IsEditing = true;
     }
 
-    public async void LoadProfile()
+    public async Task LoadProfile()
     {
         var response = await _userProfileService.GetServiceProviderProfileAsync();
 

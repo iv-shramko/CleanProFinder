@@ -65,7 +65,7 @@ public partial class ServiceProviderStartingViewModel : ObservableObject
     }
 
     [ObservableProperty]
-    ObservableCollection<ServiceProviderStartingMockData> _premises;
+    private ObservableCollection<ServiceProviderStartingMockData> _premises;
 
     [ObservableProperty]
     private string _searchQuery;
