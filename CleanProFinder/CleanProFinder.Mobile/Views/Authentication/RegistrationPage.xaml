@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CleanProFinder.Mobile.Views.Authentication.RegistrationPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:authentication="clr-namespace:CleanProFinder.Mobile.ViewModels.Authentication"
+    Title="RegistrationPage"
+    x:DataType="authentication:RegistrationViewModel">
+
+    <VerticalStackLayout
+        Padding="10,0,10,0"
+        Spacing="20"
+        VerticalOptions="Center">
+        <Entry
+            FontSize="18"
+            Placeholder="Email"
+            Text="{Binding Email}" />
+        <Entry
+            FontSize="18"
+            IsPassword="True"
+            Placeholder="Password"
+            Text="{Binding Password}" />
+        <Button
+            Command="{Binding SignUpCommand}"
+            FontSize="18"
+            Text="Register" />
+    </VerticalStackLayout>
+</ContentPage>

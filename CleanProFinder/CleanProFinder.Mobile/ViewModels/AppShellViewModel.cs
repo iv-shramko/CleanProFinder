@@ -1,7 +1,6 @@
 ﻿using CleanProFinder.Mobile.Messages;
-using CleanProFinder.Mobile.Services;
+using CleanProFinder.Mobile.Services.Interfaces;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 
 namespace CleanProFinder.Mobile.ViewModels;

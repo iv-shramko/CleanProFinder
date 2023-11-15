@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CleanProFinder.Mobile.Views.ServiceProvider.Profile.ServiceProviderInitialEditProfilePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:profile="clr-namespace:CleanProFinder.Mobile.ViewModels.ServiceProvider.Profile"
+    Title="Initial Profile"
+    x:DataType="profile:ServiceProviderInitialEditProfileViewModel"
+    Background="{StaticResource Secondary}">
+
+    <ContentPage.Resources>
+        <Style x:Key="entryGreenStyle" TargetType="Entry">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="TextColor" Value="{StaticResource Tertiary}" />
+            <Setter Property="PlaceholderColor" Value="{StaticResource Primary}" />
+        </Style>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <VerticalStackLayout
+            Padding="10,0,10,0"
+            Spacing="20"
+            VerticalOptions="Center">
+            <Entry
+                Placeholder="Service Provider Name"
+                Style="{StaticResource entryGreenStyle}"
+                Text="{Binding Name}" />
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <Image
+                    HeightRequest="150"
+                    Source="{Binding LogoImage.Source}"
+                    WidthRequest="150" />
+                <Button
+                    Margin="30,0,0,0"
+                    Command="{Binding AddLogoImageCommand}"
+                    FontAttributes="Bold"
+                    FontFamily="OpenSans"
+                    FontSize="20"
+                    HeightRequest="45"
+                    Text="Add logo image"
+                    VerticalOptions="Center" />
+            </HorizontalStackLayout>
+            <Entry
+                Keyboard="Numeric"
+                Placeholder="Phone Number"
+                Style="{StaticResource entryGreenStyle}"
+                Text="{Binding PhoneNumber}" />
+            <Entry
+                Placeholder="Website Url"
+                Style="{StaticResource entryGreenStyle}"
+                Text="{Binding WebsiteUrl}" />
+            <Button
+                Background="{StaticResource Primary}"
+                Command="{Binding UpdateProfileCommand}"
+                FontAttributes="Bold"
+                FontFamily="OpenSans"
+                FontSize="20"
+                Text="Update Profile"
+                TextColor="White" />
+        </VerticalStackLayout>
+    </ContentPage.Content>
+</ContentPage>
