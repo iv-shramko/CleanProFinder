@@ -3,8 +3,13 @@
     x:Class="CleanProFinder.Mobile.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:authentication="clr-namespace:CleanProFinder.Mobile.Views.Authentication"
+    xmlns:premises="clr-namespace:CleanProFinder.Mobile.Views.ServiceUser.Premises"
+    xmlns:profile="clr-namespace:CleanProFinder.Mobile.Views.ServiceProvider.Profile"
+    xmlns:profile1="clr-namespace:CleanProFinder.Mobile.Views.ServiceUser.Profile"
+    xmlns:serviceProvider="clr-namespace:CleanProFinder.Mobile.Views.ServiceProvider"
+    xmlns:serviceUser="clr-namespace:CleanProFinder.Mobile.Views.ServiceUser"
     xmlns:viewModels="clr-namespace:CleanProFinder.Mobile.ViewModels"
-    xmlns:views="clr-namespace:CleanProFinder.Mobile.Views"
     x:DataType="viewModels:AppShellViewModel"
     FlyoutBehavior="Disabled">
 
@@ -29,17 +34,17 @@
     <TabBar IsVisible="{Binding IsServiceUserTabBarVisible}">
         <ShellContent
             Title="Home"
-            ContentTemplate="{DataTemplate views:ServiceUserStartingPage}"
+            ContentTemplate="{DataTemplate serviceUser:ServiceUserStartingPage}"
             Icon="home.svg"
             Route="ServiceUserStartingPage" />
         <ShellContent
             Title="Profile"
-            ContentTemplate="{DataTemplate views:ServiceUserProfilePage}"
+            ContentTemplate="{DataTemplate profile1:ServiceUserProfilePage}"
             Icon="profile.svg"
             Route="ServiceUserProfilePage" />
         <ShellContent
             Title="Premises"
-            ContentTemplate="{DataTemplate views:ServiceUserPremisesPage}"
+            ContentTemplate="{DataTemplate premises:ServiceUserPremisesPage}"
             Icon="home.svg"
             IsVisible="{Binding IsServiceUserTabBarVisible}"
             Route="ServiceUserPremiseListPage" />
@@ -48,18 +53,18 @@
     <TabBar IsVisible="{Binding IsServiceProviderTabBarVisible}">
         <ShellContent
             Title="Home"
-            ContentTemplate="{DataTemplate views:ServiceProviderStartingPage}"
+            ContentTemplate="{DataTemplate serviceProvider:ServiceProviderStartingPage}"
             Icon="home.svg"
             Route="ServiceProviderStartingPage" />
         <ShellContent
             Title="Profile"
-            ContentTemplate="{DataTemplate views:ServiceProviderProfilePage}"
+            ContentTemplate="{DataTemplate profile:ServiceProviderProfilePage}"
             Icon="profile.svg"
             Route="ServiceProviderProfilePage" />
     </TabBar>
 
     <TabBar>
-        <ShellContent ContentTemplate="{DataTemplate views:RolePage}" Route="RolePage" />
+        <ShellContent ContentTemplate="{DataTemplate authentication:RolePage}" Route="RolePage" />
     </TabBar>
 
 </Shell>

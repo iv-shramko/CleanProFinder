@@ -1,5 +1,8 @@
 ﻿using CleanProFinder.Mobile.ViewModels;
-using CleanProFinder.Mobile.Views;
+using CleanProFinder.Mobile.Views.Authentication;
+using CleanProFinder.Mobile.Views.ServiceProvider.Profile;
+using CleanProFinder.Mobile.Views.ServiceUser.Premises;
+using CleanProFinder.Mobile.Views.ServiceUser.Profile;
 
 namespace CleanProFinder.Mobile
 {

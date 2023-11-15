@@ -1,4 +1,4 @@
-﻿using CleanProFinder.Mobile.Services;
+﻿using CleanProFinder.Mobile.Services.Interfaces;
 using CleanProFinder.Mobile.ViewModels;
 
 namespace CleanProFinder.Mobile
