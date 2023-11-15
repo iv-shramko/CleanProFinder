@@ -3,6 +3,7 @@ using CleanProFinder.Server.Controllers.Base;
 using CleanProFinder.Server.Features.Account;
 using CleanProFinder.Server.Features.Profile;
 using CleanProFinder.Shared.Dto.Account;
+using CleanProFinder.Shared.Dto.CleaningServices;
 using CleanProFinder.Shared.Dto.Error;
 using CleanProFinder.Shared.Dto.Profile;
 using CleanProFinder.Shared.Helpers;
@@ -127,28 +128,23 @@ namespace CleanProFinder.Server.Controllers
         }
 
         /// <summary>
-        /// Add a service to provider's services list.
+        /// Edit provider's services list.
         /// </summary>
-        /// <param name="serviceId">Service id.</param>
-        /// <param name="price">Service price.</param>
+        /// <param name="request">The request to edit provider's services list.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <remarks>
-        /// If the operation is successful, it will return a ProviderProfileDto.
+        /// If the operation is successful, it will return a EditProviderServicesDto.
         /// If there is a bad request, it will return an ErrorDto.
         /// </remarks>
         /// <returns>An IActionResult representing the result of the operation.</returns>
-        [HttpPost("service-provider/add-service")]
+        [HttpPost("service-provider/edit-services")]
         [Authorize(Roles = Roles.ServiceProvider)]
-        [ProducesResponseType(typeof(ProviderProfileDto), 200)]
+        [ProducesResponseType(typeof(EditProviderServicesDto), 200)]
         [ProducesResponseType(typeof(ErrorDto), 400)]
-        public async Task<IActionResult> AddServiceToProvider(Guid serviceId, decimal price,
+        public async Task<IActionResult> AddServiceToProvider(EditProviderServicesCommand request,
             CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new AddServiceToProviderCommand 
-            { 
-                CleaningServiceId = serviceId, 
-                Price = price 
-            }, cancellationToken);
+            var result = await _mediator.Send(request, cancellationToken);
             return ConvertFromServiceResponse(result);
         }
     }

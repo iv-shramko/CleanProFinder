@@ -66,16 +66,13 @@ namespace CleanProFinder.Server.Features.Profile
                 }
 
                 var result = _mapper.Map<ProviderProfileViewInfoDto>(user);
-                result.Services = _context.CleaningServiceProviders
-                    .Where(cSP => cSP.Id == userId)
-                    .SelectMany(cSP => cSP.CleaningServiceServiceProviders
-                    .Select(cSSP => new ProviderServiceFullInfoDto
-                        {
-                            Name = cSSP.CleaningService.Name,
-                            Description = cSSP.CleaningService.Description,
-                            Price = cSSP.Price
-                        }))
-                    .ToList();
+
+                var services = await _context.CleaningServiceServiceProviders
+                    .Where(sD => sD.CleaningServiceProviderId == userId)
+                    .Include(sD => sD.CleaningService)
+                    .ToListAsync(cancellationToken);
+
+                result.Services = _mapper.Map<List<ProviderServiceFullInfoDto>>(services);
 
 
                 return ServiceResponseBuilder.Success(result);
