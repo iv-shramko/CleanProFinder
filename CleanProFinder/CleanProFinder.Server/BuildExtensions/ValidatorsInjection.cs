@@ -3,10 +3,12 @@ using CleanProFinder.Server.Features.CleaningServices;
 using CleanProFinder.Server.Features.Premises;
 using CleanProFinder.Server.Features.Profile;
 using CleanProFinder.Server.Features.Requests;
+using CleanProFinder.Shared.Dto.CleaningServices;
 using CleanProFinder.Shared.Validators.Account;
 using CleanProFinder.Shared.Validators.CleaningServices;
 using CleanProFinder.Shared.Validators.Premises;
 using CleanProFinder.Shared.Validators.Profile;
+using CleanProFinder.Shared.Validators.ProviderServices;
 using CleanProFinder.Shared.Validators.Requests;
 using FluentValidation;
 
@@ -26,6 +28,8 @@ namespace CleanProFinder.Server.BuildExtensions
             services.AddTransient<IValidator<EditPremiseCommand>, EditPremiseCommandValidator>();
             services.AddTransient<IValidator<EditCleaningServiceCommand>, EditCleaningServiceCommandValidator>();
             services.AddTransient<IValidator<CreateRequestCommand>, CreateRequestCommandValidator>();
+            services.AddTransient<IValidator<EditProviderServicesCommand>, EditProviderServicesValidator>();
+            services.AddTransient<IValidator<EditProviderServiceDto>, EditProviderServiceValidator>();
         }
     }
 }

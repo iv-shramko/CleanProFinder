@@ -44,7 +44,7 @@ namespace CleanProFinder.Server.Features.Profile
                 catch (Exception ex)
                 {
                     _logger.LogError(ex, "update provider services error");
-                    return ServiceResponseBuilder.Failure<EditProviderServicesDto>(CleaningServiceError.AddServiceToProvider);
+                    return ServiceResponseBuilder.Failure<EditProviderServicesDto>(CleaningServiceError.EditProviderServices);
                 }
             }
 
