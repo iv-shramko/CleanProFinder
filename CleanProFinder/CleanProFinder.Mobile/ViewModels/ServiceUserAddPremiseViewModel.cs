@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CleanProFinder.Mobile.Services;
-using CleanProFinder.Shared.ServiceResponseHandling;
 using CommunityToolkit.Mvvm.Input;
 
 namespace CleanProFinder.Mobile.ViewModels;
@@ -20,16 +19,16 @@ public partial class ServiceUserAddPremiseViewModel : ObservableObject
     private string _address;
 
     [ObservableProperty]
-    private string _square;
+    private float _square;
 
     [ObservableProperty]
     private string _description;
 
     [RelayCommand]
-    private async void AddPremise()
+    private async Task AddPremise()
     {
-        ServiceResponse response = 
-            await _userPremiseService.AddServiceUserPremiseAsync(float.Parse(Square), Description, Address);
+        var response = 
+            await _userPremiseService.AddServiceUserPremiseAsync(Square, Description, Address);
 
         if (response.IsSuccess)
         {

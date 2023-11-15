@@ -6,7 +6,7 @@ using CommunityToolkit.Mvvm.Messaging;
 
 namespace CleanProFinder.Mobile.ViewModels;
 
-public partial class AppShellViewModel : ObservableObject, IRecipient<UserAuthenticatedMessage>
+public partial class AppShellViewModel : ObservableObject, IRecipient<UserRoleAssignedMessage>
 {
     private readonly IAuthService _authService;
 
@@ -17,19 +17,19 @@ public partial class AppShellViewModel : ObservableObject, IRecipient<UserAuthen
     }
 
     [ObservableProperty]
-    private bool _isServiceUserTabVisible = true;
+    private bool _isServiceUserTabBarVisible = true;
 
     [ObservableProperty]
-    private bool _isServiceProviderTabVisible = true;
+    private bool _isServiceProviderTabBarVisible = true;
 
-    public void Receive(UserAuthenticatedMessage message)
+    public void Receive(UserRoleAssignedMessage message)
     {
         SetTabVisibility();
     }
 
     private void SetTabVisibility()
     {
-        IsServiceUserTabVisible = _authService.IsServiceUser;
-        IsServiceProviderTabVisible = !_authService.IsServiceUser;
+        IsServiceUserTabBarVisible = _authService.IsServiceUser;
+        IsServiceProviderTabBarVisible = !_authService.IsServiceUser;
     }
 }

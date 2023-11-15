@@ -12,10 +12,10 @@ public partial class ServiceUserEditPremiseViewModel : ObservableObject
     private readonly IDialogService _dialogService;
     private readonly IUserPremiseService _userPremiseService;
 
-    public ServiceUserEditPremiseViewModel(IDialogService dialogService, IUserPremiseService userPremisesServic)
+    public ServiceUserEditPremiseViewModel(IDialogService dialogService, IUserPremiseService userPremisesService)
     {
         _dialogService = dialogService;
-        _userPremiseService = userPremisesServic;
+        _userPremiseService = userPremisesService;
         IsEditing = false;
     }
 
@@ -35,7 +35,7 @@ public partial class ServiceUserEditPremiseViewModel : ObservableObject
     private string _address;
 
     [ObservableProperty]
-    private string _square;
+    private float _square;
 
     [ObservableProperty]
     private string _description;
@@ -43,26 +43,19 @@ public partial class ServiceUserEditPremiseViewModel : ObservableObject
     [ObservableProperty]
     private bool _isEditing;
 
-    [RelayCommand]
-    private async void StartEditing()
-    {
-        IsEditing = true;
-    }
-
     private async void LoadPremise(string premiseId)
     {
-        Dictionary<string, object> payload = new Dictionary<string, object>
+        var payload = new Dictionary<string, object>
         {
             { "premiseId", premiseId }
         };
 
-        ServiceResponse<OwnPremiseFullInfoDto> response =
-           await _userPremiseService.GetServiceUserPremiseAsync(payload);
+        var response = await _userPremiseService.GetServiceUserPremiseAsync(payload);
 
         if (response.IsSuccess)
         {
             Address = response.Result.Address;
-            Square = response.Result.Square.ToString();
+            Square = response.Result.Square;
             Description = response.Result.Description;
             return;
         }
@@ -71,14 +64,21 @@ public partial class ServiceUserEditPremiseViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async void EditPremise()
+    private void StartEditing()
     {
-        ServiceResponse response = 
-            await _userPremiseService.EditServiceUserPremiseAsync(Guid.Parse(PremiseId), float.Parse(Square), Description, Address);
+        IsEditing = true;
+    }
+
+    [RelayCommand]
+    private async Task EditPremise()
+    {
+        var response =
+            await _userPremiseService.EditServiceUserPremiseAsync(Guid.Parse(PremiseId), Square, Description, Address);
 
         if (response.IsSuccess)
         {
-            await _dialogService.ShowAlertAsync("Updating Premise Succeeded", String.Empty, "Ok");
+            await _dialogService.ShowAlertAsync("Updating Premise Succeeded",
+                "You have successfully updated your premise.", "Ok");
             IsEditing = false;
             return;
         }
@@ -87,15 +87,14 @@ public partial class ServiceUserEditPremiseViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async void DeletePremise()
+    private async Task DeletePremise()
     {
-        Dictionary<string, object> payload = new Dictionary<string, object>
+        var payload = new Dictionary<string, object>
         {
             { "premiseId", PremiseId }
         };
 
-        ServiceResponse response =
-           await _userPremiseService.DeleteServiceUserPremiseAsync(payload);
+        var response = await _userPremiseService.DeleteServiceUserPremiseAsync(payload);
 
         if (response.IsSuccess)
         {

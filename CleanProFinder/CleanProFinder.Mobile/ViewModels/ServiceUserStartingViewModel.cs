@@ -18,7 +18,7 @@ public partial class ServiceUserStartingViewModel : ObservableObject
     }
 
     [ObservableProperty]
-    ObservableCollection<ProviderPreviewDto> _serviceProviders;
+    private ObservableCollection<ProviderPreviewDto> _serviceProviders;
 
     [ObservableProperty]
     private bool _isRefreshing;
@@ -27,7 +27,7 @@ public partial class ServiceUserStartingViewModel : ObservableObject
     private string _searchQuery;
 
     [RelayCommand]
-    private async void LoadServiceProviders()
+    private async Task LoadServiceProviders()
     {
         IsRefreshing = true;
 

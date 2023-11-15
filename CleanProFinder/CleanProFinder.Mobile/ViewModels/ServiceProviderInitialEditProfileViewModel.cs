@@ -1,33 +1,23 @@
 ﻿using CleanProFinder.Mobile.Services;
-using CleanProFinder.Shared.ServiceResponseHandling;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 namespace CleanProFinder.Mobile.ViewModels;
 
-[QueryProperty(nameof(IsServiceUser), nameof(IsServiceUser))]
-public partial class InitialEditProfileViewModel : ObservableObject
+public partial class ServiceProviderInitialEditProfileViewModel : ObservableObject
 {
     private readonly IDialogService _dialogService;
     private readonly IUserProfileService _userProfileService;
 
-    public InitialEditProfileViewModel(IDialogService dialogService, IUserProfileService userProfileService)
+    public ServiceProviderInitialEditProfileViewModel(IDialogService dialogService,
+        IUserProfileService userProfileService)
     {
         _dialogService = dialogService;
         _userProfileService = userProfileService;
     }
 
     [ObservableProperty]
-    private bool _isServiceUser;
-
-    [ObservableProperty]
-    private string _firstName;
-
-    [ObservableProperty]
-    private string _lastName;
-
-    [ObservableProperty]
-    private string _serviceProviderName;
+    private string _name;
 
     [ObservableProperty]
     private string _phoneNumber;
@@ -39,7 +29,7 @@ public partial class InitialEditProfileViewModel : ObservableObject
     private Image _logoImage = new() { Source = "photo_placeholder.svg" };
 
     [RelayCommand]
-    public async void AddLogoImage()
+    private async Task AddLogoImage()
     {
         var result = await FilePicker.PickAsync(new PickOptions
         {
@@ -60,24 +50,14 @@ public partial class InitialEditProfileViewModel : ObservableObject
     }
 
     [RelayCommand]
-    public async void UpdateProfile()
+    private async Task UpdateProfile()
     {
-        ServiceResponse response;
-
-        if (IsServiceUser)
-        {
-            response = await _userProfileService.EditServiceUserProfileAsync(FirstName, LastName, PhoneNumber);
-        }
-        else
-        {
-            response = await _userProfileService.EditServiceProviderProfileAsync(ServiceProviderName, String.Empty, PhoneNumber, WebsiteUrl);
-        }
+        var response =
+            await _userProfileService.EditServiceProviderProfileAsync(Name, string.Empty, PhoneNumber, WebsiteUrl);
 
         if (response.IsSuccess)
         {
-            await Shell.Current.GoToAsync(IsServiceUser
-                ? "//ServiceUserStartingPage"
-                : "//ServiceProviderStartingPage");
+            await Shell.Current.GoToAsync("//ServiceProviderStartingPage");
             return;
         }
 

@@ -3,7 +3,6 @@
     x:Class="CleanProFinder.Mobile.Views.ServiceUserAddPremisePage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:CleanProFinder.Mobile.ViewModels"
     Title="Add Premise"
     x:DataType="viewmodel:ServiceUserAddPremiseViewModel"

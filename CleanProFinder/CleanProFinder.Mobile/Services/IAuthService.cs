@@ -13,4 +13,5 @@ public interface IAuthService
     Task<ServiceResponse<SignUpResultDto>> SignUpServiceProviderAsync(string email, string password);
     Task<ServiceResponse<SignInResultDto>> SignInAsync(string email, string password);
     Task SaveCurrentUserAsync(string bearerToken);
+    void Logout();
 }

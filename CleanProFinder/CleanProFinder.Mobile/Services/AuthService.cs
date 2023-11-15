@@ -16,7 +16,6 @@ public class AuthService : IAuthService
 
     private readonly IHttpService _httpService;
 
-    private bool _isAuthenticated;
     private string _userRole;
 
     public AuthService(IHttpService httpService)
@@ -24,17 +23,18 @@ public class AuthService : IAuthService
         _httpService = httpService;
     }
 
-    public bool IsAuthenticated
+    private string UserRole
     {
-        get => _isAuthenticated;
-        private set
+        get => _userRole;
+        set
         {
-            _isAuthenticated = value;
-            WeakReferenceMessenger.Default.Send(new UserAuthenticatedMessage(_isAuthenticated));
+            _userRole = value;
+            WeakReferenceMessenger.Default.Send(new UserRoleAssignedMessage(IsServiceUser));
         }
     }
 
-    public bool IsServiceUser => _userRole == Roles.ServiceUser;
+    public bool IsAuthenticated { get; private set; }
+    public bool IsServiceUser => UserRole == Roles.ServiceUser;
 
     public void Initialize()
     {
@@ -106,7 +106,13 @@ public class AuthService : IAuthService
         await SecureStorage.SetAsync("BearerToken", bearerToken);
         _httpService.SetAuthorizationHeader(bearerToken);
         IsAuthenticated = true;
-        _userRole = GetUserRoleFromBearer(bearerToken);
+        UserRole = GetUserRoleFromBearer(bearerToken);
+    }
+
+    public void Logout()
+    {
+        SecureStorage.RemoveAll();
+        IsAuthenticated = false;
     }
 
     private string GetUserRoleFromBearer(string bearerToken)

@@ -1,10 +1,9 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CleanProFinder.Mobile.Services;
+using CleanProFinder.Mobile.Views;
+using CleanProFinder.Shared.Dto.Premises;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
-using CleanProFinder.Mobile.Views;
-using CleanProFinder.Mobile.Services;
-using CleanProFinder.Shared.ServiceResponseHandling;
-using CleanProFinder.Shared.Dto.Premises;
 
 namespace CleanProFinder.Mobile.ViewModels;
 
@@ -13,10 +12,10 @@ public partial class ServiceUserPremisesViewModel : ObservableObject
     private readonly IDialogService _dialogService;
     private readonly IUserPremiseService _userPremiseService;
 
-    public ServiceUserPremisesViewModel(IDialogService dialogService, IUserPremiseService userPremisesServic)
+    public ServiceUserPremisesViewModel(IDialogService dialogService, IUserPremiseService userPremisesService)
     {
         _dialogService = dialogService;
-        _userPremiseService = userPremisesServic;
+        _userPremiseService = userPremisesService;
         IsRefreshing = true;
     }
 
@@ -33,12 +32,11 @@ public partial class ServiceUserPremisesViewModel : ObservableObject
     private bool _isRefreshing;
 
     [RelayCommand]
-    private async void LoadPremises()
+    private async Task LoadPremises()
     {
         IsRefreshing = true;
 
-        ServiceResponse<IEnumerable<OwnPremiseShortInfoDto>> response =
-            await _userPremiseService.GetServiceUserPremisesAsync();
+        var response = await _userPremiseService.GetServiceUserPremisesAsync();
         
         if (response.IsSuccess)
         {
@@ -55,7 +53,8 @@ public partial class ServiceUserPremisesViewModel : ObservableObject
     [RelayCommand]
     private async Task EditPremise(OwnPremiseShortInfoDto premise)
     {
-        await Shell.Current.GoToAsync($"{nameof(ServiceUserEditPremisePage)}?{nameof(ServiceUserEditPremiseViewModel.PremiseId)}={premise.Id}");
+        await Shell.Current.GoToAsync(
+            $"{nameof(ServiceUserEditPremisePage)}?{nameof(ServiceUserEditPremiseViewModel.PremiseId)}={premise.Id}");
     }
 
     [RelayCommand]

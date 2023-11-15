@@ -56,11 +56,17 @@ namespace CleanProFinder.Mobile
             builder.Services.AddTransient<ServiceProviderStartingPage>();
             builder.Services.AddTransient<ServiceProviderStartingViewModel>();
 
-            builder.Services.AddTransient<InitialEditProfilePage>();
-            builder.Services.AddTransient<InitialEditProfileViewModel>();
+            builder.Services.AddTransient<ServiceUserInitialEditProfilePage>();
+            builder.Services.AddTransient<ServiceUserInitialEditProfileViewModel>();
 
-            builder.Services.AddTransient<EditProfilePage>();
-            builder.Services.AddTransient<EditProfileViewModel>();
+            builder.Services.AddTransient<ServiceProviderInitialEditProfilePage>();
+            builder.Services.AddTransient<ServiceProviderInitialEditProfileViewModel>();
+
+            builder.Services.AddTransient<ServiceProviderProfilePage>();
+            builder.Services.AddTransient<ServiceProviderProfileViewModel>();
+
+            builder.Services.AddTransient<ServiceUserProfilePage>();
+            builder.Services.AddTransient<ServiceUserProfileViewModel>();
           
             builder.Services.AddTransient<ServiceUserPremisesPage>();
             builder.Services.AddTransient<ServiceUserPremisesViewModel>();
