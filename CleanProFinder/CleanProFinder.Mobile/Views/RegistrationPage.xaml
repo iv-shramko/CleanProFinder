@@ -23,6 +23,7 @@
                     Text="{Binding Password}" />
             </Border>
             <Button
+                Margin="10,15,10,0"
                 Command="{Binding SignUpCommand}"
                 Style="{StaticResource buttonStyle}"
                 Text="Sign up"

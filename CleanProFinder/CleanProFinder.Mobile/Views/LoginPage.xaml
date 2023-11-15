@@ -24,6 +24,7 @@
                         Text="{Binding Password}" />
                 </Border>
                 <Button
+                    Margin="10,15,10,0"
                     Command="{Binding LoginCommand}"
                     Style="{StaticResource buttonStyle}"
                     Text="Log in"
