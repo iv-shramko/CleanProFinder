@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CleanProFinder.Shared.Dto.CleaningServices;
+using System;
 using System.Collections.Generic;
 using System.Text;
 

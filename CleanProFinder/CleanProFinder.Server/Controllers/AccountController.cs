@@ -58,6 +58,7 @@ namespace CleanProFinder.Server.Controllers
             return ConvertFromServiceResponse(result);
         }
         
+        /// <summary>
         /// Perform user login
         /// </summary>
         /// <param name="request">The request to perform user login</param>
