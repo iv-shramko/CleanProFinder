@@ -3,7 +3,6 @@
     x:Class="CleanProFinder.Mobile.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:behaviors="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewModels="clr-namespace:CleanProFinder.Mobile.ViewModels"
     xmlns:views="clr-namespace:CleanProFinder.Mobile.Views"
     x:DataType="viewModels:AppShellViewModel"
@@ -27,30 +26,36 @@
         </ResourceDictionary>
     </Shell.Resources>
 
-    <TabBar>
+    <TabBar IsVisible="{Binding IsServiceUserTabBarVisible}">
         <ShellContent
             Title="Home"
             ContentTemplate="{DataTemplate views:ServiceUserStartingPage}"
             Icon="home.svg"
-            IsVisible="{Binding IsServiceUserTabVisible}"
             Route="ServiceUserStartingPage" />
         <ShellContent
-            Title="Home"
-            ContentTemplate="{DataTemplate views:ServiceProviderStartingPage}"
-            Icon="home.svg"
-            IsVisible="{Binding IsServiceProviderTabVisible}"
-            Route="ServiceProviderStartingPage" />
-        <ShellContent
             Title="Profile"
-            ContentTemplate="{DataTemplate views:EditProfilePage}"
+            ContentTemplate="{DataTemplate views:ServiceUserProfilePage}"
             Icon="profile.svg"
-            Route="EditProfilePage" />
+            Route="ServiceUserProfilePage" />
         <ShellContent
             Title="Premises"
             ContentTemplate="{DataTemplate views:ServiceUserPremisesPage}"
             Icon="home.svg"
-            IsVisible="{Binding IsServiceUserTabVisible}"
+            IsVisible="{Binding IsServiceUserTabBarVisible}"
             Route="ServiceUserPremiseListPage" />
+    </TabBar>
+
+    <TabBar IsVisible="{Binding IsServiceProviderTabBarVisible}">
+        <ShellContent
+            Title="Home"
+            ContentTemplate="{DataTemplate views:ServiceProviderStartingPage}"
+            Icon="home.svg"
+            Route="ServiceProviderStartingPage" />
+        <ShellContent
+            Title="Profile"
+            ContentTemplate="{DataTemplate views:ServiceProviderProfilePage}"
+            Icon="profile.svg"
+            Route="ServiceProviderProfilePage" />
     </TabBar>
 
     <TabBar>

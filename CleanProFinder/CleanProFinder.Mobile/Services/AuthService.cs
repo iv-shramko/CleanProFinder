@@ -109,6 +109,12 @@ public class AuthService : IAuthService
         UserRole = GetUserRoleFromBearer(bearerToken);
     }
 
+    public void Logout()
+    {
+        SecureStorage.RemoveAll();
+        IsAuthenticated = false;
+    }
+
     private string GetUserRoleFromBearer(string bearerToken)
     {
         var jwtHandler = new JwtSecurityTokenHandler();
