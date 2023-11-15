@@ -75,12 +75,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <MauiXaml Update="Views\ServiceProviderInitialEditProfilePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
     <MauiXaml Update="Views\ServiceUserProfilePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Views\RolePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
+    <Compile Update="Views\ServiceProviderInitialEditProfilePage.xaml.cs">
+      <DependentUpon>ServiceProviderInitialEditProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ServiceUserInitialEditProfilePage.xaml.cs">
+      <DependentUpon>ServiceUserInitialEditProfilePage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\ServiceUserProfilePage.xaml.cs">
       <DependentUpon>ServiceUserProfilePage.xaml</DependentUpon>
     </Compile>

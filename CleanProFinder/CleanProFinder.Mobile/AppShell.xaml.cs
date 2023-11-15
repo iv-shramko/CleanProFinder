@@ -12,7 +12,8 @@ namespace CleanProFinder.Mobile
 
             Routing.RegisterRoute(nameof(RegistrationPage), typeof(RegistrationPage));
             Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
-            Routing.RegisterRoute(nameof(InitialEditProfilePage), typeof(InitialEditProfilePage));
+            Routing.RegisterRoute(nameof(ServiceUserInitialEditProfilePage), typeof(ServiceUserInitialEditProfilePage));
+            Routing.RegisterRoute(nameof(ServiceProviderInitialEditProfilePage), typeof(ServiceProviderInitialEditProfilePage));
             Routing.RegisterRoute(nameof(ServiceUserAddPremisePage), typeof(ServiceUserAddPremisePage));
             Routing.RegisterRoute(nameof(ServiceUserEditPremisePage), typeof(ServiceUserEditPremisePage));
         }

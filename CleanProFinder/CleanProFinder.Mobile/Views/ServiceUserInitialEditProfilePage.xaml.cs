@@ -1,9 +1,10 @@
 ﻿using CleanProFinder.Mobile.ViewModels;
+
 namespace CleanProFinder.Mobile.Views;
 
-public partial class InitialEditProfilePage : ContentPage
+public partial class ServiceUserInitialEditProfilePage : ContentPage
 {
-    public InitialEditProfilePage(InitialEditProfileViewModel viewModel)
+    public ServiceUserInitialEditProfilePage(ServiceUserInitialEditProfileViewModel viewModel)
     {
         InitializeComponent();
         BindingContext = viewModel;
