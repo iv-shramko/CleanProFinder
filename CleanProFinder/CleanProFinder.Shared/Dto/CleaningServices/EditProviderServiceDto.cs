@@ -7,6 +7,6 @@ namespace CleanProFinder.Shared.Dto.CleaningServices
     public class EditProviderServiceDto
     {   
         public Guid CleaningServiceId { get; set; }
-        public decimal Price { get; set; }
+        public int Price { get; set; }
     }
 }
