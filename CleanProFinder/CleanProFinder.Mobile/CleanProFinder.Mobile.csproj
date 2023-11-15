@@ -75,31 +75,49 @@
   </ItemGroup>
 
   <ItemGroup>
-    <MauiXaml Update="Views\EditProfilePage.xaml">
+    <MauiXaml Update="Views\ServiceProvider\Profile\ServiceProviderInitialEditProfilePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
-    <MauiXaml Update="Views\RolePage.xaml">
+    <MauiXaml Update="Views\ServiceUser\Profile\ServiceUserProfilePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
-    <Compile Update="Views\ServiceUserPremisesPage.xaml.cs">
+    <MauiXaml Update="Views\Authentication\RolePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <Compile Update="Views\ServiceProvider\Profile\ServiceProviderInitialEditProfilePage.xaml.cs">
+      <DependentUpon>ServiceProviderInitialEditProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ServiceUser\Profile\ServiceUserInitialEditProfilePage.xaml.cs">
+      <DependentUpon>ServiceUserInitialEditProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ServiceUser\Profile\ServiceUserProfilePage.xaml.cs">
+      <DependentUpon>ServiceUserProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ServiceProvider\Profile\ServiceProviderProfilePage.xaml.cs">
+      <DependentUpon>ServiceProviderProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ServiceUser\Premises\ServiceUserPremisesPage.xaml.cs">
       <DependentUpon>ServiceUserPremisesPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
 	<ItemGroup>
-	<MauiXaml Update="Views\RolePage.xaml">
+	<MauiXaml Update="Views\Authentication\RolePage.xaml">
 	  <Generator>MSBuild:Compile</Generator>
 	</MauiXaml>
-	<MauiXaml Update="Views\ServiceUserAddPremisePage.xaml">
+	<MauiXaml Update="Views\ServiceProvider\Profile\ServiceProviderProfilePage.xaml">
 	  <Generator>MSBuild:Compile</Generator>
 	</MauiXaml>
-	<MauiXaml Update="Views\ServiceUserEditPremisePage.xaml">
+	<MauiXaml Update="Views\ServiceUser\Premises\ServiceUserAddPremisePage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</MauiXaml>
+	<MauiXaml Update="Views\ServiceUser\Premises\ServiceUserEditPremisePage.xaml">
 	  <Generator>MSBuild:Compile</Generator>
 	</MauiXaml>
     <MauiXaml Update="Views\CustomerStartingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
-    <MauiXaml Update="Views\ServiceProviderStartingPage.xaml">
+    <MauiXaml Update="Views\ServiceProvider\ServiceProviderStartingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
   </ItemGroup>
