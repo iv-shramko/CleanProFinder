@@ -17,11 +17,11 @@ namespace CleanProFinder.Server.Mapper
 
             CreateMap<CleaningServiceServiceProvider, ProviderServiceFullInfoDto>()
                 .ForMember(pS => pS.Name, otp => otp.MapFrom(src => src.CleaningService.Name))
-                .ForMember(pS => pS.Description, otp => otp.MapFrom(src => src.CleaningService.Description))
                 .ForMember(pS => pS.Price, otp => otp.MapFrom(src => src.Price));
 
             CreateMap<EditProviderServiceDto, CleaningServiceServiceProvider >()
                 .ForMember(cSSP => cSSP.CleaningServiceId, otp => otp.MapFrom(src => src.CleaningServiceId))
+                 .ForMember(pS => pS.Description, otp => otp.MapFrom(src => src.Description))
                 .ForMember(cSSP => cSSP.Price, otp => otp.MapFrom(src => src.Price));
             CreateMap<CreateCleaningServiceCommand, CleaningService>();
             CreateMap<EditCleaningServiceCommand, CleaningService>();
