@@ -4,37 +4,35 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewmodel="clr-namespace:CleanProFinder.Mobile.ViewModels"
-    Title="RolePage"
-    x:DataType="viewmodel:RoleViewModel">
+    Title=""
+    x:DataType="viewmodel:RoleViewModel"
+    Background="{StaticResource Secondary}">
 
-    <VerticalStackLayout
-        HorizontalOptions="CenterAndExpand"
-        Spacing="20"
-        VerticalOptions="CenterAndExpand">
-        <Label
-            FontSize="20"
-            HorizontalOptions="Center"
-            Text="Create new account as:" />
-        <VerticalStackLayout Padding="20,0" Spacing="20">
+    <Grid RowDefinitions="150, auto">
+        <Label Style="{StaticResource Key=labelTitleStyle}" Text="Create new account as" />
+        <VerticalStackLayout Grid.Row="1" Spacing="10">
             <Button
                 Command="{Binding SignUpAsServiceUserCommand}"
-                FontSize="18"
                 HorizontalOptions="FillAndExpand"
-                Text="Customer" />
+                Style="{StaticResource buttonStyle}"
+                Text="Customer"
+                TextColor="White" />
             <Button
                 Command="{Binding SignUpAsServiceProviderCommand}"
-                FontSize="18"
                 HorizontalOptions="FillAndExpand"
-                Text="Service Provider" />
+                Style="{StaticResource buttonStyle}"
+                Text="Service Provider"
+                TextColor="White" />
             <Label
-                FontSize="18"
-                HorizontalOptions="Center"
+                Margin="80,20,80,20"
+                Style="{StaticResource labelTitleStyle}"
                 Text="Already registered?" />
             <Button
                 Command="{Binding SignInCommand}"
-                FontSize="18"
                 HorizontalOptions="FillAndExpand"
-                Text="Sign in" />
+                Style="{StaticResource buttonStyle}"
+                Text="Log in"
+                TextColor="White" />
         </VerticalStackLayout>
-    </VerticalStackLayout>
+    </Grid>
 </ContentPage>
