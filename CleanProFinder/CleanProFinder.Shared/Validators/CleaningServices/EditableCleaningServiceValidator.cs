@@ -8,7 +8,6 @@ namespace CleanProFinder.Shared.Validators.CleaningServices
         public EditableCleaningServiceValidator()
         {
             RuleFor(s => s.Name).NotEmpty();
-            RuleFor(s => s.Description).NotEmpty();
         }
     }
 }

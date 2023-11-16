@@ -10,6 +10,10 @@ namespace CleanProFinder.Shared.Validators.ProviderServices
     {
         public EditProviderServiceValidator()
         {
+            RuleFor(pS => pS.Description)
+                .NotNull()
+                .NotEmpty();
+
             RuleFor(pS => pS.Price)
                 .GreaterThan(0);
         }
