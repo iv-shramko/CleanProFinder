@@ -8,5 +8,7 @@ namespace CleanProFinder.Shared.Errors.ServiceErrors
             :base(header, message, code) { }
 
         public static RequestError InvalidPremise => new RequestError("Request error", "Invalid premise", 1);
+        public static RequestError InvalidId => new RequestError("Request error", "Invalid request id", 2);
+
     }
 }
