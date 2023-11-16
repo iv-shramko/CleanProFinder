@@ -33,7 +33,7 @@ namespace CleanProFinder.Server.Controllers
         /// </remarks>
         /// <returns>An IActionResult representing the result of the operation.</returns>
         [HttpPost("create")]
-        [Authorize(Roles = Roles.Administrator)]
+        //[Authorize(Roles = Roles.Administrator)]
         [ProducesResponseType(typeof(CleaningServiceDto), 200)]
         [ProducesResponseType(typeof(ErrorDto), 400)]
         public async Task<IActionResult> CreateService(CreateCleaningServiceCommand request, CancellationToken cancellationToken)
@@ -53,7 +53,7 @@ namespace CleanProFinder.Server.Controllers
         /// </remarks>
         /// <returns>An IActionResult representing the result of the operation.</returns>
         [HttpPost("edit")]
-        [Authorize(Roles = Roles.Administrator)]
+        //[Authorize(Roles = Roles.Administrator)]
         [ProducesResponseType(typeof(CleaningServiceDto), 200)]
         [ProducesResponseType(typeof(ErrorDto), 400)]
         public async Task<IActionResult> EditService(EditCleaningServiceCommand request, CancellationToken cancellationToken)
@@ -72,7 +72,6 @@ namespace CleanProFinder.Server.Controllers
         /// </remarks>
         /// <returns>An IActionResult representing the result of the operation.</returns>
         [HttpGet("services")]
-        [Authorize(Roles = Roles.ServiceProvider)]
         [ProducesResponseType(typeof(List<CleaningServiceDto>), 200)]
         [ProducesResponseType(typeof(ErrorDto), 400)]
         public async Task<IActionResult> GetServices(CancellationToken cancellationToken)
@@ -92,7 +91,7 @@ namespace CleanProFinder.Server.Controllers
         /// </remarks>
         /// <returns>An IActionResult representing the result of the operation.</returns>
         [HttpDelete]
-        [Authorize(Roles = Roles.Administrator)]
+        //[Authorize(Roles = Roles.Administrator)]
         [ProducesResponseType(typeof(ErrorDto), 400)]
         public async Task<IActionResult> DeleteCleaningService(Guid serviceId, CancellationToken cancellationToken)
         {

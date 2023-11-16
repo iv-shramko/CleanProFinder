@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CleanProFinder.Mobile.Views.Authentication.LoginPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:authentication="clr-namespace:CleanProFinder.Mobile.ViewModels.Authentication"
+    Title="LoginPage"
+    x:DataType="authentication:LoginViewModel">
+
+    <ContentPage.Content>
+        <Grid RowDefinitions="150, auto">
+            <Label Style="{StaticResource Key=labelTitleStyle}" Text="Log in" />
+            <VerticalStackLayout Grid.Row="1" VerticalOptions="Center">
+                <Label Style="{StaticResource labelPropertyStyle}" Text="Email" />
+                <Border Style="{StaticResource borderStyle}">
+                    <Entry Style="{StaticResource entryStyle}" Text="{Binding Email}" />
+                </Border>
+                <Label Style="{StaticResource labelPropertyStyle}" Text="Password" />
+                <Border Style="{StaticResource borderStyle}">
+                    <Entry
+                        IsPassword="True"
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding Password}" />
+                </Border>
+                <Button
+                    Margin="10,15,10,0"
+                    Command="{Binding LoginCommand}"
+                    Style="{StaticResource buttonStyle}"
+                    Text="Log in"
+                    TextColor="White" />
+            </VerticalStackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

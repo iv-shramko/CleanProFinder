@@ -3,6 +3,7 @@ using CleanProFinder.Server.Controllers.Base;
 using CleanProFinder.Server.Features.Account;
 using CleanProFinder.Server.Features.Profile;
 using CleanProFinder.Shared.Dto.Account;
+using CleanProFinder.Shared.Dto.CleaningServices;
 using CleanProFinder.Shared.Dto.Error;
 using CleanProFinder.Shared.Dto.Profile;
 using CleanProFinder.Shared.Helpers;
@@ -120,6 +121,27 @@ namespace CleanProFinder.Server.Controllers
         [ProducesResponseType(typeof(ProviderProfileDto), 200)]
         [ProducesResponseType(typeof(ErrorDto), 400)]
         public async Task<IActionResult> EditServiceProviderProfile(EditProviderProfileCommand request,
+            CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(request, cancellationToken);
+            return ConvertFromServiceResponse(result);
+        }
+
+        /// <summary>
+        /// Edit provider's services list.
+        /// </summary>
+        /// <param name="request">The request to edit provider's services list.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <remarks>
+        /// If the operation is successful, it will return a EditProviderServicesDto.
+        /// If there is a bad request, it will return an ErrorDto.
+        /// </remarks>
+        /// <returns>An IActionResult representing the result of the operation.</returns>
+        [HttpPost("service-provider/edit-services")]
+        [Authorize(Roles = Roles.ServiceProvider)]
+        [ProducesResponseType(typeof(EditProviderServicesDto), 200)]
+        [ProducesResponseType(typeof(ErrorDto), 400)]
+        public async Task<IActionResult> AddServiceToProvider(EditProviderServicesCommand request,
             CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(request, cancellationToken);

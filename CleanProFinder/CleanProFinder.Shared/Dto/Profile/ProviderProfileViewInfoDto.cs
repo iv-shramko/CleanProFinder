@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CleanProFinder.Shared.Dto.CleaningServices;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -11,6 +12,7 @@ namespace CleanProFinder.Shared.Dto.Profile
         public string PhoneNumber { get; set; }
         public string Site { get; set; }
         public string Email { get; set; }
+        public ICollection<ProviderServiceFullInfoDto> Services { get; set; }
 
     }
 }

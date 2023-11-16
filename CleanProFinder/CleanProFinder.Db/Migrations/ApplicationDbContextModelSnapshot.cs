@@ -121,6 +121,26 @@ namespace CleanProFinder.Db.Migrations
                     b.ToTable("Premises");
                 });
 
+            modelBuilder.Entity("CleanProFinder.Db.Models.Request", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("PremiseId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PremiseId");
+
+                    b.ToTable("Requests");
+                });
+
             modelBuilder.Entity("CleanProFinder.Db.Models.ServiceUser", b =>
                 {
                     b.Property<Guid>("Id")
@@ -142,6 +162,21 @@ namespace CleanProFinder.Db.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ServiceUsers");
+                });
+
+            modelBuilder.Entity("CleaningServiceRequest", b =>
+                {
+                    b.Property<Guid>("RequestId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ServicesId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("RequestId", "ServicesId");
+
+                    b.HasIndex("ServicesId");
+
+                    b.ToTable("CleaningServiceRequest");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -372,6 +407,32 @@ namespace CleanProFinder.Db.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("CleanProFinder.Db.Models.Request", b =>
+                {
+                    b.HasOne("CleanProFinder.Db.Models.Premise", "Premise")
+                        .WithMany()
+                        .HasForeignKey("PremiseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Premise");
+                });
+
+            modelBuilder.Entity("CleaningServiceRequest", b =>
+                {
+                    b.HasOne("CleanProFinder.Db.Models.Request", null)
+                        .WithMany()
+                        .HasForeignKey("RequestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CleanProFinder.Db.Models.CleaningService", null)
+                        .WithMany()
+                        .HasForeignKey("ServicesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

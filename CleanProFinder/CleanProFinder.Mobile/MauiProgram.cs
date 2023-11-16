@@ -1,10 +1,22 @@
-using System.Reflection;
+using CleanProFinder.Mobile.Services.Implementations;
+using CleanProFinder.Mobile.Services.Interfaces;
 using CleanProFinder.Mobile.ViewModels;
-using CleanProFinder.Mobile.Views;
-using CleanProFinder.Mobile.Services;
-using Microsoft.Extensions.Logging;
+using CleanProFinder.Mobile.ViewModels.Authentication;
+using CleanProFinder.Mobile.ViewModels.ServiceProvider;
+using CleanProFinder.Mobile.ViewModels.ServiceProvider.Profile;
+using CleanProFinder.Mobile.ViewModels.ServiceUser;
+using CleanProFinder.Mobile.ViewModels.ServiceUser.Premises;
+using CleanProFinder.Mobile.ViewModels.ServiceUser.Profile;
+using CleanProFinder.Mobile.Views.Authentication;
+using CleanProFinder.Mobile.Views.ServiceProvider;
+using CleanProFinder.Mobile.Views.ServiceProvider.Profile;
+using CleanProFinder.Mobile.Views.ServiceUser;
+using CleanProFinder.Mobile.Views.ServiceUser.Premises;
+using CleanProFinder.Mobile.Views.ServiceUser.Profile;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using System.Reflection;
 
 namespace CleanProFinder.Mobile
 {
@@ -57,11 +69,17 @@ namespace CleanProFinder.Mobile
             builder.Services.AddTransient<ServiceProviderStartingPage>();
             builder.Services.AddTransient<ServiceProviderStartingViewModel>();
 
-            builder.Services.AddTransient<InitialEditProfilePage>();
-            builder.Services.AddTransient<InitialEditProfileViewModel>();
+            builder.Services.AddTransient<ServiceUserInitialEditProfilePage>();
+            builder.Services.AddTransient<ServiceUserInitialEditProfileViewModel>();
 
-            builder.Services.AddTransient<EditProfilePage>();
-            builder.Services.AddTransient<EditProfileViewModel>();
+            builder.Services.AddTransient<ServiceProviderInitialEditProfilePage>();
+            builder.Services.AddTransient<ServiceProviderInitialEditProfileViewModel>();
+
+            builder.Services.AddTransient<ServiceProviderProfilePage>();
+            builder.Services.AddTransient<ServiceProviderProfileViewModel>();
+
+            builder.Services.AddTransient<ServiceUserProfilePage>();
+            builder.Services.AddTransient<ServiceUserProfileViewModel>();
           
             builder.Services.AddTransient<ServiceUserPremisesPage>();
             builder.Services.AddTransient<ServiceUserPremisesViewModel>();

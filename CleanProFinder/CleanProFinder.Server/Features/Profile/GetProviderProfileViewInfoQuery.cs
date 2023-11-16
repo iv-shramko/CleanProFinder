@@ -7,6 +7,8 @@ using CleanProFinder.Shared.ServiceResponseHandling;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using CleanProFinder.Shared.Errors.ServiceErrors;
+using CleanProFinder.Db.Models;
+using CleanProFinder.Shared.Dto.CleaningServices;
 
 namespace CleanProFinder.Server.Features.Profile
 {
@@ -65,9 +67,17 @@ namespace CleanProFinder.Server.Features.Profile
 
                 var result = _mapper.Map<ProviderProfileViewInfoDto>(user);
 
+                var services = await _context.CleaningServiceServiceProviders
+                    .Where(sD => sD.CleaningServiceProviderId == userId)
+                    .Include(sD => sD.CleaningService)
+                    .ToListAsync(cancellationToken);
+
+                result.Services = _mapper.Map<List<ProviderServiceFullInfoDto>>(services);
+
+
                 return ServiceResponseBuilder.Success(result);
             }
         }
-       
+
     }
 }
