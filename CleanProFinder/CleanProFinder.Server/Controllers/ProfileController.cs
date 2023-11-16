@@ -71,7 +71,7 @@ namespace CleanProFinder.Server.Controllers
         /// <param name="request">The request to get the info about service providers for user.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <remarks>
-        /// If the operation is successful, it will return a List<ProviderPreviewDto>.
+        /// If the operation is successful, it will return a List ProviderPreviewDto.
         /// If there is a bad request, it will return an ErrorDto.
         /// </remarks>
         /// <returns>An IActionResult representing the result of the operation.</returns>

@@ -8,5 +8,7 @@
         public float Square { get; set; }
         public string Description { get; set; }
         public string Address { get; set; }
+
+        public ICollection<Request> Requests { get; set; }
     }
 }

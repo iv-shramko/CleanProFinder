@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
 using CleanProFinder.Db.DbContexts;
+using CleanProFinder.Shared.Dto.CleaningServices;
 using CleanProFinder.Shared.Dto.Profile;
 using CleanProFinder.Shared.Errors.ServiceErrors;
 using CleanProFinder.Shared.ServiceResponseHandling;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using static CleanProFinder.Server.Features.Profile.GetUserProfileViewInfoQuery;
 
 namespace CleanProFinder.Server.Features.Profile
@@ -15,19 +14,17 @@ namespace CleanProFinder.Server.Features.Profile
     {
         public class GetProviderProfilesQueryHandler : IRequestHandler<GetProviderProfilesQuery, ServiceResponse<List<ProviderPreviewDto>>>
         {
-            private readonly IMediator _mediator;
             private readonly ApplicationDbContext _context;
             private readonly IMapper _mapper;
             private readonly ILogger<UserProfileViewInfoQueryHandler> _logger;
             private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public GetProviderProfilesQueryHandler(IMediator mediator,
+            public GetProviderProfilesQueryHandler(
                     ApplicationDbContext context,
                     IMapper mapper,
                     ILogger<UserProfileViewInfoQueryHandler> logger,
                     IHttpContextAccessor httpContextAccessor)
             {
-                _mediator = mediator;
                 _context = context;
                 _mapper = mapper;
                 _logger = logger;
@@ -48,9 +45,31 @@ namespace CleanProFinder.Server.Features.Profile
 
             public async Task<ServiceResponse<List<ProviderPreviewDto>>> UnsafeHandleAsync(GetProviderProfilesQuery request, CancellationToken cancellationToken)
             {
-                var result = _context.CleaningServiceProviders.Select(p =>  _mapper.Map<ProviderPreviewDto>(p)).ToList();
+                var providers = await _context
+                    .CleaningServiceProviders
+                    .Select(p =>  _mapper.Map<ProviderPreviewDto>(p))
+                    .ToListAsync(cancellationToken);
 
-                return ServiceResponseBuilder.Success(result);
+
+                var services = await _context.CleaningServiceServiceProviders
+                    .Include(sD => sD.CleaningService)
+                    .GroupBy(s => s.CleaningServiceProviderId)
+                    .ToListAsync(cancellationToken);
+
+
+                foreach(var serviceGroup in services)
+                {
+                    var providerDto = providers.FirstOrDefault(p => p.Id == serviceGroup.Key);
+                    if(providerDto is null)
+                    {
+                        continue;
+                    }
+
+                    var serviseDtos = _mapper.Map<List<ProviderServiceFullInfoDto>>(services.SelectMany(s => s).ToList());
+                    providerDto.Services = serviseDtos;
+                }
+
+                return ServiceResponseBuilder.Success(providers);
             }
         }
     }

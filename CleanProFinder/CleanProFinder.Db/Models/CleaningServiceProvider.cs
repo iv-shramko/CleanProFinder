@@ -9,7 +9,6 @@
         public string? Site { get; set; }
         public string? LogoUrl { get; set; }
         public ICollection<CleaningServiceServiceProvider> CleaningServiceServiceProviders { get; set; }
-
-
+        public ICollection<Request> Requests { get; set; }
     }
 }

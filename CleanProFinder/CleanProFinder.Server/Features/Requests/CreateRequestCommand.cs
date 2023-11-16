@@ -3,6 +3,7 @@ using CleanProFinder.Db.Models;
 using CleanProFinder.Server.Extensions;
 using CleanProFinder.Server.Features.Base;
 using CleanProFinder.Shared.Dto.Request;
+using CleanProFinder.Shared.Enums;
 using CleanProFinder.Shared.Errors.ServiceErrors;
 using CleanProFinder.Shared.ServiceResponseHandling;
 using MediatR;
@@ -65,10 +66,26 @@ namespace CleanProFinder.Server.Features.Requests
                     request.Services = services;
                 }
                 
+                if(command.SelectedProviderId is not null)
+                {
+                    AssignProvider(request, (Guid)command.SelectedProviderId);
+                }
+                else
+                {
+                    request.Status = RequestStatus.Pending;
+                }
+               
                 _context.Requests.Add(request);
                 await _context.SaveChangesAsync(cancellationToken);
 
                 return ServiceResponseBuilder.Success();
+            }
+
+            private static void AssignProvider(Request request, Guid providerId)
+            {
+                request.ProviderId = providerId;
+                request.Status = RequestStatus.OfferedProvider;
+                //TODO: notificate provider
             }
         }
     }

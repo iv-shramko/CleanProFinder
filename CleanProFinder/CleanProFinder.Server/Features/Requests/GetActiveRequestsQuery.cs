@@ -2,6 +2,7 @@
 using CleanProFinder.Db.DbContexts;
 using CleanProFinder.Server.Features.Base;
 using CleanProFinder.Shared.Dto.Requests;
+using CleanProFinder.Shared.Enums;
 using CleanProFinder.Shared.Errors.ServiceErrors;
 using CleanProFinder.Shared.ServiceResponseHandling;
 using MediatR;
@@ -45,6 +46,7 @@ namespace CleanProFinder.Server.Features.Requests
             {
                 var requests = await _context
                     .Requests
+                    .Where(r => r.Status == RequestStatus.Pending)
                     .Include(r => r.Premise)
                     .Include(r => r.Services)
                     .ToListAsync(cancellationToken);
