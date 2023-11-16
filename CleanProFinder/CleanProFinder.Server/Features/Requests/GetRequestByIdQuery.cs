@@ -11,11 +11,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CleanProFinder.Server.Features.Requests
 {
-    public class GetRequestByIdQuery : RequestDto, IRequest<ServiceResponse<RequestDto>>
+    public class GetRequestByIdQuery : RequestFullInfoDto, IRequest<ServiceResponse<RequestFullInfoDto>>
     {
         public Guid Id { get; set; }
 
-        public class GetActiveRequestQueryHandler : BaseHandler<GetRequestByIdQuery, ServiceResponse<RequestDto>>
+        public class GetActiveRequestQueryHandler : BaseHandler<GetRequestByIdQuery, ServiceResponse<RequestFullInfoDto>>
         {
             private readonly ILogger<GetActiveRequestQueryHandler> _logger;
             private readonly IMapper _mapper;
@@ -34,7 +34,7 @@ namespace CleanProFinder.Server.Features.Requests
                 _mapper = mapper;
             }
 
-            public override async Task<ServiceResponse<RequestDto>> Handle(GetRequestByIdQuery request, CancellationToken cancellationToken)
+            public override async Task<ServiceResponse<RequestFullInfoDto>> Handle(GetRequestByIdQuery request, CancellationToken cancellationToken)
             {
                 try
                 {
@@ -43,17 +43,17 @@ namespace CleanProFinder.Server.Features.Requests
                 catch (Exception ex)
                 {
                     _logger.LogError(nameof(GetRequestByIdQuery), ex);
-                    return ServiceResponseBuilder.Failure<RequestDto>(ServerError.RequestByIdError);
+                    return ServiceResponseBuilder.Failure<RequestFullInfoDto>(ServerError.RequestByIdError);
                 }
             }
 
-            private async Task<ServiceResponse<RequestDto>> UnsafeHandleAsync(GetRequestByIdQuery request,
+            private async Task<ServiceResponse<RequestFullInfoDto>> UnsafeHandleAsync(GetRequestByIdQuery request,
                 CancellationToken cancellationToken)
             {
                 var validUserId = _contextAccessor.TryGetUserId(out var userId);
                 if (validUserId is false)
                 {
-                    return ServiceResponseBuilder.Failure<RequestDto>(UserError.InvalidAuthorization);
+                    return ServiceResponseBuilder.Failure<RequestFullInfoDto>(UserError.InvalidAuthorization);
                 }
 
                 var serviceRequest = await _context
@@ -64,15 +64,15 @@ namespace CleanProFinder.Server.Features.Requests
 ;
                 if (serviceRequest is null)
                 {
-                    return ServiceResponseBuilder.Failure<RequestDto>(RequestError.InvalidId);
+                    return ServiceResponseBuilder.Failure<RequestFullInfoDto>(RequestError.InvalidId);
                 }
 
                 if (serviceRequest.Premise.UserId != userId)
                 {
-                    return ServiceResponseBuilder.Failure<RequestDto>(RequestError.NotRequestOwner);
+                    return ServiceResponseBuilder.Failure<RequestFullInfoDto>(RequestError.NotRequestOwner);
 
                 }
-                var dto = _mapper.Map<RequestDto>(serviceRequest);
+                var dto = _mapper.Map<RequestFullInfoDto>(serviceRequest);
                 return ServiceResponseBuilder.Success(dto);
             }
         }

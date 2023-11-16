@@ -31,7 +31,7 @@ namespace CleanProFinder.Server.Mapper
                 .ForMember(r => r.Square, otp => otp.MapFrom(src => src.Premise.Square))
                 .ForMember(r => r.Address, otp => otp.MapFrom(src => src.Premise.Address));
 
-            CreateMap<Request, RequestDto>()
+            CreateMap<Request, RequestFullInfoDto>()
                 .ForMember(r => r.Description, otp => otp.MapFrom(src => src.Description))
                 .ForMember(r => r.Services, otp => otp.MapFrom(src => src.Services))
                 .ForMember(r => r.Square, otp => otp.MapFrom(src => src.Premise.Square))

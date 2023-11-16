@@ -61,7 +61,7 @@ namespace CleanProFinder.Server.Controllers
         /// <param name="cancellationToken">The cancellation token.</param>
         [HttpGet("my-requests/{id}")]
         [Authorize(Roles = Roles.ServiceUser)]
-        [ProducesResponseType(typeof(RequestDto), 200)]
+        [ProducesResponseType(typeof(RequestFullInfoDto), 200)]
         [ProducesResponseType(typeof(ErrorDto), 400)]
         public async Task<IActionResult> GetActiveRequest(Guid id, CancellationToken cancellationToken)
         {
