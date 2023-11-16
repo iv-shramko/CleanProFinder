@@ -13,7 +13,7 @@ namespace CleanProFinder.Db.Models
 
         public Guid CleaningServiceProviderId { get; set; }
         public CleaningServiceProvider CleaningServiceProvider { get; set; }
-
+        public string Description { get; set; }
         public decimal Price { get; set; }
     }
 }
