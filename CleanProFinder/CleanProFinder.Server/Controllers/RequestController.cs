@@ -59,7 +59,7 @@ namespace CleanProFinder.Server.Controllers
         /// Get request by id.
         /// </summary>
         /// <param name="cancellationToken">The cancellation token.</param>
-        [HttpGet("my-active-requests/{id}")]
+        [HttpGet("my-requests/{id}")]
         [Authorize(Roles = Roles.ServiceUser)]
         [ProducesResponseType(typeof(RequestDto), 200)]
         [ProducesResponseType(typeof(ErrorDto), 400)]
@@ -73,7 +73,7 @@ namespace CleanProFinder.Server.Controllers
         /// Get user's own requests.
         /// </summary>
         /// <param name="cancellationToken">The cancellation token.</param>
-        [HttpGet("my-active-requests")]
+        [HttpGet("my-requests")]
         [Authorize(Roles = Roles.ServiceUser)]
         [ProducesResponseType(typeof(List<RequestShortInfoDto>), 200)]
         [ProducesResponseType(typeof(ErrorDto), 400)]
