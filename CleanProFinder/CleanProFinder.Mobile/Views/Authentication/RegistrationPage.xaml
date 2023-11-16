@@ -4,8 +4,8 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:authentication="clr-namespace:CleanProFinder.Mobile.ViewModels.Authentication"
-    Title="RegistrationPage"
-    x:DataType="authentication:RegistrationViewModel">
+    x:DataType="authentication:RegistrationViewModel"
+    Background="{StaticResource Secondary}">
 
     <Grid RowDefinitions="150, auto">
         <Label Style="{StaticResource Key=labelTitleStyle}" Text="Sign up" />

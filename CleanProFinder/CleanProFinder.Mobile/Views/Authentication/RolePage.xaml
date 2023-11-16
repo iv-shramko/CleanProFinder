@@ -4,8 +4,9 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:authentication="clr-namespace:CleanProFinder.Mobile.ViewModels.Authentication"
-    Title="RolePage"
-    x:DataType="authentication:RoleViewModel">
+    Title=" "
+    x:DataType="authentication:RoleViewModel"
+    Background="{StaticResource Secondary}">
 
     <Grid RowDefinitions="150, auto">
         <Label Style="{StaticResource Key=labelTitleStyle}" Text="Create new account as" />
