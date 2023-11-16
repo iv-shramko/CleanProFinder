@@ -6,6 +6,7 @@ namespace CleanProFinder.Shared.Dto.CleaningServices
 {
     public class ProviderServiceFullInfoDto : EditableCleaningServiceDto
     {
+        public string Description { get; set; }
         public decimal Price { get; set; }
     }
 }
