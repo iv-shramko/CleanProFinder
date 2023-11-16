@@ -5,9 +5,10 @@ using System.Text;
 
 namespace CleanProFinder.Shared.Dto.Requests
 {
-    public class RequestDto
+    public class RequestFullInfoDto
     {
         public Guid Id { get; set; }
+        public Guid PremiseId { get; set; }
         public string Description { get; set; }
         public float Square { get; set; }
         public string Address { get; set; }
