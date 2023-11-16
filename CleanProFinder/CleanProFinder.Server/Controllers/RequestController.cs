@@ -53,5 +53,34 @@ namespace CleanProFinder.Server.Controllers
             var result = await _mediator.Send(new GetActiveRequestsQuery(), cancellationToken);
             return ConvertFromServiceResponse(result);
         }
+
+
+        /// <summary>
+        /// Get request by id.
+        /// </summary>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        [HttpGet("my-active-requests/{id}")]
+        [Authorize(Roles = Roles.ServiceUser)]
+        [ProducesResponseType(typeof(RequestDto), 200)]
+        [ProducesResponseType(typeof(ErrorDto), 400)]
+        public async Task<IActionResult> GetActiveRequest(Guid id, CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(new GetRequestByIdQuery { Id = id}, cancellationToken);
+            return ConvertFromServiceResponse(result);
+        }
+
+        /// <summary>
+        /// Get user's own requests.
+        /// </summary>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        [HttpGet("my-active-requests")]
+        [Authorize(Roles = Roles.ServiceUser)]
+        [ProducesResponseType(typeof(List<RequestShortInfoDto>), 200)]
+        [ProducesResponseType(typeof(ErrorDto), 400)]
+        public async Task<IActionResult> GetOwnActiveRequests(CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(new GetOwnRequestsQuery(), cancellationToken);
+            return ConvertFromServiceResponse(result);
+        }
     }
 }
