@@ -4,27 +4,31 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:authentication="clr-namespace:CleanProFinder.Mobile.ViewModels.Authentication"
-    Title="LoginPage"
-    x:DataType="authentication:LoginViewModel">
+    x:DataType="authentication:LoginViewModel"
+    Background="{StaticResource Secondary}">
 
     <ContentPage.Content>
-        <VerticalStackLayout
-            Padding="10,0,10,0"
-            Spacing="20"
-            VerticalOptions="Center">
-            <Entry
-                FontSize="18"
-                Placeholder="E-mail"
-                Text="{Binding Email}" />
-            <Entry
-                FontSize="18"
-                IsPassword="True"
-                Placeholder="Password"
-                Text="{Binding Password}" />
-            <Button
-                Command="{Binding LoginCommand}"
-                FontSize="18"
-                Text="Log in" />
-        </VerticalStackLayout>
+        <Grid RowDefinitions="150, auto">
+            <Label Style="{StaticResource Key=labelTitleStyle}" Text="Log in" />
+            <VerticalStackLayout Grid.Row="1" VerticalOptions="Center">
+                <Label Style="{StaticResource labelPropertyStyle}" Text="Email" />
+                <Border Style="{StaticResource borderStyle}">
+                    <Entry Style="{StaticResource entryStyle}" Text="{Binding Email}" />
+                </Border>
+                <Label Style="{StaticResource labelPropertyStyle}" Text="Password" />
+                <Border Style="{StaticResource borderStyle}">
+                    <Entry
+                        IsPassword="True"
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding Password}" />
+                </Border>
+                <Button
+                    Margin="10,15,10,0"
+                    Command="{Binding LoginCommand}"
+                    Style="{StaticResource buttonStyle}"
+                    Text="Log in"
+                    TextColor="White" />
+            </VerticalStackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
