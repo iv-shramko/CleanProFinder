@@ -37,4 +37,10 @@ public partial class ServiceUserInitialEditProfileViewModel : ObservableObject
 
         await _dialogService.ShowErrorAlertAsync("Profile Edit Failed", response.Error);
     }
+
+    [RelayCommand]
+    private async Task GoBack()
+    {
+        await Shell.Current.GoToAsync("..");
+    }
 }
