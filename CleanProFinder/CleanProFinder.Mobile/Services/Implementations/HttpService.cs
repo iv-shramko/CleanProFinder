@@ -50,6 +50,11 @@ public class HttpService : IHttpService
 
         if ((method == HttpMethod.Get || method == HttpMethod.Delete) && payload != null)
         {
+            if (payload is string)
+            {
+                url += $"/{payload}";
+                return url;
+            }
             if (payload is not Dictionary<string, object> parameters)
             {
                 throw new Exception("Parameters for GET and DELETE method should be in Dictionary<string, object>");
