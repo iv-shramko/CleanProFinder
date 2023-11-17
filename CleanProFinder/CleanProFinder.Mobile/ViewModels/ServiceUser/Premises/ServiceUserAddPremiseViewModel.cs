@@ -7,12 +7,12 @@ namespace CleanProFinder.Mobile.ViewModels.ServiceUser.Premises;
 public partial class ServiceUserAddPremiseViewModel : ObservableObject
 {
     private readonly IDialogService _dialogService;
-    private readonly IUserPremiseService _userPremiseService;
+    private readonly IPremiseService _premiseService;
 
-    public ServiceUserAddPremiseViewModel(IDialogService dialogService, IUserPremiseService userPremiseService)
+    public ServiceUserAddPremiseViewModel(IDialogService dialogService, IPremiseService premiseService)
     {
         _dialogService = dialogService;
-        _userPremiseService = userPremiseService;
+        _premiseService = premiseService;
     }
 
     [ObservableProperty]
@@ -28,7 +28,7 @@ public partial class ServiceUserAddPremiseViewModel : ObservableObject
     private async Task AddPremise()
     {
         var response = 
-            await _userPremiseService.AddServiceUserPremiseAsync(Square, Description, Address);
+            await _premiseService.AddPremiseAsync(Square, Description, Address);
 
         if (response.IsSuccess)
         {

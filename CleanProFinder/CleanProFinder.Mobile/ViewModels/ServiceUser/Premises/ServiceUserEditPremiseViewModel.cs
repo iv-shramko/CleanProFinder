@@ -8,12 +8,12 @@ namespace CleanProFinder.Mobile.ViewModels.ServiceUser.Premises;
 public partial class ServiceUserEditPremiseViewModel : ObservableObject
 {
     private readonly IDialogService _dialogService;
-    private readonly IUserPremiseService _userPremiseService;
+    private readonly IPremiseService _premiseService;
 
-    public ServiceUserEditPremiseViewModel(IDialogService dialogService, IUserPremiseService userPremisesService)
+    public ServiceUserEditPremiseViewModel(IDialogService dialogService, IPremiseService premisesService)
     {
         _dialogService = dialogService;
-        _userPremiseService = userPremisesService;
+        _premiseService = premisesService;
         IsEditing = false;
     }
 
@@ -48,7 +48,7 @@ public partial class ServiceUserEditPremiseViewModel : ObservableObject
             { "premiseId", premiseId }
         };
 
-        var response = await _userPremiseService.GetServiceUserPremiseAsync(payload);
+        var response = await _premiseService.GetPremiseAsync(payload);
 
         if (response.IsSuccess)
         {
@@ -71,7 +71,7 @@ public partial class ServiceUserEditPremiseViewModel : ObservableObject
     private async Task EditPremise()
     {
         var response =
-            await _userPremiseService.EditServiceUserPremiseAsync(Guid.Parse(PremiseId), Square, Description, Address);
+            await _premiseService.EditPremiseAsync(Guid.Parse(PremiseId), Square, Description, Address);
 
         if (response.IsSuccess)
         {
@@ -92,7 +92,7 @@ public partial class ServiceUserEditPremiseViewModel : ObservableObject
             { "premiseId", PremiseId }
         };
 
-        var response = await _userPremiseService.DeleteServiceUserPremiseAsync(payload);
+        var response = await _premiseService.DeletePremiseAsync(payload);
 
         if (response.IsSuccess)
         {
