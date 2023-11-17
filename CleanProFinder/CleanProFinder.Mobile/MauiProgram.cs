@@ -8,6 +8,7 @@ using CleanProFinder.Mobile.ViewModels.ServiceProvider.Services;
 using CleanProFinder.Mobile.ViewModels.ServiceUser;
 using CleanProFinder.Mobile.ViewModels.ServiceUser.Premises;
 using CleanProFinder.Mobile.ViewModels.ServiceUser.Profile;
+using CleanProFinder.Mobile.ViewModels.ServiceUser.Requests;
 using CleanProFinder.Mobile.Views.Authentication;
 using CleanProFinder.Mobile.Views.ServiceProvider;
 using CleanProFinder.Mobile.Views.ServiceProvider.Profile;
@@ -15,6 +16,7 @@ using CleanProFinder.Mobile.Views.ServiceProvider.Services;
 using CleanProFinder.Mobile.Views.ServiceUser;
 using CleanProFinder.Mobile.Views.ServiceUser.Premises;
 using CleanProFinder.Mobile.Views.ServiceUser.Profile;
+using CleanProFinder.Mobile.Views.ServiceUser.Requests;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -106,6 +108,9 @@ namespace CleanProFinder.Mobile
 
             builder.Services.AddTransient<ServiceUserReadPremisePage>();
             builder.Services.AddTransient<ServiceUserReadPremiseViewModel>();
+
+            builder.Services.AddTransient<ServiceUserRequestsPage>();
+            builder.Services.AddTransient<ServiceUserRequestsViewModel>();
 
             builder.Services.AddSingleton<IHttpService, HttpService>();
             builder.Services.AddSingleton<IAuthService, AuthService>();
