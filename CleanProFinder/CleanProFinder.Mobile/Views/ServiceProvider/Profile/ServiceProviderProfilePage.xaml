@@ -13,14 +13,7 @@
         <ResourceDictionary>
             <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
         </ResourceDictionary>
-        <Style x:Key="logoBorderStyle" TargetType="Border">
-            <Setter Property="BackgroundColor" Value="Transparent" />
-            <Setter Property="Stroke" Value="{StaticResource Primary}" />
-            <Setter Property="StrokeDashArray" Value="18, 9" />
-            <Setter Property="StrokeDashOffset" Value="1" />
-            <Setter Property="StrokeShape" Value="RoundRectangle 8,8,8,8" />
-            <Setter Property="StrokeThickness" Value="2" />
-        </Style>
+
     </ContentPage.Resources>
 
     <ContentPage.Content>
@@ -60,7 +53,7 @@
             <FlexLayout HeightRequest="107" JustifyContent="SpaceBetween">
                 <Border
                     Margin="6,0"
-                    Style="{StaticResource logoBorderStyle}"
+                    Style="{StaticResource logoPlaceholderStyle}"
                     WidthRequest="130">
                     <VerticalStackLayout>
                         <Label
