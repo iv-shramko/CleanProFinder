@@ -3,6 +3,7 @@ using System;
 using CleanProFinder.Db.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CleanProFinder.Db.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231116213409_UpdatedRequestForProviderAssigns")]
+    partial class UpdatedRequestForProviderAssigns
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -127,6 +130,9 @@ namespace CleanProFinder.Db.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<Guid?>("CleaningServiceProviderId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
@@ -144,6 +150,8 @@ namespace CleanProFinder.Db.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CleaningServiceProviderId");
 
                     b.HasIndex("PremiseId");
 
@@ -422,14 +430,18 @@ namespace CleanProFinder.Db.Migrations
 
             modelBuilder.Entity("CleanProFinder.Db.Models.Request", b =>
                 {
+                    b.HasOne("CleanProFinder.Db.Models.CleaningServiceProvider", null)
+                        .WithMany("Requests")
+                        .HasForeignKey("CleaningServiceProviderId");
+
                     b.HasOne("CleanProFinder.Db.Models.Premise", "Premise")
                         .WithMany("Requests")
                         .HasForeignKey("PremiseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CleanProFinder.Db.Models.CleaningServiceProvider", "Provider")
-                        .WithMany("Requests")
+                    b.HasOne("CleanProFinder.Db.Models.Request", "Provider")
+                        .WithMany()
                         .HasForeignKey("ProviderId");
 
                     b.Navigation("Premise");

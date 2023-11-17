@@ -10,5 +10,6 @@ namespace CleanProFinder.Shared.Dto.Requests
         public float Square { get; set; }
         public string Address { get; set; }
         public List<CleaningServiceDto> Services { get; set; }
+        public string Status { get; set; }
     }
 }

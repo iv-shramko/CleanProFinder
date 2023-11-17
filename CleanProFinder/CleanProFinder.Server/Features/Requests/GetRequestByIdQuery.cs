@@ -60,6 +60,7 @@ namespace CleanProFinder.Server.Features.Requests
                     .Requests
                     .Include(r => r.Premise)
                     .Include(r => r.Services)
+                    .Include(r => r.Provider)
                     .FirstOrDefaultAsync(r => r.Id == request.Id)
 ;
                 if (serviceRequest is null)
