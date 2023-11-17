@@ -54,6 +54,7 @@
     <None Remove="Resources\Images\home.svg" />
     <None Remove="Resources\Images\photo_placeholder.svg" />
     <None Remove="Resources\Images\profile.svg" />
+    <None Remove="Resources\Images\request.svg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -124,6 +125,9 @@
     <Compile Update="Views\ServiceUser\Premises\ServiceUserPremisesPage.xaml.cs">
       <DependentUpon>ServiceUserPremisesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\ServiceUser\Requests\ServiceUserAddRequestNextPage.xaml.cs">
+      <DependentUpon>ServiceUserAddRequestNextPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 	<ItemGroup>
@@ -143,6 +147,12 @@
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Views\ServiceProvider\ServiceProviderStartingPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\ServiceUser\Requests\ServiceUserAddRequestNextPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\ServiceUser\Requests\ServiceUserAddRequestPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Views\ServiceUser\Requests\ServiceUserRequestsPage.xaml">

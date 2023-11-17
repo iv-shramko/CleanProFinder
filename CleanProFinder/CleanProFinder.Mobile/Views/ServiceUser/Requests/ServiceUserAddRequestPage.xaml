@@ -1,0 +1,59 @@
+<ContentPage
+    x:Class="CleanProFinder.Mobile.Views.ServiceUser.Requests.ServiceUserAddRequestPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:requests="clr-namespace:CleanProFinder.Shared.Dto.Requests;assembly=CleanProFinder.Shared"
+    xmlns:requests1="clr-namespace:CleanProFinder.Mobile.ViewModels.ServiceUser.Requests"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:DataType="requests1:ServiceUserAddRequestViewModel"
+    Background="{StaticResource Secondary}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="150, 175, 300, auto">
+        <Label Style="{StaticResource Key=labelTitleStyle}" Text="Add Request" />
+        <VerticalStackLayout Grid.Row="1" VerticalOptions="Center">
+            <Border
+                Margin="10,15,10,3"
+                Background="{StaticResource Tertiary}"
+                IsVisible="{Binding HasPremiseId}"
+                Stroke="{StaticResource Tertiary}"
+                StrokeShape="RoundRectangle 10,10,10,10">
+                <Label
+                    Margin="12"
+                    FontAttributes="Bold"
+                    FontFamily="OpenSans"
+                    FontSize="18"
+                    Text="{Binding PremiseAddress}"
+                    TextColor="White" />
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ReadPremiseCommand}" NumberOfTapsRequired="1" />
+                </Border.GestureRecognizers>
+            </Border>
+            <Button
+                Margin="10"
+                Command="{Binding SelectPremiseCommand}"
+                IsVisible="{Binding HasPremiseId, Converter={StaticResource InvertedBoolConverter}}"
+                Style="{StaticResource buttonStyle}"
+                Text="Select Premise"
+                TextColor="White" />
+            <Button
+                Margin="10"
+                Command="{Binding SelectPremiseCommand}"
+                IsVisible="{Binding HasPremiseId}"
+                Style="{StaticResource buttonStyle}"
+                Text="Change Premise"
+                TextColor="White" />
+        </VerticalStackLayout>
+        <Button
+            Grid.Row="3"
+            Command="{Binding NextStepCommand}"
+            Style="{StaticResource buttonStyle}"
+            Text="Next Step"
+            TextColor="White" />
+    </Grid>
+</ContentPage>
