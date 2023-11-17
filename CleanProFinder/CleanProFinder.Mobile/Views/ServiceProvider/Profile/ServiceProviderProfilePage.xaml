@@ -24,16 +24,23 @@
             <VerticalStackLayout>
                 <Label Style="{StaticResource labelPropertyStyle}" Text="Email" />
                 <Border Style="{StaticResource borderStyle}">
-                    <Entry Style="{StaticResource entryStyle}" Text="{Binding Email}" />
+                    <Entry
+                        IsReadOnly="{Binding IsEditing, Converter={StaticResource InvertedBoolConverter}}"
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding Email}" />
                 </Border>
                 <Label Style="{StaticResource labelPropertyStyle}" Text="Company name" />
                 <Border Style="{StaticResource borderStyle}">
-                    <Entry Style="{StaticResource entryStyle}" Text="{Binding Name}" />
+                    <Entry
+                        IsReadOnly="{Binding IsEditing, Converter={StaticResource InvertedBoolConverter}}"
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding Name}" />
                 </Border>
                 <Label Style="{StaticResource labelPropertyStyle}" Text="Description" />
                 <Border Style="{StaticResource borderStyle}">
                     <Editor
                         AutoSize="TextChanges"
+                        IsReadOnly="{Binding IsEditing, Converter={StaticResource InvertedBoolConverter}}"
                         MaximumHeightRequest="100"
                         Style="{StaticResource entryStyle}"
                         Text="{Binding Description}" />
@@ -41,13 +48,17 @@
                 <Label Style="{StaticResource labelPropertyStyle}" Text="Phone number" />
                 <Border Style="{StaticResource borderStyle}">
                     <Entry
+                        IsReadOnly="{Binding IsEditing, Converter={StaticResource InvertedBoolConverter}}"
                         Keyboard="Numeric"
                         Style="{StaticResource entryStyle}"
                         Text="{Binding PhoneNumber}" />
                 </Border>
                 <Label Style="{StaticResource labelPropertyStyle}" Text="Website URL" />
                 <Border Style="{StaticResource borderStyle}">
-                    <Entry Style="{StaticResource entryStyle}" Text="{Binding WebsiteUrl}" />
+                    <Entry
+                        IsReadOnly="{Binding IsEditing, Converter={StaticResource InvertedBoolConverter}}"
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding WebsiteUrl}" />
                 </Border>
             </VerticalStackLayout>
             <FlexLayout HeightRequest="107" JustifyContent="SpaceBetween">
