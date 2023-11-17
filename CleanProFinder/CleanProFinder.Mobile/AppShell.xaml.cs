@@ -28,6 +28,8 @@ namespace CleanProFinder.Mobile
             Routing.RegisterRoute(nameof(ServiceUserReadPremisePage), typeof(ServiceUserReadPremisePage));
             Routing.RegisterRoute(nameof(ServiceUserAddRequestPage), typeof(ServiceUserAddRequestPage));
             Routing.RegisterRoute(nameof(ServiceUserAddRequestNextPage), typeof(ServiceUserAddRequestNextPage));
+            Routing.RegisterRoute(nameof(ServiceUserEditRequestPage), typeof(ServiceUserEditRequestPage));
+            Routing.RegisterRoute(nameof(ServiceUserEditRequestNextPage), typeof(ServiceUserEditRequestNextPage));
         }
     }
 }

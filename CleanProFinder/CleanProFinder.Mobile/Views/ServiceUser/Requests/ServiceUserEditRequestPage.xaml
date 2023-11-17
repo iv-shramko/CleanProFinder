@@ -1,0 +1,44 @@
+<ContentPage
+    x:Class="CleanProFinder.Mobile.Views.ServiceUser.Requests.ServiceUserEditRequestPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:requests="clr-namespace:CleanProFinder.Shared.Dto.Requests;assembly=CleanProFinder.Shared"
+    xmlns:requests1="clr-namespace:CleanProFinder.Mobile.ViewModels.ServiceUser.Requests"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:DataType="requests1:ServiceUserEditRequestViewModel"
+    Background="{StaticResource Secondary}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="150, 175, 300, auto">
+        <Label Style="{StaticResource Key=labelTitleStyle}" Text="Edit Request" />
+        <VerticalStackLayout Grid.Row="1" VerticalOptions="Center">
+            <Border
+            Margin="10,15,10,3"
+            Background="{StaticResource Tertiary}"
+            Stroke="{StaticResource Tertiary}"
+            StrokeShape="RoundRectangle 10,10,10,10">
+                <Label
+                Margin="12"
+                FontAttributes="Bold"
+                FontFamily="OpenSans"
+                FontSize="18"
+                Text="{Binding PremiseAddress}"
+                TextColor="White" />
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ReadPremiseCommand}" NumberOfTapsRequired="1" />
+                </Border.GestureRecognizers>
+            </Border>
+        </VerticalStackLayout>
+        <Button
+        Grid.Row="3"
+        Command="{Binding NextStepCommand}"
+        Style="{StaticResource buttonStyle}"
+        Text="Next Page"
+        TextColor="White" />
+    </Grid>
+</ContentPage>
