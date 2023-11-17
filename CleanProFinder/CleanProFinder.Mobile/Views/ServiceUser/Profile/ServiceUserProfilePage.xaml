@@ -13,33 +13,41 @@
         <ResourceDictionary>
             <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
         </ResourceDictionary>
-        <Style x:Key="entryGreenStyle" TargetType="Entry">
-            <Setter Property="FontSize" Value="18" />
-            <Setter Property="TextColor" Value="{StaticResource Tertiary}" />
-            <Setter Property="PlaceholderColor" Value="{StaticResource Primary}" />
-            <Setter Property="IsReadOnly" Value="{Binding IsEditing, Converter={StaticResource InvertedBoolConverter}}" />
-        </Style>
     </ContentPage.Resources>
 
     <ContentPage.Content>
         <VerticalStackLayout
-            Padding="10,0,10,0"
-            Spacing="20"
+            Padding="8,0"
+            Spacing="17"
             VerticalOptions="Center">
-            <Entry
-                Placeholder="First Name"
-                Style="{StaticResource entryGreenStyle}"
-                Text="{Binding FirstName}" />
-            <Entry
-                Placeholder="Last Name"
-                Style="{StaticResource entryGreenStyle}"
-                Text="{Binding LastName}" />
-            <Entry
-                Keyboard="Numeric"
-                Placeholder="Phone Number"
-                Style="{StaticResource entryGreenStyle}"
-                Text="{Binding PhoneNumber}" />
-            <VerticalStackLayout Spacing="10">
+            <VerticalStackLayout>
+                <Label Style="{StaticResource labelPropertyStyle}" Text="First name" />
+                <Border Style="{StaticResource borderStyle}">
+                    <Entry
+                        IsReadOnly="{Binding IsEditing, Converter={StaticResource InvertedBoolConverter}}"
+                        Placeholder="First Name"
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding FirstName}" />
+                </Border>
+                <Label Style="{StaticResource labelPropertyStyle}" Text="Last name" />
+                <Border Style="{StaticResource borderStyle}">
+                    <Entry
+                        IsReadOnly="{Binding IsEditing, Converter={StaticResource InvertedBoolConverter}}"
+                        Placeholder="Last Name"
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding LastName}" />
+                </Border>
+                <Label Style="{StaticResource labelPropertyStyle}" Text="PhoneNumber" />
+                <Border Style="{StaticResource borderStyle}">
+                    <Entry
+                        IsReadOnly="{Binding IsEditing, Converter={StaticResource InvertedBoolConverter}}"
+                        Keyboard="Numeric"
+                        Placeholder="Phone Number"
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding PhoneNumber}" />
+                </Border>
+            </VerticalStackLayout>
+            <VerticalStackLayout Padding="10,0" Spacing="15">
                 <Button
                     Background="{StaticResource Primary}"
                     Command="{Binding StartEditingCommand}"

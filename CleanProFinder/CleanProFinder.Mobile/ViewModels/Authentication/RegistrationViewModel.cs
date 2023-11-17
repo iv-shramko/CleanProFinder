@@ -1,4 +1,6 @@
 ﻿using CleanProFinder.Mobile.Services.Interfaces;
+using CleanProFinder.Mobile.Views.ServiceProvider.Profile;
+using CleanProFinder.Mobile.Views.ServiceUser.Profile;
 using CleanProFinder.Shared.ServiceResponseHandling;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -43,8 +45,8 @@ public partial class RegistrationViewModel : ObservableObject
         if (response.IsSuccess)
         {
             await Shell.Current.GoToAsync(IsServiceUser
-                ? "ServiceUserInitialEditProfilePage"
-                : "ServiceProviderInitialEditProfilePage");
+                ? $"{nameof(ServiceUserInitialEditProfilePage)}"
+                : $"{nameof(ServiceProviderInitialEditProfilePage)}");
             return;
         }
 
