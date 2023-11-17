@@ -13,80 +13,96 @@
         <ResourceDictionary>
             <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
         </ResourceDictionary>
-        <Style x:Key="entryGreenStyle" TargetType="Entry">
-            <Setter Property="FontSize" Value="18" />
-            <Setter Property="TextColor" Value="{StaticResource Tertiary}" />
-            <Setter Property="PlaceholderColor" Value="{StaticResource Primary}" />
-            <Setter Property="IsReadOnly" Value="{Binding IsEditing, Converter={StaticResource InvertedBoolConverter}}" />
+        <Style x:Key="logoBorderStyle" TargetType="Border">
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="Stroke" Value="{StaticResource Primary}" />
+            <Setter Property="StrokeDashArray" Value="18, 9" />
+            <Setter Property="StrokeDashOffset" Value="1" />
+            <Setter Property="StrokeShape" Value="RoundRectangle 8,8,8,8" />
+            <Setter Property="StrokeThickness" Value="2" />
         </Style>
     </ContentPage.Resources>
 
     <ContentPage.Content>
         <VerticalStackLayout
-            Padding="10,0,10,0"
-            Spacing="20"
+            Padding="8,0"
+            Spacing="17"
             VerticalOptions="Center">
-            <Entry
-                Placeholder="Service Provider Name"
-                Style="{StaticResource entryGreenStyle}"
-                Text="{Binding Name}" />
-            <Editor
-                AutoSize="TextChanges"
-                MaximumHeightRequest="100"
-                Placeholder="Description"
-                Style="{StaticResource entryGreenStyle}"
-                Text="{Binding Description}" />
-            <Entry
-                Keyboard="Numeric"
-                Placeholder="Phone Number"
-                Style="{StaticResource entryGreenStyle}"
-                Text="{Binding PhoneNumber}" />
-            <Entry
-                Placeholder="Website Url"
-                Style="{StaticResource entryGreenStyle}"
-                Text="{Binding WebsiteUrl}" />
-            <HorizontalStackLayout HorizontalOptions="Center">
-                <Image
-                    HeightRequest="150"
-                    Source="{Binding LogoImage.Source}"
-                    WidthRequest="150" />
-                <Button
-                    Margin="30,0,0,0"
-                    Command="{Binding AddLogoImageCommand}"
-                    FontAttributes="Bold"
-                    FontFamily="OpenSans"
-                    FontSize="20"
-                    Text="Add logo image"
-                    VerticalOptions="Center" />
-            </HorizontalStackLayout>
-            <VerticalStackLayout Spacing="10">
-                <Button
-                    Background="{StaticResource Primary}"
-                    Command="{Binding StartEditingCommand}"
-                    FontAttributes="Bold"
-                    FontFamily="OpenSans"
-                    FontSize="20"
-                    IsVisible="{Binding IsEditing, Converter={StaticResource InvertedBoolConverter}}"
-                    Text="Edit Profile"
-                    TextColor="White" />
-                <Button
-                    Background="{StaticResource Tertiary}"
-                    Command="{Binding UpdateProfileCommand}"
-                    FontAttributes="Bold"
-                    FontFamily="OpenSans"
-                    FontSize="20"
-                    IsVisible="{Binding IsEditing}"
-                    Text="Update Profile"
-                    TextColor="White" />
-                <Button
-                    Background="{StaticResource Primary}"
-                    Command="{Binding LogoutCommand}"
-                    FontAttributes="Bold"
-                    FontFamily="OpenSans"
-                    FontSize="20"
-                    Text="Logout"
-                    TextColor="White" />
+            <VerticalStackLayout>
+                <Label Style="{StaticResource labelPropertyStyle}" Text="Email" />
+                <Border Style="{StaticResource borderStyle}">
+                    <Entry Style="{StaticResource entryStyle}" Text="{Binding Email}" />
+                </Border>
+                <Label Style="{StaticResource labelPropertyStyle}" Text="Company name" />
+                <Border Style="{StaticResource borderStyle}">
+                    <Entry Style="{StaticResource entryStyle}" Text="{Binding Name}" />
+                </Border>
+                <Label Style="{StaticResource labelPropertyStyle}" Text="Description" />
+                <Border Style="{StaticResource borderStyle}">
+                    <Editor
+                        AutoSize="TextChanges"
+                        MaximumHeightRequest="100"
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding Description}" />
+                </Border>
+                <Label Style="{StaticResource labelPropertyStyle}" Text="Phone number" />
+                <Border Style="{StaticResource borderStyle}">
+                    <Entry
+                        Keyboard="Numeric"
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding PhoneNumber}" />
+                </Border>
+                <Label Style="{StaticResource labelPropertyStyle}" Text="Website URL" />
+                <Border Style="{StaticResource borderStyle}">
+                    <Entry Style="{StaticResource entryStyle}" Text="{Binding WebsiteUrl}" />
+                </Border>
             </VerticalStackLayout>
+            <FlexLayout HeightRequest="107" JustifyContent="SpaceBetween">
+                <Border
+                    Margin="6,0"
+                    Style="{StaticResource logoBorderStyle}"
+                    WidthRequest="130">
+                    <VerticalStackLayout>
+                        <Label
+                            FontSize="40"
+                            HorizontalOptions="Center"
+                            Text="+"
+                            TextColor="{StaticResource Primary}" />
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="15"
+                            HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center"
+                            LineBreakMode="WordWrap"
+                            Text="Add logo image (optional)"
+                            TextColor="{StaticResource Primary}" />
+                    </VerticalStackLayout>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding AddLogoImageCommand}" NumberOfTapsRequired="1" />
+                    </Border.GestureRecognizers>
+                </Border>
+                <VerticalStackLayout Spacing="10" WidthRequest="215">
+                    <Button
+                        Command="{Binding EditServicesCommand}"
+                        Style="{StaticResource buttonStyle}"
+                        Text="Edit Services" />
+                    <Button
+                        Command="{Binding StartEditingCommand}"
+                        IsVisible="{Binding IsEditing, Converter={StaticResource InvertedBoolConverter}}"
+                        Style="{StaticResource buttonStyle}"
+                        Text="Edit Profile" />
+                    <Button
+                        Background="{StaticResource Tertiary}"
+                        Command="{Binding UpdateProfileCommand}"
+                        IsVisible="{Binding IsEditing}"
+                        Style="{StaticResource buttonStyle}"
+                        Text="Update Profile" />
+                </VerticalStackLayout>
+            </FlexLayout>
+            <Button
+                Command="{Binding LogoutCommand}"
+                Style="{StaticResource buttonStyle}"
+                Text="Logout" />
         </VerticalStackLayout>
     </ContentPage.Content>
 </ContentPage>

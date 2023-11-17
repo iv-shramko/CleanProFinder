@@ -4,12 +4,14 @@ using CleanProFinder.Mobile.ViewModels;
 using CleanProFinder.Mobile.ViewModels.Authentication;
 using CleanProFinder.Mobile.ViewModels.ServiceProvider;
 using CleanProFinder.Mobile.ViewModels.ServiceProvider.Profile;
+using CleanProFinder.Mobile.ViewModels.ServiceProvider.Services;
 using CleanProFinder.Mobile.ViewModels.ServiceUser;
 using CleanProFinder.Mobile.ViewModels.ServiceUser.Premises;
 using CleanProFinder.Mobile.ViewModels.ServiceUser.Profile;
 using CleanProFinder.Mobile.Views.Authentication;
 using CleanProFinder.Mobile.Views.ServiceProvider;
 using CleanProFinder.Mobile.Views.ServiceProvider.Profile;
+using CleanProFinder.Mobile.Views.ServiceProvider.Services;
 using CleanProFinder.Mobile.Views.ServiceUser;
 using CleanProFinder.Mobile.Views.ServiceUser.Premises;
 using CleanProFinder.Mobile.Views.ServiceUser.Profile;
@@ -90,12 +92,19 @@ namespace CleanProFinder.Mobile
             builder.Services.AddTransient<ServiceUserEditPremisePage>();
             builder.Services.AddTransient<ServiceUserEditPremiseViewModel>();
 
+            builder.Services.AddTransient<ServiceProviderEditServicesPage>();
+            builder.Services.AddTransient<ServiceProviderEditServicesViewModel>();
+
+            builder.Services.AddTransient<ServiceProviderSelectServicesPage>();
+            builder.Services.AddTransient<ServiceProviderSelectServicesViewModel>();
+
             builder.Services.AddSingleton<IHttpService, HttpService>();
             builder.Services.AddSingleton<IAuthService, AuthService>();
             builder.Services.AddSingleton<IDialogService, DialogService>();
             builder.Services.AddSingleton<IUserProfileService, UserProfileService>();
             builder.Services.AddSingleton<IProviderService, ProviderService>();
             builder.Services.AddSingleton<IPremiseService, PremiseService>();
+            builder.Services.AddSingleton<ICleaningService, CleaningService>();
 
             return builder.Build();
         }
