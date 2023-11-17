@@ -98,6 +98,15 @@ namespace CleanProFinder.Mobile
             builder.Services.AddTransient<ServiceProviderSelectServicesPage>();
             builder.Services.AddTransient<ServiceProviderSelectServicesViewModel>();
 
+            builder.Services.AddTransient<ServiceUserConfirmPremiseSelectionPage>();
+            builder.Services.AddTransient<ServiceUserConfirmPremiseSelectionViewModel>();
+
+            builder.Services.AddTransient<ServiceUserSelectPremisePage>();
+            builder.Services.AddTransient<ServiceUserSelectPremiseViewModel>();
+
+            builder.Services.AddTransient<ServiceUserReadPremisePage>();
+            builder.Services.AddTransient<ServiceUserReadPremiseViewModel>();
+
             builder.Services.AddSingleton<IHttpService, HttpService>();
             builder.Services.AddSingleton<IAuthService, AuthService>();
             builder.Services.AddSingleton<IDialogService, DialogService>();

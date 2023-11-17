@@ -1,0 +1,50 @@
+<ContentPage
+    x:Class="CleanProFinder.Mobile.Views.ServiceUser.Premises.ServiceUserConfirmPremiseSelectionPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:premises="clr-namespace:CleanProFinder.Shared.Dto.Premises;assembly=CleanProFinder.Shared"
+    xmlns:premises1="clr-namespace:CleanProFinder.Mobile.ViewModels.ServiceUser.Premises"
+    Title="Confirm Premise Selection"
+    x:DataType="premises1:ServiceUserConfirmPremiseSelectionViewModel"
+    Background="{StaticResource Secondary}">
+
+    <VerticalStackLayout
+        Margin="10"
+        Spacing="40"
+        VerticalOptions="Center">
+        <Editor
+            AutoSize="TextChanges"
+            FontSize="18"
+            IsReadOnly="True"
+            MaximumHeightRequest="100"
+            Placeholder="Building Address"
+            PlaceholderColor="{StaticResource Primary}"
+            Text="{Binding Address}"
+            TextColor="{StaticResource Tertiary}" />
+        <Entry
+            FontSize="18"
+            IsReadOnly="True"
+            Keyboard="Numeric"
+            Placeholder="Square"
+            PlaceholderColor="{StaticResource Primary}"
+            Text="{Binding Square}"
+            TextColor="{StaticResource Tertiary}" />
+        <Editor
+            AutoSize="TextChanges"
+            FontSize="18"
+            IsReadOnly="True"
+            MaximumHeightRequest="290"
+            Placeholder="Description"
+            PlaceholderColor="{StaticResource Primary}"
+            Text="{Binding Description}"
+            TextColor="{StaticResource Tertiary}" />
+        <Button
+            Background="{StaticResource Primary}"
+            Command="{Binding ConfirmPremiseSelectionCommand}"
+            FontAttributes="Bold"
+            FontFamily="OpenSans"
+            FontSize="20"
+            Text="Confirm Premise Selection"
+            TextColor="White" />
+    </VerticalStackLayout>
+</ContentPage>
