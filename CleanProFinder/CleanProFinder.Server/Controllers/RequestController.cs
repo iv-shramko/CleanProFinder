@@ -63,7 +63,7 @@ namespace CleanProFinder.Server.Controllers
         [Authorize(Roles = Roles.ServiceUser)]
         [ProducesResponseType(typeof(RequestFullInfoDto), 200)]
         [ProducesResponseType(typeof(ErrorDto), 400)]
-        public async Task<IActionResult> GetActiveRequest(Guid id, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetRequest(Guid id, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new GetRequestByIdQuery { Id = id}, cancellationToken);
             return ConvertFromServiceResponse(result);
@@ -77,9 +77,22 @@ namespace CleanProFinder.Server.Controllers
         [Authorize(Roles = Roles.ServiceUser)]
         [ProducesResponseType(typeof(List<RequestShortInfoDto>), 200)]
         [ProducesResponseType(typeof(ErrorDto), 400)]
-        public async Task<IActionResult> GetOwnActiveRequests(CancellationToken cancellationToken)
+        public async Task<IActionResult> GetOwnRequests(CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new GetOwnRequestsQuery(), cancellationToken);
+            return ConvertFromServiceResponse(result);
+        }
+
+        /// <summary>
+        /// Cancel request.
+        /// </summary>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        [HttpGet("my-requests/cancel/{id}")]
+        [Authorize(Roles = Roles.ServiceUser)]
+        [ProducesResponseType(typeof(ErrorDto), 400)]
+        public async Task<IActionResult> CancelRequest(Guid id, CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(new CancelRequestCommand { RequestId = id}, cancellationToken);
             return ConvertFromServiceResponse(result);
         }
     }

@@ -24,6 +24,7 @@ namespace CleanProFinder.Shared.Errors.ServiceErrors
         public static ServerError ActiveRequestsError => new ServerError("Server error", "Get Active Requests Error", 11);
         public static ServerError RequestByIdError => new ServerError("Server error", "Get Request By Id Error", 12);
         public static ServerError OwnRequestsError => new ServerError("Server error", "Get Own Requests Error", 13);
+        public static ServerError CancelRequestError => new ServerError("Server error", "Cancel Request Error", 14);
 
     }
 }
