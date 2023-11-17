@@ -79,14 +79,23 @@
     <MauiXaml Update="Views\ServiceProvider\Profile\ServiceProviderInitialEditProfilePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
+    <MauiXaml Update="Views\ServiceProvider\Services\ServiceProviderSelectServicesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
     <MauiXaml Update="Views\ServiceUser\Profile\ServiceUserProfilePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Views\Authentication\RolePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
+    <Compile Update="Views\ServiceProvider\Services\ServiceProviderEditServicesPage.xaml.cs">
+      <DependentUpon>ServiceProviderEditServicesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\ServiceProvider\Profile\ServiceProviderInitialEditProfilePage.xaml.cs">
       <DependentUpon>ServiceProviderInitialEditProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ServiceProvider\Services\ServiceProviderSelectServicesPage.xaml.cs">
+      <DependentUpon>ServiceProviderSelectServicesPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\ServiceUser\Profile\ServiceUserInitialEditProfilePage.xaml.cs">
       <DependentUpon>ServiceUserInitialEditProfilePage.xaml</DependentUpon>

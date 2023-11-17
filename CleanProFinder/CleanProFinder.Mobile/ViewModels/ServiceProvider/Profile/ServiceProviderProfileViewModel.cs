@@ -1,4 +1,8 @@
-﻿using CleanProFinder.Mobile.Services.Interfaces;
+﻿using System.Collections.ObjectModel;
+using CleanProFinder.Mobile.Services.Interfaces;
+using CleanProFinder.Mobile.ViewModels.ServiceProvider.Services;
+using CleanProFinder.Mobile.Views.ServiceProvider.Services;
+using CleanProFinder.Shared.Dto.CleaningServices;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -16,8 +20,12 @@ public partial class ServiceProviderProfileViewModel : ObservableObject
         _authService = authService;
         _dialogService = dialogService;
         _userProfileService = userProfileService;
+        _services = new ObservableCollection<ProviderServiceFullInfoDto>();
         IsEditing = false;
     }
+
+    [ObservableProperty] 
+    private string _email;
 
     [ObservableProperty] 
     private string _name;
@@ -32,7 +40,10 @@ public partial class ServiceProviderProfileViewModel : ObservableObject
     private string _websiteUrl;
 
     [ObservableProperty] 
-    private Image _logoImage = new() { Source = "photo_placeholder.svg" };
+    private Image _logoImage;
+
+    [ObservableProperty] 
+    private ObservableCollection<ProviderServiceFullInfoDto> _services;
 
     [ObservableProperty] 
     private bool _isEditing;
@@ -49,10 +60,15 @@ public partial class ServiceProviderProfileViewModel : ObservableObject
 
         if (response.IsSuccess)
         {
+            Email = response.Result.Email;
             Name = response.Result.Name;
             PhoneNumber = response.Result.PhoneNumber;
             Description = response.Result.Description;
             WebsiteUrl = response.Result.Site;
+            foreach (var service in response.Result.Services)
+            {
+                Services.Add(service);
+            }
             return;
         }
 
@@ -78,6 +94,17 @@ public partial class ServiceProviderProfileViewModel : ObservableObject
         {
             Source = ImageSource.FromStream(() => stream)
         };
+    }
+
+    [RelayCommand]
+    private async Task EditServices()
+    {
+        var parameters = new Dictionary<string, object>
+        {
+            {  nameof(ServiceProviderEditServicesViewModel.Services), Services }
+        };
+
+        await Shell.Current.GoToAsync($"{nameof(ServiceProviderEditServicesPage)}", parameters);
     }
 
     [RelayCommand]

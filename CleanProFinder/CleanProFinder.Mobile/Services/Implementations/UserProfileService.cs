@@ -7,7 +7,7 @@ namespace CleanProFinder.Mobile.Services.Implementations;
 public class UserProfileService : IUserProfileService
 {
     private const string GetServiceUserProfileInfoEndpoint = "api/profile/service-user/info";
-    private const string GetServiceProviderProfileInfoEndpoint = "api/Profile/service-provider/info";
+    private const string GetServiceProviderProfileInfoEndpoint = "api/profile/service-provider/info";
     private const string EditServiceUserProfileEndpoint = "api/profile/service-user/edit";
     private const string EditServiceProviderProfileEndpoint = "api/profile/service-provider/edit";
 
