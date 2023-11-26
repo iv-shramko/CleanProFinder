@@ -11,10 +11,7 @@ namespace CleanProFinder.Db.Models
 
         public string Description { get; set; }
 
-        public Guid? ProviderId { get; set; }
-        public CleaningServiceProvider? Provider { get; set; }
-
-        public float? ProviderPrice { get; set; }
+        public ICollection<RequestInteraction> Interactions { get; set; }
 
         public RequestStatus Status { get; set; }
     }

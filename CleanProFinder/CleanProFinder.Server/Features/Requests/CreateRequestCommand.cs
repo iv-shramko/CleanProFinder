@@ -60,7 +60,7 @@ namespace CleanProFinder.Server.Features.Requests
                 request.Description = command.Description ?? string.Empty;
                 request.PremiseId = premise.Id;
 
-                if(command.ServicesId is not null)
+                if(command.ServicesId is not null && command.ServicesId.Any())
                 {
                     var services = await _context.CleaningServices.Where(s => command.ServicesId.Contains(s.Id)).ToListAsync();
                     request.Services = services;
@@ -78,14 +78,23 @@ namespace CleanProFinder.Server.Features.Requests
                 _context.Requests.Add(request);
                 await _context.SaveChangesAsync(cancellationToken);
 
+                //TODO: notificate provider
+
                 return ServiceResponseBuilder.Success();
             }
 
-            private static void AssignProvider(Request request, Guid providerId)
+            private void AssignProvider(Request request, Guid providerId)
             {
-                request.ProviderId = providerId;
-                request.Status = RequestStatus.OfferedProvider;
-                //TODO: notificate provider
+                var interaction = new RequestInteraction();
+                interaction.ProviderId = providerId;
+                interaction.RequestId = request.Id;
+
+                request.Interactions = new List<RequestInteraction>
+                {
+                    interaction
+                };
+
+                request.Status = RequestStatus.OfferedProvider;                
             }
         }
     }

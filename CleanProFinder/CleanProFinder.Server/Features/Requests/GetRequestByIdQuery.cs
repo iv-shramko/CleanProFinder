@@ -60,8 +60,9 @@ namespace CleanProFinder.Server.Features.Requests
                     .Requests
                     .Include(r => r.Premise)
                     .Include(r => r.Services)
-                    .Include(r => r.Provider)
-                    .FirstOrDefaultAsync(r => r.Id == request.Id)
+                    .Include(r => r.Interactions)
+                    .ThenInclude(i => i.Provider)
+                    .FirstOrDefaultAsync(r => r.Id == request.Id, cancellationToken);
 ;
                 if (serviceRequest is null)
                 {
