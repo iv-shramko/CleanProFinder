@@ -20,9 +20,11 @@ namespace CleanProFinder.Server.Mapper
                 .ForMember(r => r.Square, otp => otp.MapFrom(src => src.Premise.Square))
                 .ForMember(r => r.Address, otp => otp.MapFrom(src => src.Premise.Address))
                 .ForMember(r => r.Status, otp => otp.MapFrom(src => src.Status.ToString()))
-                .ForMember(r => r.ProviderId, otp => otp.MapFrom(src => src.ProviderId))
-                .ForMember(r => r.ProviderName, otp => 
-                    otp.MapFrom(src => src.Provider == null ? null : src.Provider.Name));
+                .ForMember(r => r.Providers, otp => otp.MapFrom(src => src.Interactions.Select(i => i.Provider)));
+
+            CreateMap<CleaningServiceProvider, ProviderRequestInteractionInfo>()
+                .ForMember(i => i.ProviderId, otp => otp.MapFrom(src => src.Id))
+                .ForMember(i => i.ProviderName, otp => otp.MapFrom(src => src.Name));
         }
     }
 }
