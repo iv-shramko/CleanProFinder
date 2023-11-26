@@ -95,5 +95,19 @@ namespace CleanProFinder.Server.Controllers
             var result = await _mediator.Send(new CancelRequestCommand { RequestId = id}, cancellationToken);
             return ConvertFromServiceResponse(result);
         }
+
+        /// <summary>
+        /// Assign for request.
+        /// </summary>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        [HttpPost("assign-request")]
+        [Authorize(Roles = Roles.ServiceProvider)]
+        [ProducesResponseType(typeof(ErrorDto), 400)]
+        public async Task<IActionResult> GetActiveRequests(AssignForRequestCommand command, 
+            CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(command, cancellationToken);
+            return ConvertFromServiceResponse(result);
+        }
     }
 }

@@ -17,6 +17,6 @@ namespace CleanProFinder.Shared.Dto.Requests
 
         public string Status { get; set; }
 
-        public List<ProviderRequestInteractionInfo> Providers { get; set; }
+        public List<ProviderRequestInteractionInfo> ProvidersInteractions { get; set; }
     }
 }
