@@ -11,5 +11,7 @@
 
         public ICollection<CleaningServiceServiceProvider> CleaningServiceServiceProviders { get; set; }
         public ICollection<RequestInteraction> Interactions { get; set; }
+        public ICollection<SavedProvider> SavedProviders { get; set; }
+
     }
 }
