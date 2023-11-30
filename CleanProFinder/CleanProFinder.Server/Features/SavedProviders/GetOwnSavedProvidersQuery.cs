@@ -50,10 +50,10 @@ namespace CleanProFinder.Server.Features.SavedProviders
                     return ServiceResponseBuilder.Failure<List<SavedProviderDto>>(UserError.InvalidAuthorization);
                 }
 
-                var savedProviders = _context.SavedProviders
+                var savedProviders = await _context.SavedProviders
                     .Where(sP => sP.ServiceUserId == userId)
                     .Include(sP => sP.CleaningServiceProvider)
-                    .ToList();
+                    .ToListAsync();
 
                 var result = _mapper.Map<List<SavedProviderDto>>(savedProviders);
                 return ServiceResponseBuilder.Success(result);
