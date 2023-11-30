@@ -3,11 +3,10 @@
     x:Class="CleanProFinder.Mobile.Views.ServiceUser.Requests.ServiceUserEditRequestPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:requests="clr-namespace:CleanProFinder.Shared.Dto.Requests;assembly=CleanProFinder.Shared"
-    xmlns:requests1="clr-namespace:CleanProFinder.Mobile.ViewModels.ServiceUser.Requests"
+    xmlns:requests="clr-namespace:CleanProFinder.Mobile.ViewModels.ServiceUser.Requests"
     xmlns:services="clr-namespace:CleanProFinder.Shared.Dto.CleaningServices;assembly=CleanProFinder.Shared"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-    x:DataType="requests1:ServiceUserEditRequestViewModel"
+    x:DataType="requests:ServiceUserEditRequestViewModel"
     Background="{StaticResource Secondary}">
 
     <ContentPage.Resources>

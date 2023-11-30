@@ -3,8 +3,6 @@
     x:Class="CleanProFinder.Mobile.Views.ServiceUser.Services.ServiceUserSelectServicesPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:requests="clr-namespace:CleanProFinder.Shared.Dto.Requests;assembly=CleanProFinder.Shared"
-    xmlns:requests1="clr-namespace:CleanProFinder.Mobile.ViewModels.ServiceUser.Requests"
     xmlns:services="clr-namespace:CleanProFinder.Shared.Dto.CleaningServices;assembly=CleanProFinder.Shared"
     xmlns:services1="clr-namespace:CleanProFinder.Mobile.ViewModels.ServiceUser.Services"
     x:DataType="services1:ServiceUserSelectServicesViewModel"
@@ -37,38 +35,37 @@
         </Style>
     </ContentPage.Resources>
 
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="150" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Label Style="{StaticResource labelTitleStyle}" Text="Select Services" />
-            <CollectionView
-                Grid.Row="1"
-                ItemsSource="{Binding AvailableServices}"
-                SelectedItems="{Binding SelectedServices}"
-                SelectionMode="Multiple">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="services:CleaningServiceDto">
-                        <Border Style="{StaticResource borderStyle}" Margin="10,0,10,0">
-                            <Label
-                                x:Name="BorderLabel"
-                                FontAttributes="Bold"
-                                FontSize="18"
-                                Text="{Binding Name}" />
-                        </Border>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-            <VerticalStackLayout
-                Grid.Row="2">
-                <Button
-                    Margin="10,20,10,20"
-                    Command="{Binding ConfirmSelectionCommand}"
-                    Style="{StaticResource buttonStyle}"
-                    Text="Confirm Selection"
-                    TextColor="White" />
-            </VerticalStackLayout>
-        </Grid>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Label Style="{StaticResource labelTitleStyle}" Text="Select Services" />
+        <CollectionView
+            Grid.Row="1"
+            ItemsSource="{Binding AvailableServices}"
+            SelectedItems="{Binding SelectedServices}"
+            SelectionMode="Multiple">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="services:CleaningServiceDto">
+                    <Border Margin="10,0,10,0" Style="{StaticResource borderStyle}">
+                        <Label
+                            x:Name="BorderLabel"
+                            FontAttributes="Bold"
+                            FontSize="18"
+                            Text="{Binding Name}" />
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <VerticalStackLayout Grid.Row="2">
+            <Button
+                Margin="10,20,10,20"
+                Command="{Binding ConfirmSelectionCommand}"
+                Style="{StaticResource buttonStyle}"
+                Text="Confirm Selection"
+                TextColor="White" />
+        </VerticalStackLayout>
+    </Grid>
 </ContentPage>
