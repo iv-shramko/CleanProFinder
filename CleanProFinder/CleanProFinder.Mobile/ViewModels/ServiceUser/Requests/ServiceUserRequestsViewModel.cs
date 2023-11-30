@@ -58,7 +58,7 @@ public partial class ServiceUserRequestsViewModel : ObservableObject
             { nameof(ServiceUserEditRequestViewModel.RequestId), request.Id }
         };
 
-        await Shell.Current.GoToAsync($"{nameof(ServiceUserEditRequestPage)}", navigationParameters);
+        await Shell.Current.GoToAsync(nameof(ServiceUserEditRequestPage), navigationParameters);
     }
 
     [RelayCommand]

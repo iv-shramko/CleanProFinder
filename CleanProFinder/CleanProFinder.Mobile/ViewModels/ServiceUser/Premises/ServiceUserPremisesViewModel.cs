@@ -59,7 +59,7 @@ public partial class ServiceUserPremisesViewModel : ObservableObject
             { nameof(ServiceUserEditPremiseViewModel.PremiseId), premise.Id }
         };
 
-        await Shell.Current.GoToAsync($"{nameof(ServiceUserEditPremisePage)}", navigationParameters);
+        await Shell.Current.GoToAsync(nameof(ServiceUserEditPremisePage), navigationParameters);
     }
 
     [RelayCommand]

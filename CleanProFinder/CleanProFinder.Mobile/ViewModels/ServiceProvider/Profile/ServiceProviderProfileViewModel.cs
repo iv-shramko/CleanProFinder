@@ -104,7 +104,7 @@ public partial class ServiceProviderProfileViewModel : ObservableObject
             {  nameof(ServiceProviderEditServicesViewModel.Services), Services }
         };
 
-        await Shell.Current.GoToAsync($"{nameof(ServiceProviderEditServicesPage)}", navigationParameters);
+        await Shell.Current.GoToAsync(nameof(ServiceProviderEditServicesPage), navigationParameters);
     }
 
     [RelayCommand]

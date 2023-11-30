@@ -54,6 +54,6 @@ public partial class ServiceUserConfirmPremiseSelectionViewModel : ObservableObj
             { nameof(ServiceUserAddRequestViewModel.SelectedPremise), SelectedPremise }
         };
 
-        await Shell.Current.GoToAsync($"../..", navigationParameters);
+        await Shell.Current.GoToAsync("../..", navigationParameters);
     }
 }

@@ -59,7 +59,7 @@ public partial class ServiceProviderEditServicesViewModel : ObservableObject, IQ
             { nameof(ServiceProviderSelectServicesViewModel.ExistingServices), Services }
         };
 
-        await Shell.Current.GoToAsync($"{nameof(ServiceProviderSelectServicesPage)}", navigationParameters);
+        await Shell.Current.GoToAsync(nameof(ServiceProviderSelectServicesPage), navigationParameters);
     }
 
     [RelayCommand]

@@ -65,7 +65,7 @@ public partial class ServiceUserEditRequestViewModel : ObservableObject
             { nameof(ServiceUserPremiseInfoViewModel.PremiseId), PremiseId }
         };
 
-        await Shell.Current.GoToAsync($"{nameof(ServiceUserPremiseInfoPage)}", navigationParameters);
+        await Shell.Current.GoToAsync(nameof(ServiceUserPremiseInfoPage), navigationParameters);
     }
 
     private async void LoadRequest(string requestId)

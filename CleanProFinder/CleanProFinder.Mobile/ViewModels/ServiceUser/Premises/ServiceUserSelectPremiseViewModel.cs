@@ -59,7 +59,7 @@ public partial class ServiceUserSelectPremiseViewModel : ObservableObject
             { nameof(ServiceUserConfirmPremiseSelectionViewModel.SelectedPremiseId), premise.Id }
         };
 
-        await Shell.Current.GoToAsync($"{nameof(ServiceUserConfirmPremiseSelectionPage)}", navigationParameters);
+        await Shell.Current.GoToAsync(nameof(ServiceUserConfirmPremiseSelectionPage), navigationParameters);
     }
 
     [RelayCommand]

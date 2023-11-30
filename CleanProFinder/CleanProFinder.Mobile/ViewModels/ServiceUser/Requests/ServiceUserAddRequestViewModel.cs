@@ -75,7 +75,7 @@ public partial class ServiceUserAddRequestViewModel : ObservableObject, IQueryAt
             { nameof(ServiceUserPremiseInfoViewModel.PremiseId), SelectedPremise.Id }
         };
 
-        await Shell.Current.GoToAsync($"{nameof(ServiceUserPremiseInfoPage)}", navigationParameters);
+        await Shell.Current.GoToAsync(nameof(ServiceUserPremiseInfoPage), navigationParameters);
     }
 
     [RelayCommand]
