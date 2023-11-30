@@ -14,64 +14,70 @@
             <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-
-    <Grid RowDefinitions="150, 225, 250, auto">
-        <Label Style="{StaticResource Key=labelTitleStyle}" Text="Add Request" />
-        <VerticalStackLayout Grid.Row="1" VerticalOptions="Center">
-            <Label Style="{StaticResource labelPropertyStyle}" Text="Description" />
-            <Border Style="{StaticResource borderStyle}">
-                <Editor
-                    Text="{Binding Description}"
-                    AutoSize="TextChanges"
-                    HeightRequest="104"
-                    Style="{StaticResource entryStyle}" />
-            </Border>
-        </VerticalStackLayout>
-        <VerticalStackLayout Grid.Row="2" VerticalOptions="Center">
-            <Border
-                Margin="10,15,10,3"
-                Background="{StaticResource Tertiary}"
-                IsVisible="{Binding HasServiceProviderId}"
-                Stroke="{StaticResource Tertiary}"
-                StrokeShape="RoundRectangle 10,10,10,10">
-                <Label
-                    Margin="12"
-                    FontAttributes="Bold"
-                    FontFamily="OpenSans"
-                    FontSize="18"
-                    Text="{Binding ServiceProviderName}"
+    
+    <Grid>
+        <Grid RowDefinitions="150, 175, 290">
+            <Label Style="{StaticResource Key=labelTitleStyle}" Text="Add Request" />
+            <VerticalStackLayout Grid.Row="1">
+                <Label Style="{StaticResource labelPropertyStyle}" Text="Description" />
+                <Border Style="{StaticResource borderStyle}">
+                    <Editor
+                        AutoSize="TextChanges"
+                        HeightRequest="104"
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding Description}" />
+                </Border>
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="2">
+                <Label Text="Service Provider (optional)" Style="{StaticResource labelPropertyStyle}"/>
+                <Border
+                    Margin="10,15,10,3"
+                    Background="{StaticResource Tertiary}"
+                    IsVisible="{Binding HasServiceProviderId}"
+                    Stroke="{StaticResource Tertiary}"
+                    StrokeShape="RoundRectangle 10,10,10,10">
+                    <Label
+                        Margin="12"
+                        FontAttributes="Bold"
+                        FontFamily="OpenSans"
+                        FontSize="18"
+                        Text="{Binding ServiceProviderName}"
+                        TextColor="White" />
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1" />
+                    </Border.GestureRecognizers>
+                </Border>
+                <Button
+                    Margin="10"
+                    IsVisible="{Binding HasServiceProviderId, Converter={StaticResource InvertedBoolConverter}}"
+                    Style="{StaticResource buttonStyle}"
+                    Text="Select Service Provider"
                     TextColor="White" />
-                <Border.GestureRecognizers>
-                    <TapGestureRecognizer NumberOfTapsRequired="1" />
-                </Border.GestureRecognizers>
-            </Border>
+                <Button
+                    Margin="10"
+                    IsVisible="{Binding HasServiceProviderId}"
+                    Style="{StaticResource buttonStyle}"
+                    Text="Change ServiceProvider"
+                    TextColor="White" />
+            </VerticalStackLayout>
+        </Grid>
+        <AbsoluteLayout>
             <Button
-                Margin="10"
-                IsVisible="{Binding HasServiceProviderId, Converter={StaticResource InvertedBoolConverter}}"
-                Style="{StaticResource buttonStyle}"
-                Text="Select Service Provider"
-                TextColor="White" />
-            <Button
-                Margin="10"
-                IsVisible="{Binding HasServiceProviderId}"
-                Style="{StaticResource buttonStyle}"
-                Text="Change ServiceProvider"
-                TextColor="White" />
-        </VerticalStackLayout>
-        <Grid Grid.Row="3" ColumnDefinitions=".5*, .5*">
-            <Button
-                Margin="10,0,5,0"
+                AbsoluteLayout.LayoutBounds="0, 631"
                 Command="{Binding LastStepCommand}"
                 Style="{StaticResource buttonStyle}"
                 Text="Last Step"
-                TextColor="White" />
+                TextColor="White"
+                WidthRequest="180" />
+        </AbsoluteLayout>
+        <AbsoluteLayout>
             <Button
-                Grid.Column="1"
-                Margin="5,0,10,0"
+                AbsoluteLayout.LayoutBounds="190, 631"
                 Command="{Binding AddRequestCommand}"
                 Style="{StaticResource buttonStyle}"
                 Text="Place Request"
-                TextColor="White" />
-        </Grid>
+                TextColor="White"
+                WidthRequest="180" />
+        </AbsoluteLayout>
     </Grid>
 </ContentPage>

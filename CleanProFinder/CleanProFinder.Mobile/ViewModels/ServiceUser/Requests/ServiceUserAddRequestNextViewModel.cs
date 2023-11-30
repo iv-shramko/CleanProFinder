@@ -1,34 +1,27 @@
-﻿using System.Collections.ObjectModel;
-using CleanProFinder.Mobile.Services.Interfaces;
-using CleanProFinder.Mobile.Views;
+﻿using CleanProFinder.Mobile.Services.Interfaces;
 using CleanProFinder.Mobile.Views.ServiceUser.Requests;
-using CleanProFinder.Mobile.Views.ServiceUser.Premises;
-using CleanProFinder.Mobile.ViewModels.ServiceUser.Premises;
-using CleanProFinder.Shared.Dto.Requests;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 namespace CleanProFinder.Mobile.ViewModels.ServiceUser.Requests;
 
-[QueryProperty(nameof(PremiseId), nameof(PremiseId))]
 [QueryProperty(nameof(ServiceProviderId), nameof(ServiceProviderId))]
-[QueryProperty(nameof(Description), nameof(Description))]
 public partial class ServiceUserAddRequestNextViewModel : ObservableObject
 {
     private readonly IDialogService _dialogService;
-    private readonly IUserRequestService _userRequestService;
+    private readonly IRequestService _requestService;
+    private readonly IRequestStorage _requestStorage;
 
     public ServiceUserAddRequestNextViewModel(
-        IDialogService dialogService, IUserRequestService userRequestsService)
+        IDialogService dialogService, IRequestService requestService, IRequestStorage requestStorage)
     {
         _dialogService = dialogService;
-        _userRequestService = userRequestsService;
+        _requestService = requestService;
+        _requestStorage = requestStorage;
+
+        _description = _requestStorage.Description;
+        _serviceProviderId = _requestStorage.ServiceProviderId;
     }
-
-    [ObservableProperty]
-    private string _premiseId;
-
-    private readonly List<Guid> servicesId = new List<Guid> { Guid.Parse("cd2f9ee0-c0ed-4b9b-92ce-0e37e786ec73") };
 
     [ObservableProperty]
     private string _description;
@@ -45,12 +38,16 @@ public partial class ServiceUserAddRequestNextViewModel : ObservableObject
     [RelayCommand]
     private async Task AddRequest()
     {
+
         var response =
-            await _userRequestService.AddServiceUserRequestAsync(Guid.Parse(PremiseId), servicesId, Description, null);
+            await _requestService.AddServiceUserRequestAsync(Guid.Parse(_requestStorage.PremiseId),
+            _requestStorage.Services.Select(service => service.Id).ToList(), Description, null);
 
         if (response.IsSuccess)
         {
-            await Shell.Current.GoToAsync("../..");
+            _requestStorage.Reset();
+
+            await Shell.Current.GoToAsync("//ServiceUserRequestsPage");
             return;
         }
 
@@ -60,12 +57,9 @@ public partial class ServiceUserAddRequestNextViewModel : ObservableObject
     [RelayCommand]
     private async Task LastStep()
     {
-        var navigationParameters = new Dictionary<string, object>
-        {
-            {"PremiseId", PremiseId },
-            {"Description", Description }
-        };
+        _requestStorage.Description = Description;
+        _requestStorage.ServiceProviderId = ServiceProviderId;
 
-        await Shell.Current.GoToAsync($"..", navigationParameters);
+        await Shell.Current.GoToAsync(nameof(ServiceUserAddRequestPage));
     }
 }
