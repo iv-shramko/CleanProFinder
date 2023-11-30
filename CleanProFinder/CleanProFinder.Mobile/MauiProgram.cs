@@ -145,7 +145,7 @@ namespace CleanProFinder.Mobile
             builder.Services.AddSingleton<IProviderService, ProviderService>();
             builder.Services.AddSingleton<IPremiseService, PremiseService>();
             builder.Services.AddSingleton<ICleaningService, CleaningService>();
-            builder.Services.AddSingleton<IUserRequestService, UserRequestService>();
+            builder.Services.AddSingleton<IRequestService, RequestService>();
 
             return builder.Build();
         }

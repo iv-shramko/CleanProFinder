@@ -3,7 +3,7 @@ using CleanProFinder.Shared.ServiceResponseHandling;
 
 namespace CleanProFinder.Mobile.Services.Interfaces;
 
-public interface IUserRequestService
+public interface IRequestService
 {
     Task<ServiceResponse> AddServiceUserRequestAsync(Guid premiseId, List<Guid> servicesId, string description, Guid? selectedProviderId);
     Task<ServiceResponse<IEnumerable<RequestShortInfoDto>>> GetServiceUserRequestsAsync();

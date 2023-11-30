@@ -5,7 +5,7 @@ using CleanProFinder.Shared.ServiceResponseHandling;
 
 namespace CleanProFinder.Mobile.Services.Implementations;
 
-public class UserRequestService : IUserRequestService
+public class RequestService : IRequestService
 {
     private const string CreateServiceUserPremiseEndpoint = "api/request/create";
     private const string GetServiceUserRequestsEndpoint = "api/request/my-requests";
@@ -13,7 +13,7 @@ public class UserRequestService : IUserRequestService
 
     private readonly IHttpService _httpService;
 
-    public UserRequestService(IHttpService httpService)
+    public RequestService(IHttpService httpService)
     {
         _httpService = httpService;
     }
