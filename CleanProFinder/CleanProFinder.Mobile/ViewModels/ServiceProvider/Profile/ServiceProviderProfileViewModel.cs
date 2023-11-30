@@ -99,12 +99,12 @@ public partial class ServiceProviderProfileViewModel : ObservableObject
     [RelayCommand]
     private async Task EditServices()
     {
-        var parameters = new Dictionary<string, object>
+        var navigationParameters = new Dictionary<string, object>
         {
             {  nameof(ServiceProviderEditServicesViewModel.Services), Services }
         };
 
-        await Shell.Current.GoToAsync($"{nameof(ServiceProviderEditServicesPage)}", parameters);
+        await Shell.Current.GoToAsync($"{nameof(ServiceProviderEditServicesPage)}", navigationParameters);
     }
 
     [RelayCommand]

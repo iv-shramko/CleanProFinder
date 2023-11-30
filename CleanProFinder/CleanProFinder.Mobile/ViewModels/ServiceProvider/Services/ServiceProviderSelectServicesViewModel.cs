@@ -56,11 +56,11 @@ public partial class ServiceProviderSelectServicesViewModel : ObservableObject
             Name = service.Name
         }).ToList();
 
-        var parameters = new Dictionary<string, object>
+        var navigationParameters = new Dictionary<string, object>
         {
             { nameof(ServiceProviderEditServicesViewModel.Services), selectedServicesFullInfo }
         };
 
-        await Shell.Current.GoToAsync("..", parameters);
+        await Shell.Current.GoToAsync("..", navigationParameters);
     }
 }

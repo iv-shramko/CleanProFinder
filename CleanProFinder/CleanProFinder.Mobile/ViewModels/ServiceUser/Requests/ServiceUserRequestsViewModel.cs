@@ -55,8 +55,12 @@ public partial class ServiceUserRequestsViewModel : ObservableObject
     [RelayCommand]
     private async Task EditRequest(RequestShortInfoDto request)
     {
-        await Shell.Current.GoToAsync(
-            $"{nameof(ServiceUserEditRequestPage)}?{nameof(ServiceUserEditRequestViewModel.RequestId)}={request.Id}");
+        var navigationParameters = new Dictionary<string, object>
+        {
+            { nameof(ServiceUserEditRequestViewModel.RequestId), request.Id }
+        };
+
+        await Shell.Current.GoToAsync($"{nameof(ServiceUserEditRequestPage)}", navigationParameters);
     }
 
     [RelayCommand]

@@ -87,12 +87,7 @@ public partial class ServiceUserEditPremiseViewModel : ObservableObject
     [RelayCommand]
     private async Task DeletePremise()
     {
-        var payload = new Dictionary<string, object>
-        {
-            { "premiseId", PremiseId }
-        };
-
-        var response = await _premiseService.DeletePremiseAsync(payload);
+        var response = await _premiseService.DeletePremiseAsync(PremiseId);
 
         if (response.IsSuccess)
         {

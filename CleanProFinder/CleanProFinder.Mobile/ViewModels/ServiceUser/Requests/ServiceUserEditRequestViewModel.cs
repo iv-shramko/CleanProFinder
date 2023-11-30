@@ -60,8 +60,12 @@ public partial class ServiceUserEditRequestViewModel : ObservableObject
     [RelayCommand]
     private async Task ReadPremise()
     {
-        await Shell.Current.GoToAsync(
-            $"{nameof(ServiceUserReadPremisePage)}?{nameof(ServiceUserReadPremiseViewModel.PremiseId)}={PremiseId}");
+        var navigationParameters = new Dictionary<string, object>
+        {
+            { nameof(ServiceUserPremiseInfoViewModel.PremiseId), PremiseId }
+        };
+
+        await Shell.Current.GoToAsync($"{nameof(ServiceUserPremiseInfoPage)}", navigationParameters);
     }
 
     private async void LoadRequest(string requestId)

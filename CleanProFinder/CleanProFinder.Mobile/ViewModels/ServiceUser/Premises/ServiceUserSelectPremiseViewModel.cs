@@ -54,8 +54,12 @@ public partial class ServiceUserSelectPremiseViewModel : ObservableObject
     [RelayCommand]
     private async Task SelectPremise(OwnPremiseShortInfoDto premise)
     {
-        await Shell.Current.GoToAsync(
-            $"{nameof(ServiceUserConfirmPremiseSelectionPage)}?{nameof(ServiceUserAddRequestViewModel.PremiseId)}={premise.Id}");
+        var navigationParameters = new Dictionary<string, object>
+        {
+            { nameof(ServiceUserConfirmPremiseSelectionViewModel.SelectedPremiseId), premise.Id }
+        };
+
+        await Shell.Current.GoToAsync($"{nameof(ServiceUserConfirmPremiseSelectionPage)}", navigationParameters);
     }
 
     [RelayCommand]

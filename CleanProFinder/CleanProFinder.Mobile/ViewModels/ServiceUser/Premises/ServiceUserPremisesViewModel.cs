@@ -54,8 +54,12 @@ public partial class ServiceUserPremisesViewModel : ObservableObject
     [RelayCommand]
     private async Task EditPremise(OwnPremiseShortInfoDto premise)
     {
-        await Shell.Current.GoToAsync(
-            $"{nameof(ServiceUserEditPremisePage)}?{nameof(ServiceUser.Premises.ServiceUserEditPremiseViewModel.PremiseId)}={premise.Id}");
+        var navigationParameters = new Dictionary<string, object>
+        {
+            { nameof(ServiceUserEditPremiseViewModel.PremiseId), premise.Id }
+        };
+
+        await Shell.Current.GoToAsync($"{nameof(ServiceUserEditPremisePage)}", navigationParameters);
     }
 
     [RelayCommand]
