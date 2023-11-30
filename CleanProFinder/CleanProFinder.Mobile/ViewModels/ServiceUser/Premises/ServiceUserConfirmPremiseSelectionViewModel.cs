@@ -5,7 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace CleanProFinder.Mobile.ViewModels.ServiceUser.Premises;
 
-[QueryProperty(nameof(PremiseId), nameof(PremiseId))]
+[QueryProperty(nameof(SelectedPremiseId), nameof(SelectedPremiseId))]
 public partial class ServiceUserConfirmPremiseSelectionViewModel : ObservableObject
 {
     private readonly IDialogService _dialogService;
@@ -17,14 +17,14 @@ public partial class ServiceUserConfirmPremiseSelectionViewModel : ObservableObj
         _premiseService = premiseService;
     }
 
-    private string _premiseId;
+    private Guid _selectedSelectedPremiseId;
 
-    public string PremiseId
+    public Guid SelectedPremiseId
     {
-        get => _premiseId;
+        get => _selectedSelectedPremiseId;
         set
         {
-            SetProperty(ref _premiseId, value);
+            SetProperty(ref _selectedSelectedPremiseId, value);
             LoadPremise(value);
         }
     }
@@ -38,14 +38,9 @@ public partial class ServiceUserConfirmPremiseSelectionViewModel : ObservableObj
     [ObservableProperty]
     private string _description;
 
-    private async void LoadPremise(string premiseId)
+    private async void LoadPremise(Guid premiseId)
     {
-        var payload = new Dictionary<string, object>
-        {
-            { "premiseId", premiseId }
-        };
-
-        var response = await _premiseService.GetPremiseAsync(payload);
+        var response = await _premiseService.GetPremiseAsync(premiseId);
 
         if (response.IsSuccess)
         {

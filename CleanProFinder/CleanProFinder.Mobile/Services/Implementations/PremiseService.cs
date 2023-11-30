@@ -31,11 +31,11 @@ public class PremiseService : IPremiseService
         return await _httpService.SendAsync(HttpMethod.Post, CreatePremiseEndpoint, createPremiseCommand);
     }
 
-    public async Task<ServiceResponse> EditPremiseAsync(Guid id, float square, string description, string address)
+    public async Task<ServiceResponse> EditPremiseAsync(Guid premiseId, float square, string description, string address)
     {
         var editPremiseCommand = new EditPremiseCommandDto
         {
-            Id = id,
+            Id = premiseId,
             Square = square,
             Description = description,
             Address = address
@@ -49,13 +49,23 @@ public class PremiseService : IPremiseService
         return await _httpService.SendAsync<IEnumerable<OwnPremiseShortInfoDto>>(HttpMethod.Get, GetPremisesEndpoint);
     }
 
-    public async Task<ServiceResponse<OwnPremiseFullInfoDto>> GetPremiseAsync(Dictionary<string, object> payload)
+    public async Task<ServiceResponse<OwnPremiseFullInfoDto>> GetPremiseAsync(Guid premiseId)
     {
+        var payload = new Dictionary<string, object>
+        {
+            { "premiseId", premiseId }
+        };
+
         return await _httpService.SendAsync<OwnPremiseFullInfoDto>(HttpMethod.Get, GetPremiseEndpoint, payload);
     }
 
-    public async Task<ServiceResponse> DeletePremiseAsync(Dictionary<string, object> payload)
+    public async Task<ServiceResponse> DeletePremiseAsync(Guid premiseId)
     {
+        var payload = new Dictionary<string, object>
+        {
+            { "premiseId", premiseId }
+        };
+
         return await _httpService.SendAsync(HttpMethod.Delete, DeletePremiseEndpoint, payload);
     }
 }
