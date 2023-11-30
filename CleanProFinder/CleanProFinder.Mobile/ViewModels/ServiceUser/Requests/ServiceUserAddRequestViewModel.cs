@@ -8,11 +8,11 @@ using CleanProFinder.Mobile.ViewModels.ServiceUser.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CleanProFinder.Shared.Dto.CleaningServices;
+using CleanProFinder.Shared.Dto.Premises;
 
 namespace CleanProFinder.Mobile.ViewModels.ServiceUser.Requests;
 
-[QueryProperty(nameof(PremiseId), nameof(PremiseId))]
-public partial class ServiceUserAddRequestViewModel : ObservableObject
+public partial class ServiceUserAddRequestViewModel : ObservableObject, IQueryAttributable
 {
     private readonly IDialogService _dialogService;
     private readonly IRequestService _requestService;
@@ -35,36 +35,21 @@ public partial class ServiceUserAddRequestViewModel : ObservableObject
         PremiseId = _requestStorage.PremiseId;
     }
 
-    private string _premiseId;
-
-    public string PremiseId
     {
-        get => _premiseId;
-        set
-        {
-            SetProperty(ref _premiseId, value);
-            HasPremiseId = !string.IsNullOrEmpty(_premiseId);
-
-            if (HasPremiseId)
-            {
-                LoadPremise(value);
-            }
-        }
+        _dialogService = dialogService;
+        _services = new ObservableCollection<CleaningServiceDto>();
     }
 
     [ObservableProperty]
     private ObservableCollection<CleaningServiceDto> _services;
 
     [ObservableProperty]
-    private bool _hasPremiseId;
+    private OwnPremiseFullInfoDto _selectedPremise;
 
     [ObservableProperty]
     private string _premiseAddress;
 
-    [ObservableProperty]
-    private float _square;
-
-    private async void LoadPremise(string premiseId)
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
         _requestStorage.PremiseId = premiseId;
 
@@ -73,7 +58,10 @@ public partial class ServiceUserAddRequestViewModel : ObservableObject
             { "premiseId", premiseId }
         };
 
-        var response = await _premiseService.GetPremiseAsync(payload);
+        if (query.TryGetValue(nameof(SelectedPremise), out var newSelectedPremise))
+        {
+            SelectedPremise = (OwnPremiseFullInfoDto)newSelectedPremise;
+        }
 
         if (response.IsSuccess)
         {

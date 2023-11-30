@@ -18,7 +18,7 @@
                         IsReadOnly="True"
                         MaximumHeightRequest="100"
                         Style="{StaticResource entryStyle}"
-                        Text="{Binding Address}" />
+                        Text="{Binding SelectedPremise.Address}" />
                 </Border>
                 <Label Style="{StaticResource labelPropertyStyle}" Text="Square" />
                 <Border Style="{StaticResource borderStyle}">
@@ -26,7 +26,7 @@
                         IsReadOnly="True"
                         Keyboard="Numeric"
                         Style="{StaticResource entryStyle}"
-                        Text="{Binding Square}" />
+                        Text="{Binding SelectedPremise.Square}" />
                 </Border>
                 <Label Style="{StaticResource labelPropertyStyle}" Text="Description" />
                 <Border Style="{StaticResource borderStyle}">
@@ -35,7 +35,7 @@
                         IsReadOnly="True"
                         MaximumHeightRequest="290"
                         Style="{StaticResource entryStyle}"
-                        Text="{Binding Description}" />
+                        Text="{Binding SelectedPremise.Description}" />
                 </Border>
             </VerticalStackLayout>
             <VerticalStackLayout

@@ -1,5 +1,6 @@
 ﻿using CleanProFinder.Mobile.Services.Interfaces;
 using CleanProFinder.Mobile.ViewModels.ServiceUser.Requests;
+using CleanProFinder.Shared.Dto.Premises;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -30,13 +31,7 @@ public partial class ServiceUserConfirmPremiseSelectionViewModel : ObservableObj
     }
 
     [ObservableProperty]
-    private string _address;
-
-    [ObservableProperty]
-    private float _square;
-
-    [ObservableProperty]
-    private string _description;
+    private OwnPremiseFullInfoDto _selectedPremise;
 
     private async void LoadPremise(Guid premiseId)
     {
@@ -44,9 +39,7 @@ public partial class ServiceUserConfirmPremiseSelectionViewModel : ObservableObj
 
         if (response.IsSuccess)
         {
-            Address = response.Result.Address;
-            Square = response.Result.Square;
-            Description = response.Result.Description;
+            SelectedPremise = response.Result;
             return;
         }
 
@@ -56,7 +49,11 @@ public partial class ServiceUserConfirmPremiseSelectionViewModel : ObservableObj
     [RelayCommand]
     private async Task ConfirmPremiseSelection()
     {
-        await Shell.Current.GoToAsync(
-            $"../..?{nameof(ServiceUserAddRequestViewModel.PremiseId)}={PremiseId}");
+        var navigationParameters = new Dictionary<string, object>
+        {
+            { nameof(ServiceUserAddRequestViewModel.SelectedPremise), SelectedPremise }
+        };
+
+        await Shell.Current.GoToAsync($"../..", navigationParameters);
     }
 }
