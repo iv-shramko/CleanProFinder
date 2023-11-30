@@ -49,7 +49,7 @@
                         </Border>
                     </Grid>
                     <Border.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding ReadPremiseCommand}" NumberOfTapsRequired="1" />
+                        <TapGestureRecognizer Command="{Binding ViewPremiseCommand}" NumberOfTapsRequired="1" />
                     </Border.GestureRecognizers>
                 </Border>
                 <Button

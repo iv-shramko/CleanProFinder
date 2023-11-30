@@ -86,7 +86,7 @@
     <MauiXaml Update="Views\ServiceUser\Premises\ServiceUserConfirmPremiseSelectionPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
-    <MauiXaml Update="Views\ServiceUser\Premises\ServiceUserReadPremisePage.xaml">
+    <MauiXaml Update="Views\ServiceUser\Premises\ServiceUserPremiseInfoPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Views\ServiceUser\Premises\ServiceUserSelectPremisePage.xaml">
@@ -109,6 +109,9 @@
     </Compile>
     <Compile Update="Views\ServiceUser\Premises\ServiceUserConfirmPremiseSelectionPage.xaml.cs">
       <DependentUpon>ServiceUserConfirmPremiseSelectionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ServiceUser\Premises\ServiceUserPremiseInfoPage.xaml.cs">
+      <DependentUpon>ServiceUserPremiseInfoPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\ServiceUser\Premises\ServiceUserSelectPremisePage.xaml.cs">
       <DependentUpon>ServiceUserSelectPremisePage.xaml</DependentUpon>

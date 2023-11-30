@@ -122,8 +122,8 @@ namespace CleanProFinder.Mobile
             builder.Services.AddTransient<ServiceUserSelectPremisePage>();
             builder.Services.AddTransient<ServiceUserSelectPremiseViewModel>();
 
-            builder.Services.AddTransient<ServiceUserReadPremisePage>();
-            builder.Services.AddTransient<ServiceUserReadPremiseViewModel>();
+            builder.Services.AddTransient<ServiceUserPremiseInfoPage>();
+            builder.Services.AddTransient<ServiceUserPremiseInfoViewModel>();
 
             builder.Services.AddTransient<ServiceUserRequestsPage>();
             builder.Services.AddTransient<ServiceUserRequestsViewModel>();
