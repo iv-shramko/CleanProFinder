@@ -8,12 +8,12 @@ namespace CleanProFinder.Mobile.ViewModels.ServiceUser.Premises;
 public partial class ServiceUserReadPremiseViewModel : ObservableObject
 {
     private readonly IDialogService _dialogService;
-    private readonly IPremiseService _userPremiseService;
+    private readonly IPremiseService _premiseService;
 
-    public ServiceUserReadPremiseViewModel(IDialogService dialogService, IPremiseService userPremisesService)
+    public ServiceUserReadPremiseViewModel(IDialogService dialogService, IPremiseService premiseService)
     {
         _dialogService = dialogService;
-        _userPremiseService = userPremisesService;
+        _premiseService = premiseService;
     }
 
     private string _premiseId;
@@ -44,7 +44,7 @@ public partial class ServiceUserReadPremiseViewModel : ObservableObject
             { "premiseId", premiseId }
         };
 
-        var response = await _userPremiseService.GetPremiseAsync(payload);
+        var response = await _premiseService.GetPremiseAsync(payload);
 
         if (response.IsSuccess)
         {

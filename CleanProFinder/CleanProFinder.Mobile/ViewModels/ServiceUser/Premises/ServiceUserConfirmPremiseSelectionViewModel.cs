@@ -9,12 +9,12 @@ namespace CleanProFinder.Mobile.ViewModels.ServiceUser.Premises;
 public partial class ServiceUserConfirmPremiseSelectionViewModel : ObservableObject
 {
     private readonly IDialogService _dialogService;
-    private readonly IPremiseService _userPremiseService;
+    private readonly IPremiseService _premiseService;
 
-    public ServiceUserConfirmPremiseSelectionViewModel(IDialogService dialogService, IPremiseService userPremisesService)
+    public ServiceUserConfirmPremiseSelectionViewModel(IDialogService dialogService, IPremiseService premiseService)
     {
         _dialogService = dialogService;
-        _userPremiseService = userPremisesService;
+        _premiseService = premiseService;
     }
 
     private string _premiseId;
@@ -45,7 +45,7 @@ public partial class ServiceUserConfirmPremiseSelectionViewModel : ObservableObj
             { "premiseId", premiseId }
         };
 
-        var response = await _userPremiseService.GetPremiseAsync(payload);
+        var response = await _premiseService.GetPremiseAsync(payload);
 
         if (response.IsSuccess)
         {

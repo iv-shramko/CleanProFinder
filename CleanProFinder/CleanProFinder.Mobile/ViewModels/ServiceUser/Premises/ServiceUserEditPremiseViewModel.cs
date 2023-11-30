@@ -10,10 +10,10 @@ public partial class ServiceUserEditPremiseViewModel : ObservableObject
     private readonly IDialogService _dialogService;
     private readonly IPremiseService _premiseService;
 
-    public ServiceUserEditPremiseViewModel(IDialogService dialogService, IPremiseService premisesService)
+    public ServiceUserEditPremiseViewModel(IDialogService dialogService, IPremiseService premiseService)
     {
         _dialogService = dialogService;
-        _premiseService = premisesService;
+        _premiseService = premiseService;
         IsEditing = false;
     }
 

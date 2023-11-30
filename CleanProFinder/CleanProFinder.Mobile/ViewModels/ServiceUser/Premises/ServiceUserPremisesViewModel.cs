@@ -13,10 +13,10 @@ public partial class ServiceUserPremisesViewModel : ObservableObject
     private readonly IDialogService _dialogService;
     private readonly IPremiseService _premiseService;
 
-    public ServiceUserPremisesViewModel(IDialogService dialogService, IPremiseService premisesService)
+    public ServiceUserPremisesViewModel(IDialogService dialogService, IPremiseService premiseService)
     {
         _dialogService = dialogService;
-        _premiseService = premisesService;
+        _premiseService = premiseService;
         IsRefreshing = true;
     }
 

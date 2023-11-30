@@ -11,12 +11,12 @@ namespace CleanProFinder.Mobile.ViewModels.ServiceUser.Premises;
 public partial class ServiceUserSelectPremiseViewModel : ObservableObject
 {
     private readonly IDialogService _dialogService;
-    private readonly IPremiseService _userPremiseService;
+    private readonly IPremiseService _premiseService;
 
-    public ServiceUserSelectPremiseViewModel(IDialogService dialogService, IPremiseService userPremisesService)
+    public ServiceUserSelectPremiseViewModel(IDialogService dialogService, IPremiseService premiseService)
     {
         _dialogService = dialogService;
-        _userPremiseService = userPremisesService;
+        _premiseService = premiseService;
         IsRefreshing = true;
     }
 
@@ -37,7 +37,7 @@ public partial class ServiceUserSelectPremiseViewModel : ObservableObject
     {
         IsRefreshing = true;
 
-        var response = await _userPremiseService.GetPremisesAsync();
+        var response = await _premiseService.GetPremisesAsync();
 
         if (response.IsSuccess)
         {
