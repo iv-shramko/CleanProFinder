@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using CleanProFinder.Mobile.Services.Interfaces;
-using CleanProFinder.Mobile.Views;
 using CleanProFinder.Mobile.Views.ServiceUser.Requests;
 using CleanProFinder.Shared.Dto.Requests;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -11,14 +10,14 @@ namespace CleanProFinder.Mobile.ViewModels.ServiceUser.Requests;
 public partial class ServiceUserRequestsViewModel : ObservableObject
 {
     private readonly IDialogService _dialogService;
-    private readonly IUserRequestService _userRequestService;
-    private readonly IPremiseService _userPremiseService;
+    private readonly IRequestService _requestService;
+    private readonly IPremiseService _premiseService;
 
-    public ServiceUserRequestsViewModel(IDialogService dialogService, IUserRequestService userRequestService, IPremiseService userPremiseService)
+    public ServiceUserRequestsViewModel(IDialogService dialogService, IRequestService requestService, IPremiseService premiseService)
     {
         _dialogService = dialogService;
-        _userRequestService = userRequestService;
-        _userPremiseService = userPremiseService;
+        _requestService = requestService;
+        _premiseService = premiseService;
         IsRefreshing = true;
     }
 
@@ -39,7 +38,7 @@ public partial class ServiceUserRequestsViewModel : ObservableObject
     {
         IsRefreshing = true;
 
-        var response = await _userRequestService.GetServiceUserRequestsAsync();
+        var response = await _requestService.GetServiceUserRequestsAsync();
 
         if (response.IsSuccess)
         {
