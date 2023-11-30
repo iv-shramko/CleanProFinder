@@ -1,33 +1,24 @@
-﻿using System.Collections.ObjectModel;
-using CleanProFinder.Mobile.Services.Interfaces;
-using CleanProFinder.Mobile.Views;
-using CleanProFinder.Mobile.Views.ServiceUser.Requests;
-using CleanProFinder.Mobile.Views.ServiceUser.Premises;
-using CleanProFinder.Mobile.ViewModels.ServiceUser.Premises;
-using CleanProFinder.Shared.Dto.Requests;
+﻿using CleanProFinder.Mobile.Services.Interfaces;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 namespace CleanProFinder.Mobile.ViewModels.ServiceUser.Requests;
 
-[QueryProperty(nameof(PremiseId), nameof(PremiseId))]
 [QueryProperty(nameof(ServiceProviderId), nameof(ServiceProviderId))]
 [QueryProperty(nameof(Description), nameof(Description))]
 [QueryProperty(nameof(RequestId), nameof(RequestId))]
+[QueryProperty(nameof(IsCanceled), nameof(IsCanceled))]
 public partial class ServiceUserEditRequestNextViewModel : ObservableObject
 {
     private readonly IDialogService _dialogService;
-    private readonly IUserRequestService _userRequestService;
+    private readonly IRequestService _requestService;
 
     public ServiceUserEditRequestNextViewModel(
-        IDialogService dialogService, IUserRequestService userRequestsService)
+        IDialogService dialogService, IRequestService requestService)
     {
         _dialogService = dialogService;
-        _userRequestService = userRequestsService;
+        _requestService = requestService;
     }
-
-    [ObservableProperty]
-    private string _premiseId;
 
     [ObservableProperty]
     private string _requestId;
@@ -44,15 +35,18 @@ public partial class ServiceUserEditRequestNextViewModel : ObservableObject
     [ObservableProperty]
     private bool _hasServiceProviderId;
 
+    [ObservableProperty]
+    private bool _isCanceled;
+
     [RelayCommand]
     private async Task CancelRequest()
     {
         var response =
-            await _userRequestService.CancelServiceUserRequestAsync(RequestId);
+            await _requestService.CancelServiceUserRequestAsync(RequestId);
 
         if (response.IsSuccess)
         {
-            await Shell.Current.GoToAsync("../..");
+            await Shell.Current.GoToAsync("//ServiceUserRequestsPage");
             return;
         }
 
@@ -60,14 +54,14 @@ public partial class ServiceUserEditRequestNextViewModel : ObservableObject
     }
 
     [RelayCommand]
+    private async Task GoBack()
+    {
+        await Shell.Current.GoToAsync("//ServiceUserRequestsPage");
+    }
+
+    [RelayCommand]
     private async Task LastStep()
     {
-        var navigationParameters = new Dictionary<string, object>
-        {
-            {"PremiseId", PremiseId },
-            {"Description", Description }
-        };
-
-        await Shell.Current.GoToAsync($"..", navigationParameters);
+        await Shell.Current.GoToAsync("..");
     }
 }
