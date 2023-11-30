@@ -11,13 +11,11 @@ public partial class ServiceUserRequestsViewModel : ObservableObject
 {
     private readonly IDialogService _dialogService;
     private readonly IRequestService _requestService;
-    private readonly IPremiseService _premiseService;
 
-    public ServiceUserRequestsViewModel(IDialogService dialogService, IRequestService requestService, IPremiseService premiseService)
+    public ServiceUserRequestsViewModel(IDialogService dialogService, IRequestService requestService)
     {
         _dialogService = dialogService;
         _requestService = requestService;
-        _premiseService = premiseService;
         IsRefreshing = true;
     }
 

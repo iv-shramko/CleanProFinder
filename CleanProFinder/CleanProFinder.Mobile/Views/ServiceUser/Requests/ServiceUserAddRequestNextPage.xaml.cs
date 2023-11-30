@@ -9,4 +9,14 @@ public partial class ServiceUserAddRequestNextPage : ContentPage
 		InitializeComponent();
 		BindingContext = viewModel;
 	}
+
+    protected override void OnAppearing()
+    {
+        if (BindingContext is ServiceUserAddRequestNextViewModel viewModel)
+        {
+            viewModel.Description = viewModel.Request.Description;
+        }
+
+        base.OnAppearing();
+    }
 }

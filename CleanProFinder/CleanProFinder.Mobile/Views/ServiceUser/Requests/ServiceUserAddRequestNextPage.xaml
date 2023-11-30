@@ -7,13 +7,15 @@
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     x:DataType="requests:ServiceUserAddRequestNextViewModel"
     Background="{StaticResource Secondary}"
+    Shell.BackButtonBehavior="{x:StaticResource BackButtonBehavior}">
 
     <ContentPage.Resources>
         <ResourceDictionary>
             <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+            <BackButtonBehavior x:Key="BackButtonBehavior" Command="{Binding GoBackToPreviousStepCommand}" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    
+
     <Grid>
         <Grid RowDefinitions="150, 175, 290">
             <Label Style="{StaticResource Key=labelTitleStyle}" Text="Add Request" />
@@ -62,21 +64,11 @@
         </Grid>
         <AbsoluteLayout>
             <Button
-                AbsoluteLayout.LayoutBounds="0, 631"
-                Command="{Binding LastStepCommand}"
-                Style="{StaticResource buttonStyle}"
-                Text="Last Step"
-                TextColor="White"
-                WidthRequest="180" />
-        </AbsoluteLayout>
-        <AbsoluteLayout>
-            <Button
                 AbsoluteLayout.LayoutBounds="190, 631"
                 Command="{Binding AddRequestCommand}"
                 Style="{StaticResource buttonStyle}"
                 Text="Place Request"
-                TextColor="White"
-                WidthRequest="180" />
+                TextColor="White" />
         </AbsoluteLayout>
     </Grid>
 </ContentPage>

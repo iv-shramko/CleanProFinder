@@ -37,7 +37,7 @@ public partial class ServiceProviderSelectServicesViewModel : ObservableObject
         {
             foreach (var service in response.Result)
             {
-                if (ExistingServices.All(selected => selected.CleaningServiceId != service.Id))
+                if (ExistingServices.All(existing => existing.CleaningServiceId != service.Id))
                 {
                     AvailableServices.Add(service);
                 }

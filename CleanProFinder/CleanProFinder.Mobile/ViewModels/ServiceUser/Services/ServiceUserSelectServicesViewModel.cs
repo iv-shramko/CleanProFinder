@@ -1,13 +1,9 @@
-﻿using System.Collections.ObjectModel;
-using System.Globalization;
-using CleanProFinder.Mobile.Services.Interfaces;
+﻿using CleanProFinder.Mobile.Services.Interfaces;
 using CleanProFinder.Mobile.ViewModels.ServiceUser.Requests;
-using CleanProFinder.Mobile.Views;
-using CleanProFinder.Mobile.Views.ServiceUser.Requests;
 using CleanProFinder.Shared.Dto.CleaningServices;
-using CleanProFinder.Shared.Dto.Requests;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System.Collections.ObjectModel;
 
 namespace CleanProFinder.Mobile.ViewModels.ServiceUser.Services;
 
@@ -15,13 +11,11 @@ namespace CleanProFinder.Mobile.ViewModels.ServiceUser.Services;
 public partial class ServiceUserSelectServicesViewModel : ObservableObject
 {
     private readonly ICleaningService _cleaningService;
-    private readonly IRequestStorage _requestStorage;
 
-    public ServiceUserSelectServicesViewModel(ICleaningService cleaningService, IRequestStorage requestStorage)
+    public ServiceUserSelectServicesViewModel(ICleaningService cleaningService)
     {
         _cleaningService = cleaningService;
-        _requestStorage = requestStorage;
-
+        _availableServices = new ObservableCollection<CleaningServiceDto>();
         _selectedServices = new ObservableCollection<object>();
     }
 
@@ -39,18 +33,29 @@ public partial class ServiceUserSelectServicesViewModel : ObservableObject
     {
         var response = await _cleaningService.GetServicesAsync();
 
-        AvailableServices = new ObservableCollection<CleaningServiceDto>(response.Result
-            .Where(service => ExistingServices.All(existing => existing.Id != service.Id))
-            .ToList());
+        if (response.IsSuccess)
+        {
+            foreach (var service in response.Result)
+            {
+                if (ExistingServices.All(existing => existing.Id != service.Id))
+                {
+                    AvailableServices.Add(service);
+                }
+            }
+        }
     }
 
     [RelayCommand]
     private async Task ConfirmSelection()
     {
         var selectedServices = new ObservableCollection<CleaningServiceDto>(SelectedServices.OfType<CleaningServiceDto>());
+        var services = ExistingServices.Concat(selectedServices).ToList();
 
-        _requestStorage.Services = new List<CleaningServiceDto>(ExistingServices.Concat(selectedServices));
+        var navigationParameters = new Dictionary<string, object>
+        {
+            { nameof(ServiceUserAddRequestViewModel.Services), services }
+        };
 
-        await Shell.Current.GoToAsync(nameof(ServiceUserAddRequestPage));
+        await Shell.Current.GoToAsync("..", navigationParameters);
     }
 }

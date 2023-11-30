@@ -1,26 +1,20 @@
 ﻿using CleanProFinder.Mobile.Services.Interfaces;
-using CleanProFinder.Mobile.Views.ServiceUser.Requests;
+using CleanProFinder.Shared.Dto.Requests;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 namespace CleanProFinder.Mobile.ViewModels.ServiceUser.Requests;
 
-[QueryProperty(nameof(ServiceProviderId), nameof(ServiceProviderId))]
+[QueryProperty(nameof(Request), nameof(Request))]
 public partial class ServiceUserAddRequestNextViewModel : ObservableObject
 {
     private readonly IDialogService _dialogService;
     private readonly IRequestService _requestService;
-    private readonly IRequestStorage _requestStorage;
 
-    public ServiceUserAddRequestNextViewModel(
-        IDialogService dialogService, IRequestService requestService, IRequestStorage requestStorage)
+    public ServiceUserAddRequestNextViewModel(IDialogService dialogService, IRequestService requestService)
     {
         _dialogService = dialogService;
         _requestService = requestService;
-        _requestStorage = requestStorage;
-
-        _description = _requestStorage.Description;
-        _serviceProviderId = _requestStorage.ServiceProviderId;
     }
 
     [ObservableProperty]
@@ -35,6 +29,9 @@ public partial class ServiceUserAddRequestNextViewModel : ObservableObject
     [ObservableProperty]
     private bool _hasServiceProviderId;
 
+    [ObservableProperty]
+    private RequestFullInfoDto _request;
+
     [RelayCommand]
     private async Task AddRequest()
     {
@@ -42,8 +39,6 @@ public partial class ServiceUserAddRequestNextViewModel : ObservableObject
 
         if (response.IsSuccess)
         {
-            _requestStorage.Reset();
-
             await Shell.Current.GoToAsync("//ServiceUserRequestsPage");
             return;
         }
@@ -52,11 +47,15 @@ public partial class ServiceUserAddRequestNextViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task LastStep()
+    public async Task GoBackToPreviousStep()
     {
-        _requestStorage.Description = Description;
-        _requestStorage.ServiceProviderId = ServiceProviderId;
+        Request.Description = Description;
 
-        await Shell.Current.GoToAsync(nameof(ServiceUserAddRequestPage));
+        var navigationParameters = new Dictionary<string, object>
+        {
+            { nameof(ServiceUserAddRequestViewModel.Request), Request }
+        };
+
+        await Shell.Current.GoToAsync("..", navigationParameters);
     }
 }

@@ -9,35 +9,19 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CleanProFinder.Shared.Dto.CleaningServices;
 using CleanProFinder.Shared.Dto.Premises;
+using CleanProFinder.Shared.Dto.Requests;
 
 namespace CleanProFinder.Mobile.ViewModels.ServiceUser.Requests;
 
 public partial class ServiceUserAddRequestViewModel : ObservableObject, IQueryAttributable
 {
     private readonly IDialogService _dialogService;
-    private readonly IRequestService _requestService;
-    private readonly IPremiseService _premiseService;
-    private readonly ICleaningService _cleaningService;
-    private readonly IRequestStorage _requestStorage;
 
-    public ServiceUserAddRequestViewModel(
-        IDialogService dialogService, IRequestService requestService,
-        IPremiseService premiseService, ICleaningService cleaningService,
-        IRequestStorage requestStorage)
-    {
-        _dialogService = dialogService;
-        _requestService = requestService;
-        _premiseService = premiseService;
-        _cleaningService = cleaningService;
-        _requestStorage = requestStorage;
-
-        _services = new ObservableCollection<CleaningServiceDto>(_requestStorage.Services);
-        PremiseId = _requestStorage.PremiseId;
-    }
-
+    public ServiceUserAddRequestViewModel(IDialogService dialogService)
     {
         _dialogService = dialogService;
         _services = new ObservableCollection<CleaningServiceDto>();
+        _request = new RequestFullInfoDto();
     }
 
     [ObservableProperty]
@@ -47,31 +31,34 @@ public partial class ServiceUserAddRequestViewModel : ObservableObject, IQueryAt
     private OwnPremiseFullInfoDto _selectedPremise;
 
     [ObservableProperty]
-    private string _premiseAddress;
+    private RequestFullInfoDto _request;
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-        _requestStorage.PremiseId = premiseId;
-
-        var payload = new Dictionary<string, object>
+        if (query.TryGetValue(nameof(Request), out var newRequest))
         {
-            { "premiseId", premiseId }
-        };
+            Request = (RequestFullInfoDto)newRequest;
+        }
 
         if (query.TryGetValue(nameof(SelectedPremise), out var newSelectedPremise))
         {
             SelectedPremise = (OwnPremiseFullInfoDto)newSelectedPremise;
         }
 
-        if (response.IsSuccess)
+        if (query.TryGetValue(nameof(Services), out var newServices))
         {
-            PremiseAddress = response.Result.Address;
-            Square = response.Result.Square;
+            var services = (ICollection<CleaningServiceDto>)newServices;
 
-            return;
+            var existingServiceIds = Services.Select(existing => existing.Id);
+            var servicesToAdd = services.Where(service => !existingServiceIds.Contains(service.Id));
+
+            foreach (var service in servicesToAdd)
+            {
+                Services.Add(service);
+            }
         }
 
-        await _dialogService.ShowErrorAlertAsync("Loading Premise Failed", response.Error);
+        query.Clear();
     }
 
     [RelayCommand]
@@ -111,9 +98,20 @@ public partial class ServiceUserAddRequestViewModel : ObservableObject, IQueryAt
     [RelayCommand]
     private async Task NextStep()
     {
-        _requestStorage.PremiseId = PremiseId;
-        _requestStorage.Services = Services.ToList();
+        if (SelectedPremise == null || !Services.Any())
+        {
+            await _dialogService.ShowAlertAsync("Adding Request Failed", "No premise or service was selected.", "Ok");
+            return;
+        }
 
-        await Shell.Current.GoToAsync(nameof(ServiceUserAddRequestNextPage));
+        Request.PremiseId = SelectedPremise.Id;
+        Request.Services = Services.ToList();
+
+        var navigationParameters = new Dictionary<string, object>
+        {
+            { nameof(ServiceUserAddRequestNextViewModel.Request), Request }
+        };
+
+        await Shell.Current.GoToAsync(nameof(ServiceUserAddRequestNextPage), navigationParameters);
     }
 }
