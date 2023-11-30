@@ -1,12 +1,11 @@
-﻿using System.Collections.ObjectModel;
-using CleanProFinder.Mobile.Services.Interfaces;
-using CleanProFinder.Mobile.Views;
+﻿using CleanProFinder.Mobile.Services.Interfaces;
 using CleanProFinder.Mobile.Views.ServiceUser.Premises;
 using CleanProFinder.Mobile.ViewModels.ServiceUser.Premises;
 using CleanProFinder.Mobile.Views.ServiceUser.Requests;
-using CleanProFinder.Shared.Dto.Requests;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CleanProFinder.Shared.Dto.CleaningServices;
+using System.Collections.ObjectModel;
 
 namespace CleanProFinder.Mobile.ViewModels.ServiceUser.Requests;
 [QueryProperty(nameof(PremiseId), nameof(PremiseId))]
@@ -16,32 +15,35 @@ namespace CleanProFinder.Mobile.ViewModels.ServiceUser.Requests;
 public partial class ServiceUserEditRequestViewModel : ObservableObject
 {
     private readonly IDialogService _dialogService;
-    private readonly IUserRequestService _userRequestService;
-    private readonly IPremiseService _userPremiseService;
+    private readonly IRequestService _requestService;
 
     public ServiceUserEditRequestViewModel(
-        IDialogService dialogService, IUserRequestService userRequestsService,
-        IPremiseService userPremiseService)
+        IDialogService dialogService, IRequestService requestService)
     {
         _dialogService = dialogService;
-        _userRequestService = userRequestsService;
-        _userPremiseService = userPremiseService;
+        _requestService = requestService;
     }
 
     [ObservableProperty]
     private string _premiseId;
 
     [ObservableProperty]
-    private bool _hasPremiseId;
+    private string _premiseAddress;
 
     [ObservableProperty]
-    private string _premiseAddress;
+    private float _square;
+
+    [ObservableProperty]
+    private ObservableCollection<CleaningServiceDto> _services;
 
     [ObservableProperty]
     private string _serviceProviderId;
 
     [ObservableProperty]
     private string _description;
+
+    [ObservableProperty]
+    private bool _isCanceled;
 
     private string _requestId;
 
@@ -64,13 +66,19 @@ public partial class ServiceUserEditRequestViewModel : ObservableObject
 
     private async void LoadRequest(string requestId)
     {
-        var response = await _userRequestService.GetServiceUserRequestAsync(requestId);
+        var response = await _requestService.GetServiceUserRequestAsync(requestId);
 
         if (response.IsSuccess)
         {
             PremiseId = response.Result.PremiseId.ToString();
             PremiseAddress = response.Result.Address;
+            Square = response.Result.Square;
+            PremiseAddress = response.Result.Address;
+            Services = new ObservableCollection<CleaningServiceDto>(response.Result.Services);
             Description = response.Result.Description;
+            Square = response.Result.Square;
+            ServiceProviderId = response.Result.ProviderId.ToString();
+            IsCanceled = response.Result.Status == "Canceled";
             return;
         }
 
@@ -82,11 +90,12 @@ public partial class ServiceUserEditRequestViewModel : ObservableObject
     {
         var navigationParameters = new Dictionary<string, object>
         {
-            {"PremiseId", PremiseId },
-            {"RequestId", RequestId },
-            {"Description", Description}
+            { nameof(ServiceUserEditRequestNextViewModel.RequestId), RequestId },
+            { nameof(ServiceUserEditRequestNextViewModel.Description), Description },
+            { nameof(ServiceUserEditRequestNextViewModel.ServiceProviderId), Description },
+            { nameof(ServiceUserEditRequestNextViewModel.IsCanceled), IsCanceled }
         };
 
-        await Shell.Current.GoToAsync($"{nameof(ServiceUserEditRequestNextPage)}", navigationParameters);
+        await Shell.Current.GoToAsync(nameof(ServiceUserEditRequestNextPage), navigationParameters);
     }
 }

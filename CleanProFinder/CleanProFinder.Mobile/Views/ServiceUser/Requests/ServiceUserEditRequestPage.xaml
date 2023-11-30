@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:requests="clr-namespace:CleanProFinder.Shared.Dto.Requests;assembly=CleanProFinder.Shared"
     xmlns:requests1="clr-namespace:CleanProFinder.Mobile.ViewModels.ServiceUser.Requests"
+    xmlns:services="clr-namespace:CleanProFinder.Shared.Dto.CleaningServices;assembly=CleanProFinder.Shared"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     x:DataType="requests1:ServiceUserEditRequestViewModel"
     Background="{StaticResource Secondary}">
@@ -15,31 +16,76 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <Grid RowDefinitions="150, 175, 300, auto">
-        <Label Style="{StaticResource Key=labelTitleStyle}" Text="Edit Request" />
-        <VerticalStackLayout Grid.Row="1" VerticalOptions="Center">
-            <Border
-            Margin="10,15,10,3"
-            Background="{StaticResource Tertiary}"
-            Stroke="{StaticResource Tertiary}"
-            StrokeShape="RoundRectangle 10,10,10,10">
-                <Label
-                Margin="12"
-                FontAttributes="Bold"
-                FontFamily="OpenSans"
-                FontSize="18"
-                Text="{Binding PremiseAddress}"
-                TextColor="White" />
-                <Border.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ReadPremiseCommand}" NumberOfTapsRequired="1" />
-                </Border.GestureRecognizers>
-            </Border>
-        </VerticalStackLayout>
-        <Button
-        Grid.Row="3"
-        Command="{Binding NextStepCommand}"
-        Style="{StaticResource buttonStyle}"
-        Text="Next Page"
-        TextColor="White" />
+    <Grid>
+        <Grid RowDefinitions="150, 170, 301">
+            <Label Style="{StaticResource Key=labelTitleStyle}" Text="Edit Request" />
+            <VerticalStackLayout Grid.Row="1" VerticalOptions="Center">
+                <Label Style="{StaticResource labelPropertyStyle}" Text="Premise" />
+                <Border
+                    Margin="10,5,10,0"
+                    Background="{StaticResource Tertiary}"
+                    Stroke="{StaticResource Tertiary}"
+                    StrokeShape="RoundRectangle 10,10,10,10">
+                    <Grid ColumnDefinitions=".7*, .3*">
+                        <Label
+                            Margin="12,12,0,12"
+                            FontAttributes="Bold"
+                            FontFamily="OpenSans"
+                            FontSize="18"
+                            Text="{Binding PremiseAddress}"
+                            TextColor="White" />
+                        <Border
+                            Grid.Column="1"
+                            Background="{StaticResource Tertiary}"
+                            Stroke="{StaticResource Tertiary}">
+                            <Label
+                                Margin="0,9,9,0"
+                                FontFamily="OpenSans"
+                                FontSize="18"
+                                HorizontalOptions="End"
+                                Text="{Binding Square, StringFormat='{0} m^2'}"
+                                TextColor="{StaticResource Secondary}" />
+                        </Border>
+                    </Grid>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ReadPremiseCommand}" NumberOfTapsRequired="1" />
+                    </Border.GestureRecognizers>
+                </Border>
+            </VerticalStackLayout>
+            <CollectionView
+                Grid.Row="2"
+                HeightRequest="301"
+                ItemsSource="{Binding Services}">
+                <CollectionView.Header>
+                    <Label Style="{StaticResource labelPropertyStyle}" Text="Cleaning Services" />
+                </CollectionView.Header>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Type services:CleaningServiceDto}">
+                        <Border
+                            Margin="10,5,10,0"
+                            Background="{StaticResource Tertiary}"
+                            Stroke="{StaticResource Tertiary}"
+                            StrokeShape="RoundRectangle 10,10,10,10">
+                            <Label
+                                Margin="12,12,0,12"
+                                FontAttributes="Bold"
+                                FontFamily="OpenSans"
+                                FontSize="18"
+                                Text="{Binding Name}"
+                                TextColor="White" />
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+        <AbsoluteLayout>
+            <Button
+                AbsoluteLayout.LayoutBounds="0, 631"
+                Command="{Binding NextStepCommand}"
+                Style="{StaticResource buttonStyle}"
+                Text="Next Page"
+                TextColor="White"
+                WidthRequest="370" />
+        </AbsoluteLayout>
     </Grid>
 </ContentPage>
