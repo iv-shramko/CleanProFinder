@@ -1,4 +1,5 @@
 ﻿using CleanProFinder.Mobile.Services.Interfaces;
+using CleanProFinder.Shared.Dto.CleaningServices;
 using CleanProFinder.Shared.Dto.Request;
 using CleanProFinder.Shared.Dto.Requests;
 using CleanProFinder.Shared.ServiceResponseHandling;
@@ -18,8 +19,10 @@ public class RequestService : IRequestService
         _httpService = httpService;
     }
 
-    public async Task<ServiceResponse> AddServiceUserRequestAsync(Guid premiseId, List<Guid> servicesId, string description, Guid? selectedProviderId)
+    public async Task<ServiceResponse> AddServiceUserRequestAsync(Guid premiseId, IList<CleaningServiceDto> services, string description, Guid? selectedProviderId)
     {
+        var servicesId = services.Select(s => s.Id).ToList();
+
         var createRequestCommand = new CreateRequestCommandDto
         {
             PremiseId = premiseId,
@@ -36,13 +39,13 @@ public class RequestService : IRequestService
         return await _httpService.SendAsync<IEnumerable<RequestShortInfoDto>>(HttpMethod.Get, GetServiceUserRequestsEndpoint);
     }
 
-    public async Task<ServiceResponse<RequestFullInfoDto>> GetServiceUserRequestAsync(string payload)
+    public async Task<ServiceResponse<RequestFullInfoDto>> GetServiceUserRequestAsync(string requestId)
     {
-        return await _httpService.SendAsync<RequestFullInfoDto>(HttpMethod.Get, GetServiceUserRequestsEndpoint, payload);
+        return await _httpService.SendAsync<RequestFullInfoDto>(HttpMethod.Get, GetServiceUserRequestsEndpoint, requestId);
     }
 
-    public async Task<ServiceResponse> CancelServiceUserRequestAsync(string payload)
+    public async Task<ServiceResponse> CancelServiceUserRequestAsync(string requestId)
     {
-        return await _httpService.SendAsync(HttpMethod.Get, CancelServiceUserRequestEndpoint, payload);
+        return await _httpService.SendAsync(HttpMethod.Get, CancelServiceUserRequestEndpoint, requestId);
     }
 }

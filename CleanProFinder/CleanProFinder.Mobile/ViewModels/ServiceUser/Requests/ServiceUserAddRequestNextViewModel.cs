@@ -38,10 +38,7 @@ public partial class ServiceUserAddRequestNextViewModel : ObservableObject
     [RelayCommand]
     private async Task AddRequest()
     {
-
-        var response =
-            await _requestService.AddServiceUserRequestAsync(Guid.Parse(_requestStorage.PremiseId),
-            _requestStorage.Services.Select(service => service.Id).ToList(), Description, null);
+        var response = await _requestService.AddServiceUserRequestAsync(Request.PremiseId, Request.Services, Description);
 
         if (response.IsSuccess)
         {
