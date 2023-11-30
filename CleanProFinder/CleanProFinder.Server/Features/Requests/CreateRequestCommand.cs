@@ -72,7 +72,7 @@ namespace CleanProFinder.Server.Features.Requests
                 }
                 else
                 {
-                    request.Status = RequestStatus.Pending;
+                    request.Status = RequestStatus.Placed;
                 }
                
                 _context.Requests.Add(request);
@@ -94,7 +94,7 @@ namespace CleanProFinder.Server.Features.Requests
                     interaction
                 };
 
-                request.Status = RequestStatus.OfferedProvider;                
+                request.Status = RequestStatus.Sent;                
             }
         }
     }

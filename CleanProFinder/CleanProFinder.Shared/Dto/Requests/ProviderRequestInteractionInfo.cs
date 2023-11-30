@@ -6,5 +6,6 @@ namespace CleanProFinder.Shared.Dto.Requests
     {
         public Guid ProviderId { get; set; }
         public string ProviderName { get; set; }
+        public float Price { get; set; }
     }
 }

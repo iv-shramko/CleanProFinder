@@ -46,7 +46,7 @@ namespace CleanProFinder.Server.Features.Requests
             {
                 var requests = await _context
                     .Requests
-                    .Where(r => r.Status == RequestStatus.Pending)
+                    .Where(r => r.Status == RequestStatus.Placed || r.Status == RequestStatus.HasAnswers)
                     .Include(r => r.Premise)
                     .Include(r => r.Services)
                     .ToListAsync(cancellationToken);

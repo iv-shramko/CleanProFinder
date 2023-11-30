@@ -2,9 +2,9 @@
 {
     public enum RequestStatus
     {
-        Pending,
-        OfferedProvider,
-        ProviderResponded,
+        Placed,
+        Sent,
+        HasAnswers,
         Concluded,
         Canceled,
     }
