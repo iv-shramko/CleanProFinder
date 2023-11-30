@@ -167,6 +167,9 @@
     <MauiXaml Update="Views\ServiceUser\Requests\ServiceUserRequestsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
+    <MauiXaml Update="Views\ServiceUser\Services\ServiceUserSelectServicesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
   </ItemGroup>
 
 </Project>
