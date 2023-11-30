@@ -20,11 +20,14 @@ namespace CleanProFinder.Shared.Errors.ServiceErrors
         public static CleaningServiceError GetOwnCleaningServicesError => new CleaningServiceError("Server error", "Get Cleaning Services Error", 7);
         public static CleaningServiceError GetOwnCleaningServiceError => new CleaningServiceError("Server error", "Get Cleaning Service Error", 8);
         public static CleaningServiceError DeleteCleaningServiceError => new CleaningServiceError("Server error", "Delete Cleaning Service Error", 9);
-        public static ServerError CreateRequestError => new ServerError("Server error", "Create request Error", 10);
-        public static ServerError ActiveRequestsError => new ServerError("Server error", "Get Active Requests Error", 11);
-        public static ServerError RequestByIdError => new ServerError("Server error", "Get Request By Id Error", 12);
-        public static ServerError OwnRequestsError => new ServerError("Server error", "Get Own Requests Error", 13);
-        public static ServerError CancelRequestError => new ServerError("Server error", "Cancel Request Error", 14);
+        public static RequestError CreateRequestError => new RequestError("Server error", "Create request Error", 10);
+        public static RequestError ActiveRequestsError => new RequestError("Server error", "Get Active Requests Error", 11);
+        public static RequestError RequestByIdError => new RequestError("Server error", "Get Request By Id Error", 12);
+        public static RequestError OwnRequestsError => new RequestError("Server error", "Get Own Requests Error", 13);
+        public static RequestError CancelRequestError => new RequestError("Server error", "Cancel Request Error", 14);
+        public static SavedProviderError SaveProviderError => new SavedProviderError("Server error", "Save Provider Error", 15);
+        public static SavedProviderError DeleteSavedProviderError => new SavedProviderError("Server error", "Delete Saved Provider Error", 16);
+        public static SavedProviderError GetOwnSavedProvidersError => new SavedProviderError("Server error", "Get Own Saved Providers Error", 17);
 
     }
 }

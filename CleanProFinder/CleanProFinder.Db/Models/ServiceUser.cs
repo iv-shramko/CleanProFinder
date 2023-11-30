@@ -8,5 +8,6 @@
         public string? Email { get; set; }
 
         public ICollection<Premise>? UserPremises { get; set; }
+        public ICollection<SavedProvider> SavedProviders { get; set; }
     }
 }

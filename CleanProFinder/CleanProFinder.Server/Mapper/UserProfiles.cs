@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CleanProFinder.Db.Models;
 using CleanProFinder.Shared.Dto.Profile;
+using CleanProFinder.Shared.Dto.SavedProviders;
 
 namespace CleanProFinder.Server.Mapper
 {
@@ -18,6 +19,8 @@ namespace CleanProFinder.Server.Mapper
             CreateMap<CleaningServiceProvider, ProviderProfileViewInfoDto>();
             CreateMap<CleaningServiceProvider, ProviderPreviewDto>();
             CreateMap<ProviderPreviewDto, CleaningServiceProvider>();
+            CreateMap<SavedProvider, SavedProviderDto>()
+                .ForMember(sP => sP.Name, otp => otp.MapFrom(src => src.CleaningServiceProvider.Name));
         }
     }
 }
