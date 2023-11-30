@@ -1,33 +1,38 @@
 ﻿using System.Collections.ObjectModel;
 using CleanProFinder.Mobile.Services.Interfaces;
-using CleanProFinder.Mobile.Views;
 using CleanProFinder.Mobile.Views.ServiceUser.Requests;
 using CleanProFinder.Mobile.Views.ServiceUser.Premises;
+using CleanProFinder.Mobile.Views.ServiceUser.Services;
 using CleanProFinder.Mobile.ViewModels.ServiceUser.Premises;
-using CleanProFinder.Shared.Dto.Requests;
+using CleanProFinder.Mobile.ViewModels.ServiceUser.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CleanProFinder.Shared.Dto.CleaningServices;
 
 namespace CleanProFinder.Mobile.ViewModels.ServiceUser.Requests;
 
 [QueryProperty(nameof(PremiseId), nameof(PremiseId))]
-[QueryProperty(nameof(ServiceProviderId), nameof(ServiceProviderId))]
-[QueryProperty(nameof(Description), nameof(Description))]
 public partial class ServiceUserAddRequestViewModel : ObservableObject
 {
     private readonly IDialogService _dialogService;
-    private readonly IUserRequestService _userRequestService;
-    private readonly IPremiseService _userPremiseService;
+    private readonly IRequestService _requestService;
+    private readonly IPremiseService _premiseService;
     private readonly ICleaningService _cleaningService;
+    private readonly IRequestStorage _requestStorage;
 
     public ServiceUserAddRequestViewModel(
-        IDialogService dialogService, IUserRequestService userRequestsService,
-        IPremiseService userPremiseService, ICleaningService cleaningService)
+        IDialogService dialogService, IRequestService requestService,
+        IPremiseService premiseService, ICleaningService cleaningService,
+        IRequestStorage requestStorage)
     {
         _dialogService = dialogService;
-        _userRequestService = userRequestsService;
-        _userPremiseService = userPremiseService;
+        _requestService = requestService;
+        _premiseService = premiseService;
         _cleaningService = cleaningService;
+        _requestStorage = requestStorage;
+
+        _services = new ObservableCollection<CleaningServiceDto>(_requestStorage.Services);
+        PremiseId = _requestStorage.PremiseId;
     }
 
     private string _premiseId;
@@ -38,18 +43,17 @@ public partial class ServiceUserAddRequestViewModel : ObservableObject
         set
         {
             SetProperty(ref _premiseId, value);
+            HasPremiseId = !string.IsNullOrEmpty(_premiseId);
 
-            if (string.IsNullOrEmpty(_premiseId))
+            if (HasPremiseId)
             {
-                HasPremiseId = false;
-            }
-            else
-            {
-                HasPremiseId = true;
                 LoadPremise(value);
             }
         }
     }
+
+    [ObservableProperty]
+    private ObservableCollection<CleaningServiceDto> _services;
 
     [ObservableProperty]
     private bool _hasPremiseId;
@@ -58,28 +62,24 @@ public partial class ServiceUserAddRequestViewModel : ObservableObject
     private string _premiseAddress;
 
     [ObservableProperty]
-    private string _description;
-
-    [ObservableProperty]
-    private string _serviceProviderId;
+    private float _square;
 
     private async void LoadPremise(string premiseId)
     {
-        if (string.IsNullOrEmpty(_premiseId))
-        {
-            return;
-        }
+        _requestStorage.PremiseId = premiseId;
 
         var payload = new Dictionary<string, object>
         {
             { "premiseId", premiseId }
         };
 
-        var response = await _userPremiseService.GetPremiseAsync(payload);
+        var response = await _premiseService.GetPremiseAsync(payload);
 
         if (response.IsSuccess)
         {
             PremiseAddress = response.Result.Address;
+            Square = response.Result.Square;
+
             return;
         }
 
@@ -100,14 +100,28 @@ public partial class ServiceUserAddRequestViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task NextStep()
+    private async Task SelectServices()
     {
         var navigationParameters = new Dictionary<string, object>
         {
-            {"PremiseId", PremiseId },
-            {"Description", Description }
+            { nameof(ServiceUserSelectServicesViewModel.ExistingServices), Services }
         };
 
-        await Shell.Current.GoToAsync($"{nameof(ServiceUserAddRequestNextPage)}", navigationParameters);
+        await Shell.Current.GoToAsync(nameof(ServiceUserSelectServicesPage), navigationParameters);
+    }
+
+    [RelayCommand]
+    private void RemoveService(CleaningServiceDto service)
+    {
+        Services.Remove(service);
+    }
+
+    [RelayCommand]
+    private async Task NextStep()
+    {
+        _requestStorage.PremiseId = PremiseId;
+        _requestStorage.Services = Services.ToList();
+
+        await Shell.Current.GoToAsync(nameof(ServiceUserAddRequestNextPage));
     }
 }
