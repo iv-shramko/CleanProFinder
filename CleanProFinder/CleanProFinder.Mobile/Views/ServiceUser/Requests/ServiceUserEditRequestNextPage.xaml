@@ -22,6 +22,7 @@
                 <Label Style="{StaticResource labelPropertyStyle}" Text="Description" />
                 <Border Style="{StaticResource borderStyle}">
                     <Editor
+                        IsReadOnly="True"
                         AutoSize="TextChanges"
                         HeightRequest="104"
                         Style="{StaticResource entryStyle}"
