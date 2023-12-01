@@ -54,6 +54,7 @@
     <None Remove="Resources\Images\home.svg" />
     <None Remove="Resources\Images\photo_placeholder.svg" />
     <None Remove="Resources\Images\profile.svg" />
+    <None Remove="Resources\Images\request.svg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -82,6 +83,15 @@
     <MauiXaml Update="Views\ServiceProvider\Services\ServiceProviderSelectServicesPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
+    <MauiXaml Update="Views\ServiceUser\Premises\ServiceUserConfirmPremiseSelectionPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\ServiceUser\Premises\ServiceUserPremiseInfoPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\ServiceUser\Premises\ServiceUserSelectPremisePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
     <MauiXaml Update="Views\ServiceUser\Profile\ServiceUserProfilePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
@@ -97,6 +107,15 @@
     <Compile Update="Views\ServiceProvider\Services\ServiceProviderSelectServicesPage.xaml.cs">
       <DependentUpon>ServiceProviderSelectServicesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\ServiceUser\Premises\ServiceUserConfirmPremiseSelectionPage.xaml.cs">
+      <DependentUpon>ServiceUserConfirmPremiseSelectionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ServiceUser\Premises\ServiceUserPremiseInfoPage.xaml.cs">
+      <DependentUpon>ServiceUserPremiseInfoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ServiceUser\Premises\ServiceUserSelectPremisePage.xaml.cs">
+      <DependentUpon>ServiceUserSelectPremisePage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\ServiceUser\Profile\ServiceUserInitialEditProfilePage.xaml.cs">
       <DependentUpon>ServiceUserInitialEditProfilePage.xaml</DependentUpon>
     </Compile>
@@ -108,6 +127,12 @@
     </Compile>
     <Compile Update="Views\ServiceUser\Premises\ServiceUserPremisesPage.xaml.cs">
       <DependentUpon>ServiceUserPremisesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ServiceUser\Requests\ServiceUserEditRequestNextPage.xaml.cs">
+      <DependentUpon>ServiceUserEditRequestNextPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ServiceUser\Requests\ServiceUserAddRequestNextPage.xaml.cs">
+      <DependentUpon>ServiceUserAddRequestNextPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -128,6 +153,24 @@
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Views\ServiceProvider\ServiceProviderStartingPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\ServiceUser\Requests\ServiceUserEditRequestNextPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\ServiceUser\Requests\ServiceUserAddRequestNextPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\ServiceUser\Requests\ServiceUserAddRequestPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\ServiceUser\Requests\ServiceUserEditRequestPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\ServiceUser\Requests\ServiceUserRequestsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\ServiceUser\Services\ServiceUserSelectServicesPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
   </ItemGroup>

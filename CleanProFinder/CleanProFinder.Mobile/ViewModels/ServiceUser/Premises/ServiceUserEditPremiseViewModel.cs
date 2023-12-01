@@ -10,16 +10,16 @@ public partial class ServiceUserEditPremiseViewModel : ObservableObject
     private readonly IDialogService _dialogService;
     private readonly IPremiseService _premiseService;
 
-    public ServiceUserEditPremiseViewModel(IDialogService dialogService, IPremiseService premisesService)
+    public ServiceUserEditPremiseViewModel(IDialogService dialogService, IPremiseService premiseService)
     {
         _dialogService = dialogService;
-        _premiseService = premisesService;
+        _premiseService = premiseService;
         IsEditing = false;
     }
 
-    private string _premiseId;
+    private Guid _premiseId;
 
-    public string PremiseId
+    public Guid PremiseId
     {
         get => _premiseId;
         set
@@ -41,14 +41,9 @@ public partial class ServiceUserEditPremiseViewModel : ObservableObject
     [ObservableProperty]
     private bool _isEditing;
 
-    private async void LoadPremise(string premiseId)
+    private async void LoadPremise(Guid premiseId)
     {
-        var payload = new Dictionary<string, object>
-        {
-            { "premiseId", premiseId }
-        };
-
-        var response = await _premiseService.GetPremiseAsync(payload);
+        var response = await _premiseService.GetPremiseAsync(premiseId);
 
         if (response.IsSuccess)
         {
@@ -71,7 +66,7 @@ public partial class ServiceUserEditPremiseViewModel : ObservableObject
     private async Task EditPremise()
     {
         var response =
-            await _premiseService.EditPremiseAsync(Guid.Parse(PremiseId), Square, Description, Address);
+            await _premiseService.EditPremiseAsync(PremiseId, Square, Description, Address);
 
         if (response.IsSuccess)
         {
@@ -87,12 +82,7 @@ public partial class ServiceUserEditPremiseViewModel : ObservableObject
     [RelayCommand]
     private async Task DeletePremise()
     {
-        var payload = new Dictionary<string, object>
-        {
-            { "premiseId", PremiseId }
-        };
-
-        var response = await _premiseService.DeletePremiseAsync(payload);
+        var response = await _premiseService.DeletePremiseAsync(PremiseId);
 
         if (response.IsSuccess)
         {

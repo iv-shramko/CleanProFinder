@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CleanProFinder.Mobile.Views.ServiceUser.Requests.ServiceUserAddRequestNextPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:requests="clr-namespace:CleanProFinder.Mobile.ViewModels.ServiceUser.Requests"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:DataType="requests:ServiceUserAddRequestNextViewModel"
+    Background="{StaticResource Secondary}"
+    Shell.BackButtonBehavior="{x:StaticResource BackButtonBehavior}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+            <BackButtonBehavior x:Key="BackButtonBehavior" Command="{Binding GoBackToPreviousStepCommand}" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid RowDefinitions="150, 175, 290">
+            <Label Style="{StaticResource Key=labelTitleStyle}" Text="Add Request" />
+            <VerticalStackLayout Grid.Row="1">
+                <Label Style="{StaticResource labelPropertyStyle}" Text="Description" />
+                <Border Style="{StaticResource borderStyle}">
+                    <Editor
+                        AutoSize="TextChanges"
+                        HeightRequest="104"
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding Description}" />
+                </Border>
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="2">
+                <Label Style="{StaticResource labelPropertyStyle}" Text="Service Provider (optional)" />
+                <Border
+                    Margin="10,15,10,3"
+                    Background="{StaticResource Tertiary}"
+                    IsVisible="{Binding HasServiceProviderId}"
+                    Stroke="{StaticResource Tertiary}"
+                    StrokeShape="RoundRectangle 10,10,10,10">
+                    <Label
+                        Margin="12"
+                        FontAttributes="Bold"
+                        FontFamily="OpenSans"
+                        FontSize="18"
+                        Text="{Binding ServiceProviderName}"
+                        TextColor="White" />
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1" />
+                    </Border.GestureRecognizers>
+                </Border>
+                <Button
+                    Margin="10"
+                    IsVisible="{Binding HasServiceProviderId, Converter={StaticResource InvertedBoolConverter}}"
+                    Style="{StaticResource buttonStyle}"
+                    Text="Select Service Provider"
+                    TextColor="White" />
+                <Button
+                    Margin="10"
+                    IsVisible="{Binding HasServiceProviderId}"
+                    Style="{StaticResource buttonStyle}"
+                    Text="Change ServiceProvider"
+                    TextColor="White" />
+            </VerticalStackLayout>
+        </Grid>
+        <AbsoluteLayout>
+            <Button
+                AbsoluteLayout.LayoutBounds="0, 631"
+                Command="{Binding AddRequestCommand}"
+                Style="{StaticResource buttonStyle}"
+                Text="Place Request"
+                TextColor="White"
+                WidthRequest="370" />
+        </AbsoluteLayout>
+    </Grid>
+</ContentPage>

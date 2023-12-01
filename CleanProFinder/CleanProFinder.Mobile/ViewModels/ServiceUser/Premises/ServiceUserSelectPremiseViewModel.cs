@@ -1,19 +1,19 @@
-﻿using System.Collections.ObjectModel;
-using CleanProFinder.Mobile.Services.Interfaces;
-using CleanProFinder.Mobile.Views;
-using CleanProFinder.Mobile.Views.ServiceUser.Premises;
+﻿using CleanProFinder.Mobile.Services.Interfaces;
 using CleanProFinder.Shared.Dto.Premises;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CleanProFinder.Mobile.Views.ServiceUser.Premises;
+using CleanProFinder.Mobile.ViewModels.ServiceUser.Requests;
+using System.Collections.ObjectModel;
 
 namespace CleanProFinder.Mobile.ViewModels.ServiceUser.Premises;
 
-public partial class ServiceUserPremisesViewModel : ObservableObject
+public partial class ServiceUserSelectPremiseViewModel : ObservableObject
 {
     private readonly IDialogService _dialogService;
     private readonly IPremiseService _premiseService;
 
-    public ServiceUserPremisesViewModel(IDialogService dialogService, IPremiseService premiseService)
+    public ServiceUserSelectPremiseViewModel(IDialogService dialogService, IPremiseService premiseService)
     {
         _dialogService = dialogService;
         _premiseService = premiseService;
@@ -38,7 +38,7 @@ public partial class ServiceUserPremisesViewModel : ObservableObject
         IsRefreshing = true;
 
         var response = await _premiseService.GetPremisesAsync();
-        
+
         if (response.IsSuccess)
         {
             Premises = new ObservableCollection<OwnPremiseShortInfoDto>(response.Result);
@@ -52,20 +52,14 @@ public partial class ServiceUserPremisesViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task EditPremise(OwnPremiseShortInfoDto premise)
+    private async Task SelectPremise(OwnPremiseShortInfoDto premise)
     {
         var navigationParameters = new Dictionary<string, object>
         {
-            { nameof(ServiceUserEditPremiseViewModel.PremiseId), premise.Id }
+            { nameof(ServiceUserConfirmPremiseSelectionViewModel.SelectedPremiseId), premise.Id }
         };
 
-        await Shell.Current.GoToAsync(nameof(ServiceUserEditPremisePage), navigationParameters);
-    }
-
-    [RelayCommand]
-    private async Task AddPremise()
-    {
-        await Shell.Current.GoToAsync(nameof(ServiceUserAddPremisePage));
+        await Shell.Current.GoToAsync(nameof(ServiceUserConfirmPremiseSelectionPage), navigationParameters);
     }
 
     [RelayCommand]

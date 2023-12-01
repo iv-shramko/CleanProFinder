@@ -1,21 +1,21 @@
-﻿using System.Collections.ObjectModel;
-using CleanProFinder.Mobile.Services.Interfaces;
+﻿using CleanProFinder.Mobile.Services.Interfaces;
+using CleanProFinder.Mobile.ViewModels.ServiceUser.Requests;
 using CleanProFinder.Shared.Dto.CleaningServices;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System.Collections.ObjectModel;
 
-namespace CleanProFinder.Mobile.ViewModels.ServiceProvider.Services;
+namespace CleanProFinder.Mobile.ViewModels.ServiceUser.Services;
 
 [QueryProperty(nameof(ExistingServices), nameof(ExistingServices))]
-public partial class ServiceProviderSelectServicesViewModel : ObservableObject
+public partial class ServiceUserSelectServicesViewModel : ObservableObject
 {
     private readonly ICleaningService _cleaningService;
 
-    public ServiceProviderSelectServicesViewModel(ICleaningService cleaningService)
+    public ServiceUserSelectServicesViewModel(ICleaningService cleaningService)
     {
         _cleaningService = cleaningService;
         _availableServices = new ObservableCollection<CleaningServiceDto>();
-        _existingServices = new ObservableCollection<ProviderServiceFullInfoDto>();
         _selectedServices = new ObservableCollection<object>();
     }
 
@@ -23,7 +23,7 @@ public partial class ServiceProviderSelectServicesViewModel : ObservableObject
     private ObservableCollection<CleaningServiceDto> _availableServices;
 
     [ObservableProperty]
-    private ObservableCollection<ProviderServiceFullInfoDto> _existingServices;
+    private ObservableCollection<CleaningServiceDto> _existingServices;
 
     [ObservableProperty]
     private ObservableCollection<object> _selectedServices;
@@ -32,12 +32,12 @@ public partial class ServiceProviderSelectServicesViewModel : ObservableObject
     public async Task LoadServices()
     {
         var response = await _cleaningService.GetServicesAsync();
-        
+
         if (response.IsSuccess)
         {
             foreach (var service in response.Result)
             {
-                if (ExistingServices.All(existing => existing.CleaningServiceId != service.Id))
+                if (ExistingServices.All(existing => existing.Id != service.Id))
                 {
                     AvailableServices.Add(service);
                 }
@@ -48,17 +48,12 @@ public partial class ServiceProviderSelectServicesViewModel : ObservableObject
     [RelayCommand]
     private async Task ConfirmSelection()
     {
-        var selectedServices = SelectedServices.OfType<CleaningServiceDto>();
-
-        var selectedServicesFullInfo = selectedServices.Select(service => new ProviderServiceFullInfoDto
-        {
-            CleaningServiceId = service.Id, 
-            Name = service.Name
-        }).ToList();
+        var selectedServices = new ObservableCollection<CleaningServiceDto>(SelectedServices.OfType<CleaningServiceDto>());
+        var services = ExistingServices.Concat(selectedServices).ToList();
 
         var navigationParameters = new Dictionary<string, object>
         {
-            { nameof(ServiceProviderEditServicesViewModel.Services), selectedServicesFullInfo }
+            { nameof(ServiceUserAddRequestViewModel.Services), services }
         };
 
         await Shell.Current.GoToAsync("..", navigationParameters);

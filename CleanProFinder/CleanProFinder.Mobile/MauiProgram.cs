@@ -8,6 +8,8 @@ using CleanProFinder.Mobile.ViewModels.ServiceProvider.Services;
 using CleanProFinder.Mobile.ViewModels.ServiceUser;
 using CleanProFinder.Mobile.ViewModels.ServiceUser.Premises;
 using CleanProFinder.Mobile.ViewModels.ServiceUser.Profile;
+using CleanProFinder.Mobile.ViewModels.ServiceUser.Requests;
+using CleanProFinder.Mobile.ViewModels.ServiceUser.Services;
 using CleanProFinder.Mobile.Views.Authentication;
 using CleanProFinder.Mobile.Views.ServiceProvider;
 using CleanProFinder.Mobile.Views.ServiceProvider.Profile;
@@ -15,6 +17,8 @@ using CleanProFinder.Mobile.Views.ServiceProvider.Services;
 using CleanProFinder.Mobile.Views.ServiceUser;
 using CleanProFinder.Mobile.Views.ServiceUser.Premises;
 using CleanProFinder.Mobile.Views.ServiceUser.Profile;
+using CleanProFinder.Mobile.Views.ServiceUser.Requests;
+using CleanProFinder.Mobile.Views.ServiceUser.Services;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -49,6 +53,20 @@ namespace CleanProFinder.Mobile
 
                 builder.Configuration.AddConfiguration(config);
             }
+
+            Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping(nameof(Entry), (handler, view) =>
+            {
+#if ANDROID
+            handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
+#endif
+            });
+
+            Microsoft.Maui.Handlers.EditorHandler.Mapper.AppendToMapping(nameof(Entry), (handler, view) =>
+            {
+#if ANDROID
+            handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
+#endif
+            });
 
 #if DEBUG
             builder.Logging.AddDebug();
@@ -98,6 +116,33 @@ namespace CleanProFinder.Mobile
             builder.Services.AddTransient<ServiceProviderSelectServicesPage>();
             builder.Services.AddTransient<ServiceProviderSelectServicesViewModel>();
 
+            builder.Services.AddTransient<ServiceUserConfirmPremiseSelectionPage>();
+            builder.Services.AddTransient<ServiceUserConfirmPremiseSelectionViewModel>();
+
+            builder.Services.AddTransient<ServiceUserSelectPremisePage>();
+            builder.Services.AddTransient<ServiceUserSelectPremiseViewModel>();
+
+            builder.Services.AddTransient<ServiceUserPremiseInfoPage>();
+            builder.Services.AddTransient<ServiceUserPremiseInfoViewModel>();
+
+            builder.Services.AddTransient<ServiceUserRequestsPage>();
+            builder.Services.AddTransient<ServiceUserRequestsViewModel>();
+
+            builder.Services.AddTransient<ServiceUserAddRequestPage>();
+            builder.Services.AddTransient<ServiceUserAddRequestViewModel>();
+
+            builder.Services.AddTransient<ServiceUserAddRequestNextPage>();
+            builder.Services.AddTransient<ServiceUserAddRequestNextViewModel>();
+
+            builder.Services.AddTransient<ServiceUserEditRequestPage>();
+            builder.Services.AddTransient<ServiceUserEditRequestViewModel>();
+
+            builder.Services.AddTransient<ServiceUserEditRequestNextPage>();
+            builder.Services.AddTransient<ServiceUserEditRequestNextViewModel>();
+
+            builder.Services.AddTransient<ServiceUserSelectServicesPage>();
+            builder.Services.AddTransient<ServiceUserSelectServicesViewModel>();
+
             builder.Services.AddSingleton<IHttpService, HttpService>();
             builder.Services.AddSingleton<IAuthService, AuthService>();
             builder.Services.AddSingleton<IDialogService, DialogService>();
@@ -105,6 +150,7 @@ namespace CleanProFinder.Mobile
             builder.Services.AddSingleton<IProviderService, ProviderService>();
             builder.Services.AddSingleton<IPremiseService, PremiseService>();
             builder.Services.AddSingleton<ICleaningService, CleaningService>();
+            builder.Services.AddSingleton<IRequestService, RequestService>();
 
             return builder.Build();
         }

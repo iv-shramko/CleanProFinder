@@ -54,12 +54,12 @@ public partial class ServiceProviderEditServicesViewModel : ObservableObject, IQ
     [RelayCommand]
     private async Task SelectServices()
     {
-        var parameters = new Dictionary<string, object>
+        var navigationParameters = new Dictionary<string, object>
         {
             { nameof(ServiceProviderSelectServicesViewModel.ExistingServices), Services }
         };
 
-        await Shell.Current.GoToAsync($"{nameof(ServiceProviderSelectServicesPage)}", parameters);
+        await Shell.Current.GoToAsync(nameof(ServiceProviderSelectServicesPage), navigationParameters);
     }
 
     [RelayCommand]
