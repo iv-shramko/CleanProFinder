@@ -58,7 +58,10 @@
                     Text="Select Premise"
                     TextColor="White">
                     <Button.Triggers>
-                        <DataTrigger Binding="{Binding SelectedPremise, Converter={StaticResource IsNotNullConverter}}" TargetType="Button">
+                        <DataTrigger
+                            Binding="{Binding SelectedPremise, Converter={StaticResource IsNotNullConverter}}"
+                            TargetType="Button"
+                            Value="True">
                             <Setter Property="Text" Value="Change Premise" />
                         </DataTrigger>
                     </Button.Triggers>
