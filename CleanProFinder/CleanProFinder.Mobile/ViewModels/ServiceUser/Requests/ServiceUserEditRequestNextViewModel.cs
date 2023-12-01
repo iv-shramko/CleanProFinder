@@ -30,6 +30,8 @@ public partial class ServiceUserEditRequestNextViewModel : ObservableObject, IQu
             Request = (RequestFullInfoDto)newRequest;
             IsCanceled = Request.Status == "Canceled";
         }
+
+        query.Clear();
     }
 
     [RelayCommand]

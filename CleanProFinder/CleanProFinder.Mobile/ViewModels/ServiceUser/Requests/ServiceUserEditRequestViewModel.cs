@@ -32,6 +32,8 @@ public partial class ServiceUserEditRequestViewModel : ObservableObject, IQueryA
         {
             LoadRequest((Guid)requestId);
         }
+
+        query.Clear();
     }
 
     private async void LoadRequest(Guid requestId)
