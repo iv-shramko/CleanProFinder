@@ -4,15 +4,11 @@ using CleanProFinder.Mobile.ViewModels.ServiceUser.Premises;
 using CleanProFinder.Mobile.Views.ServiceUser.Requests;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CleanProFinder.Shared.Dto.CleaningServices;
-using System.Collections.ObjectModel;
+using CleanProFinder.Shared.Dto.Requests;
 
 namespace CleanProFinder.Mobile.ViewModels.ServiceUser.Requests;
-[QueryProperty(nameof(PremiseId), nameof(PremiseId))]
-[QueryProperty(nameof(ServiceProviderId), nameof(ServiceProviderId))]
-[QueryProperty(nameof(Description), nameof(Description))]
-[QueryProperty(nameof(RequestId), nameof(RequestId))]
-public partial class ServiceUserEditRequestViewModel : ObservableObject
+
+public partial class ServiceUserEditRequestViewModel : ObservableObject, IQueryAttributable
 {
     private readonly IDialogService _dialogService;
     private readonly IRequestService _requestService;
@@ -25,79 +21,49 @@ public partial class ServiceUserEditRequestViewModel : ObservableObject
     }
 
     [ObservableProperty]
-    private string _premiseId;
+    private Guid _requestId;
 
     [ObservableProperty]
-    private string _premiseAddress;
+    private RequestFullInfoDto _request;
 
-    [ObservableProperty]
-    private float _square;
-
-    [ObservableProperty]
-    private ObservableCollection<CleaningServiceDto> _services;
-
-    [ObservableProperty]
-    private string _serviceProviderId;
-
-    [ObservableProperty]
-    private string _description;
-
-    [ObservableProperty]
-    private bool _isCanceled;
-
-    private string _requestId;
-
-    public string RequestId
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-        get => _requestId;
-        set
+        if (query.TryGetValue(nameof(RequestId), out var requestId))
         {
-            SetProperty(ref _requestId, value);
-            LoadRequest(value);
+            LoadRequest((Guid)requestId);
         }
     }
 
-    [RelayCommand]
-    private async Task ReadPremise()
-    {
-        var navigationParameters = new Dictionary<string, object>
-        {
-            { nameof(ServiceUserPremiseInfoViewModel.PremiseId), PremiseId }
-        };
-
-        await Shell.Current.GoToAsync(nameof(ServiceUserPremiseInfoPage), navigationParameters);
-    }
-
-    private async void LoadRequest(string requestId)
+    private async void LoadRequest(Guid requestId)
     {
         var response = await _requestService.GetServiceUserRequestAsync(requestId);
 
         if (response.IsSuccess)
         {
-            PremiseId = response.Result.PremiseId.ToString();
-            PremiseAddress = response.Result.Address;
-            Square = response.Result.Square;
-            PremiseAddress = response.Result.Address;
-            Services = new ObservableCollection<CleaningServiceDto>(response.Result.Services);
-            Description = response.Result.Description;
-            Square = response.Result.Square;
-            ServiceProviderId = response.Result.ProviderId.ToString();
-            IsCanceled = response.Result.Status == "Canceled";
+            Request = response.Result;
             return;
         }
 
-        await _dialogService.ShowErrorAlertAsync("Loading Premise Failed", response.Error);
+        await _dialogService.ShowErrorAlertAsync("Loading Request Failed", response.Error);
     }
 
+    [RelayCommand]
+    private async Task ViewPremise()
+    {
+        var navigationParameters = new Dictionary<string, object>
+        {
+            { nameof(ServiceUserPremiseInfoViewModel.PremiseId), Request.PremiseId }
+        };
+
+        await Shell.Current.GoToAsync(nameof(ServiceUserPremiseInfoPage), navigationParameters);
+    }
+    
     [RelayCommand]
     private async Task NextStep()
     {
         var navigationParameters = new Dictionary<string, object>
         {
-            { nameof(ServiceUserEditRequestNextViewModel.RequestId), RequestId },
-            { nameof(ServiceUserEditRequestNextViewModel.Description), Description },
-            { nameof(ServiceUserEditRequestNextViewModel.ServiceProviderId), Description },
-            { nameof(ServiceUserEditRequestNextViewModel.IsCanceled), IsCanceled }
+            { nameof(ServiceUserEditRequestNextViewModel.Request), Request },
         };
 
         await Shell.Current.GoToAsync(nameof(ServiceUserEditRequestNextPage), navigationParameters);

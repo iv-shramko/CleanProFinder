@@ -9,15 +9,9 @@
     x:DataType="requests:ServiceUserEditRequestViewModel"
     Background="{StaticResource Secondary}">
 
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
-
     <Grid>
         <Grid RowDefinitions="150, 170, 301">
-            <Label Style="{StaticResource Key=labelTitleStyle}" Text="Edit Request" />
+            <Label Style="{StaticResource Key=labelTitleStyle}" Text="View Request" />
             <VerticalStackLayout Grid.Row="1" VerticalOptions="Center">
                 <Label Style="{StaticResource labelPropertyStyle}" Text="Premise" />
                 <Border
@@ -31,7 +25,7 @@
                             FontAttributes="Bold"
                             FontFamily="OpenSans"
                             FontSize="18"
-                            Text="{Binding PremiseAddress}"
+                            Text="{Binding Request.Address}"
                             TextColor="White" />
                         <Border
                             Grid.Column="1"
@@ -42,19 +36,19 @@
                                 FontFamily="OpenSans"
                                 FontSize="18"
                                 HorizontalOptions="End"
-                                Text="{Binding Square, StringFormat='{0} m^2'}"
+                                Text="{Binding Request.Square, StringFormat='{0} m^2'}"
                                 TextColor="{StaticResource Secondary}" />
                         </Border>
                     </Grid>
                     <Border.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding ReadPremiseCommand}" NumberOfTapsRequired="1" />
+                        <TapGestureRecognizer Command="{Binding ViewPremiseCommand}" NumberOfTapsRequired="1" />
                     </Border.GestureRecognizers>
                 </Border>
             </VerticalStackLayout>
             <CollectionView
                 Grid.Row="2"
                 HeightRequest="301"
-                ItemsSource="{Binding Services}">
+                ItemsSource="{Binding Request.Services}">
                 <CollectionView.Header>
                     <Label Style="{StaticResource labelPropertyStyle}" Text="Cleaning Services" />
                 </CollectionView.Header>
