@@ -64,11 +64,12 @@
         </Grid>
         <AbsoluteLayout>
             <Button
-                AbsoluteLayout.LayoutBounds="190, 631"
+                AbsoluteLayout.LayoutBounds="0, 631"
                 Command="{Binding AddRequestCommand}"
                 Style="{StaticResource buttonStyle}"
                 Text="Place Request"
-                TextColor="White" />
+                TextColor="White"
+                WidthRequest="370" />
         </AbsoluteLayout>
     </Grid>
 </ContentPage>
