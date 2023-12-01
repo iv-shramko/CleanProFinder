@@ -39,13 +39,13 @@ public class RequestService : IRequestService
         return await _httpService.SendAsync<IEnumerable<RequestShortInfoDto>>(HttpMethod.Get, GetServiceUserRequestsEndpoint);
     }
 
-    public async Task<ServiceResponse<RequestFullInfoDto>> GetServiceUserRequestAsync(string requestId)
+    public async Task<ServiceResponse<RequestFullInfoDto>> GetServiceUserRequestAsync(Guid requestId)
     {
-        return await _httpService.SendAsync<RequestFullInfoDto>(HttpMethod.Get, GetServiceUserRequestsEndpoint, requestId);
+        return await _httpService.SendAsync<RequestFullInfoDto>(HttpMethod.Get, GetServiceUserRequestsEndpoint, requestId.ToString());
     }
 
-    public async Task<ServiceResponse> CancelServiceUserRequestAsync(string requestId)
+    public async Task<ServiceResponse> CancelServiceUserRequestAsync(Guid requestId)
     {
-        return await _httpService.SendAsync(HttpMethod.Get, CancelServiceUserRequestEndpoint, requestId);
+        return await _httpService.SendAsync(HttpMethod.Get, CancelServiceUserRequestEndpoint, requestId.ToString());
     }
 }

@@ -8,6 +8,6 @@ public interface IRequestService
 {
     Task<ServiceResponse> AddServiceUserRequestAsync(Guid premiseId, IList<CleaningServiceDto> services, string description, Guid? selectedProviderId = null);
     Task<ServiceResponse<IEnumerable<RequestShortInfoDto>>> GetServiceUserRequestsAsync();
-    Task<ServiceResponse<RequestFullInfoDto>> GetServiceUserRequestAsync(string requestId);
-    Task<ServiceResponse> CancelServiceUserRequestAsync(string requestId);
+    Task<ServiceResponse<RequestFullInfoDto>> GetServiceUserRequestAsync(Guid requestId);
+    Task<ServiceResponse> CancelServiceUserRequestAsync(Guid requestId);
 }
