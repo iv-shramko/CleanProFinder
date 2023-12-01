@@ -1,14 +1,11 @@
 ﻿using CleanProFinder.Mobile.Services.Interfaces;
+using CleanProFinder.Shared.Dto.Requests;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 namespace CleanProFinder.Mobile.ViewModels.ServiceUser.Requests;
 
-[QueryProperty(nameof(ServiceProviderId), nameof(ServiceProviderId))]
-[QueryProperty(nameof(Description), nameof(Description))]
-[QueryProperty(nameof(RequestId), nameof(RequestId))]
-[QueryProperty(nameof(IsCanceled), nameof(IsCanceled))]
-public partial class ServiceUserEditRequestNextViewModel : ObservableObject
+public partial class ServiceUserEditRequestNextViewModel : ObservableObject, IQueryAttributable
 {
     private readonly IDialogService _dialogService;
     private readonly IRequestService _requestService;
@@ -21,28 +18,25 @@ public partial class ServiceUserEditRequestNextViewModel : ObservableObject
     }
 
     [ObservableProperty]
-    private string _requestId;
-
-    [ObservableProperty]
-    private string _description;
-
-    [ObservableProperty]
-    private string _serviceProviderId;
-
-    [ObservableProperty]
-    private string _serviceProviderName;
-
-    [ObservableProperty]
-    private bool _hasServiceProviderId;
+    private RequestFullInfoDto _request;
 
     [ObservableProperty]
     private bool _isCanceled;
+
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    {
+        if (query.TryGetValue(nameof(Request), out var newRequest))
+        {
+            Request = (RequestFullInfoDto)newRequest;
+            IsCanceled = Request.Status == "Canceled";
+        }
+    }
 
     [RelayCommand]
     private async Task CancelRequest()
     {
         var response =
-            await _requestService.CancelServiceUserRequestAsync(RequestId);
+            await _requestService.CancelServiceUserRequestAsync(Request.Id);
 
         if (response.IsSuccess)
         {
@@ -54,14 +48,8 @@ public partial class ServiceUserEditRequestNextViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task GoBack()
+    private static async Task GoBackToRequests()
     {
         await Shell.Current.GoToAsync("//ServiceUserRequestsPage");
-    }
-
-    [RelayCommand]
-    private async Task LastStep()
-    {
-        await Shell.Current.GoToAsync("..");
     }
 }

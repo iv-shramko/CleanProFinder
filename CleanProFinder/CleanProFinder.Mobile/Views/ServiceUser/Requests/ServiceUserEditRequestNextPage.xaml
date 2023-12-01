@@ -10,13 +10,13 @@
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+            <toolkit:IsNotNullConverter x:Key="IsNotNullConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
     <Grid>
         <Grid RowDefinitions="150, 175, 290">
-            <Label Style="{StaticResource Key=labelTitleStyle}" Text="Edit Request" />
+            <Label Style="{StaticResource Key=labelTitleStyle}" Text="View Request" />
             <VerticalStackLayout Grid.Row="1">
                 <Label Style="{StaticResource labelPropertyStyle}" Text="Description" />
                 <Border Style="{StaticResource borderStyle}">
@@ -25,15 +25,14 @@
                         HeightRequest="104"
                         IsReadOnly="True"
                         Style="{StaticResource entryStyle}"
-                        Text="{Binding Description}" />
+                        Text="{Binding Request.Description}" />
                 </Border>
             </VerticalStackLayout>
-            <VerticalStackLayout Grid.Row="2" IsVisible="{Binding HasServiceProviderId}">
+            <VerticalStackLayout Grid.Row="2" IsVisible="{Binding Request.ProviderId, Converter={StaticResource IsNotNullConverter}}">
                 <Label Style="{StaticResource labelPropertyStyle}" Text="Service Provider (optional)" />
                 <Border
                     Margin="10,15,10,3"
                     Background="{StaticResource Tertiary}"
-                    IsVisible="{Binding HasServiceProviderId}"
                     Stroke="{StaticResource Tertiary}"
                     StrokeShape="RoundRectangle 10,10,10,10">
                     <Label
@@ -41,7 +40,7 @@
                         FontAttributes="Bold"
                         FontFamily="OpenSans"
                         FontSize="18"
-                        Text="{Binding ServiceProviderName}"
+                        Text="{Binding Request.ProviderName}"
                         TextColor="White" />
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer NumberOfTapsRequired="1" />
@@ -52,30 +51,22 @@
         <AbsoluteLayout>
             <Button
                 AbsoluteLayout.LayoutBounds="0, 631"
-                Command="{Binding LastStepCommand}"
-                Style="{StaticResource buttonStyle}"
-                Text="Last Page"
-                TextColor="White"
-                WidthRequest="180" />
-        </AbsoluteLayout>
-        <AbsoluteLayout>
-            <Button
-                AbsoluteLayout.LayoutBounds="190, 631"
-                Background="DarkRed"
-                Command="{Binding CancelRequestCommand}"
-                IsVisible="{Binding IsCanceled, Converter={StaticResource InvertedBoolConverter}}"
-                Style="{StaticResource buttonStyle}"
-                Text="Cancel Request"
-                TextColor="White"
-                WidthRequest="180" />
-            <Button
-                AbsoluteLayout.LayoutBounds="190, 631"
-                Command="{Binding GoBackCommand}"
-                IsVisible="{Binding IsCanceled}"
+                Command="{Binding GoBackToRequestsCommand}"
                 Style="{StaticResource buttonStyle}"
                 Text="Go back"
                 TextColor="White"
-                WidthRequest="180" />
+                WidthRequest="370">
+                <Button.Triggers>
+                    <DataTrigger
+                        Binding="{Binding IsCanceled}"
+                        TargetType="Button"
+                        Value="False">
+                        <Setter Property="Text" Value="Cancel Request" />
+                        <Setter Property="Command" Value="{Binding CancelRequestCommand}" />
+                        <Setter Property="Background" Value="DarkRed" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
         </AbsoluteLayout>
     </Grid>
 </ContentPage>
