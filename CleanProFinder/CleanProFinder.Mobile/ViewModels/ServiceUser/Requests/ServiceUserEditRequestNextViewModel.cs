@@ -2,6 +2,7 @@
 using CleanProFinder.Shared.Dto.Requests;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CleanProFinder.Shared.Enums;
 
 namespace CleanProFinder.Mobile.ViewModels.ServiceUser.Requests;
 
@@ -28,7 +29,7 @@ public partial class ServiceUserEditRequestNextViewModel : ObservableObject, IQu
         if (query.TryGetValue(nameof(Request), out var newRequest))
         {
             Request = (RequestFullInfoDto)newRequest;
-            IsCanceled = Request.Status == "Canceled";
+            IsCanceled = Request.Status == RequestStatus.Canceled.ToString();
         }
 
         query.Clear();
