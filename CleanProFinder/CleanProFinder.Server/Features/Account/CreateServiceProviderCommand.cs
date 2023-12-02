@@ -61,7 +61,8 @@ namespace CleanProFinder.Server.Features.Account
                 var serviceProvider = new CleaningServiceProvider()
                 {
                     Id = Guid.Parse(createIdentityResponse.Result.IdentityUser.Id),
-                    Email = request.Email
+                    Email = request.Email,
+                    IsRestricted = false
                 };
 
                 _context.CleaningServiceProviders.Add(serviceProvider);
