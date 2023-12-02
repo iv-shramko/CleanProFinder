@@ -1,9 +1,9 @@
-﻿using System.Collections.ObjectModel;
-using CleanProFinder.Mobile.Services.Interfaces;
+﻿using CleanProFinder.Mobile.Services.Interfaces;
 using CleanProFinder.Mobile.Views.ServiceProvider.Services;
 using CleanProFinder.Shared.Dto.CleaningServices;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System.Collections.ObjectModel;
 
 namespace CleanProFinder.Mobile.ViewModels.ServiceProvider.Services;
 
@@ -24,21 +24,16 @@ public partial class ServiceProviderEditServicesViewModel : ObservableObject, IQ
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-        var queryProperty = nameof(Services);
-
-        if (!query.ContainsKey(queryProperty))
+        if (query.TryGetValue(nameof(Services), out var newServices))
         {
-            return;
-        }
+            var providers = (ICollection<ProviderServiceFullInfoDto>)newServices;
 
-        if (query[queryProperty] is ICollection<ProviderServiceFullInfoDto> queryServices)
-        {
-            foreach (var service in queryServices)
+            var existingServiceIds = Services.Select(existing => existing.CleaningServiceId);
+            var servicesToAdd = providers.Where(service => !existingServiceIds.Contains(service.CleaningServiceId));
+
+            foreach (var service in servicesToAdd)
             {
-                if (Services.All(existing => existing.CleaningServiceId != service.CleaningServiceId))
-                {
-                    Services.Add(service);
-                }
+                Services.Add(service);
             }
         }
 
