@@ -52,6 +52,13 @@ namespace CleanProFinder.Server.Features.Requests
                     return ServiceResponseBuilder.Failure(UserError.InvalidAuthorization);
                 }
 
+                var serviceProvider = await _context.CleaningServiceProviders.FirstOrDefaultAsync(u => u.Id == userId);
+
+                if (serviceProvider.IsRestricted is true)
+                {
+                    return ServiceResponseBuilder.Failure(UserError.UserIsRestricted);
+                }
+
                 var request = await _context
                     .Requests
                     .FirstOrDefaultAsync(r => r.Id == command.RequestId, cancellationToken);
