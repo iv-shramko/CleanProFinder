@@ -135,7 +135,7 @@
     <Compile Update="Views\ServiceUser\Requests\ServiceUserAddRequestNextPage.xaml.cs">
       <DependentUpon>ServiceUserAddRequestNextPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\ServiceUser\Requests\ServiceUserSelectServiceProvidersPage.xaml.cs">
+    <Compile Update="Views\ServiceUser\Providers\ServiceUserSelectServiceProvidersPage.xaml.cs">
       <DependentUpon>ServiceUserSelectServiceProvidersPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -174,7 +174,7 @@
     <MauiXaml Update="Views\ServiceUser\Requests\ServiceUserRequestsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
-    <MauiXaml Update="Views\ServiceUser\Requests\ServiceUserSelectServiceProvidersPage.xaml">
+    <MauiXaml Update="Views\ServiceUser\Providers\ServiceUserSelectServiceProvidersPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Views\ServiceUser\Services\ServiceUserSelectServicesPage.xaml">

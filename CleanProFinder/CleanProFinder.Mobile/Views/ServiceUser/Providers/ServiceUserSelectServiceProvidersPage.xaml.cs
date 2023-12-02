@@ -1,6 +1,6 @@
-﻿using CleanProFinder.Mobile.ViewModels.ServiceUser.Requests;
+﻿using CleanProFinder.Mobile.ViewModels.ServiceUser.Providers;
 
-namespace CleanProFinder.Mobile.Views.ServiceUser.Requests;
+namespace CleanProFinder.Mobile.Views.ServiceUser.Providers;
 
 public partial class ServiceUserSelectServiceProvidersPage : ContentPage
 {

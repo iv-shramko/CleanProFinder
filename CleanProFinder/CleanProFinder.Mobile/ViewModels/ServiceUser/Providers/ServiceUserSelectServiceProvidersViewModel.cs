@@ -1,11 +1,12 @@
-﻿using CleanProFinder.Mobile.Services.Interfaces;
+﻿using System.Collections.ObjectModel;
+using CleanProFinder.Mobile.Services.Interfaces;
+using CleanProFinder.Mobile.ViewModels.ServiceUser.Requests;
 using CleanProFinder.Shared.Dto.Profile;
 using CleanProFinder.Shared.Dto.Requests;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Collections.ObjectModel;
 
-namespace CleanProFinder.Mobile.ViewModels.ServiceUser.Requests;
+namespace CleanProFinder.Mobile.ViewModels.ServiceUser.Providers;
 
 [QueryProperty(nameof(ExistingProviders), nameof(ExistingProviders))]
 public partial class ServiceUserSelectServiceProvidersViewModel : ObservableObject
@@ -44,6 +45,12 @@ public partial class ServiceUserSelectServiceProvidersViewModel : ObservableObje
                 }
             }
         }
+    }
+
+    [RelayCommand]
+    private async Task ViewProviderDetails()
+    {
+
     }
 
     [RelayCommand]

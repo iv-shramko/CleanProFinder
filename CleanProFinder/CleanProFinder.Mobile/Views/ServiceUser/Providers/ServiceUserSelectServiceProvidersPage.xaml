@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="CleanProFinder.Mobile.Views.ServiceUser.Requests.ServiceUserSelectServiceProvidersPage"
+    x:Class="CleanProFinder.Mobile.Views.ServiceUser.Providers.ServiceUserSelectServiceProvidersPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:profile="clr-namespace:CleanProFinder.Shared.Dto.Profile;assembly=CleanProFinder.Shared"
-    xmlns:requests="clr-namespace:CleanProFinder.Mobile.ViewModels.ServiceUser.Requests"
+    xmlns:providers="clr-namespace:CleanProFinder.Mobile.ViewModels.ServiceUser.Providers"
     xmlns:services="clr-namespace:CleanProFinder.Shared.Dto.CleaningServices;assembly=CleanProFinder.Shared"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-    x:DataType="requests:ServiceUserSelectServiceProvidersViewModel"
+    x:DataType="providers:ServiceUserSelectServiceProvidersViewModel"
     Background="{StaticResource Secondary}">
 
     <ContentPage.Resources>
@@ -133,7 +133,7 @@
                                             VerticalTextAlignment="Center" />
                                         <Border.GestureRecognizers>
                                             <TapGestureRecognizer
-                                                Command="{Binding Source={RelativeSource AncestorType={x:Type requests:ServiceUserSelectServiceProvidersViewModel}}, Path=ViewProviderDetailsCommand}"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type providers:ServiceUserSelectServiceProvidersViewModel}}, Path=ViewProviderDetailsCommand}"
                                                 CommandParameter="{Binding .}"
                                                 NumberOfTapsRequired="1" />
                                         </Border.GestureRecognizers>

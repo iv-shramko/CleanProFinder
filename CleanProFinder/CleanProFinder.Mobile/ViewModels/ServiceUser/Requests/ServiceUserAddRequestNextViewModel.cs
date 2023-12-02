@@ -1,5 +1,6 @@
 ﻿using CleanProFinder.Mobile.Services.Interfaces;
-using CleanProFinder.Mobile.Views.ServiceUser.Requests;
+using CleanProFinder.Mobile.ViewModels.ServiceUser.Providers;
+using CleanProFinder.Mobile.Views.ServiceUser.Providers;
 using CleanProFinder.Shared.Dto.Requests;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
