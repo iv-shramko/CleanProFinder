@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:requests="clr-namespace:CleanProFinder.Mobile.ViewModels.ServiceUser.Requests"
+    xmlns:requests1="clr-namespace:CleanProFinder.Shared.Dto.Requests;assembly=CleanProFinder.Shared"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     x:DataType="requests:ServiceUserAddRequestNextViewModel"
     Background="{StaticResource Secondary}"
@@ -11,7 +12,6 @@
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
             <BackButtonBehavior x:Key="BackButtonBehavior" Command="{Binding GoBackToPreviousStepCommand}" />
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -30,35 +30,44 @@
                 </Border>
             </VerticalStackLayout>
             <VerticalStackLayout Grid.Row="2">
-                <Label Style="{StaticResource labelPropertyStyle}" Text="Service Provider (optional)" />
-                <Border
-                    Margin="10,15,10,3"
-                    Background="{StaticResource Tertiary}"
-                    IsVisible="{Binding HasServiceProviderId}"
-                    Stroke="{StaticResource Tertiary}"
-                    StrokeShape="RoundRectangle 10,10,10,10">
-                    <Label
-                        Margin="12"
-                        FontAttributes="Bold"
-                        FontFamily="OpenSans"
-                        FontSize="18"
-                        Text="{Binding ServiceProviderName}"
-                        TextColor="White" />
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer NumberOfTapsRequired="1" />
-                    </Border.GestureRecognizers>
-                </Border>
+                <CollectionView ItemsSource="{Binding ServiceProviders}">
+                    <CollectionView.Header>
+                        <Label Style="{StaticResource labelPropertyStyle}" Text="Service Provider (optional)" />
+                    </CollectionView.Header>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                Margin="10,15,10,3"
+                                Background="{StaticResource Tertiary}"
+                                Stroke="{StaticResource Tertiary}"
+                                StrokeShape="RoundRectangle 10,10,10,10">
+                                <HorizontalStackLayout x:DataType="requests1:ProviderRequestInteractionInfo">
+                                    <toolkit:AvatarView
+                                        Margin="10"
+                                        CornerRadius="100"
+                                        HeightRequest="60"
+                                        ImageSource="dotnet_bot.png"
+                                        Style="{StaticResource logoAvatarStyle}"
+                                        WidthRequest="60" />
+                                    <VerticalStackLayout Margin="0,10,10,10">
+                                        <Label
+                                            Margin="12"
+                                            FontAttributes="Bold"
+                                            FontSize="20"
+                                            Style="{StaticResource labelPropertyStyle}"
+                                            Text="{Binding ProviderName}"
+                                            TextColor="White" />
+                                    </VerticalStackLayout>
+                                </HorizontalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
                 <Button
                     Margin="10"
-                    IsVisible="{Binding HasServiceProviderId, Converter={StaticResource InvertedBoolConverter}}"
+                    Command="{Binding SelectServiceProvidersCommand}"
                     Style="{StaticResource buttonStyle}"
-                    Text="Select Service Provider"
-                    TextColor="White" />
-                <Button
-                    Margin="10"
-                    IsVisible="{Binding HasServiceProviderId}"
-                    Style="{StaticResource buttonStyle}"
-                    Text="Change ServiceProvider"
+                    Text="Select Service Providers"
                     TextColor="White" />
             </VerticalStackLayout>
         </Grid>
