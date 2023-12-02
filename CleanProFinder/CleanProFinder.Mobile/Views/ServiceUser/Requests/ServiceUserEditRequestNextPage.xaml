@@ -28,7 +28,7 @@
                         Text="{Binding Request.Description}" />
                 </Border>
             </VerticalStackLayout>
-            <VerticalStackLayout Grid.Row="2" IsVisible="{Binding Request.ProviderId, Converter={StaticResource IsNotNullConverter}}">
+            <VerticalStackLayout Grid.Row="2" IsVisible="{Binding Request, Converter={StaticResource IsNotNullConverter}}">
                 <Label Style="{StaticResource labelPropertyStyle}" Text="Service Provider (optional)" />
                 <Border
                     Margin="10,15,10,3"
@@ -40,7 +40,7 @@
                         FontAttributes="Bold"
                         FontFamily="OpenSans"
                         FontSize="18"
-                        Text="{Binding Request.ProviderName}"
+                        Text="{Binding Request}"
                         TextColor="White" />
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer NumberOfTapsRequired="1" />
