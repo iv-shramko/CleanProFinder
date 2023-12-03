@@ -36,7 +36,7 @@ public partial class ServiceUserRequestsViewModel : ObservableObject
     {
         IsRefreshing = true;
 
-        var response = await _requestService.GetServiceUserRequestsAsync();
+        var response = await _requestService.GetRequestsAsync();
 
         if (response.IsSuccess)
         {

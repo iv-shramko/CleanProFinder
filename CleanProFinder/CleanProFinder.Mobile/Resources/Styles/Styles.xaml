@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <?xaml-comp compile="true" ?>
-<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
 
     <Style x:Key="labelPropertyStyle" TargetType="Label">
         <Setter Property="Margin" Value="26, 0, 0, 4" />
@@ -51,6 +54,12 @@
         <Setter Property="StrokeDashOffset" Value="1" />
         <Setter Property="StrokeShape" Value="RoundRectangle 8,8,8,8" />
         <Setter Property="StrokeThickness" Value="2" />
+    </Style>
+
+    <Style x:Key="logoAvatarStyle" TargetType="views:AvatarView">
+        <Setter Property="BorderWidth" Value="0" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="CornerRadius" Value="100" />
     </Style>
 
     <Style TargetType="ActivityIndicator">

@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CleanProFinder.Mobile.Views.ServiceUser.Providers.ServiceUserSelectServiceProvidersPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:profile="clr-namespace:CleanProFinder.Shared.Dto.Profile;assembly=CleanProFinder.Shared"
+    xmlns:providers="clr-namespace:CleanProFinder.Mobile.ViewModels.ServiceUser.Providers"
+    xmlns:services="clr-namespace:CleanProFinder.Shared.Dto.CleaningServices;assembly=CleanProFinder.Shared"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:DataType="providers:ServiceUserSelectServiceProvidersViewModel"
+    Background="{StaticResource Secondary}">
+
+    <ContentPage.Resources>
+        <Style x:Key="borderStyle" TargetType="Border">
+            <Setter Property="Stroke" Value="Transparent" />
+            <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+            <Setter Property="Margin" Value="0,5,0,5" />
+            <Setter Property="Padding" Value="15, 10" />
+            <Setter Property="StrokeShape" Value="RoundRectangle 10" />
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                <Setter TargetName="SelectedLogo" Property="toolkit:AvatarView.IsVisible" Value="False" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="{StaticResource Tertiary}" />
+                                <Setter TargetName="SelectedLogo" Property="toolkit:AvatarView.IsVisible" Value="True" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid Margin="10,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Label
+            Grid.Row="0"
+            Style="{StaticResource labelTitleStyle}"
+            Text="Select Providers" />
+        <CollectionView
+            Grid.Row="1"
+            ItemsSource="{Binding AvailableProviders}"
+            SelectedItems="{Binding SelectedProviders}"
+            SelectionMode="Multiple">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="profile:ProviderPreviewDto">
+                    <Border Style="{StaticResource borderStyle}">
+                        <Grid ColumnDefinitions=".7*, .3*" RowDefinitions="auto, auto">
+                            <FlexLayout
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                AlignContent="Start"
+                                AlignItems="Start"
+                                BindableLayout.ItemsSource="{Binding Services}"
+                                JustifyContent="SpaceBetween"
+                                Wrap="Wrap">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate x:DataType="{x:Type services:CleaningServiceDto}">
+                                        <Grid>
+                                            <Border
+                                                Margin="0,2"
+                                                Padding="0"
+                                                Background="{StaticResource Tertiary}"
+                                                HeightRequest="35"
+                                                Stroke="Transparent"
+                                                StrokeShape="RoundRectangle 10">
+                                                <Label
+                                                    Margin="5,0,5,0"
+                                                    HorizontalOptions="Center"
+                                                    Style="{StaticResource labelPropertyStyle}"
+                                                    Text="{Binding Name}"
+                                                    TextColor="White"
+                                                    VerticalOptions="Center" />
+                                            </Border>
+                                        </Grid>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </FlexLayout>
+                            <Grid Grid.Row="0" Grid.Column="1">
+                                <toolkit:AvatarView
+                                    HeightRequest="70"
+                                    ImageSource="dotnet_bot.png"
+                                    Style="{StaticResource logoAvatarStyle}"
+                                    WidthRequest="70" />
+                                <toolkit:AvatarView
+                                    x:Name="SelectedLogo"
+                                    Background="#90000000"
+                                    HeightRequest="70"
+                                    ImageSource="selected_icon.png"
+                                    Style="{StaticResource logoAvatarStyle}"
+                                    WidthRequest="70" />
+                            </Grid>
+                            <VerticalStackLayout
+                                Grid.Row="1"
+                                Grid.ColumnSpan="2"
+                                Margin="0,5">
+                                <FlexLayout JustifyContent="SpaceBetween">
+                                    <Label
+                                        Margin="2,0,2,5"
+                                        FontAttributes="Bold"
+                                        FontSize="24"
+                                        Style="{StaticResource labelPropertyStyle}"
+                                        Text="{Binding Name}"
+                                        TextColor="White" />
+                                    <Border
+                                        Margin="0,2"
+                                        Padding="15,0"
+                                        Background="Transparent"
+                                        HeightRequest="35"
+                                        Stroke="{StaticResource Secondary}"
+                                        StrokeShape="RoundRectangle 32"
+                                        StrokeThickness="1.5"
+                                        Style="{StaticResource borderStyle}">
+                                        <Label
+                                            Margin="0"
+                                            FontAttributes="Bold"
+                                            FontSize="20"
+                                            Style="{StaticResource labelPropertyStyle}"
+                                            Text="Details ➞"
+                                            TextColor="{StaticResource Secondary}"
+                                            VerticalTextAlignment="Center" />
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type providers:ServiceUserSelectServiceProvidersViewModel}}, Path=ViewProviderDetailsCommand}"
+                                                CommandParameter="{Binding .}"
+                                                NumberOfTapsRequired="1" />
+                                        </Border.GestureRecognizers>
+                                    </Border>
+                                </FlexLayout>
+                                <Label
+                                    Margin="0"
+                                    Style="{StaticResource labelPropertyStyle}"
+                                    Text="{Binding Description}"
+                                    TextColor="White" />
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <VerticalStackLayout Grid.Row="2">
+            <Button
+                Margin="10,20,10,20"
+                Command="{Binding ConfirmSelectionCommand}"
+                Style="{StaticResource buttonStyle}"
+                Text="Confirm Selection"
+                TextColor="White" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

@@ -3,7 +3,6 @@ using CleanProFinder.Shared.Dto.Premises;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CleanProFinder.Mobile.Views.ServiceUser.Premises;
-using CleanProFinder.Mobile.ViewModels.ServiceUser.Requests;
 using System.Collections.ObjectModel;
 
 namespace CleanProFinder.Mobile.ViewModels.ServiceUser.Premises;
