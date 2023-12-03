@@ -45,6 +45,17 @@ public partial class ServiceUserStartingViewModel : ObservableObject
     }
 
     [RelayCommand]
+    private async Task ViewProviderDetails(ProviderPreviewDto provider)
+    {
+        var navigationParameters = new Dictionary<string, object>
+        {
+            { nameof(ServiceUserServiceProviderInfoViewModel.ProviderId), provider.Id }
+        };
+
+        await Shell.Current.GoToAsync(nameof(ServiceUserServiceProviderInfoPage), navigationParameters);
+    }
+
+    [RelayCommand]
     private void Search()
     {
 

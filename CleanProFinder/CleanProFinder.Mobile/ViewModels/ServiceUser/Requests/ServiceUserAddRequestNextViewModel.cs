@@ -88,6 +88,17 @@ public partial class ServiceUserAddRequestNextViewModel : ObservableObject, IQue
     }
 
     [RelayCommand]
+    private async Task ViewProviderDetails(ProviderRequestInteractionInfo provider)
+    {
+        var navigationParameters = new Dictionary<string, object>
+        {
+            { nameof(ServiceUserServiceProviderInfoViewModel.ProviderId), provider.ProviderId }
+        };
+
+        await Shell.Current.GoToAsync(nameof(ServiceUserServiceProviderInfoPage), navigationParameters);
+    }
+
+    [RelayCommand]
     private void RemoveServiceProvider(ProviderRequestInteractionInfo provider)
     {
         ServiceProviders.Remove(provider);
