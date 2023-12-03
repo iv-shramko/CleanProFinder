@@ -13,8 +13,7 @@ public partial class ServiceUserEditRequestViewModel : ObservableObject, IQueryA
     private readonly IDialogService _dialogService;
     private readonly IRequestService _requestService;
 
-    public ServiceUserEditRequestViewModel(
-        IDialogService dialogService, IRequestService requestService)
+    public ServiceUserEditRequestViewModel(IDialogService dialogService, IRequestService requestService)
     {
         _dialogService = dialogService;
         _requestService = requestService;

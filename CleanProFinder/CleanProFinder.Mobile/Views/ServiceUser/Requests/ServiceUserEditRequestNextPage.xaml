@@ -4,15 +4,10 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:requests="clr-namespace:CleanProFinder.Mobile.ViewModels.ServiceUser.Requests"
+    xmlns:requests1="clr-namespace:CleanProFinder.Shared.Dto.Requests;assembly=CleanProFinder.Shared"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     x:DataType="requests:ServiceUserEditRequestNextViewModel"
     Background="{StaticResource Secondary}">
-
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <toolkit:IsNotNullConverter x:Key="IsNotNullConverter" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
 
     <Grid>
         <Grid RowDefinitions="150, 175, 290">
@@ -28,24 +23,40 @@
                         Text="{Binding Request.Description}" />
                 </Border>
             </VerticalStackLayout>
-            <VerticalStackLayout Grid.Row="2" IsVisible="{Binding Request, Converter={StaticResource IsNotNullConverter}}">
-                <Label Style="{StaticResource labelPropertyStyle}" Text="Service Provider (optional)" />
-                <Border
-                    Margin="10,15,10,3"
-                    Background="{StaticResource Tertiary}"
-                    Stroke="{StaticResource Tertiary}"
-                    StrokeShape="RoundRectangle 10,10,10,10">
-                    <Label
-                        Margin="12"
-                        FontAttributes="Bold"
-                        FontFamily="OpenSans"
-                        FontSize="18"
-                        Text="{Binding Request}"
-                        TextColor="White" />
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer NumberOfTapsRequired="1" />
-                    </Border.GestureRecognizers>
-                </Border>
+            <VerticalStackLayout Grid.Row="2">
+                <CollectionView ItemsSource="{Binding Request.ProvidersInteractions}">
+                    <CollectionView.Header>
+                        <Label Style="{StaticResource labelPropertyStyle}" Text="Service Providers" />
+                    </CollectionView.Header>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                Margin="10,15,10,3"
+                                Background="{StaticResource Tertiary}"
+                                Stroke="{StaticResource Tertiary}"
+                                StrokeShape="RoundRectangle 10,10,10,10">
+                                <HorizontalStackLayout x:DataType="requests1:ProviderRequestInteractionInfo">
+                                    <toolkit:AvatarView
+                                        Margin="10"
+                                        CornerRadius="100"
+                                        HeightRequest="60"
+                                        ImageSource="dotnet_bot.png"
+                                        Style="{StaticResource logoAvatarStyle}"
+                                        WidthRequest="60" />
+                                    <VerticalStackLayout Margin="0,10,10,10">
+                                        <Label
+                                            Margin="12"
+                                            FontAttributes="Bold"
+                                            FontSize="20"
+                                            Style="{StaticResource labelPropertyStyle}"
+                                            Text="{Binding ProviderName}"
+                                            TextColor="White" />
+                                    </VerticalStackLayout>
+                                </HorizontalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
             </VerticalStackLayout>
         </Grid>
         <AbsoluteLayout>
