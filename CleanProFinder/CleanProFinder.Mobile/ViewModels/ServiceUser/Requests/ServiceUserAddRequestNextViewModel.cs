@@ -77,6 +77,8 @@ public partial class ServiceUserAddRequestNextViewModel : ObservableObject, IQue
     [RelayCommand]
     private async Task SelectServiceProviders()
     {
+        Request.Description = Description;
+
         var navigationParameters = new Dictionary<string, object>
         {
             { nameof(ServiceUserSelectServiceProvidersViewModel.ExistingProviders), ServiceProviders }
