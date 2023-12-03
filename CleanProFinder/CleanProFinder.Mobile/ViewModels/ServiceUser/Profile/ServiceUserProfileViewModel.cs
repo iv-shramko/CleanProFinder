@@ -20,6 +20,9 @@ public partial class ServiceUserProfileViewModel : ObservableObject
     }
 
     [ObservableProperty]
+    private string _email;
+
+    [ObservableProperty]
     private string _firstName;
 
     [ObservableProperty]
@@ -43,6 +46,7 @@ public partial class ServiceUserProfileViewModel : ObservableObject
 
         if (response.IsSuccess)
         {
+            Email = response.Result.Email;
             FirstName = response.Result.FirstName;
             LastName = response.Result.LastName;
             PhoneNumber = response.Result.PhoneNumber;
