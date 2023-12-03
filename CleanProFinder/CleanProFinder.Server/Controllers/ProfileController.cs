@@ -147,5 +147,26 @@ namespace CleanProFinder.Server.Controllers
             var result = await _mediator.Send(request, cancellationToken);
             return ConvertFromServiceResponse(result);
         }
+
+        /// <summary>
+        /// Get provider's profile by id.
+        /// </summary>
+        /// <param name="request">The request to get provider's profile by id.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <remarks>
+        /// If the operation is successful, it will return a ProviderProfileViewInfoDto.
+        /// If there is a bad request, it will return an ErrorDto.
+        /// </remarks>
+        /// <returns>An IActionResult representing the result of the operation.</returns>
+        [HttpPost("service-user/service-providers/{id}")]
+        [Authorize(Roles = Roles.ServiceUser)]
+        [ProducesResponseType(typeof(ProviderProfileViewInfoDto), 200)]
+        [ProducesResponseType(typeof(ErrorDto), 400)]
+        public async Task<IActionResult> GetProviderProfileById(Guid id,
+            CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(new GetProviderProfileByIdQuery { ServiceProviderId = id}, cancellationToken);
+            return ConvertFromServiceResponse(result);
+        }
     }
 }
