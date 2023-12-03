@@ -1,5 +1,6 @@
 using CleanProFinder.Db;
 using CleanProFinder.Server.BuildExtensions;
+using CleanProFinder.Server.Hubs;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +17,7 @@ builder.Services.AddSetCors();
 builder.Services.AddDbSetup(builder.Configuration);
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddValidators();
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -29,5 +31,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHub<NotificationHub>("/notifications");
 
 app.Run();
