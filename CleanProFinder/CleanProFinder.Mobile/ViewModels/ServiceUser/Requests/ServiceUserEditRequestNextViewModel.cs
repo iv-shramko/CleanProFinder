@@ -38,7 +38,7 @@ public partial class ServiceUserEditRequestNextViewModel : ObservableObject, IQu
     [RelayCommand]
     private async Task CancelRequest()
     {
-        var response = await _requestService.CancelServiceUserRequestAsync(Request.Id);
+        var response = await _requestService.CancelRequestAsync(Request.Id);
 
         if (response.IsSuccess)
         {

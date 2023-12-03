@@ -8,9 +8,9 @@ namespace CleanProFinder.Mobile.Services.Implementations;
 
 public class RequestService : IRequestService
 {
-    private const string CreateServiceUserPremiseEndpoint = "api/request/create";
-    private const string GetServiceUserRequestsEndpoint = "api/request/my-requests";
-    private const string CancelServiceUserRequestEndpoint = "api/request/my-requests/cancel";
+    private const string CreateRequestEndpoint = "api/request/create";
+    private const string GetRequestsEndpoint = "api/request/my-requests";
+    private const string CancelRequestEndpoint = "api/request/my-requests/cancel";
 
     private readonly IHttpService _httpService;
 
@@ -19,33 +19,37 @@ public class RequestService : IRequestService
         _httpService = httpService;
     }
 
-    public async Task<ServiceResponse> AddServiceUserRequestAsync(Guid premiseId, IList<CleaningServiceDto> services, string description, Guid? selectedProviderId)
+    public async Task<ServiceResponse> AddRequestAsync(Guid premiseId, IList<CleaningServiceDto> services,
+        string description, IList<ProviderRequestInteractionInfo> selectedProviders)
     {
         var servicesId = services.Select(s => s.Id).ToList();
+        var selectedProvidersIds = selectedProviders.Select(p => p.ProviderId).ToList();
 
         var createRequestCommand = new CreateRequestCommandDto
         {
             PremiseId = premiseId,
             ServicesId = servicesId,
             Description = description,
-            SelectedProviderId = selectedProviderId
+            SelectedProvidersIds = selectedProvidersIds
         };
 
-        return await _httpService.SendAsync(HttpMethod.Post, CreateServiceUserPremiseEndpoint, createRequestCommand);
+        return await _httpService.SendAsync(HttpMethod.Post, CreateRequestEndpoint, createRequestCommand);
     }
 
-    public async Task<ServiceResponse<IEnumerable<RequestShortInfoDto>>> GetServiceUserRequestsAsync()
+    public async Task<ServiceResponse<IEnumerable<RequestShortInfoDto>>> GetRequestsAsync()
     {
-        return await _httpService.SendAsync<IEnumerable<RequestShortInfoDto>>(HttpMethod.Get, GetServiceUserRequestsEndpoint);
+        return await _httpService.SendAsync<IEnumerable<RequestShortInfoDto>>(HttpMethod.Get, GetRequestsEndpoint);
     }
 
-    public async Task<ServiceResponse<RequestFullInfoDto>> GetServiceUserRequestAsync(Guid requestId)
+    public async Task<ServiceResponse<RequestFullInfoDto>> GetRequestAsync(Guid requestId)
     {
-        return await _httpService.SendAsync<RequestFullInfoDto>(HttpMethod.Get, GetServiceUserRequestsEndpoint, requestId.ToString());
+        var payload = requestId.ToString();
+        return await _httpService.SendAsync<RequestFullInfoDto>(HttpMethod.Get, GetRequestsEndpoint, payload);
     }
 
-    public async Task<ServiceResponse> CancelServiceUserRequestAsync(Guid requestId)
+    public async Task<ServiceResponse> CancelRequestAsync(Guid requestId)
     {
-        return await _httpService.SendAsync(HttpMethod.Get, CancelServiceUserRequestEndpoint, requestId.ToString());
+        var payload = requestId.ToString();
+        return await _httpService.SendAsync(HttpMethod.Get, CancelRequestEndpoint, payload);
     }
 }

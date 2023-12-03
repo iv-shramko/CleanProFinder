@@ -39,7 +39,7 @@ public partial class ServiceUserAddRequestNextViewModel : ObservableObject, IQue
             {
                 foreach (var provider in Request.ProvidersInteractions)
                 {
-                    _serviceProviders.Add(provider);
+                    ServiceProviders.Add(provider);
                 }
             }
         }
@@ -62,7 +62,8 @@ public partial class ServiceUserAddRequestNextViewModel : ObservableObject, IQue
     [RelayCommand]
     private async Task AddRequest()
     {
-        var response = await _requestService.AddServiceUserRequestAsync(Request.PremiseId, Request.Services, Description);
+        var response =
+            await _requestService.AddRequestAsync(Request.PremiseId, Request.Services, Description, ServiceProviders);
 
         if (response.IsSuccess)
         {

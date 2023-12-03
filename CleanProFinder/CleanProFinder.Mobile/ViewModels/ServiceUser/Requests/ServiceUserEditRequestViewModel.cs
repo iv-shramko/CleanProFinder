@@ -37,7 +37,7 @@ public partial class ServiceUserEditRequestViewModel : ObservableObject, IQueryA
 
     private async void LoadRequest(Guid requestId)
     {
-        var response = await _requestService.GetServiceUserRequestAsync(requestId);
+        var response = await _requestService.GetRequestAsync(requestId);
 
         if (response.IsSuccess)
         {
