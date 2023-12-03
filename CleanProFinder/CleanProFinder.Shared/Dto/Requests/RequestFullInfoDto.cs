@@ -1,4 +1,5 @@
 ﻿using CleanProFinder.Shared.Dto.CleaningServices;
+using CleanProFinder.Shared.Enums;
 using System;
 using System.Collections.Generic;
 
@@ -15,7 +16,7 @@ namespace CleanProFinder.Shared.Dto.Requests
 
         public List<CleaningServiceDto> Services { get; set; }
 
-        public string Status { get; set; }
+        public RequestStatus Status { get; set; }
 
         public List<ProviderRequestInteractionInfo> ProvidersInteractions { get; set; }
     }
