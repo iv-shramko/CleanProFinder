@@ -16,69 +16,64 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <Grid>
-        <Grid RowDefinitions="150, 175, 290">
-            <Label Style="{StaticResource Key=labelTitleStyle}" Text="Add Request" />
-            <VerticalStackLayout Grid.Row="1">
-                <Label Style="{StaticResource labelPropertyStyle}" Text="Description" />
-                <Border Style="{StaticResource borderStyle}">
-                    <Editor
-                        AutoSize="TextChanges"
-                        HeightRequest="104"
-                        Style="{StaticResource entryStyle}"
-                        Text="{Binding Description}" />
-                </Border>
-            </VerticalStackLayout>
-            <VerticalStackLayout Grid.Row="2">
-                <CollectionView ItemsSource="{Binding ServiceProviders}">
-                    <CollectionView.Header>
-                        <Label Style="{StaticResource labelPropertyStyle}" Text="Service Provider (optional)" />
-                    </CollectionView.Header>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Border
-                                Margin="10,15,10,3"
-                                Background="{StaticResource Tertiary}"
-                                Stroke="{StaticResource Tertiary}"
-                                StrokeShape="RoundRectangle 10,10,10,10">
-                                <HorizontalStackLayout x:DataType="requests1:ProviderRequestInteractionInfo">
-                                    <toolkit:AvatarView
-                                        Margin="10"
-                                        CornerRadius="100"
-                                        HeightRequest="60"
-                                        ImageSource="dotnet_bot.png"
-                                        Style="{StaticResource logoAvatarStyle}"
-                                        WidthRequest="60" />
-                                    <VerticalStackLayout Margin="0,10,10,10">
-                                        <Label
-                                            Margin="12"
-                                            FontAttributes="Bold"
-                                            FontSize="20"
-                                            Style="{StaticResource labelPropertyStyle}"
-                                            Text="{Binding ProviderName}"
-                                            TextColor="White" />
-                                    </VerticalStackLayout>
-                                </HorizontalStackLayout>
-                            </Border>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-                <Button
-                    Margin="10"
-                    Command="{Binding SelectServiceProvidersCommand}"
-                    Style="{StaticResource buttonStyle}"
-                    Text="Select Service Providers"
-                    TextColor="White" />
-            </VerticalStackLayout>
-        </Grid>
-        <AbsoluteLayout>
+    <Grid RowDefinitions="145, 150, 321, auto" RowSpacing="5">
+        <Label Style="{StaticResource Key=labelTitleStyle}" Text="Add Request" />
+        <VerticalStackLayout Grid.Row="1">
+            <Label Style="{StaticResource labelPropertyStyle}" Text="Description" />
+            <Border Style="{StaticResource borderStyle}">
+                <Editor
+                    AutoSize="TextChanges"
+                    HeightRequest="104"
+                    Style="{StaticResource entryStyle}"
+                    Text="{Binding Description}" />
+            </Border>
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="2">
+            <CollectionView ItemsSource="{Binding ServiceProviders}">
+                <CollectionView.Header>
+                    <Label Style="{StaticResource labelPropertyStyle}" Text="Service Provider (optional)" />
+                </CollectionView.Header>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            Margin="10,15,10,3"
+                            Background="{StaticResource Tertiary}"
+                            Stroke="{StaticResource Tertiary}"
+                            StrokeShape="RoundRectangle 10,10,10,10">
+                            <HorizontalStackLayout x:DataType="requests1:ProviderRequestInteractionInfo">
+                                <toolkit:AvatarView
+                                    Margin="10"
+                                    CornerRadius="100"
+                                    HeightRequest="60"
+                                    ImageSource="dotnet_bot.png"
+                                    Style="{StaticResource logoAvatarStyle}"
+                                    WidthRequest="60" />
+                                <VerticalStackLayout Margin="0,10,10,10">
+                                    <Label
+                                        Margin="12"
+                                        FontAttributes="Bold"
+                                        FontSize="20"
+                                        Style="{StaticResource labelPropertyStyle}"
+                                        Text="{Binding ProviderName}"
+                                        TextColor="White" />
+                                </VerticalStackLayout>
+                            </HorizontalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
             <Button
-                AbsoluteLayout.LayoutBounds="0, 631"
-                Command="{Binding AddRequestCommand}"
+                Margin="10"
+                Command="{Binding SelectServiceProvidersCommand}"
                 Style="{StaticResource buttonStyle}"
-                Text="Place Request"
-                TextColor="White"
-                WidthRequest="370" />
-        </AbsoluteLayout>
+                Text="Select Service Providers"
+                TextColor="White" />
+        </VerticalStackLayout>
+        <Button
+            Grid.Row="3"
+            Command="{Binding AddRequestCommand}"
+            Style="{StaticResource buttonStyle}"
+            Text="Place Request"
+            TextColor="White" />
     </Grid>
 </ContentPage>

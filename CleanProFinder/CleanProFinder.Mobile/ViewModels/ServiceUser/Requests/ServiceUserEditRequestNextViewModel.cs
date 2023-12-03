@@ -29,7 +29,7 @@ public partial class ServiceUserEditRequestNextViewModel : ObservableObject, IQu
         if (query.TryGetValue(nameof(Request), out var newRequest))
         {
             Request = (RequestFullInfoDto)newRequest;
-            IsCanceled = Request.Status == RequestStatus.Canceled.ToString();
+            IsCanceled = Request.Status == RequestStatus.Canceled;
         }
 
         query.Clear();

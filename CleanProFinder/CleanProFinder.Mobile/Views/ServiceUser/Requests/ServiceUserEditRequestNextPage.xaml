@@ -9,75 +9,70 @@
     x:DataType="requests:ServiceUserEditRequestNextViewModel"
     Background="{StaticResource Secondary}">
 
-    <Grid>
-        <Grid RowDefinitions="150, 175, 290">
-            <Label Style="{StaticResource Key=labelTitleStyle}" Text="View Request" />
-            <VerticalStackLayout Grid.Row="1">
-                <Label Style="{StaticResource labelPropertyStyle}" Text="Description" />
-                <Border Style="{StaticResource borderStyle}">
-                    <Editor
-                        AutoSize="TextChanges"
-                        HeightRequest="104"
-                        IsReadOnly="True"
-                        Style="{StaticResource entryStyle}"
-                        Text="{Binding Request.Description}" />
-                </Border>
-            </VerticalStackLayout>
-            <VerticalStackLayout Grid.Row="2">
-                <CollectionView ItemsSource="{Binding Request.ProvidersInteractions}">
-                    <CollectionView.Header>
-                        <Label Style="{StaticResource labelPropertyStyle}" Text="Service Providers" />
-                    </CollectionView.Header>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Border
-                                Margin="10,15,10,3"
-                                Background="{StaticResource Tertiary}"
-                                Stroke="{StaticResource Tertiary}"
-                                StrokeShape="RoundRectangle 10,10,10,10">
-                                <HorizontalStackLayout x:DataType="requests1:ProviderRequestInteractionInfo">
-                                    <toolkit:AvatarView
-                                        Margin="10"
-                                        CornerRadius="100"
-                                        HeightRequest="60"
-                                        ImageSource="dotnet_bot.png"
-                                        Style="{StaticResource logoAvatarStyle}"
-                                        WidthRequest="60" />
-                                    <VerticalStackLayout Margin="0,10,10,10">
-                                        <Label
-                                            Margin="12"
-                                            FontAttributes="Bold"
-                                            FontSize="20"
-                                            Style="{StaticResource labelPropertyStyle}"
-                                            Text="{Binding ProviderName}"
-                                            TextColor="White" />
-                                    </VerticalStackLayout>
-                                </HorizontalStackLayout>
-                            </Border>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </VerticalStackLayout>
-        </Grid>
-        <AbsoluteLayout>
-            <Button
-                AbsoluteLayout.LayoutBounds="0, 631"
-                Command="{Binding GoBackToRequestsCommand}"
-                Style="{StaticResource buttonStyle}"
-                Text="Go back"
-                TextColor="White"
-                WidthRequest="370">
-                <Button.Triggers>
-                    <DataTrigger
-                        Binding="{Binding IsCanceled}"
-                        TargetType="Button"
-                        Value="False">
-                        <Setter Property="Text" Value="Cancel Request" />
-                        <Setter Property="Command" Value="{Binding CancelRequestCommand}" />
-                        <Setter Property="Background" Value="DarkRed" />
-                    </DataTrigger>
-                </Button.Triggers>
-            </Button>
-        </AbsoluteLayout>
+    <Grid RowDefinitions="145, 150, 321, auto" RowSpacing="5">
+        <Label Style="{StaticResource Key=labelTitleStyle}" Text="View Request" />
+        <VerticalStackLayout Grid.Row="1">
+            <Label Style="{StaticResource labelPropertyStyle}" Text="Description" />
+            <Border Style="{StaticResource borderStyle}">
+                <Editor
+                    AutoSize="TextChanges"
+                    HeightRequest="104"
+                    IsReadOnly="True"
+                    Style="{StaticResource entryStyle}"
+                    Text="{Binding Request.Description}" />
+            </Border>
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="2">
+            <CollectionView ItemsSource="{Binding Request.ProvidersInteractions}">
+                <CollectionView.Header>
+                    <Label Style="{StaticResource labelPropertyStyle}" Text="Service Providers" />
+                </CollectionView.Header>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            Margin="10,15,10,3"
+                            Background="{StaticResource Tertiary}"
+                            Stroke="{StaticResource Tertiary}"
+                            StrokeShape="RoundRectangle 10,10,10,10">
+                            <HorizontalStackLayout x:DataType="requests1:ProviderRequestInteractionInfo">
+                                <toolkit:AvatarView
+                                    Margin="10"
+                                    CornerRadius="100"
+                                    HeightRequest="60"
+                                    ImageSource="dotnet_bot.png"
+                                    Style="{StaticResource logoAvatarStyle}"
+                                    WidthRequest="60" />
+                                <VerticalStackLayout Margin="0,10,10,10">
+                                    <Label
+                                        Margin="12"
+                                        FontAttributes="Bold"
+                                        FontSize="20"
+                                        Style="{StaticResource labelPropertyStyle}"
+                                        Text="{Binding ProviderName}"
+                                        TextColor="White" />
+                                </VerticalStackLayout>
+                            </HorizontalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+        <Button
+            Grid.Row="3"
+            Command="{Binding GoBackToRequestsCommand}"
+            Style="{StaticResource buttonStyle}"
+            Text="Go back"
+            TextColor="White">
+            <Button.Triggers>
+                <DataTrigger
+                    Binding="{Binding IsCanceled}"
+                    TargetType="Button"
+                    Value="False">
+                    <Setter Property="Text" Value="Cancel Request" />
+                    <Setter Property="Command" Value="{Binding CancelRequestCommand}" />
+                    <Setter Property="Background" Value="DarkRed" />
+                </DataTrigger>
+            </Button.Triggers>
+        </Button>
     </Grid>
 </ContentPage>

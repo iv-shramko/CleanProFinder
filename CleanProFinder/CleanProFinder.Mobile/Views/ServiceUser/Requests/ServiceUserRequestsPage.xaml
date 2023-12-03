@@ -14,6 +14,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:StatusToColorConverter x:Key="StatusToColorConverter" />
+            <converters:StatusToStringConverter x:Key="StatusToStringConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -65,8 +66,9 @@
                                 Background="{StaticResource Tertiary}"
                                 Stroke="{StaticResource Tertiary}"
                                 StrokeShape="RoundRectangle 10,10,10,10">
-                                <Grid ColumnDefinitions=".7*, .3*" RowDefinitions="auto, auto">
+                                <Grid ColumnDefinitions="259, 111" RowDefinitions="auto, auto">
                                     <Label
+                                        Grid.RowSpan="2"
                                         Margin="12,12,0,0"
                                         FontAttributes="Bold"
                                         FontFamily="OpenSans"
@@ -75,20 +77,7 @@
                                         TextColor="White" />
                                     <Border
                                         Grid.Column="1"
-                                        Background="{StaticResource Tertiary}"
-                                        Stroke="{StaticResource Tertiary}">
-                                        <Label
-                                            Margin="0,9,9,0"
-                                            FontFamily="OpenSans"
-                                            FontSize="18"
-                                            HorizontalOptions="End"
-                                            Text="{Binding Square, StringFormat='{0} m²'}"
-                                            TextColor="{StaticResource Secondary}" />
-                                    </Border>
-                                    <Border
-                                        Grid.Row="1"
-                                        Grid.Column="1"
-                                        Margin="5"
+                                        Margin="5,6,5,4"
                                         Background="{Binding Status, Converter={StaticResource StatusToColorConverter}}"
                                         HeightRequest="35"
                                         Stroke="{StaticResource Tertiary}"
@@ -98,16 +87,17 @@
                                             Margin="0"
                                             HorizontalOptions="Center"
                                             Style="{StaticResource labelPropertyStyle}"
-                                            Text="{Binding Status}"
+                                            Text="{Binding Status, Converter={StaticResource StatusToStringConverter}}"
                                             TextColor="White"
                                             VerticalOptions="Center" />
                                     </Border>
                                     <FlexLayout
                                         Grid.Row="1"
+                                        Grid.ColumnSpan="2"
                                         AlignContent="Start"
                                         AlignItems="Start"
                                         BindableLayout.ItemsSource="{Binding Services}"
-                                        JustifyContent="SpaceBetween"
+                                        JustifyContent="Start"
                                         Wrap="Wrap">
                                         <BindableLayout.ItemTemplate>
                                             <DataTemplate x:DataType="{x:Type services:CleaningServiceDto}">

@@ -21,11 +21,19 @@
             Spacing="17"
             VerticalOptions="Center">
             <VerticalStackLayout>
+                <Label Style="{StaticResource labelPropertyStyle}" Text="Email" />
+                <Border Style="{StaticResource borderStyle}">
+                    <Entry
+                        IsReadOnly="True"
+                        Placeholder="Type here..."
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding Email}" />
+                </Border>
                 <Label Style="{StaticResource labelPropertyStyle}" Text="First name" />
                 <Border Style="{StaticResource borderStyle}">
                     <Entry
                         IsReadOnly="{Binding IsEditing, Converter={StaticResource InvertedBoolConverter}}"
-                        Placeholder="First Name"
+                        Placeholder="Type here..."
                         Style="{StaticResource entryStyle}"
                         Text="{Binding FirstName}" />
                 </Border>
@@ -33,16 +41,16 @@
                 <Border Style="{StaticResource borderStyle}">
                     <Entry
                         IsReadOnly="{Binding IsEditing, Converter={StaticResource InvertedBoolConverter}}"
-                        Placeholder="Last Name"
+                        Placeholder="Type here..."
                         Style="{StaticResource entryStyle}"
                         Text="{Binding LastName}" />
                 </Border>
-                <Label Style="{StaticResource labelPropertyStyle}" Text="PhoneNumber" />
+                <Label Style="{StaticResource labelPropertyStyle}" Text="Phone Number" />
                 <Border Style="{StaticResource borderStyle}">
                     <Entry
                         IsReadOnly="{Binding IsEditing, Converter={StaticResource InvertedBoolConverter}}"
                         Keyboard="Numeric"
-                        Placeholder="Phone Number"
+                        Placeholder="Type here..."
                         Style="{StaticResource entryStyle}"
                         Text="{Binding PhoneNumber}" />
                 </Border>

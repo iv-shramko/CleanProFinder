@@ -11,7 +11,7 @@ namespace CleanProFinder.Db.Models
 
         public string Description { get; set; }
 
-        public ICollection<RequestInteraction> Interactions { get; set; }
+        public ICollection<RequestInteraction>? Interactions { get; set; }
 
         public RequestStatus Status { get; set; }
     }

@@ -2,6 +2,9 @@
 using CleanProFinder.Db.Models;
 using CleanProFinder.Server.Extensions;
 using CleanProFinder.Server.Features.Base;
+using CleanProFinder.Server.Hubs;
+using CleanProFinder.Server.Hubs.Notifiers;
+using CleanProFinder.Shared.Dto.Notifications;
 using CleanProFinder.Shared.Dto.Requests;
 using CleanProFinder.Shared.Enums;
 using CleanProFinder.Shared.Errors.ServiceErrors;
@@ -18,15 +21,18 @@ namespace CleanProFinder.Server.Features.Requests
             private readonly ILogger<AssignForRequestCommandHandler> _logger;
             private readonly IHttpContextAccessor _contextAccessor;
             private readonly ApplicationDbContext _context;
+            private readonly RequestNotifier _notifier;
 
             public AssignForRequestCommandHandler(
                 ILogger<AssignForRequestCommandHandler> logger,
                 IHttpContextAccessor contextAccessor,
-                ApplicationDbContext context)
+                ApplicationDbContext context,
+                RequestNotifier notifier)
             {
                 _logger = logger;
                 _contextAccessor = contextAccessor;
                 _context = context;
+                _notifier = notifier;
             }
 
             public override async Task<ServiceResponse> Handle(AssignForRequestCommand request, CancellationToken cancellationToken)
@@ -54,6 +60,7 @@ namespace CleanProFinder.Server.Features.Requests
 
                 var request = await _context
                     .Requests
+                    .Include(r => r.Premise)
                     .FirstOrDefaultAsync(r => r.Id == command.RequestId, cancellationToken);
 
                 if(request is null)
@@ -70,14 +77,52 @@ namespace CleanProFinder.Server.Features.Requests
 
                 _context.RequestInteractions.Add(interaction);
 
+                var statusChanged = false;
                 if(request.Status == RequestStatus.Placed || request.Status == RequestStatus.HasAnswers)
                 {
                     request.Status = RequestStatus.HasAnswers;
+                    statusChanged = true;
                 }
 
                 await _context.SaveChangesAsync(cancellationToken);
 
+                if(statusChanged)
+                {
+                    await NotifyStatusUpdateAsync(request);
+                }
+
+                await NotifyProviderAssignedToRequestAsync(request, userId);
+
                 return ServiceResponseBuilder.Success();
+            }
+
+            private async Task NotifyStatusUpdateAsync(Request request)
+            {
+                var message = new RequestStatusChangeMessage()
+                {
+                    NewStatus = request.Status.ToString(),
+                    RequestId = request.Id,
+                    RequestPremiseAddress = request.Premise.Address
+                };
+
+                await _notifier.RequestStatusChangedAsync(request.Premise.UserId, message);
+            }
+
+            private async Task NotifyProviderAssignedToRequestAsync(Request request, Guid providerId)
+            {
+                var provider = await _context
+                    .CleaningServiceProviders
+                    .FirstOrDefaultAsync(p => p.Id == providerId);
+
+                var message = new ProviderAssignedToRequestMessage()
+                {
+                    RequestId = request.Id,
+                    RequestPremiseAddress = request.Premise.Address,
+                    ProviderId = provider.Id,
+                    ProviderName = provider.Name
+                };
+
+                await _notifier.ProviderAssignedToRequestAsync(request.Premise.UserId, message);
             }
         }
     }

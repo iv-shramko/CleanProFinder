@@ -66,9 +66,13 @@ namespace CleanProFinder.Server.Features.Requests
                     request.Services = services;
                 }
                 
-                if(command.SelectedProviderId is not null)
+                if(command.SelectedProvidersIds is not null && command.SelectedProvidersIds.Any())
                 {
-                    AssignProvider(request, (Guid)command.SelectedProviderId);
+                    request.Status = RequestStatus.Sent;                    
+                    foreach (var id in command.SelectedProvidersIds)
+                    {
+                        AssignProvider(request, id);
+                    }                    
                 }
                 else
                 {
@@ -78,23 +82,20 @@ namespace CleanProFinder.Server.Features.Requests
                 _context.Requests.Add(request);
                 await _context.SaveChangesAsync(cancellationToken);
 
-                //TODO: notificate provider
+                //TODO: notify provider
 
                 return ServiceResponseBuilder.Success();
             }
 
-            private void AssignProvider(Request request, Guid providerId)
+            private static void AssignProvider(Request request, Guid providerId)
             {
+                request.Interactions ??= new List<RequestInteraction>();
+
                 var interaction = new RequestInteraction();
                 interaction.ProviderId = providerId;
                 interaction.RequestId = request.Id;
 
-                request.Interactions = new List<RequestInteraction>
-                {
-                    interaction
-                };
-
-                request.Status = RequestStatus.Sent;                
+                request.Interactions.Add(interaction);;                         
             }
         }
     }
