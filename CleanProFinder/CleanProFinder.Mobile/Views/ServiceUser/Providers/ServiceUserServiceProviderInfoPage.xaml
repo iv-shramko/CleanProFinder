@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CleanProFinder.Mobile.Views.ServiceUser.Providers.ServiceUserServiceProviderInfoPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cleaningServices="clr-namespace:CleanProFinder.Shared.Dto.CleaningServices;assembly=CleanProFinder.Shared"
+    xmlns:providers="clr-namespace:CleanProFinder.Mobile.ViewModels.ServiceUser.Providers"
+    x:DataType="providers:ServiceUserServiceProviderInfoViewModel"
+    Background="{StaticResource Secondary}">
+
+    <CollectionView Margin="0,15,0,0" ItemsSource="{Binding Services}">
+        <CollectionView.Header>
+            <VerticalStackLayout>
+                <Label Style="{StaticResource labelPropertyStyle}" Text="Email" />
+                <Border Style="{StaticResource borderStyle}">
+                    <Entry
+                        IsReadOnly="True"
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding Email}" />
+                </Border>
+                <Label Style="{StaticResource labelPropertyStyle}" Text="Company name" />
+                <Border Style="{StaticResource borderStyle}">
+                    <Entry
+                        IsReadOnly="True"
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding Name}" />
+                </Border>
+                <Label Style="{StaticResource labelPropertyStyle}" Text="Description" />
+                <Border Style="{StaticResource borderStyle}">
+                    <Editor
+                        IsReadOnly="True"
+                        MaximumHeightRequest="100"
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding Description}" />
+                </Border>
+                <Label Style="{StaticResource labelPropertyStyle}" Text="Phone number" />
+                <Border Style="{StaticResource borderStyle}">
+                    <Entry
+                        IsReadOnly="True"
+                        Keyboard="Numeric"
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding PhoneNumber}" />
+                </Border>
+                <Label Style="{StaticResource labelPropertyStyle}" Text="Website URL" />
+                <Border Style="{StaticResource borderStyle}">
+                    <Entry
+                        IsReadOnly="True"
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding WebsiteUrl}" />
+                </Border>
+                <Label Style="{StaticResource labelPropertyStyle}" Text="Services" />
+            </VerticalStackLayout>
+        </CollectionView.Header>
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="cleaningServices:ProviderServiceFullInfoDto">
+                <Border
+                    Margin="10,5,10,3"
+                    Background="{StaticResource Tertiary}"
+                    Stroke="{StaticResource Tertiary}"
+                    StrokeShape="RoundRectangle 10,10,10,10">
+                    <VerticalStackLayout>
+                        <FlexLayout Margin="12" JustifyContent="SpaceBetween">
+                            <Label
+                                Margin="3,0,0,0"
+                                FontSize="22"
+                                Style="{StaticResource labelPropertyStyle}"
+                                Text="{Binding Name}"
+                                TextColor="White" />
+                            <HorizontalStackLayout>
+                                <Label
+                                    Margin="0"
+                                    FontSize="18"
+                                    Style="{StaticResource labelPropertyStyle}"
+                                    Text="Price: "
+                                    TextColor="White"
+                                    VerticalTextAlignment="Center" />
+                                <Label
+                                    Margin="0"
+                                    FontSize="18"
+                                    Style="{StaticResource labelPropertyStyle}"
+                                    Text="{Binding Price}"
+                                    TextColor="White"
+                                    VerticalTextAlignment="Center" />
+                            </HorizontalStackLayout>
+                        </FlexLayout>
+                        <Label
+                            Margin="17,0,0,10"
+                            Style="{StaticResource labelPropertyStyle}"
+                            Text="{Binding Description}"
+                            TextColor="White" />
+                    </VerticalStackLayout>
+                </Border>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+        <CollectionView.EmptyView>
+            <Label
+                Margin="0,15,0,0"
+                FontSize="18"
+                HorizontalTextAlignment="Center"
+                Text="This provider doesn't have any services yet."
+                TextColor="{StaticResource Tertiary}" />
+        </CollectionView.EmptyView>
+    </CollectionView>
+
+</ContentPage>
