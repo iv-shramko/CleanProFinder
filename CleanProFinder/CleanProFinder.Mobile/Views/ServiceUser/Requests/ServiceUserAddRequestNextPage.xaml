@@ -39,24 +39,46 @@
                         Background="{StaticResource Tertiary}"
                         Stroke="{StaticResource Tertiary}"
                         StrokeShape="RoundRectangle 10,10,10,10">
-                        <HorizontalStackLayout x:DataType="requests1:ProviderRequestInteractionInfo">
-                            <toolkit:AvatarView
-                                Margin="10"
-                                CornerRadius="100"
-                                HeightRequest="60"
-                                ImageSource="dotnet_bot.png"
-                                Style="{StaticResource logoAvatarStyle}"
-                                WidthRequest="60" />
-                            <VerticalStackLayout Margin="0,10,10,10">
+                        <FlexLayout x:DataType="requests1:ProviderRequestInteractionInfo" JustifyContent="SpaceBetween">
+                            <HorizontalStackLayout>
+                                <toolkit:AvatarView
+                                    Margin="10"
+                                    CornerRadius="100"
+                                    HeightRequest="60"
+                                    ImageSource="dotnet_bot.png"
+                                    Style="{StaticResource logoAvatarStyle}"
+                                    WidthRequest="60" />
                                 <Label
-                                    Margin="12"
+                                    Margin="10,0"
                                     FontAttributes="Bold"
                                     FontSize="20"
                                     Style="{StaticResource labelPropertyStyle}"
                                     Text="{Binding ProviderName}"
-                                    TextColor="White" />
-                            </VerticalStackLayout>
-                        </HorizontalStackLayout>
+                                    TextColor="White"
+                                    VerticalTextAlignment="Center" />
+                            </HorizontalStackLayout>
+                            <Border
+                                Margin="5,0"
+                                Background="Red"
+                                Stroke="Transparent"
+                                StrokeShape="RoundRectangle 10,10,10,10"
+                                VerticalOptions="Center"
+                                WidthRequest="35">
+                                <Label
+                                    FontFamily="OpenSans"
+                                    FontSize="24"
+                                    HorizontalOptions="Center"
+                                    Text="-"
+                                    TextColor="{StaticResource Secondary}"
+                                    VerticalOptions="Center" />
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type requests:ServiceUserAddRequestNextViewModel}}, Path=RemoveServiceProviderCommand}"
+                                        CommandParameter="{Binding .}"
+                                        NumberOfTapsRequired="1" />
+                                </Border.GestureRecognizers>
+                            </Border>
+                        </FlexLayout>
                     </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

@@ -86,6 +86,12 @@ public partial class ServiceUserAddRequestNextViewModel : ObservableObject, IQue
     }
 
     [RelayCommand]
+    private void RemoveServiceProvider(ProviderRequestInteractionInfo provider)
+    {
+        ServiceProviders.Remove(provider);
+    }
+
+    [RelayCommand]
     public async Task GoBackToPreviousStep()
     {
         Request.Description = Description;
