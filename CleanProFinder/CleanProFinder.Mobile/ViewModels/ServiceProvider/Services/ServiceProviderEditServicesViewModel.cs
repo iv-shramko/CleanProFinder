@@ -27,14 +27,10 @@ public partial class ServiceProviderEditServicesViewModel : ObservableObject, IQ
         if (query.TryGetValue(nameof(Services), out var newServices))
         {
             var providers = (ICollection<ProviderServiceFullInfoDto>)newServices;
-
             var existingServiceIds = Services.Select(existing => existing.CleaningServiceId);
-            var servicesToAdd = providers.Where(service => !existingServiceIds.Contains(service.CleaningServiceId));
+            var servicesToAdd = providers.Where(service => !existingServiceIds.Contains(service.CleaningServiceId)).ToList();
 
-            foreach (var service in servicesToAdd)
-            {
-                Services.Add(service);
-            }
+            Services = new ObservableCollection<ProviderServiceFullInfoDto>(servicesToAdd);
         }
 
         query.Clear();

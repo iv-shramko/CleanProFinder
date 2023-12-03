@@ -13,7 +13,6 @@
         <ResourceDictionary>
             <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
         </ResourceDictionary>
-
     </ContentPage.Resources>
 
     <ContentPage.Content>
