@@ -6,4 +6,5 @@ namespace CleanProFinder.Mobile.Services.Interfaces;
 public interface IProviderService
 {
     Task<ServiceResponse<IEnumerable<ProviderPreviewDto>>> GetServiceProvidersAsync();
+    Task<ServiceResponse<ProviderProfileViewInfoDto>> GetServiceProviderAsync(Guid providerId);
 }
