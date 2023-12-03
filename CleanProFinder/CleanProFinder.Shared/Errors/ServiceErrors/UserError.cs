@@ -15,6 +15,8 @@ namespace CleanProFinder.Shared.Errors.ServiceErrors
             new UserError("Invalid Authorization", "Invalid Authorization", 1);
 
         public static UserError UserNotFound =>
-            new UserError("User not found", "User not found", 2);
+            new UserError("User not found", "User not found", 2);        
+        public static UserError UserIsRestricted =>
+            new UserError("User is restricted", "User is restricted", 3);
     }
 }

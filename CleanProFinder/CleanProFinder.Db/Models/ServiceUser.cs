@@ -9,5 +9,7 @@
 
         public ICollection<Premise>? UserPremises { get; set; }
         public ICollection<SavedProvider> SavedProviders { get; set; }
+
+        public bool IsRestricted { get; set; }
     }
 }

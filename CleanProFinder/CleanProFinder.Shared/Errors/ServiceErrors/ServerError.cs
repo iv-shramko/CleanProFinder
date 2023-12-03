@@ -27,7 +27,9 @@ namespace CleanProFinder.Shared.Errors.ServiceErrors
         public static RequestError CancelRequestError => new RequestError("Server error", "Cancel Request Error", 14);
         public static SavedProviderError SaveProviderError => new SavedProviderError("Server error", "Save Provider Error", 15);
         public static SavedProviderError DeleteSavedProviderError => new SavedProviderError("Server error", "Delete Saved Provider Error", 16);
-        public static SavedProviderError GetOwnSavedProvidersError => new SavedProviderError("Server error", "Get Own Saved Providers Error", 17);
+        public static SavedProviderError GetOwnSavedProvidersError => new SavedProviderError("Server error", "Get Own Saved Providers Error", 17);        
+        public static SavedProviderError EditUserRestrictions => new SavedProviderError("Server error", "Edit Service User Restrictions Error", 18);        
+        public static SavedProviderError EditProviderRestrictions => new SavedProviderError("Server error", "Edit Service Provider Restrictions Error", 19);
 
     }
 }

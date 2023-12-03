@@ -61,7 +61,8 @@ namespace CleanProFinder.Server.Features.Account
                 var serviceUser = new ServiceUser()
                 {
                     Id = Guid.Parse(createIdentityResponse.Result.IdentityUser.Id),
-                    Email = request.Email
+                    Email = request.Email,
+                    IsRestricted = false
                 };
 
                 _context.ServiceUsers.Add(serviceUser);
