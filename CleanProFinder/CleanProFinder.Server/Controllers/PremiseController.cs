@@ -92,7 +92,6 @@ namespace CleanProFinder.Server.Controllers
         /// </remarks>
         /// <returns>An IActionResult representing the result of the operation.</returns>
         [HttpGet("full-info")]
-        [Authorize(Roles = Roles.ServiceUser)]
         [ProducesResponseType(typeof(OwnPremiseFullInfoDto), 200)]
         [ProducesResponseType(typeof(ErrorDto), 400)]
         public async Task<IActionResult> GetPremiseFullInfo(Guid premiseId, CancellationToken cancellationToken)

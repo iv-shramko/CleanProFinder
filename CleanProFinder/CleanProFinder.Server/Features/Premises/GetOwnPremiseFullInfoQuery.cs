@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using CleanProFinder.Db.DbContexts;
-using CleanProFinder.Server.Extensions;
 using CleanProFinder.Server.Features.Base;
 using CleanProFinder.Shared.Dto.Premises;
 using CleanProFinder.Shared.Errors.ServiceErrors;
@@ -17,18 +16,15 @@ namespace CleanProFinder.Server.Features.Premises
         public class GetOwnPremiseFullQueryHandler : BaseHandler<GetOwnPremiseFullInfoQuery, ServiceResponse<OwnPremiseFullInfoDto>>
         {
             private readonly ILogger<GetOwnPremiseFullQueryHandler> _logger;
-            private readonly IHttpContextAccessor _contextAccessor;
             private readonly ApplicationDbContext _applicationDbContext;
             private readonly IMapper _mapper;
 
             public GetOwnPremiseFullQueryHandler(
                 ILogger<GetOwnPremiseFullQueryHandler> logger,
-                IHttpContextAccessor contextAccessor,
                 ApplicationDbContext applicationDbContext,
                 IMapper mapper)
             {
                 _logger = logger;
-                _contextAccessor = contextAccessor;
                 _applicationDbContext = applicationDbContext;
                 _mapper = mapper;
             }
@@ -50,14 +46,9 @@ namespace CleanProFinder.Server.Features.Premises
             private async Task<ServiceResponse<OwnPremiseFullInfoDto>> UnsafeHandleAsync(GetOwnPremiseFullInfoQuery request,
                 CancellationToken cancellationToken)
             {
-                var userValid = _contextAccessor.TryGetUserId(out var userId);
-                if(!userValid)
-                {
-                    return ServiceResponseBuilder.Failure<OwnPremiseFullInfoDto>(UserError.UserNotFound);
-                }
-
                 var premise = await _applicationDbContext.Premises
-                    .FirstOrDefaultAsync(p => p.Id == request.PremiseId && p.UserId == userId, cancellationToken);
+                    .FirstOrDefaultAsync(p => p.Id == request.PremiseId, cancellationToken);
+
                 if(premise is null)
                 {
                     return ServiceResponseBuilder.Failure<OwnPremiseFullInfoDto>(PremiseError.MatchPremiseError);
