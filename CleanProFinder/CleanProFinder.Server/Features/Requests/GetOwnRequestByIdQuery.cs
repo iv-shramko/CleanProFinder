@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CleanProFinder.Db.DbContexts;
+using CleanProFinder.Server.Extensions;
 using CleanProFinder.Server.Features.Base;
 using CleanProFinder.Shared.Dto.Requests;
 using CleanProFinder.Shared.Errors.ServiceErrors;
@@ -9,19 +10,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CleanProFinder.Server.Features.Requests
 {
-    public class GetRequestByIdQuery : IRequest<ServiceResponse<RequestFullInfoProviderViewDto>>
+    public class GetOwnRequestByIdQuery : IRequest<ServiceResponse<RequestFullInfoDto>>
     {
         public Guid Id { get; set; }
 
-        public class GetRequestByIdQueryHandler : BaseHandler<GetRequestByIdQuery, ServiceResponse<RequestFullInfoProviderViewDto>>
+        public class GetActiveRequestQueryHandler : BaseHandler<GetOwnRequestByIdQuery, ServiceResponse<RequestFullInfoDto>>
         {
-            private readonly ILogger<GetRequestByIdQueryHandler> _logger;
+            private readonly ILogger<GetActiveRequestQueryHandler> _logger;
             private readonly IMapper _mapper;
             private readonly IHttpContextAccessor _contextAccessor;
             private readonly ApplicationDbContext _context;
 
-            public GetRequestByIdQueryHandler(
-                ILogger<GetRequestByIdQueryHandler> logger,
+            public GetActiveRequestQueryHandler(
+                ILogger<GetActiveRequestQueryHandler> logger,
                 IMapper mapper,
                 IHttpContextAccessor contextAccessor,
                 ApplicationDbContext context)
@@ -32,7 +33,7 @@ namespace CleanProFinder.Server.Features.Requests
                 _mapper = mapper;
             }
 
-            public override async Task<ServiceResponse<RequestFullInfoProviderViewDto>> Handle(GetRequestByIdQuery request, CancellationToken cancellationToken)
+            public override async Task<ServiceResponse<RequestFullInfoDto>> Handle(GetOwnRequestByIdQuery request, CancellationToken cancellationToken)
             {
                 try
                 {
@@ -41,26 +42,38 @@ namespace CleanProFinder.Server.Features.Requests
                 catch (Exception ex)
                 {
                     _logger.LogError(nameof(GetOwnRequestByIdQuery), ex);
-                    return ServiceResponseBuilder.Failure<RequestFullInfoProviderViewDto>(ServerError.RequestByIdError);
+                    return ServiceResponseBuilder.Failure<RequestFullInfoDto>(ServerError.RequestByIdError);
                 }
             }
 
-            private async Task<ServiceResponse<RequestFullInfoProviderViewDto>> UnsafeHandleAsync(GetRequestByIdQuery request,
+            private async Task<ServiceResponse<RequestFullInfoDto>> UnsafeHandleAsync(GetOwnRequestByIdQuery request,
                 CancellationToken cancellationToken)
             {
+                var validUserId = _contextAccessor.TryGetUserId(out var userId);
+                if (validUserId is false)
+                {
+                    return ServiceResponseBuilder.Failure<RequestFullInfoDto>(UserError.InvalidAuthorization);
+                }
+
                 var serviceRequest = await _context
                     .Requests
                     .Include(r => r.Premise)
                     .Include(r => r.Services)
+                    .Include(r => r.Interactions)
+                    .ThenInclude(i => i.Provider)
                     .FirstOrDefaultAsync(r => r.Id == request.Id, cancellationToken);
 ;
                 if (serviceRequest is null)
                 {
-                    return ServiceResponseBuilder.Failure<RequestFullInfoProviderViewDto>(RequestError.InvalidId);
+                    return ServiceResponseBuilder.Failure<RequestFullInfoDto>(RequestError.InvalidId);
                 }
 
-                var dto = _mapper.Map<RequestFullInfoProviderViewDto>(serviceRequest);
+                if (serviceRequest.Premise.UserId != userId)
+                {
+                    return ServiceResponseBuilder.Failure<RequestFullInfoDto>(RequestError.NotRequestOwner);
+                }
 
+                var dto = _mapper.Map<RequestFullInfoDto>(serviceRequest);
                 return ServiceResponseBuilder.Success(dto);
             }
         }
