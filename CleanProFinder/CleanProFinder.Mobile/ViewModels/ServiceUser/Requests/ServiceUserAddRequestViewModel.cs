@@ -1,9 +1,10 @@
 ﻿using System.Collections.ObjectModel;
 using CleanProFinder.Mobile.Services.Interfaces;
+using CleanProFinder.Mobile.Views.Info;
 using CleanProFinder.Mobile.Views.ServiceUser.Requests;
 using CleanProFinder.Mobile.Views.ServiceUser.Premises;
 using CleanProFinder.Mobile.Views.ServiceUser.Services;
-using CleanProFinder.Mobile.ViewModels.ServiceUser.Premises;
+using CleanProFinder.Mobile.ViewModels.Info;
 using CleanProFinder.Mobile.ViewModels.ServiceUser.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -68,10 +69,10 @@ public partial class ServiceUserAddRequestViewModel : ObservableObject, IQueryAt
     {
         var navigationParameters = new Dictionary<string, object>
         {
-            { nameof(ServiceUserPremiseInfoViewModel.PremiseId), SelectedPremise.Id }
+            { nameof(PremiseInfoViewModel.PremiseId), SelectedPremise.Id }
         };
 
-        await Shell.Current.GoToAsync(nameof(ServiceUserPremiseInfoPage), navigationParameters);
+        await Shell.Current.GoToAsync(nameof(PremiseInfoPage), navigationParameters);
     }
 
     [RelayCommand]

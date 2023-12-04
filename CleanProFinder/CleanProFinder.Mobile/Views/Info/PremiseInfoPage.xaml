@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="CleanProFinder.Mobile.Views.ServiceUser.Premises.ServiceUserPremiseInfoPage"
+    x:Class="CleanProFinder.Mobile.Views.Info.PremiseInfoPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:premises="clr-namespace:CleanProFinder.Mobile.ViewModels.ServiceUser.Premises"
-    x:DataType="premises:ServiceUserPremiseInfoViewModel"
+    xmlns:info="clr-namespace:CleanProFinder.Mobile.ViewModels.Info"
+    x:DataType="info:PremiseInfoViewModel"
     Background="{StaticResource Secondary}">
 
     <ContentPage.Content>

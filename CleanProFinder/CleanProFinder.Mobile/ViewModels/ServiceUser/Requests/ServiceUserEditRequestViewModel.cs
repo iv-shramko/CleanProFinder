@@ -1,6 +1,6 @@
 ﻿using CleanProFinder.Mobile.Services.Interfaces;
-using CleanProFinder.Mobile.Views.ServiceUser.Premises;
-using CleanProFinder.Mobile.ViewModels.ServiceUser.Premises;
+using CleanProFinder.Mobile.Views.Info;
+using CleanProFinder.Mobile.ViewModels.Info;
 using CleanProFinder.Mobile.Views.ServiceUser.Requests;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -53,10 +53,10 @@ public partial class ServiceUserEditRequestViewModel : ObservableObject, IQueryA
     {
         var navigationParameters = new Dictionary<string, object>
         {
-            { nameof(ServiceUserPremiseInfoViewModel.PremiseId), Request.PremiseId }
+            { nameof(PremiseInfoViewModel.PremiseId), Request.PremiseId }
         };
 
-        await Shell.Current.GoToAsync(nameof(ServiceUserPremiseInfoPage), navigationParameters);
+        await Shell.Current.GoToAsync(nameof(PremiseInfoPage), navigationParameters);
     }
     
     [RelayCommand]
