@@ -6,9 +6,12 @@ namespace CleanProFinder.Mobile.Services.Interfaces;
 
 public interface IRequestService
 {
-    Task<ServiceResponse> AddRequestAsync(Guid premiseId, IList<CleaningServiceDto> services,
+    Task<ServiceResponse> ServiceUserAddRequestAsync(Guid premiseId, IList<CleaningServiceDto> services,
         string description, IList<ProviderRequestInteractionInfo>? selectedProviders = null);
-    Task<ServiceResponse<IEnumerable<RequestShortInfoDto>>> GetRequestsAsync();
-    Task<ServiceResponse<RequestFullInfoDto>> GetRequestAsync(Guid requestId);
-    Task<ServiceResponse> CancelRequestAsync(Guid requestId);
+    Task<ServiceResponse<IEnumerable<RequestShortInfoDto>>> ServiceUserGetRequestsAsync();
+    Task<ServiceResponse<RequestFullInfoDto>> ServiceUserGetRequestAsync(Guid requestId);
+    Task<ServiceResponse> ServiceUserCancelRequestAsync(Guid requestId);
+    Task<ServiceResponse<IEnumerable<RequestShortInfoDto>>> ServiceProviderGetActiveRequestsAsync();
+    Task<ServiceResponse> ServiceProviderAssignForRequestAsync(Guid requestId, float price);
+    Task<ServiceResponse<RequestFullInfoProviderViewDto>> ServiceProviderGetRequestAsync(Guid requestId);
 }
