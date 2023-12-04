@@ -156,7 +156,7 @@
     <MauiXaml Update="Views\CustomerStartingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
-    <MauiXaml Update="Views\ServiceProvider\ServiceProviderStartingPage.xaml">
+    <MauiXaml Update="Views\ServiceProvider\ActiveRequests\ServiceProviderStartingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Views\ServiceUser\Requests\ServiceUserEditRequestNextPage.xaml">
