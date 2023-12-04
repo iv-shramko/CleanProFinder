@@ -18,6 +18,7 @@
                     AutoSize="TextChanges"
                     HeightRequest="104"
                     IsReadOnly="True"
+                    Placeholder="No description provided."
                     Style="{StaticResource entryStyle}"
                     Text="{Binding Request.Description}" />
             </Border>
