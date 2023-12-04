@@ -1,6 +1,7 @@
 ﻿using CleanProFinder.Mobile.ViewModels;
 using CleanProFinder.Mobile.Views.Authentication;
 using CleanProFinder.Mobile.Views.Info;
+using CleanProFinder.Mobile.Views.ServiceProvider.ActiveRequests;
 using CleanProFinder.Mobile.Views.ServiceProvider.Profile;
 using CleanProFinder.Mobile.Views.ServiceProvider.Services;
 using CleanProFinder.Mobile.Views.ServiceUser.Premises;
@@ -36,6 +37,8 @@ namespace CleanProFinder.Mobile
             Routing.RegisterRoute(nameof(ServiceUserSelectServicesPage), typeof(ServiceUserSelectServicesPage));
             Routing.RegisterRoute(nameof(ServiceUserSelectServiceProvidersPage), typeof(ServiceUserSelectServiceProvidersPage));
             Routing.RegisterRoute(nameof(ServiceProviderInfoPage), typeof(ServiceProviderInfoPage));
+            Routing.RegisterRoute(nameof(ServiceProviderActiveRequestPage), typeof(ServiceProviderActiveRequestPage));
+            Routing.RegisterRoute(nameof(ServiceProviderActiveRequestNextPage), typeof(ServiceProviderActiveRequestNextPage));
         }
     }
 }

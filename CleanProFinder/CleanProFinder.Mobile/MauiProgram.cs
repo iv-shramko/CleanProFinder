@@ -153,6 +153,12 @@ namespace CleanProFinder.Mobile
             builder.Services.AddTransient<ServiceProviderInfoPage>();
             builder.Services.AddTransient<ServiceProviderInfoViewModel>();
 
+            builder.Services.AddTransient<ServiceProviderActiveRequestPage>();
+            builder.Services.AddTransient<ServiceProviderActiveRequestViewModel>();
+
+            builder.Services.AddTransient<ServiceProviderActiveRequestNextPage>();
+            builder.Services.AddTransient<ServiceProviderActiveRequestNextViewModel>();
+
             builder.Services.AddSingleton<IHttpService, HttpService>();
             builder.Services.AddSingleton<IAuthService, AuthService>();
             builder.Services.AddSingleton<IDialogService, DialogService>();

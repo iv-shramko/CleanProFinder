@@ -78,6 +78,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <MauiXaml Update="Views\ServiceProvider\ActiveRequests\ServiceProviderActiveRequestNextPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\ServiceProvider\ActiveRequests\ServiceProviderActiveRequestPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
     <MauiXaml Update="Views\ServiceProvider\Profile\ServiceProviderInitialEditProfilePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
@@ -101,6 +107,12 @@
     </MauiXaml>
     <Compile Update="Views\Info\ServiceProviderInfoPage.xaml.cs">
       <DependentUpon>ServiceProviderInfoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ServiceProvider\ActiveRequests\ServiceProviderActiveRequestNextPage.xaml.cs">
+      <DependentUpon>ServiceProviderActiveRequestNextPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ServiceProvider\ActiveRequests\ServiceProviderActiveRequestPage.xaml.cs">
+      <DependentUpon>ServiceProviderActiveRequestPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\ServiceProvider\Services\ServiceProviderEditServicesPage.xaml.cs">
       <DependentUpon>ServiceProviderEditServicesPage.xaml</DependentUpon>
