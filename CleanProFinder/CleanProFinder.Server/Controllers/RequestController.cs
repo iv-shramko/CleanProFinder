@@ -56,16 +56,30 @@ namespace CleanProFinder.Server.Controllers
 
 
         /// <summary>
-        /// Get request by id.
+        /// Get own request by id.
         /// </summary>
         /// <param name="cancellationToken">The cancellation token.</param>
         [HttpGet("my-requests/{id}")]
         [Authorize(Roles = Roles.ServiceUser)]
         [ProducesResponseType(typeof(RequestFullInfoDto), 200)]
         [ProducesResponseType(typeof(ErrorDto), 400)]
-        public async Task<IActionResult> GetRequest(Guid id, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetOwnRequest(Guid id, CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new GetRequestByIdQuery { Id = id}, cancellationToken);
+            var result = await _mediator.Send(new GetOwnRequestByIdQuery { Id = id}, cancellationToken);
+            return ConvertFromServiceResponse(result);
+        }
+
+        /// <summary>
+        /// Get request by id by provider.
+        /// </summary>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        [HttpGet("request/{id}")]
+        [Authorize(Roles = Roles.ServiceProvider)]
+        [ProducesResponseType(typeof(RequestFullInfoProviderViewDto), 200)]
+        [ProducesResponseType(typeof(ErrorDto), 400)]
+        public async Task<IActionResult> GetRequestByProvider(Guid id, CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(new GetRequestByIdQuery { Id = id }, cancellationToken);
             return ConvertFromServiceResponse(result);
         }
 
