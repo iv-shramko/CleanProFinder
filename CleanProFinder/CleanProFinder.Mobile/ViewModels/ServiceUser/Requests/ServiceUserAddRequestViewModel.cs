@@ -48,14 +48,10 @@ public partial class ServiceUserAddRequestViewModel : ObservableObject, IQueryAt
         if (query.TryGetValue(nameof(Services), out var newServices))
         {
             var services = (ICollection<CleaningServiceDto>)newServices;
-
             var existingServiceIds = Services.Select(existing => existing.Id);
-            var servicesToAdd = services.Where(service => !existingServiceIds.Contains(service.Id));
+            var servicesToAdd = services.Where(service => !existingServiceIds.Contains(service.Id)).ToList();
 
-            foreach (var service in servicesToAdd)
-            {
-                Services.Add(service);
-            }
+            Services = new ObservableCollection<CleaningServiceDto>(servicesToAdd);
         }
 
         query.Clear();

@@ -1,9 +1,10 @@
-﻿using System.Collections.ObjectModel;
-using CleanProFinder.Mobile.Services.Interfaces;
+﻿using CleanProFinder.Mobile.Services.Interfaces;
+using CleanProFinder.Mobile.ViewModels.ServiceUser.Providers;
+using CleanProFinder.Mobile.Views.ServiceUser.Providers;
 using CleanProFinder.Shared.Dto.Requests;
+using CleanProFinder.Shared.Enums;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CleanProFinder.Shared.Enums;
 
 namespace CleanProFinder.Mobile.ViewModels.ServiceUser.Requests;
 
@@ -33,6 +34,17 @@ public partial class ServiceUserEditRequestNextViewModel : ObservableObject, IQu
         }
 
         query.Clear();
+    }
+
+    [RelayCommand]
+    private async Task ViewProviderDetails(ProviderRequestInteractionInfo provider)
+    {
+        var navigationParameters = new Dictionary<string, object>
+        {
+            { nameof(ServiceUserServiceProviderInfoViewModel.ProviderId), provider.ProviderId }
+        };
+
+        await Shell.Current.GoToAsync(nameof(ServiceUserServiceProviderInfoPage), navigationParameters);
     }
 
     [RelayCommand]

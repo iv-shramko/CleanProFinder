@@ -65,10 +65,7 @@ public partial class ServiceProviderProfileViewModel : ObservableObject
             PhoneNumber = response.Result.PhoneNumber;
             Description = response.Result.Description;
             WebsiteUrl = response.Result.Site;
-            foreach (var service in response.Result.Services)
-            {
-                Services.Add(service);
-            }
+            Services = new ObservableCollection<ProviderServiceFullInfoDto>(response.Result.Services);
             return;
         }
 

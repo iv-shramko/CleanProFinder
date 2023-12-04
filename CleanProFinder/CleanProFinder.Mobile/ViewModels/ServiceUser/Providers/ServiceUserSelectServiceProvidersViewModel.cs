@@ -1,10 +1,11 @@
-﻿using System.Collections.ObjectModel;
-using CleanProFinder.Mobile.Services.Interfaces;
+﻿using CleanProFinder.Mobile.Services.Interfaces;
 using CleanProFinder.Mobile.ViewModels.ServiceUser.Requests;
+using CleanProFinder.Mobile.Views.ServiceUser.Providers;
 using CleanProFinder.Shared.Dto.Profile;
 using CleanProFinder.Shared.Dto.Requests;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System.Collections.ObjectModel;
 
 namespace CleanProFinder.Mobile.ViewModels.ServiceUser.Providers;
 
@@ -48,9 +49,14 @@ public partial class ServiceUserSelectServiceProvidersViewModel : ObservableObje
     }
 
     [RelayCommand]
-    private async Task ViewProviderDetails()
+    private async Task ViewProviderDetails(ProviderPreviewDto provider)
     {
+        var navigationParameters = new Dictionary<string, object>
+        {
+            { nameof(ServiceUserServiceProviderInfoViewModel.ProviderId), provider.Id }
+        };
 
+        await Shell.Current.GoToAsync(nameof(ServiceUserServiceProviderInfoPage), navigationParameters);
     }
 
     [RelayCommand]
