@@ -30,7 +30,7 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Border
-                            Margin="10,15,10,3"
+                            Margin="10,5,10,3"
                             Background="{StaticResource Tertiary}"
                             Stroke="{StaticResource Tertiary}"
                             StrokeShape="RoundRectangle 10,10,10,10">
