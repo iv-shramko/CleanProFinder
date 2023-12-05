@@ -36,7 +36,7 @@ public partial class ServiceProviderStartingViewModel : ObservableObject
     {
         IsRefreshing = true;
 
-        var response = await _requestService.ServiceProviderGetActiveRequestsAsync();
+        var response = await _requestService.GetActiveRequestsAsync();
 
         if (response.IsSuccess)
         {

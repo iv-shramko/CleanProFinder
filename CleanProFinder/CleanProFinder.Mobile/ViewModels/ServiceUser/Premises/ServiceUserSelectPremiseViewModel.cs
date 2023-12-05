@@ -36,7 +36,7 @@ public partial class ServiceUserSelectPremiseViewModel : ObservableObject
     {
         IsRefreshing = true;
 
-        var response = await _premiseService.GetPremisesAsync();
+        var response = await _premiseService.GetOwnPremisesAsync();
 
         if (response.IsSuccess)
         {

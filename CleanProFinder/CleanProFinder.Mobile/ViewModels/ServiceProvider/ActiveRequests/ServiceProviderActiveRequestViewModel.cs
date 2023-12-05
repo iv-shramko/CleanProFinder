@@ -42,7 +42,7 @@ public partial class ServiceProviderActiveRequestViewModel : ObservableObject
 
     private async void LoadRequest(Guid requestId)
     {
-        var response = await _requestService.ServiceProviderGetRequestAsync(requestId);
+        var response = await _requestService.GetRequestAsync(requestId);
 
         if (response.IsSuccess)
         {

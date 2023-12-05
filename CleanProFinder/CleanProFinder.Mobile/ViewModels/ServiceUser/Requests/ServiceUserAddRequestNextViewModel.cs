@@ -65,7 +65,7 @@ public partial class ServiceUserAddRequestNextViewModel : ObservableObject, IQue
     private async Task AddRequest()
     {
         var response =
-            await _requestService.ServiceUserAddRequestAsync(Request.PremiseId, Request.Services, Description, ServiceProviders);
+            await _requestService.AddRequestAsync(Request.PremiseId, Request.Services, Description, ServiceProviders);
 
         if (response.IsSuccess)
         {
