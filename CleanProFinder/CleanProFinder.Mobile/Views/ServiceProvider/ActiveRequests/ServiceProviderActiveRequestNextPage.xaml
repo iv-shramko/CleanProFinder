@@ -16,12 +16,12 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <Grid RowDefinitions="145, 471, auto" RowSpacing="5">
+    <Grid RowDefinitions="145, 476, auto" RowSpacing="5">
         <Label Style="{StaticResource Key=labelTitleStyle}" Text="Assign for Request" />
         <VerticalStackLayout
             Grid.Row="1"
             Margin="0,60,0,0"
-            Spacing="60">
+            Spacing="80">
             <VerticalStackLayout>
                 <Label Style="{StaticResource labelPropertyStyle}" Text="Description" />
                 <Border Style="{StaticResource borderStyle}">
@@ -34,15 +34,29 @@
                         Text="{Binding Request.Description}" />
                 </Border>
             </VerticalStackLayout>
-            <VerticalStackLayout>
-                <Label Style="{StaticResource labelPropertyStyle}" Text="Propose Price" />
-                <Border Style="{StaticResource borderStyle}">
+            <Grid ColumnDefinitions=".55*,.45*">
+                <Label
+                    Margin="0,0,30,0"
+                    FontSize="24"
+                    HorizontalOptions="End"
+                    Style="{StaticResource labelPropertyStyle}"
+                    Text="Set a price"
+                    VerticalOptions="Center" />
+                <Border
+                    Grid.Column="1"
+                    Margin="0"
+                    HorizontalOptions="Start"
+                    Style="{StaticResource borderStyle}"
+                    VerticalOptions="Center"
+                    WidthRequest="100">
                     <Entry
+                        FontSize="24"
                         Keyboard="Numeric"
+                        Placeholder=""
                         Style="{StaticResource entryStyle}"
                         Text="{Binding Price}" />
                 </Border>
-            </VerticalStackLayout>
+            </Grid>
         </VerticalStackLayout>
         <VerticalStackLayout Grid.Row="2">
             <Button
