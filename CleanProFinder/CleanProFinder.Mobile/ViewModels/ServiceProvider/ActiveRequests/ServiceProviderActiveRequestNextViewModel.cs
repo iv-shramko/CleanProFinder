@@ -7,7 +7,9 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace CleanProFinder.Mobile.ViewModels.ServiceProvider.ActiveRequests;
 
-public partial class ServiceProviderActiveRequestNextViewModel : ObservableObject, IQueryAttributable
+[QueryProperty(nameof(Request), nameof(Request))]
+[QueryProperty(nameof(Price), nameof(Price))]
+public partial class ServiceProviderActiveRequestNextViewModel : ObservableObject
 {
     private readonly IDialogService _dialogService;
     private readonly IRequestService _requestService;
@@ -23,20 +25,6 @@ public partial class ServiceProviderActiveRequestNextViewModel : ObservableObjec
 
     [ObservableProperty]
     private float _price;
-
-    public void ApplyQueryAttributes(IDictionary<string, object> query)
-    {
-        if (query.TryGetValue(nameof(Request), out var newRequest))
-        {
-            Request = (RequestFullInfoProviderViewDto)newRequest;
-        }
-        if (query.TryGetValue(nameof(Price), out var price))
-        {
-            Price = (float)price;
-        }
-
-        query.Clear();
-    }
 
     [RelayCommand]
     private async Task ViewProviderDetails(ProviderRequestInteractionInfo provider)
@@ -66,12 +54,7 @@ public partial class ServiceProviderActiveRequestNextViewModel : ObservableObjec
     [RelayCommand]
     public async Task GoBackToPreviousStep()
     {
-        var navigationParameters = new Dictionary<string, object>
-        {
-            { nameof(ServiceProviderActiveRequestViewModel.Request), Request },
-            { nameof(ServiceProviderActiveRequestViewModel.Price), Price }
-        };
-
-        await Shell.Current.GoToAsync("..", navigationParameters);
+        await Shell.Current.GoToAsync(
+            $"..?{nameof(ServiceProviderActiveRequestViewModel.Price)}={Price}");
     }
 }
