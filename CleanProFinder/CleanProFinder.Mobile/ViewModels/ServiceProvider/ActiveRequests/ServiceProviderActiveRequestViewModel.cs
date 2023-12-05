@@ -8,8 +8,7 @@ using CleanProFinder.Shared.Dto.Requests;
 
 namespace CleanProFinder.Mobile.ViewModels.ServiceProvider.ActiveRequests;
 
-[QueryProperty(nameof(RequestId), nameof(RequestId))]
-public partial class ServiceProviderActiveRequestViewModel : ObservableObject
+public partial class ServiceProviderActiveRequestViewModel : ObservableObject, IQueryAttributable
 {
     private readonly IDialogService _dialogService;
     private readonly IRequestService _requestService;
@@ -20,25 +19,28 @@ public partial class ServiceProviderActiveRequestViewModel : ObservableObject
         _requestService = requestService;
     }
 
+    [ObservableProperty]
     private Guid _requestId;
-    public Guid RequestId
-    {
-        get => _requestId;
-        set
-        {
-            SetProperty(ref _requestId, value);
-
-            if (value != Guid.Empty)
-            {
-                LoadRequest(value);
-            }
-        }
-    }
 
     [ObservableProperty]
     private RequestFullInfoProviderViewDto _request;
 
     public float Price { get; set; }
+
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    {
+        if (query.TryGetValue(nameof(RequestId), out var requestId))
+        {
+            LoadRequest((Guid)requestId);
+        }
+
+        if (query.TryGetValue(nameof(Price), out var price))
+        {
+            Price = (float)price;
+        }
+
+        query.Clear();
+    }
 
     private async void LoadRequest(Guid requestId)
     {

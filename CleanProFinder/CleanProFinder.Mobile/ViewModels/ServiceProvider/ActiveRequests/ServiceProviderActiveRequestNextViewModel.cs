@@ -54,7 +54,11 @@ public partial class ServiceProviderActiveRequestNextViewModel : ObservableObjec
     [RelayCommand]
     public async Task GoBackToPreviousStep()
     {
-        await Shell.Current.GoToAsync(
-            $"..?{nameof(ServiceProviderActiveRequestViewModel.Price)}={Price}");
+        var navigationParameters = new Dictionary<string, object>
+        {
+            { nameof(ServiceProviderActiveRequestViewModel.Price), Price }
+        };
+
+        await Shell.Current.GoToAsync("..", navigationParameters);
     }
 }
