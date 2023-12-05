@@ -123,5 +123,19 @@ namespace CleanProFinder.Server.Controllers
             var result = await _mediator.Send(command, cancellationToken);
             return ConvertFromServiceResponse(result);
         }
+
+        /// <summary>
+        /// Accept provider for the request.
+        /// </summary>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        [HttpPost("accept-provider/{id}")]
+        [Authorize(Roles = Roles.ServiceUser)]
+        [ProducesResponseType(typeof(ErrorDto), 400)]
+        public async Task<IActionResult> AcceptProviderForRequest(AcceptProviderForRequestCommand request,
+            CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(request, cancellationToken);
+            return ConvertFromServiceResponse(result);
+        }
     }
 }
