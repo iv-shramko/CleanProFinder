@@ -3,12 +3,12 @@
     x:Class="CleanProFinder.Mobile.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:activeRequests="clr-namespace:CleanProFinder.Mobile.Views.ServiceProvider.ActiveRequests"
     xmlns:authentication="clr-namespace:CleanProFinder.Mobile.Views.Authentication"
     xmlns:premises="clr-namespace:CleanProFinder.Mobile.Views.ServiceUser.Premises"
     xmlns:profile="clr-namespace:CleanProFinder.Mobile.Views.ServiceProvider.Profile"
     xmlns:profile1="clr-namespace:CleanProFinder.Mobile.Views.ServiceUser.Profile"
     xmlns:requests="clr-namespace:CleanProFinder.Mobile.Views.ServiceUser.Requests"
-    xmlns:serviceProvider="clr-namespace:CleanProFinder.Mobile.Views.ServiceProvider"
     xmlns:serviceUser="clr-namespace:CleanProFinder.Mobile.Views.ServiceUser"
     xmlns:viewModels="clr-namespace:CleanProFinder.Mobile.ViewModels"
     x:DataType="viewModels:AppShellViewModel"
@@ -60,7 +60,7 @@
     <TabBar IsVisible="{Binding IsServiceProviderTabBarVisible}">
         <ShellContent
             Title="Home"
-            ContentTemplate="{DataTemplate serviceProvider:ServiceProviderStartingPage}"
+            ContentTemplate="{DataTemplate activeRequests:ServiceProviderStartingPage}"
             Icon="home.svg"
             Route="ServiceProviderStartingPage" />
         <ShellContent

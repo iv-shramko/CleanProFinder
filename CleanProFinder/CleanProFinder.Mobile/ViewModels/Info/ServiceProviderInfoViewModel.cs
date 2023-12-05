@@ -3,15 +3,15 @@ using CleanProFinder.Shared.Dto.CleaningServices;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.ObjectModel;
 
-namespace CleanProFinder.Mobile.ViewModels.ServiceUser.Providers;
+namespace CleanProFinder.Mobile.ViewModels.Info;
 
 [QueryProperty(nameof(ProviderId), nameof(ProviderId))]
-public partial class ServiceUserServiceProviderInfoViewModel : ObservableObject
+public partial class ServiceProviderInfoViewModel : ObservableObject
 {
     private readonly IDialogService _dialogService;
     private readonly IProviderService _providerService;
 
-    public ServiceUserServiceProviderInfoViewModel(IDialogService dialogService, IProviderService providerService)
+    public ServiceProviderInfoViewModel(IDialogService dialogService, IProviderService providerService)
     {
         _dialogService = dialogService;
         _providerService = providerService;

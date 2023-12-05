@@ -1,6 +1,6 @@
 ﻿using CleanProFinder.Mobile.Services.Interfaces;
-using CleanProFinder.Mobile.ViewModels.ServiceUser.Providers;
-using CleanProFinder.Mobile.Views.ServiceUser.Providers;
+using CleanProFinder.Mobile.ViewModels.Info;
+using CleanProFinder.Mobile.Views.Info;
 using CleanProFinder.Shared.Dto.Requests;
 using CleanProFinder.Shared.Enums;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -41,10 +41,10 @@ public partial class ServiceUserEditRequestNextViewModel : ObservableObject, IQu
     {
         var navigationParameters = new Dictionary<string, object>
         {
-            { nameof(ServiceUserServiceProviderInfoViewModel.ProviderId), provider.ProviderId }
+            { nameof(ServiceProviderInfoViewModel.ProviderId), provider.ProviderId }
         };
 
-        await Shell.Current.GoToAsync(nameof(ServiceUserServiceProviderInfoPage), navigationParameters);
+        await Shell.Current.GoToAsync(nameof(ServiceProviderInfoPage), navigationParameters);
     }
 
     [RelayCommand]

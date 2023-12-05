@@ -8,7 +8,7 @@ public class PremiseService : IPremiseService
 {
     private const string CreatePremiseEndpoint = "api/premise/create";
     private const string EditPremiseEndpoint = "api/premise/edit";
-    private const string GetPremisesEndpoint = "api/premise/my-premises";
+    private const string GetOwnPremisesEndpoint = "api/premise/my-premises";
     private const string GetPremiseEndpoint = "api/premise/full-info";
     private const string DeletePremiseEndpoint = "api/premise";
 
@@ -44,9 +44,9 @@ public class PremiseService : IPremiseService
         return await _httpService.SendAsync(HttpMethod.Post, EditPremiseEndpoint, editPremiseCommand);
     }
 
-    public async Task<ServiceResponse<IEnumerable<OwnPremiseShortInfoDto>>> GetPremisesAsync()
+    public async Task<ServiceResponse<IEnumerable<OwnPremiseShortInfoDto>>> GetOwnPremisesAsync()
     {
-        return await _httpService.SendAsync<IEnumerable<OwnPremiseShortInfoDto>>(HttpMethod.Get, GetPremisesEndpoint);
+        return await _httpService.SendAsync<IEnumerable<OwnPremiseShortInfoDto>>(HttpMethod.Get, GetOwnPremisesEndpoint);
     }
 
     public async Task<ServiceResponse<OwnPremiseFullInfoDto>> GetPremiseAsync(Guid premiseId)

@@ -1,19 +1,19 @@
 ﻿using CleanProFinder.Mobile.Services.Interfaces;
 using CleanProFinder.Mobile.Views.Info;
+using CleanProFinder.Mobile.Views.ServiceProvider.ActiveRequests;
 using CleanProFinder.Mobile.ViewModels.Info;
-using CleanProFinder.Mobile.Views.ServiceUser.Requests;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CleanProFinder.Shared.Dto.Requests;
 
-namespace CleanProFinder.Mobile.ViewModels.ServiceUser.Requests;
+namespace CleanProFinder.Mobile.ViewModels.ServiceProvider.ActiveRequests;
 
-public partial class ServiceUserEditRequestViewModel : ObservableObject, IQueryAttributable
+public partial class ServiceProviderActiveRequestViewModel : ObservableObject, IQueryAttributable
 {
     private readonly IDialogService _dialogService;
     private readonly IRequestService _requestService;
 
-    public ServiceUserEditRequestViewModel(IDialogService dialogService, IRequestService requestService)
+    public ServiceProviderActiveRequestViewModel(IDialogService dialogService, IRequestService requestService)
     {
         _dialogService = dialogService;
         _requestService = requestService;
@@ -23,7 +23,9 @@ public partial class ServiceUserEditRequestViewModel : ObservableObject, IQueryA
     private Guid _requestId;
 
     [ObservableProperty]
-    private RequestFullInfoDto _request;
+    private RequestFullInfoProviderViewDto _request;
+
+    public float Price { get; set; }
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
@@ -32,12 +34,17 @@ public partial class ServiceUserEditRequestViewModel : ObservableObject, IQueryA
             LoadRequest((Guid)requestId);
         }
 
+        if (query.TryGetValue(nameof(Price), out var price))
+        {
+            Price = (float)price;
+        }
+
         query.Clear();
     }
 
     private async void LoadRequest(Guid requestId)
     {
-        var response = await _requestService.GetOwnRequestAsync(requestId);
+        var response = await _requestService.GetRequestAsync(requestId);
 
         if (response.IsSuccess)
         {
@@ -58,15 +65,16 @@ public partial class ServiceUserEditRequestViewModel : ObservableObject, IQueryA
 
         await Shell.Current.GoToAsync(nameof(PremiseInfoPage), navigationParameters);
     }
-    
+
     [RelayCommand]
     private async Task NextStep()
     {
         var navigationParameters = new Dictionary<string, object>
         {
-            { nameof(ServiceUserEditRequestNextViewModel.Request), Request },
+            { nameof(ServiceProviderActiveRequestNextViewModel.Request), Request },
+            { nameof(ServiceProviderActiveRequestNextViewModel.Price), Price },
         };
 
-        await Shell.Current.GoToAsync(nameof(ServiceUserEditRequestNextPage), navigationParameters);
+        await Shell.Current.GoToAsync(nameof(ServiceProviderActiveRequestNextPage), navigationParameters);
     }
 }

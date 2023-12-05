@@ -1,5 +1,7 @@
 ﻿using CleanProFinder.Mobile.ViewModels;
 using CleanProFinder.Mobile.Views.Authentication;
+using CleanProFinder.Mobile.Views.Info;
+using CleanProFinder.Mobile.Views.ServiceProvider.ActiveRequests;
 using CleanProFinder.Mobile.Views.ServiceProvider.Profile;
 using CleanProFinder.Mobile.Views.ServiceProvider.Services;
 using CleanProFinder.Mobile.Views.ServiceUser.Premises;
@@ -27,14 +29,16 @@ namespace CleanProFinder.Mobile
             Routing.RegisterRoute(nameof(ServiceProviderSelectServicesPage), typeof(ServiceProviderSelectServicesPage));
             Routing.RegisterRoute(nameof(ServiceUserSelectPremisePage), typeof(ServiceUserSelectPremisePage));
             Routing.RegisterRoute(nameof(ServiceUserConfirmPremiseSelectionPage), typeof(ServiceUserConfirmPremiseSelectionPage));
-            Routing.RegisterRoute(nameof(ServiceUserPremiseInfoPage), typeof(ServiceUserPremiseInfoPage));
+            Routing.RegisterRoute(nameof(PremiseInfoPage), typeof(PremiseInfoPage));
             Routing.RegisterRoute(nameof(ServiceUserAddRequestPage), typeof(ServiceUserAddRequestPage));
             Routing.RegisterRoute(nameof(ServiceUserAddRequestNextPage), typeof(ServiceUserAddRequestNextPage));
             Routing.RegisterRoute(nameof(ServiceUserEditRequestPage), typeof(ServiceUserEditRequestPage));
             Routing.RegisterRoute(nameof(ServiceUserEditRequestNextPage), typeof(ServiceUserEditRequestNextPage));
             Routing.RegisterRoute(nameof(ServiceUserSelectServicesPage), typeof(ServiceUserSelectServicesPage));
             Routing.RegisterRoute(nameof(ServiceUserSelectServiceProvidersPage), typeof(ServiceUserSelectServiceProvidersPage));
-            Routing.RegisterRoute(nameof(ServiceUserServiceProviderInfoPage), typeof(ServiceUserServiceProviderInfoPage));
+            Routing.RegisterRoute(nameof(ServiceProviderInfoPage), typeof(ServiceProviderInfoPage));
+            Routing.RegisterRoute(nameof(ServiceProviderActiveRequestPage), typeof(ServiceProviderActiveRequestPage));
+            Routing.RegisterRoute(nameof(ServiceProviderActiveRequestNextPage), typeof(ServiceProviderActiveRequestNextPage));
         }
     }
 }

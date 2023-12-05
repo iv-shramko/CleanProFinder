@@ -2,7 +2,8 @@ using CleanProFinder.Mobile.Services.Implementations;
 using CleanProFinder.Mobile.Services.Interfaces;
 using CleanProFinder.Mobile.ViewModels;
 using CleanProFinder.Mobile.ViewModels.Authentication;
-using CleanProFinder.Mobile.ViewModels.ServiceProvider;
+using CleanProFinder.Mobile.ViewModels.Info;
+using CleanProFinder.Mobile.ViewModels.ServiceProvider.ActiveRequests;
 using CleanProFinder.Mobile.ViewModels.ServiceProvider.Profile;
 using CleanProFinder.Mobile.ViewModels.ServiceProvider.Services;
 using CleanProFinder.Mobile.ViewModels.ServiceUser;
@@ -12,7 +13,8 @@ using CleanProFinder.Mobile.ViewModels.ServiceUser.Providers;
 using CleanProFinder.Mobile.ViewModels.ServiceUser.Requests;
 using CleanProFinder.Mobile.ViewModels.ServiceUser.Services;
 using CleanProFinder.Mobile.Views.Authentication;
-using CleanProFinder.Mobile.Views.ServiceProvider;
+using CleanProFinder.Mobile.Views.Info;
+using CleanProFinder.Mobile.Views.ServiceProvider.ActiveRequests;
 using CleanProFinder.Mobile.Views.ServiceProvider.Profile;
 using CleanProFinder.Mobile.Views.ServiceProvider.Services;
 using CleanProFinder.Mobile.Views.ServiceUser;
@@ -124,8 +126,8 @@ namespace CleanProFinder.Mobile
             builder.Services.AddTransient<ServiceUserSelectPremisePage>();
             builder.Services.AddTransient<ServiceUserSelectPremiseViewModel>();
 
-            builder.Services.AddTransient<ServiceUserPremiseInfoPage>();
-            builder.Services.AddTransient<ServiceUserPremiseInfoViewModel>();
+            builder.Services.AddTransient<PremiseInfoPage>();
+            builder.Services.AddTransient<PremiseInfoViewModel>();
 
             builder.Services.AddTransient<ServiceUserRequestsPage>();
             builder.Services.AddTransient<ServiceUserRequestsViewModel>();
@@ -148,8 +150,14 @@ namespace CleanProFinder.Mobile
             builder.Services.AddTransient<ServiceUserSelectServiceProvidersPage>();
             builder.Services.AddTransient<ServiceUserSelectServiceProvidersViewModel>();
 
-            builder.Services.AddTransient<ServiceUserServiceProviderInfoPage>();
-            builder.Services.AddTransient<ServiceUserServiceProviderInfoViewModel>();
+            builder.Services.AddTransient<ServiceProviderInfoPage>();
+            builder.Services.AddTransient<ServiceProviderInfoViewModel>();
+
+            builder.Services.AddTransient<ServiceProviderActiveRequestPage>();
+            builder.Services.AddTransient<ServiceProviderActiveRequestViewModel>();
+
+            builder.Services.AddTransient<ServiceProviderActiveRequestNextPage>();
+            builder.Services.AddTransient<ServiceProviderActiveRequestNextViewModel>();
 
             builder.Services.AddSingleton<IHttpService, HttpService>();
             builder.Services.AddSingleton<IAuthService, AuthService>();

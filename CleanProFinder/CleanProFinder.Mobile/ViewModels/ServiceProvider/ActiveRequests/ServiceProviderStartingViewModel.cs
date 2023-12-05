@@ -1,18 +1,18 @@
 ﻿using System.Collections.ObjectModel;
 using CleanProFinder.Mobile.Services.Interfaces;
-using CleanProFinder.Mobile.Views.ServiceUser.Requests;
+using CleanProFinder.Mobile.Views.ServiceProvider.ActiveRequests;
 using CleanProFinder.Shared.Dto.Requests;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-namespace CleanProFinder.Mobile.ViewModels.ServiceUser.Requests;
+namespace CleanProFinder.Mobile.ViewModels.ServiceProvider.ActiveRequests;
 
-public partial class ServiceUserRequestsViewModel : ObservableObject
+public partial class ServiceProviderStartingViewModel : ObservableObject
 {
     private readonly IDialogService _dialogService;
     private readonly IRequestService _requestService;
 
-    public ServiceUserRequestsViewModel(IDialogService dialogService, IRequestService requestService)
+    public ServiceProviderStartingViewModel(IDialogService dialogService, IRequestService requestService)
     {
         _dialogService = dialogService;
         _requestService = requestService;
@@ -36,7 +36,7 @@ public partial class ServiceUserRequestsViewModel : ObservableObject
     {
         IsRefreshing = true;
 
-        var response = await _requestService.GetOwnRequestsAsync();
+        var response = await _requestService.GetActiveRequestsAsync();
 
         if (response.IsSuccess)
         {
@@ -51,20 +51,14 @@ public partial class ServiceUserRequestsViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task EditRequest(RequestShortInfoDto request)
+    private async Task ViewActiveRequest(RequestShortInfoDto request)
     {
         var navigationParameters = new Dictionary<string, object>
         {
-            { nameof(ServiceUserEditRequestViewModel.RequestId), request.Id }
+            { nameof(ServiceProviderActiveRequestViewModel.RequestId), request.Id }
         };
 
-        await Shell.Current.GoToAsync(nameof(ServiceUserEditRequestPage), navigationParameters);
-    }
-
-    [RelayCommand]
-    private async Task AddRequest()
-    {
-        await Shell.Current.GoToAsync(nameof(ServiceUserAddRequestPage));
+        await Shell.Current.GoToAsync(nameof(ServiceProviderActiveRequestPage), navigationParameters);
     }
 
     [RelayCommand]

@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using CleanProFinder.Mobile.Services.Interfaces;
-using CleanProFinder.Mobile.ViewModels.ServiceUser.Providers;
-using CleanProFinder.Mobile.Views.ServiceUser.Providers;
+using CleanProFinder.Mobile.ViewModels.Info;
+using CleanProFinder.Mobile.Views.Info;
 using CleanProFinder.Shared.Dto.Profile;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -54,10 +54,10 @@ public partial class ServiceUserStartingViewModel : ObservableObject
     {
         var navigationParameters = new Dictionary<string, object>
         {
-            { nameof(ServiceUserServiceProviderInfoViewModel.ProviderId), provider.Id }
+            { nameof(ServiceProviderInfoViewModel.ProviderId), provider.Id }
         };
 
-        await Shell.Current.GoToAsync(nameof(ServiceUserServiceProviderInfoPage), navigationParameters);
+        await Shell.Current.GoToAsync(nameof(ServiceProviderInfoPage), navigationParameters);
     }
 
     [RelayCommand]

@@ -1,15 +1,15 @@
 ﻿using CleanProFinder.Mobile.Services.Interfaces;
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace CleanProFinder.Mobile.ViewModels.ServiceUser.Premises;
+namespace CleanProFinder.Mobile.ViewModels.Info;
 
 [QueryProperty(nameof(PremiseId), nameof(PremiseId))]
-public partial class ServiceUserPremiseInfoViewModel : ObservableObject
+public partial class PremiseInfoViewModel : ObservableObject
 {
     private readonly IDialogService _dialogService;
     private readonly IPremiseService _premiseService;
 
-    public ServiceUserPremiseInfoViewModel(IDialogService dialogService, IPremiseService premiseService)
+    public PremiseInfoViewModel(IDialogService dialogService, IPremiseService premiseService)
     {
         _dialogService = dialogService;
         _premiseService = premiseService;

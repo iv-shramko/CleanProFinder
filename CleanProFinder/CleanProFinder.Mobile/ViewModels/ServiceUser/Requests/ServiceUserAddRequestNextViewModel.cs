@@ -1,5 +1,7 @@
 ﻿using CleanProFinder.Mobile.Services.Interfaces;
+using CleanProFinder.Mobile.ViewModels.Info;
 using CleanProFinder.Mobile.ViewModels.ServiceUser.Providers;
+using CleanProFinder.Mobile.Views.Info;
 using CleanProFinder.Mobile.Views.ServiceUser.Providers;
 using CleanProFinder.Shared.Dto.Requests;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -92,10 +94,10 @@ public partial class ServiceUserAddRequestNextViewModel : ObservableObject, IQue
     {
         var navigationParameters = new Dictionary<string, object>
         {
-            { nameof(ServiceUserServiceProviderInfoViewModel.ProviderId), provider.ProviderId }
+            { nameof(ServiceProviderInfoViewModel.ProviderId), provider.ProviderId }
         };
 
-        await Shell.Current.GoToAsync(nameof(ServiceUserServiceProviderInfoPage), navigationParameters);
+        await Shell.Current.GoToAsync(nameof(ServiceProviderInfoPage), navigationParameters);
     }
 
     [RelayCommand]
