@@ -5,11 +5,12 @@ namespace CleanProFinder.Mobile
 {
     public partial class App : Application
     {
-        public App(IAuthService authService, AppShellViewModel viewModel)
+        public App(IAuthService authService, INotificationService notificationService, AppShellViewModel viewModel)
         {
             InitializeComponent();
-           
+            
             authService.Initialize();
+            notificationService.Initialize();
 
             MainPage = new AppShell(viewModel);
 

@@ -1,6 +1,7 @@
 using CleanProFinder.Mobile.BuildExtensions;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
+using Plugin.LocalNotification;
 
 namespace CleanProFinder.Mobile
 {
@@ -12,6 +13,7 @@ namespace CleanProFinder.Mobile
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
+                .UseLocalNotification()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

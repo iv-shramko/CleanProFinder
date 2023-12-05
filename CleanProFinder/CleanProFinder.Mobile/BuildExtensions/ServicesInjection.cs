@@ -15,5 +15,6 @@ internal static class ServicesInjection
         services.AddSingleton<IPremiseService, PremiseService>();
         services.AddSingleton<ICleaningService, CleaningService>();
         services.AddSingleton<IRequestService, RequestService>();
+        services.AddSingleton<INotificationService, NotificationService>();
     }
 }

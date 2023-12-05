@@ -67,9 +67,11 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Maui" Version="6.0.0" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.14" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Plugin.LocalNotification" Version="10.1.8" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.0.3" />
   </ItemGroup>
 
