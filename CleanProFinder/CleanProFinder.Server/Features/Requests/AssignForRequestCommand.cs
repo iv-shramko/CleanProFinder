@@ -80,6 +80,7 @@ namespace CleanProFinder.Server.Features.Requests
                     ProviderId = userId,
                     RequestId = request.Id,
                     Price = command.Price,
+                    InteractionStatus = RequestInteractionStatus.Pending
                 };
 
                 _context.RequestInteractions.Add(interaction);
