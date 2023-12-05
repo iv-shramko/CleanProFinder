@@ -15,12 +15,12 @@ namespace CleanProFinder.Server.Hubs.Notifiers
 
         public async Task RequestStatusChangedAsync(Guid userId, RequestStatusChangeMessage message)
         {
-            await _hubContext.Clients.User(userId.ToString()).SendAsync(NotificationTag.RequestStatusChange, message);
+            await _hubContext.Clients.Group(userId.ToString()).SendAsync(NotificationTag.RequestStatusChange, message);
         }
 
         public async Task ProviderAssignedToRequestAsync(Guid userId, ProviderAssignedToRequestMessage message)
         {
-            await _hubContext.Clients.User(userId.ToString()).SendAsync(NotificationTag.ProviderAssignedToRequest, message);
+            await _hubContext.Clients.Group(userId.ToString()).SendAsync(NotificationTag.ProviderAssignedToRequest, message);
         }
     }
 }
