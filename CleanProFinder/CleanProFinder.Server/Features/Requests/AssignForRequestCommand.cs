@@ -86,7 +86,7 @@ namespace CleanProFinder.Server.Features.Requests
                 _context.RequestInteractions.Add(interaction);
 
                 var statusChanged = false;
-                if(request.Status == RequestStatus.Placed || request.Status == RequestStatus.HasAnswers)
+                if(request.Status == RequestStatus.Placed)
                 {
                     request.Status = RequestStatus.HasAnswers;
                     statusChanged = true;
@@ -112,7 +112,7 @@ namespace CleanProFinder.Server.Features.Requests
                     RequestId = request.Id,
                     RequestPremiseAddress = request.Premise.Address
                 };
-
+                
                 await _notifier.RequestStatusChangedAsync(request.Premise.UserId, message);
             }
 
