@@ -84,7 +84,7 @@ namespace CleanProFinder.Server.Features.Requests
                     });
                 
                 requestInteraction.InteractionStatus = RequestInteractionStatus.Accepted;
-
+                requestInteraction.Request.Status = RequestStatus.Concluded;
                 await _context.SaveChangesAsync(cancellationToken);
 
                 //TODO: Notify provider
