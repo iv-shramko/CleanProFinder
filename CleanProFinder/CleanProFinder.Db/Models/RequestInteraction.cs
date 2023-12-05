@@ -1,4 +1,6 @@
-﻿namespace CleanProFinder.Db.Models
+﻿using CleanProFinder.Shared.Enums;
+
+namespace CleanProFinder.Db.Models
 {
     public class RequestInteraction : Entity
     {
@@ -9,5 +11,6 @@
         public CleaningServiceProvider? Provider { get; set; }
 
         public float? Price { get; set; }
+        public RequestInteractionStatus InteractionStatus { get; set; }
     }
 }

@@ -101,6 +101,7 @@ namespace CleanProFinder.Server.Features.Requests
                 var interaction = new RequestInteraction();
                 interaction.ProviderId = providerId;
                 interaction.RequestId = request.Id;
+                interaction.InteractionStatus = RequestInteractionStatus.Pending;
 
                 request.Interactions.Add(interaction);;                         
             }
