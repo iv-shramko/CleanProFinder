@@ -60,6 +60,7 @@ public class RequestService : IRequestService
     {
         return await _httpService.SendAsync<IEnumerable<RequestShortInfoDto>>(HttpMethod.Get, GetActiveRequestEndpoint);
     }
+
     public async Task<ServiceResponse> ServiceProviderAssignForRequestAsync(Guid requestId, float price)
     {
         var assignForRequestCommand = new AssignForRequestCommandDto
@@ -70,6 +71,7 @@ public class RequestService : IRequestService
 
         return await _httpService.SendAsync(HttpMethod.Post, AssignRequestsEndpoint, assignForRequestCommand);
     }
+
     public async Task<ServiceResponse<RequestFullInfoProviderViewDto>> GetRequestAsync(Guid requestId)
     {
         var payload = requestId.ToString();
