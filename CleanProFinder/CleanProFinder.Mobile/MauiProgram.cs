@@ -1,32 +1,7 @@
-using CleanProFinder.Mobile.Services.Implementations;
-using CleanProFinder.Mobile.Services.Interfaces;
-using CleanProFinder.Mobile.ViewModels;
-using CleanProFinder.Mobile.ViewModels.Authentication;
-using CleanProFinder.Mobile.ViewModels.Info;
-using CleanProFinder.Mobile.ViewModels.ServiceProvider.ActiveRequests;
-using CleanProFinder.Mobile.ViewModels.ServiceProvider.Profile;
-using CleanProFinder.Mobile.ViewModels.ServiceProvider.Services;
-using CleanProFinder.Mobile.ViewModels.ServiceUser;
-using CleanProFinder.Mobile.ViewModels.ServiceUser.Premises;
-using CleanProFinder.Mobile.ViewModels.ServiceUser.Profile;
-using CleanProFinder.Mobile.ViewModels.ServiceUser.Providers;
-using CleanProFinder.Mobile.ViewModels.ServiceUser.Requests;
-using CleanProFinder.Mobile.ViewModels.ServiceUser.Services;
-using CleanProFinder.Mobile.Views.Authentication;
-using CleanProFinder.Mobile.Views.Info;
-using CleanProFinder.Mobile.Views.ServiceProvider.ActiveRequests;
-using CleanProFinder.Mobile.Views.ServiceProvider.Profile;
-using CleanProFinder.Mobile.Views.ServiceProvider.Services;
-using CleanProFinder.Mobile.Views.ServiceUser;
-using CleanProFinder.Mobile.Views.ServiceUser.Premises;
-using CleanProFinder.Mobile.Views.ServiceUser.Profile;
-using CleanProFinder.Mobile.Views.ServiceUser.Providers;
-using CleanProFinder.Mobile.Views.ServiceUser.Requests;
-using CleanProFinder.Mobile.Views.ServiceUser.Services;
+using CleanProFinder.Mobile.BuildExtensions;
 using CommunityToolkit.Maui;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using System.Reflection;
+using Plugin.LocalNotification;
 
 namespace CleanProFinder.Mobile
 {
@@ -38,6 +13,7 @@ namespace CleanProFinder.Mobile
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
+                .UseLocalNotification()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -45,129 +21,15 @@ namespace CleanProFinder.Mobile
                     fonts.AddFont("Chillax-Semibold.ttf", "Chillax");
                 });
 
-            var stream = Assembly
-                .GetExecutingAssembly()
-                .GetManifestResourceStream("CleanProFinder.Mobile.Properties.appsettings.json");
-            
-            if (stream != null)
-            {
-                var config = new ConfigurationBuilder()
-                    .AddJsonStream(stream)
-                    .Build();
+            builder.ConfigureHandlers();
 
-                builder.Configuration.AddConfiguration(config);
-            }
+            builder.Services.AddPages();
+            builder.Services.AddServices();
 
-            Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping(nameof(Entry), (handler, view) =>
-            {
-#if ANDROID
-            handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
-#endif
-            });
-
-            Microsoft.Maui.Handlers.EditorHandler.Mapper.AppendToMapping(nameof(Entry), (handler, view) =>
-            {
-#if ANDROID
-            handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
-#endif
-            });
-
+            builder.Configuration.AddConfiguration();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
-            
-            builder.Services.AddSingleton<AppShellViewModel>();
-
-            builder.Services.AddTransient<RolePage>();
-            builder.Services.AddTransient<RoleViewModel>();
-
-            builder.Services.AddTransient<RegistrationPage>();
-            builder.Services.AddTransient<RegistrationViewModel>();
-
-            builder.Services.AddTransient<LoginPage>();
-            builder.Services.AddTransient<LoginViewModel>();
-
-            builder.Services.AddTransient<ServiceUserStartingPage>();
-            builder.Services.AddTransient<ServiceUserStartingViewModel>();
-
-            builder.Services.AddTransient<ServiceProviderStartingPage>();
-            builder.Services.AddTransient<ServiceProviderStartingViewModel>();
-
-            builder.Services.AddTransient<ServiceUserInitialEditProfilePage>();
-            builder.Services.AddTransient<ServiceUserInitialEditProfileViewModel>();
-
-            builder.Services.AddTransient<ServiceProviderInitialEditProfilePage>();
-            builder.Services.AddTransient<ServiceProviderInitialEditProfileViewModel>();
-
-            builder.Services.AddTransient<ServiceProviderProfilePage>();
-            builder.Services.AddTransient<ServiceProviderProfileViewModel>();
-
-            builder.Services.AddTransient<ServiceUserProfilePage>();
-            builder.Services.AddTransient<ServiceUserProfileViewModel>();
-          
-            builder.Services.AddTransient<ServiceUserPremisesPage>();
-            builder.Services.AddTransient<ServiceUserPremisesViewModel>();
-
-            builder.Services.AddTransient<ServiceUserAddPremisePage>();
-            builder.Services.AddTransient<ServiceUserAddPremiseViewModel>();
-
-            builder.Services.AddTransient<ServiceUserEditPremisePage>();
-            builder.Services.AddTransient<ServiceUserEditPremiseViewModel>();
-
-            builder.Services.AddTransient<ServiceProviderEditServicesPage>();
-            builder.Services.AddTransient<ServiceProviderEditServicesViewModel>();
-
-            builder.Services.AddTransient<ServiceProviderSelectServicesPage>();
-            builder.Services.AddTransient<ServiceProviderSelectServicesViewModel>();
-
-            builder.Services.AddTransient<ServiceUserConfirmPremiseSelectionPage>();
-            builder.Services.AddTransient<ServiceUserConfirmPremiseSelectionViewModel>();
-
-            builder.Services.AddTransient<ServiceUserSelectPremisePage>();
-            builder.Services.AddTransient<ServiceUserSelectPremiseViewModel>();
-
-            builder.Services.AddTransient<PremiseInfoPage>();
-            builder.Services.AddTransient<PremiseInfoViewModel>();
-
-            builder.Services.AddTransient<ServiceUserRequestsPage>();
-            builder.Services.AddTransient<ServiceUserRequestsViewModel>();
-
-            builder.Services.AddTransient<ServiceUserAddRequestPage>();
-            builder.Services.AddTransient<ServiceUserAddRequestViewModel>();
-
-            builder.Services.AddTransient<ServiceUserAddRequestNextPage>();
-            builder.Services.AddTransient<ServiceUserAddRequestNextViewModel>();
-
-            builder.Services.AddTransient<ServiceUserEditRequestPage>();
-            builder.Services.AddTransient<ServiceUserEditRequestViewModel>();
-
-            builder.Services.AddTransient<ServiceUserEditRequestNextPage>();
-            builder.Services.AddTransient<ServiceUserEditRequestNextViewModel>();
-
-            builder.Services.AddTransient<ServiceUserSelectServicesPage>();
-            builder.Services.AddTransient<ServiceUserSelectServicesViewModel>();
-
-            builder.Services.AddTransient<ServiceUserSelectServiceProvidersPage>();
-            builder.Services.AddTransient<ServiceUserSelectServiceProvidersViewModel>();
-
-            builder.Services.AddTransient<ServiceProviderInfoPage>();
-            builder.Services.AddTransient<ServiceProviderInfoViewModel>();
-
-            builder.Services.AddTransient<ServiceProviderActiveRequestPage>();
-            builder.Services.AddTransient<ServiceProviderActiveRequestViewModel>();
-
-            builder.Services.AddTransient<ServiceProviderActiveRequestNextPage>();
-            builder.Services.AddTransient<ServiceProviderActiveRequestNextViewModel>();
-
-            builder.Services.AddSingleton<IHttpService, HttpService>();
-            builder.Services.AddSingleton<IAuthService, AuthService>();
-            builder.Services.AddSingleton<IDialogService, DialogService>();
-            builder.Services.AddSingleton<IUserProfileService, UserProfileService>();
-            builder.Services.AddSingleton<IProviderService, ProviderService>();
-            builder.Services.AddSingleton<IPremiseService, PremiseService>();
-            builder.Services.AddSingleton<ICleaningService, CleaningService>();
-            builder.Services.AddSingleton<IRequestService, RequestService>();
-
             return builder.Build();
         }
     }
