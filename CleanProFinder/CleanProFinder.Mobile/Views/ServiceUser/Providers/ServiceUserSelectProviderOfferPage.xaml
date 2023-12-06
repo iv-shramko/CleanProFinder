@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CleanProFinder.Mobile.Views.ServiceUser.Providers.ServiceUserSelectProviderOfferPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:CleanProFinder.Mobile.Models"
+    xmlns:providers="clr-namespace:CleanProFinder.Mobile.ViewModels.ServiceUser.Providers"
+    xmlns:requests="clr-namespace:CleanProFinder.Shared.Dto.Requests;assembly=CleanProFinder.Shared"
+    xmlns:services="clr-namespace:CleanProFinder.Shared.Dto.CleaningServices;assembly=CleanProFinder.Shared"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:DataType="providers:ServiceUserSelectProviderOfferViewModel"
+    Background="{StaticResource Secondary}">
+
+    <ContentPage.Resources>
+        <Style x:Key="borderStyle" TargetType="Border">
+            <Setter Property="Stroke" Value="Transparent" />
+            <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+            <Setter Property="Margin" Value="0,5,0,5" />
+            <Setter Property="Padding" Value="15, 10" />
+            <Setter Property="StrokeShape" Value="RoundRectangle 10" />
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid Margin="10,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Label
+            Grid.Row="0"
+            Style="{StaticResource labelTitleStyle}"
+            Text="Provider Offers" />
+        <RefreshView
+            Grid.Row="1"
+            Command="{Binding LoadServiceProvidersCommand}"
+            IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}">
+            <CollectionView ItemsSource="{Binding ProviderOffers}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:ProviderOffer">
+                        <Border Style="{StaticResource borderStyle}">
+                            <Grid ColumnDefinitions=".7*, .3*" RowDefinitions="auto, auto">
+                                <FlexLayout
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    AlignContent="Start"
+                                    AlignItems="Start"
+                                    BindableLayout.ItemsSource="{Binding Services}"
+                                    JustifyContent="SpaceBetween"
+                                    Wrap="Wrap">
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate x:DataType="{x:Type services:CleaningServiceDto}">
+                                            <Grid>
+                                                <Border
+                                                    Margin="0,2"
+                                                    Padding="0"
+                                                    Background="{StaticResource Tertiary}"
+                                                    HeightRequest="35"
+                                                    Stroke="Transparent"
+                                                    StrokeShape="RoundRectangle 10">
+                                                    <Label
+                                                        Margin="5,0,5,0"
+                                                        HorizontalOptions="Center"
+                                                        Style="{StaticResource labelPropertyStyle}"
+                                                        Text="{Binding Name}"
+                                                        TextColor="White"
+                                                        VerticalOptions="Center" />
+                                                </Border>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>
+                                </FlexLayout>
+                                <Grid Grid.Row="0" Grid.Column="1">
+                                    <toolkit:AvatarView
+                                        HeightRequest="70"
+                                        ImageSource="dotnet_bot.png"
+                                        Style="{StaticResource logoAvatarStyle}"
+                                        WidthRequest="70" />
+                                </Grid>
+                                <VerticalStackLayout
+                                    Grid.Row="1"
+                                    Grid.ColumnSpan="2"
+                                    Margin="0,5">
+                                    <FlexLayout x:DataType="requests:ProviderRequestInteractionInfo" JustifyContent="SpaceBetween">
+                                        <Label
+                                            Margin="2,0,2,5"
+                                            FontAttributes="Bold"
+                                            FontSize="24"
+                                            Style="{StaticResource labelPropertyStyle}"
+                                            Text="{Binding ProviderName}"
+                                            TextColor="White" />
+                                        <Border
+                                            Margin="0,2"
+                                            Padding="15,0"
+                                            Background="Transparent"
+                                            HeightRequest="35"
+                                            Stroke="{StaticResource Secondary}"
+                                            StrokeShape="RoundRectangle 32"
+                                            StrokeThickness="1.5"
+                                            Style="{StaticResource borderStyle}">
+                                            <Label
+                                                Margin="0"
+                                                FontAttributes="Bold"
+                                                FontSize="20"
+                                                Style="{StaticResource labelPropertyStyle}"
+                                                Text="Details ➞"
+                                                TextColor="{StaticResource Secondary}"
+                                                VerticalTextAlignment="Center" />
+                                            <Border.GestureRecognizers>
+                                                <TapGestureRecognizer
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type providers:ServiceUserSelectProviderOfferViewModel}}, Path=ViewProviderDetailsCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    NumberOfTapsRequired="1" />
+                                            </Border.GestureRecognizers>
+                                        </Border>
+                                    </FlexLayout>
+                                    <Label
+                                        Margin="2,0,0,10"
+                                        FontAttributes="Bold"
+                                        FontSize="20"
+                                        Style="{StaticResource labelPropertyStyle}"
+                                        Text="{Binding Price, StringFormat='Price: {0}$'}"
+                                        TextColor="White" />
+                                    <Label
+                                        Margin="0"
+                                        Style="{StaticResource labelPropertyStyle}"
+                                        Text="{Binding Description}"
+                                        TextColor="White" />
+                                </VerticalStackLayout>
+                            </Grid>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type providers:ServiceUserSelectProviderOfferViewModel}}, Path=SelectServiceProviderCommand}"
+                                    CommandParameter="{Binding .}"
+                                    NumberOfTapsRequired="1" />
+                            </Border.GestureRecognizers>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView>
+                    <ContentView>
+                        <StackLayout HorizontalOptions="CenterAndExpand" Spacing="10">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="20"
+                                HorizontalTextAlignment="Center"
+                                Text="You currently don't have any offers for this request."
+                                TextColor="{StaticResource Tertiary}" />
+                        </StackLayout>
+                    </ContentView>
+                </CollectionView.EmptyView>
+            </CollectionView>
+        </RefreshView>
+    </Grid>
+</ContentPage>

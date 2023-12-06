@@ -57,6 +57,12 @@ public partial class ServiceUserEditRequestNextViewModel : ObservableObject, IQu
     [RelayCommand]
     private async Task SelectServiceProvider()
     {
+        var navigationParameters = new Dictionary<string, object>
+        {
+            { nameof(ServiceUserSelectProviderOfferViewModel.ProviderRequestInteractions), Request.ProvidersInteractions }
+        };
+
+        await Shell.Current.GoToAsync(nameof(ServiceUserSelectProviderOfferPage), navigationParameters);
     }
 
     [RelayCommand]
