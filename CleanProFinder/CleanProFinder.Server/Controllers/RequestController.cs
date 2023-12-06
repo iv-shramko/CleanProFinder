@@ -128,7 +128,7 @@ namespace CleanProFinder.Server.Controllers
         /// Accept provider for the request.
         /// </summary>
         /// <param name="cancellationToken">The cancellation token.</param>
-        [HttpPost("accept-provider/{id}")]
+        [HttpPost("accept-provider")]
         [Authorize(Roles = Roles.ServiceUser)]
         [ProducesResponseType(typeof(ErrorDto), 400)]
         public async Task<IActionResult> AcceptProviderForRequest(AcceptProviderForRequestCommand request,

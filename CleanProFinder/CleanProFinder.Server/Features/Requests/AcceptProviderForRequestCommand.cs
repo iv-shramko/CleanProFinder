@@ -57,13 +57,6 @@ namespace CleanProFinder.Server.Features.Requests
                     return ServiceResponseBuilder.Failure(UserError.InvalidAuthorization);
                 }
 
-                var serviceUser = await _context.CleaningServiceProviders.FirstOrDefaultAsync(u => u.Id == userId);
-
-                if (serviceUser.IsRestricted is true)
-                {
-                    return ServiceResponseBuilder.Failure(UserError.UserIsRestricted);
-                }
-
                 var requestInteraction = await _context
                     .RequestInteractions
                     .Include(rI => rI.Request)
@@ -78,9 +71,9 @@ namespace CleanProFinder.Server.Features.Requests
                 await _context
                     .RequestInteractions
                     .Where(rI => rI.RequestId == requestInteraction.RequestId)
-                    .ForEachAsync(requestInteraction =>
+                    .ForEachAsync(rI =>
                     {
-                        requestInteraction.InteractionStatus = RequestInteractionStatus.Declined;
+                        rI.InteractionStatus = RequestInteractionStatus.Declined;
                     });
                 
                 requestInteraction.InteractionStatus = RequestInteractionStatus.Accepted;

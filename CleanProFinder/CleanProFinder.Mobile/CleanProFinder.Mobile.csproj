@@ -148,8 +148,12 @@
     <Compile Update="Views\ServiceUser\Premises\ServiceUserPremisesPage.xaml.cs">
       <DependentUpon>ServiceUserPremisesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\ServiceUser\Providers\ServiceUserSelectProviderOfferPage.xaml.cs">
+      <DependentUpon>ServiceUserSelectProviderOfferPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\ServiceUser\Providers\ServiceUserSavedProvidersPage.xaml.cs">
       <DependentUpon>ServiceUserSavedProvidersPage.xaml</DependentUpon>
+    </Compile>
     </Compile>
     <Compile Update="Views\ServiceUser\Requests\ServiceUserEditRequestNextPage.xaml.cs">
       <DependentUpon>ServiceUserEditRequestNextPage.xaml</DependentUpon>
@@ -176,6 +180,9 @@
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Views\ServiceProvider\ActiveRequests\ServiceProviderStartingPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\ServiceUser\Providers\ServiceUserSelectProviderOfferPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Views\ServiceUser\Providers\ServiceUserSavedProvidersPage.xaml">

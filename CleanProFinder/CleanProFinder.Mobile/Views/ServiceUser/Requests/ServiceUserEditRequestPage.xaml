@@ -10,7 +10,7 @@
     Background="{StaticResource Secondary}">
 
     <Grid RowDefinitions="145, 170, 301, auto" RowSpacing="5">
-        <Label Style="{StaticResource Key=labelTitleStyle}" Text="View Request" />
+        <Label Style="{StaticResource Key=labelTitleStyle}" Text="Edit Request" />
         <VerticalStackLayout Grid.Row="1" VerticalOptions="Center">
             <Label Style="{StaticResource labelPropertyStyle}" Text="Premise" />
             <Border
@@ -44,9 +44,7 @@
                 </Border.GestureRecognizers>
             </Border>
         </VerticalStackLayout>
-        <CollectionView
-            Grid.Row="2"
-            ItemsSource="{Binding Request.Services}">
+        <CollectionView Grid.Row="2" ItemsSource="{Binding Request.Services}">
             <CollectionView.Header>
                 <Label Style="{StaticResource labelPropertyStyle}" Text="Cleaning Services" />
             </CollectionView.Header>
