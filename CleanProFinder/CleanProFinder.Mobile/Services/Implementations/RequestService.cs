@@ -14,6 +14,7 @@ public class RequestService : IRequestService
     private const string GetActiveRequestEndpoint = "api/request/active-requests";
     private const string AssignRequestsEndpoint = "api/request/assign-request";
     private const string ProviderGetRequestEndpoint = "api/request/request";
+    private const string AcceptProviderForRequestEndpoint = "api/request/accept-provider";
 
     private readonly IHttpService _httpService;
 
@@ -76,5 +77,16 @@ public class RequestService : IRequestService
     {
         var payload = requestId.ToString();
         return await _httpService.SendAsync<RequestFullInfoProviderViewDto>(HttpMethod.Get, ProviderGetRequestEndpoint, payload);
+    }
+
+    public async Task<ServiceResponse> AcceptProviderForRequestAsync(Guid providerId, Guid requestId)
+    {
+        var acceptProviderForRequestCommand = new AcceptProviderForRequestDto
+        {
+            ProviderId = providerId,
+            RequestId = requestId
+        };
+        
+        return await _httpService.SendAsync(HttpMethod.Post, AcceptProviderForRequestEndpoint, acceptProviderForRequestCommand);
     }
 }
