@@ -77,7 +77,9 @@ public partial class ServiceUserStartingViewModel : ObservableObject
 
         if (response.IsSuccess)
         {
-            IsRefreshing = true;
+            provider.IsSaved = true;
+            var providerIndex = ServiceProviders.IndexOf(provider);
+            ServiceProviders[providerIndex] = provider;
             return;
         }
 
@@ -91,7 +93,9 @@ public partial class ServiceUserStartingViewModel : ObservableObject
 
         if (response.IsSuccess)
         {
-            IsRefreshing = true;
+            provider.IsSaved = false;
+            var providerIndex = ServiceProviders.IndexOf(provider);
+            ServiceProviders[providerIndex] = provider;
             return;
         }
 
