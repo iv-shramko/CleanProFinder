@@ -55,6 +55,8 @@
     <None Remove="Resources\Images\photo_placeholder.svg" />
     <None Remove="Resources\Images\profile.svg" />
     <None Remove="Resources\Images\request.svg" />
+    <None Remove="Resources\Images\save_provider_active.svg" />
+    <None Remove="Resources\Images\save_provider_unactive.svg" />
     <None Remove="Resources\Images\selected_icon.png" />
   </ItemGroup>
 
