@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CleanProFinder.Db.DbContexts;
+using CleanProFinder.Server.Extensions;
 using CleanProFinder.Shared.Dto.CleaningServices;
 using CleanProFinder.Shared.Dto.Profile;
 using CleanProFinder.Shared.Errors.ServiceErrors;
@@ -45,11 +46,22 @@ namespace CleanProFinder.Server.Features.Profile
 
             public async Task<ServiceResponse<List<ProviderPreviewDto>>> UnsafeHandleAsync(GetProviderProfilesQuery request, CancellationToken cancellationToken)
             {
+                var idRetrieved = _httpContextAccessor.TryGetUserId(out var userId);
+                if (idRetrieved is false)
+                {
+                    return ServiceResponseBuilder.Failure<List<ProviderPreviewDto>>(UserError.InvalidAuthorization);
+                }
+
                 var providers = await _context
                     .CleaningServiceProviders
-                    .Select(p =>  _mapper.Map<ProviderPreviewDto>(p))
+                    .Include(p => p.SavedProviders)
                     .ToListAsync(cancellationToken);
 
+                var providersDto = _mapper.Map<List<ProviderPreviewDto>>(providers);
+                foreach (var provider in providersDto)
+                {
+                    provider.IsSaved = providers.First(p => p.Id == provider.Id).SavedProviders.Any(s => s.ServiceUserId == userId);
+                }
 
                 var services = await _context.CleaningServiceServiceProviders
                     .Include(sD => sD.CleaningService)
@@ -59,7 +71,7 @@ namespace CleanProFinder.Server.Features.Profile
 
                 foreach(var serviceGroup in services)
                 {
-                    var providerDto = providers.FirstOrDefault(p => p.Id == serviceGroup.Key);
+                    var providerDto = providersDto.FirstOrDefault(p => p.Id == serviceGroup.Key);
                     if(providerDto is null)
                     {
                         continue;
@@ -69,7 +81,7 @@ namespace CleanProFinder.Server.Features.Profile
                     providerDto.Services = serviseDtos;
                 }
 
-                return ServiceResponseBuilder.Success(providers);
+                return ServiceResponseBuilder.Success(providersDto);
             }
         }
     }

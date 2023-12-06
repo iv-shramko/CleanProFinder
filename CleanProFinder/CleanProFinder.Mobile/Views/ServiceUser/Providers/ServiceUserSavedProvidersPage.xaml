@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="CleanProFinder.Mobile.Views.ServiceUser.ServiceUserStartingPage"
+    x:Class="CleanProFinder.Mobile.Views.ServiceUser.Providers.ServiceUserSavedProvidersPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:profile="clr-namespace:CleanProFinder.Shared.Dto.Profile;assembly=CleanProFinder.Shared"
-    xmlns:serviceUser="clr-namespace:CleanProFinder.Mobile.ViewModels.ServiceUser"
+    xmlns:providers="clr-namespace:CleanProFinder.Mobile.ViewModels.ServiceUser.Providers"
     xmlns:services="clr-namespace:CleanProFinder.Shared.Dto.CleaningServices;assembly=CleanProFinder.Shared"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-    Title="Service Providers"
-    x:DataType="serviceUser:ServiceUserStartingViewModel"
+    Title="Saved Providers"
+    x:DataType="providers:ServiceUserSavedProvidersViewModel"
     Background="{StaticResource Secondary}">
 
     <ContentPage.Resources>
@@ -19,9 +19,6 @@
             <Setter Property="Padding" Value="15, 10" />
             <Setter Property="StrokeShape" Value="RoundRectangle 10" />
         </Style>
-        <ResourceDictionary>
-            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
-        </ResourceDictionary>
     </ContentPage.Resources>
 
     <Grid Margin="10">
@@ -59,19 +56,11 @@
                     Text="Search" />
             </Grid>
         </Border>
-        <Label
-            Grid.Row="1"
-            Style="{StaticResource labelLinkStyle}"
-            Text="Show favorites">
-            <Label.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type serviceUser:ServiceUserStartingViewModel}}, Path=GoToSavedProvidersCommand}" NumberOfTapsRequired="1" />
-            </Label.GestureRecognizers>
-        </Label>
         <RefreshView
             Grid.Row="2"
             Command="{Binding LoadServiceProvidersCommand}"
             IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}">
-            <CollectionView ItemsSource="{Binding ServiceProviders}">
+            <CollectionView ItemsSource="{Binding SavedProviders}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="profile:ProviderPreviewDto">
                         <Border Style="{StaticResource borderStyle}">
@@ -125,24 +114,10 @@
                                             Style="{StaticResource labelPropertyStyle}"
                                             Text="{Binding Name}"
                                             TextColor="White" />
-                                        <Image
-                                            IsVisible="{Binding IsSaved, Converter={StaticResource InvertedBoolConverter}}"
-                                            Source="save_provider_inactive.png"
-                                            WidthRequest="30">
+                                        <Image Source="save_provider_active.png" WidthRequest="30">
                                             <Image.GestureRecognizers>
                                                 <TapGestureRecognizer
-                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type serviceUser:ServiceUserStartingViewModel}}, Path=SaveProviderCommand}"
-                                                    CommandParameter="{Binding .}"
-                                                    NumberOfTapsRequired="1" />
-                                            </Image.GestureRecognizers>
-                                        </Image>
-                                        <Image
-                                            IsVisible="{Binding IsSaved}"
-                                            Source="save_provider_active.png"
-                                            WidthRequest="30">
-                                            <Image.GestureRecognizers>
-                                                <TapGestureRecognizer
-                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type serviceUser:ServiceUserStartingViewModel}}, Path=DeleteSavedProviderCommand}"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type providers:ServiceUserSavedProvidersViewModel}}, Path=DeleteSavedProviderCommand}"
                                                     CommandParameter="{Binding .}"
                                                     NumberOfTapsRequired="1" />
                                             </Image.GestureRecognizers>
@@ -157,13 +132,25 @@
                             </Grid>
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type serviceUser:ServiceUserStartingViewModel}}, Path=ViewProviderDetailsCommand}"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type providers:ServiceUserSavedProvidersViewModel}}, Path=ViewProviderDetailsCommand}"
                                     CommandParameter="{Binding .}"
                                     NumberOfTapsRequired="1" />
                             </Border.GestureRecognizers>
                         </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView>
+                    <ContentView>
+                        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="20"
+                                HorizontalTextAlignment="Center"
+                                Text="You currently don't have any saved Providers"
+                                TextColor="{StaticResource Tertiary}" />
+                        </StackLayout>
+                    </ContentView>
+                </CollectionView.EmptyView>
             </CollectionView>
         </RefreshView>
     </Grid>

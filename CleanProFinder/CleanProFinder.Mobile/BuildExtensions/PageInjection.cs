@@ -113,5 +113,8 @@ internal static class PageInjection
 
         services.AddTransient<ServiceUserSelectProviderOfferPage>();
         services.AddTransient<ServiceUserSelectProviderOfferViewModel>();
+
+        services.AddTransient<ServiceUserSavedProvidersPage>();
+        services.AddTransient<ServiceUserSavedProvidersViewModel>();
     }
 }

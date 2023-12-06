@@ -40,6 +40,7 @@ namespace CleanProFinder.Mobile
             Routing.RegisterRoute(nameof(ServiceProviderActiveRequestPage), typeof(ServiceProviderActiveRequestPage));
             Routing.RegisterRoute(nameof(ServiceProviderActiveRequestNextPage), typeof(ServiceProviderActiveRequestNextPage));
             Routing.RegisterRoute(nameof(ServiceUserSelectProviderOfferPage), typeof(ServiceUserSelectProviderOfferPage));
+            Routing.RegisterRoute(nameof(ServiceUserSavedProvidersPage), typeof(ServiceUserSavedProvidersPage));
         }
     }
 }

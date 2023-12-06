@@ -10,5 +10,6 @@ namespace CleanProFinder.Shared.Dto.Profile
         public string Name { get; set; }
         public string Description { get; set; }
         public IList<ProviderServiceFullInfoDto> Services { get; set; }
+        public bool IsSaved { get; set; }
     }
 }
