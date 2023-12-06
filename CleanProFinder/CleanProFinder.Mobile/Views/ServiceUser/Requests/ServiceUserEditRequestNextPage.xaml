@@ -95,6 +95,7 @@
         <VerticalStackLayout Grid.Row="3" Spacing="10">
             <Button
                 Command="{Binding SaveChangesCommand}"
+                IsVisible="{Binding IsCanceled, Converter={StaticResource InvertedBoolConverter}}"
                 Style="{StaticResource buttonStyle}"
                 Text="Save Changes"
                 TextColor="White" />
