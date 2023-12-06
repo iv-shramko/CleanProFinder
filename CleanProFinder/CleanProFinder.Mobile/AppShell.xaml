@@ -39,22 +39,22 @@
             Icon="home.svg"
             Route="ServiceUserStartingPage" />
         <ShellContent
-            Title="Profile"
-            ContentTemplate="{DataTemplate profile1:ServiceUserProfilePage}"
-            Icon="profile.svg"
-            Route="ServiceUserProfilePage" />
-        <ShellContent
             Title="Premises"
             ContentTemplate="{DataTemplate premises:ServiceUserPremisesPage}"
-            Icon="home.svg"
+            Icon="premises.svg"
             IsVisible="{Binding IsServiceUserTabBarVisible}"
             Route="ServiceUserPremiseListPage" />
         <ShellContent
             Title="Requests"
             ContentTemplate="{DataTemplate requests:ServiceUserRequestsPage}"
-            Icon="request.svg"
+            Icon="requests.svg"
             IsVisible="{Binding IsServiceUserTabBarVisible}"
             Route="ServiceUserRequestsPage" />
+        <ShellContent
+            Title="Profile"
+            ContentTemplate="{DataTemplate profile1:ServiceUserProfilePage}"
+            Icon="profile.svg"
+            Route="ServiceUserProfilePage" />
     </TabBar>
 
     <TabBar IsVisible="{Binding IsServiceProviderTabBarVisible}">
