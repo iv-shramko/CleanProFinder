@@ -16,7 +16,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <Grid RowDefinitions="145, 150, 250, auto" RowSpacing="5">
+    <Grid RowDefinitions="145, 150, 262, auto" RowSpacing="5">
         <Label
             Grid.Row="0"
             Style="{StaticResource Key=labelTitleStyle}"
