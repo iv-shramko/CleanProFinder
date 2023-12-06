@@ -8,6 +8,9 @@ public class ProviderService : IProviderService
 {
     private const string GetServiceProvidersEndpoint = "api/profile/service-user/providers";
     private const string GetServiceProviderEndpoint = "api/profile/service-user/service-providers";
+    private const string GetSavedProvidersEndpoint = "api/SavedProvider/my-saved-providers";
+    private const string SaveProviderEndpoint = "api/SavedProvider/my-saved-providers/save";
+    private const string DeleteSavedProviderEndpoint = "api/SavedProvider/my-saved-providers/delete";
 
     private readonly IHttpService _httpService;
 
@@ -25,5 +28,22 @@ public class ProviderService : IProviderService
     {
         var payload = providerId.ToString();
         return await _httpService.SendAsync<ProviderProfileViewInfoDto>(HttpMethod.Get, GetServiceProviderEndpoint, payload);
+    }
+
+    public async Task<ServiceResponse<IEnumerable<ProviderPreviewDto>>> GetSavedProvidersAsync()
+    {
+        return await _httpService.SendAsync<IEnumerable<ProviderPreviewDto>>(HttpMethod.Get, GetSavedProvidersEndpoint);
+    }
+
+    public async Task<ServiceResponse> SaveProviderAsync(Guid providerId)
+    {
+        var payload = providerId.ToString();
+        return await _httpService.SendAsync(HttpMethod.Get, SaveProviderEndpoint, payload);
+    }
+
+    public async Task<ServiceResponse> DeleteSavedProviderAsync(Guid providerId)
+    {
+        var payload = providerId.ToString();
+        return await _httpService.SendAsync(HttpMethod.Get, DeleteSavedProviderEndpoint, payload);
     }
 }

@@ -9,4 +9,14 @@ public partial class ServiceUserStartingPage : ContentPage
         	InitializeComponent();
         	BindingContext = viewModel;
 	}
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        if (BindingContext is ServiceUserStartingViewModel viewModel)
+        {
+            viewModel.IsRefreshing = true;
+        }
+    }
 }
