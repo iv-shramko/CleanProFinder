@@ -155,7 +155,6 @@
     <Compile Update="Views\ServiceUser\Providers\ServiceUserSavedProvidersPage.xaml.cs">
       <DependentUpon>ServiceUserSavedProvidersPage.xaml</DependentUpon>
     </Compile>
-    </Compile>
     <Compile Update="Views\ServiceUser\Requests\ServiceUserEditRequestNextPage.xaml.cs">
       <DependentUpon>ServiceUserEditRequestNextPage.xaml</DependentUpon>
     </Compile>
