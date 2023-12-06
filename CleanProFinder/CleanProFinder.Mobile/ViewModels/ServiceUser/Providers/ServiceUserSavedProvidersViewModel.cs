@@ -10,16 +10,13 @@ namespace CleanProFinder.Mobile.ViewModels.ServiceUser.Providers;
 
 public partial class ServiceUserSavedProvidersViewModel : ObservableObject
 {
-    private readonly ISavedProviderService _savedProviderService;
-    private readonly IDialogService _dialogService;
     private readonly IProviderService _providerService;
+    private readonly IDialogService _dialogService;
 
-    public ServiceUserSavedProvidersViewModel(ISavedProviderService savedProviderService, IDialogService dialogService,
-        IProviderService providerService) 
+    public ServiceUserSavedProvidersViewModel(IProviderService providerService, IDialogService dialogService) 
     {
-        _savedProviderService = savedProviderService;
-        _dialogService = dialogService;
         _providerService = providerService;
+        _dialogService = dialogService;
         _savedProviders = new ObservableCollection<ProviderPreviewDto>();
         IsRefreshing = true;
     }
@@ -38,7 +35,7 @@ public partial class ServiceUserSavedProvidersViewModel : ObservableObject
     {
         IsRefreshing = true;
 
-        var response = await _savedProviderService.GetProvidersAsync();
+        var response = await _providerService.GetSavedProvidersAsync();
         
         if (response.IsSuccess)
         {
@@ -67,7 +64,7 @@ public partial class ServiceUserSavedProvidersViewModel : ObservableObject
     [RelayCommand]
     private async Task DeleteSavedProvider(ProviderPreviewDto provider)
     {
-        var response = await _savedProviderService.DeleteProviderAsync(provider.Id);
+        var response = await _providerService.DeleteSavedProviderAsync(provider.Id);
 
         if (response.IsSuccess)
         {

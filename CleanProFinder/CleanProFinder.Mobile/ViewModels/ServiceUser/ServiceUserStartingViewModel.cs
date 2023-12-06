@@ -13,14 +13,11 @@ public partial class ServiceUserStartingViewModel : ObservableObject
 {
     private readonly IProviderService _providerService;
     private readonly IDialogService _dialogService;
-    private readonly ISavedProviderService _savedProviderService;
 
-    public ServiceUserStartingViewModel(IProviderService providerService, IDialogService dialogService,
-        ISavedProviderService savedProviderService) 
+    public ServiceUserStartingViewModel(IProviderService providerService, IDialogService dialogService) 
     {
         _providerService = providerService;
         _dialogService = dialogService;
-        _savedProviderService = savedProviderService;
         _serviceProviders = new ObservableCollection<ProviderPreviewDto>();
         IsRefreshing = true;
     }
@@ -73,7 +70,7 @@ public partial class ServiceUserStartingViewModel : ObservableObject
     [RelayCommand]
     private async Task SaveProvider(ProviderPreviewDto provider)
     {
-        var response = await _savedProviderService.SaveProviderAsync(provider.Id);
+        var response = await _providerService.SaveProviderAsync(provider.Id);
 
         if (response.IsSuccess)
         {
@@ -87,7 +84,7 @@ public partial class ServiceUserStartingViewModel : ObservableObject
     [RelayCommand]
     private async Task DeleteSavedProvider(ProviderPreviewDto provider)
     {
-        var response = await _savedProviderService.DeleteProviderAsync(provider.Id);
+        var response = await _providerService.DeleteSavedProviderAsync(provider.Id);
 
         if (response.IsSuccess)
         {
