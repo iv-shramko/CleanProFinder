@@ -2,6 +2,7 @@
 using CleanProFinder.Mobile.Services.Interfaces;
 using CleanProFinder.Mobile.ViewModels.Info;
 using CleanProFinder.Mobile.Views.Info;
+using CleanProFinder.Mobile.Views.ServiceUser.Providers;
 using CleanProFinder.Shared.Dto.Profile;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -12,11 +13,14 @@ public partial class ServiceUserStartingViewModel : ObservableObject
 {
     private readonly IProviderService _providerService;
     private readonly IDialogService _dialogService;
+    private readonly ISavedProviderService _savedProviderService;
 
-    public ServiceUserStartingViewModel(IProviderService providerService, IDialogService dialogService) 
+    public ServiceUserStartingViewModel(IProviderService providerService, IDialogService dialogService,
+        ISavedProviderService savedProviderService) 
     {
         _providerService = providerService;
         _dialogService = dialogService;
+        _savedProviderService = savedProviderService;
         _serviceProviders = new ObservableCollection<ProviderPreviewDto>();
         IsRefreshing = true;
     }
@@ -58,6 +62,40 @@ public partial class ServiceUserStartingViewModel : ObservableObject
         };
 
         await Shell.Current.GoToAsync(nameof(ServiceProviderInfoPage), navigationParameters);
+    }
+
+    [RelayCommand]
+    private async Task GoToSavedProviders()
+    {
+        await Shell.Current.GoToAsync(nameof(ServiceUserSavedProvidersPage));
+    }
+
+    [RelayCommand]
+    private async Task SaveProvider(ProviderPreviewDto provider)
+    {
+        var response = await _savedProviderService.SaveProviderAsync(provider.Id);
+
+        if (response.IsSuccess)
+        {
+            IsRefreshing = true;
+            return;
+        }
+
+        await _dialogService.ShowErrorAlertAsync("Adding Provider To Favorites Failed", response.Error);
+    }
+
+    [RelayCommand]
+    private async Task DeleteSavedProvider(ProviderPreviewDto provider)
+    {
+        var response = await _savedProviderService.DeleteProviderAsync(provider.Id);
+
+        if (response.IsSuccess)
+        {
+            IsRefreshing = true;
+            return;
+        }
+
+        await _dialogService.ShowErrorAlertAsync("Removing Provider From Favorites Failed", response.Error);
     }
 
     [RelayCommand]

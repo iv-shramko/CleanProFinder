@@ -62,6 +62,15 @@
         <Setter Property="CornerRadius" Value="100" />
     </Style>
 
+    <Style x:Key="labelLinkStyle" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource Primary}" />
+        <Setter Property="FontSize" Value="24" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="Margin" Value="0,13" />
+        <Setter Property="FontFamily" Value="Chillax" />
+        <Setter Property="TextDecorations" Value="Underline" />
+    </Style>
+
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
     </Style>

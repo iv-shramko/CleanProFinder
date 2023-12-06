@@ -19,10 +19,14 @@
             <Setter Property="Padding" Value="15, 10" />
             <Setter Property="StrokeShape" Value="RoundRectangle 10" />
         </Style>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
     </ContentPage.Resources>
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -55,8 +59,16 @@
                     Text="Search" />
             </Grid>
         </Border>
-        <RefreshView
+        <Label
             Grid.Row="1"
+            Style="{StaticResource labelLinkStyle}"
+            Text="Show favorites">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type serviceUser:ServiceUserStartingViewModel}}, Path=GoToSavedProvidersCommand}" NumberOfTapsRequired="1" />
+            </Label.GestureRecognizers>
+        </Label>
+        <RefreshView
+            Grid.Row="2"
             Command="{Binding LoadServiceProvidersCommand}"
             IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}">
             <CollectionView ItemsSource="{Binding ServiceProviders}">
@@ -105,13 +117,31 @@
                                     Grid.Row="1"
                                     Grid.ColumnSpan="2"
                                     Margin="0,5">
-                                    <Label
-                                        Margin="2,0,2,5"
-                                        FontAttributes="Bold"
-                                        FontSize="24"
-                                        Style="{StaticResource labelPropertyStyle}"
-                                        Text="{Binding Name}"
-                                        TextColor="White" />
+                                    <Grid ColumnDefinitions=".9*,.1*">
+                                        <Label
+                                            Margin="2,0,2,5"
+                                            FontAttributes="Bold"
+                                            FontSize="24"
+                                            Style="{StaticResource labelPropertyStyle}"
+                                            Text="{Binding Name}"
+                                            TextColor="White" />
+                                        <Image Grid.Column="1" Source="save_provider_unactive.png" IsVisible="{Binding IsSaved, Converter={StaticResource InvertedBoolConverter}}">
+                                            <Image.GestureRecognizers>
+                                                <TapGestureRecognizer
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type serviceUser:ServiceUserStartingViewModel}}, Path=SaveProviderCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    NumberOfTapsRequired="1" />
+                                            </Image.GestureRecognizers>
+                                        </Image>
+                                        <Image Grid.Column="1" Source="save_provider_active.png" IsVisible="{Binding IsSaved}">
+                                            <Image.GestureRecognizers>
+                                                <TapGestureRecognizer
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type serviceUser:ServiceUserStartingViewModel}}, Path=DeleteSavedProviderCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    NumberOfTapsRequired="1" />
+                                            </Image.GestureRecognizers>
+                                        </Image>
+                                    </Grid>
                                     <Label
                                         Margin="0"
                                         Style="{StaticResource labelPropertyStyle}"
