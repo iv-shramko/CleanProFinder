@@ -55,6 +55,7 @@ namespace CleanProFinder.Server.Services.Implementations
             foreach (var roleName in roleNames)
             {
                 claims.Add(new Claim(ClaimTypes.Role, roleName));
+                claims.Add(new Claim("role", roleName));
             }
         }
     }
