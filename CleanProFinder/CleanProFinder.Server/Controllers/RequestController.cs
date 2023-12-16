@@ -137,5 +137,19 @@ namespace CleanProFinder.Server.Controllers
             var result = await _mediator.Send(request, cancellationToken);
             return ConvertFromServiceResponse(result);
         }
+
+        /// <summary>
+        /// Change requests's status.
+        /// </summary>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        [HttpPost("change-request-status/{id}")]
+        [Authorize(Roles = Roles.ServiceProvider)]
+        [ProducesResponseType(typeof(RequestFullInfoDto), 200)]
+        [ProducesResponseType(typeof(ErrorDto), 400)]
+        public async Task<IActionResult> ChangeRequestStatus(Guid id, CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(new ChangeRequestStatusCommand { RequestId = id}, cancellationToken);
+            return ConvertFromServiceResponse(result);
+        }
     }
 }
