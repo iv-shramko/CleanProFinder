@@ -101,7 +101,7 @@ namespace CleanProFinder.Server.Controllers
         /// Get provider's own requests.
         /// </summary>
         /// <param name="cancellationToken">The cancellation token.</param>
-        [HttpGet("my-requests")]
+        [HttpGet("provider-requests")]
         [Authorize(Roles = Roles.ServiceProvider)]
         [ProducesResponseType(typeof(List<RequestShortInfoDto>), 200)]
         [ProducesResponseType(typeof(ErrorDto), 400)]
