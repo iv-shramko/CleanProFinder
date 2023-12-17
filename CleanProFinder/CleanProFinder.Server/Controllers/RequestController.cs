@@ -98,6 +98,20 @@ namespace CleanProFinder.Server.Controllers
         }
 
         /// <summary>
+        /// Get provider's own requests.
+        /// </summary>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        [HttpGet("provider-requests")]
+        [Authorize(Roles = Roles.ServiceProvider)]
+        [ProducesResponseType(typeof(List<RequestShortInfoDto>), 200)]
+        [ProducesResponseType(typeof(ErrorDto), 400)]
+        public async Task<IActionResult> GetProviderRequests(CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(new GetProviderRequestsQuery(), cancellationToken);
+            return ConvertFromServiceResponse(result);
+        }
+
+        /// <summary>
         /// Cancel request.
         /// </summary>
         /// <param name="cancellationToken">The cancellation token.</param>
