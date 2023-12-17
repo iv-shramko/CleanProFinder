@@ -139,10 +139,10 @@ namespace CleanProFinder.Server.Controllers
         }
 
         /// <summary>
-        /// Change requests's status.
+        /// Set next requests's status.
         /// </summary>
         /// <param name="cancellationToken">The cancellation token.</param>
-        [HttpPost("change-request-status/{id}")]
+        [HttpPost("set-next-status/{id}")]
         [Authorize(Roles = Roles.ServiceProvider)]
         [ProducesResponseType(typeof(RequestFullInfoDto), 200)]
         [ProducesResponseType(typeof(ErrorDto), 400)]
