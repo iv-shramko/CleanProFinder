@@ -8,6 +8,7 @@
     xmlns:premises="clr-namespace:CleanProFinder.Mobile.Views.ServiceUser.Premises"
     xmlns:profile="clr-namespace:CleanProFinder.Mobile.Views.ServiceProvider.Profile"
     xmlns:profile1="clr-namespace:CleanProFinder.Mobile.Views.ServiceUser.Profile"
+    xmlns:providerRequests="clr-namespace:CleanProFinder.Mobile.Views.ServiceProvider.Requests"
     xmlns:requests="clr-namespace:CleanProFinder.Mobile.Views.ServiceUser.Requests"
     xmlns:serviceUser="clr-namespace:CleanProFinder.Mobile.Views.ServiceUser"
     xmlns:viewModels="clr-namespace:CleanProFinder.Mobile.ViewModels"
@@ -63,6 +64,12 @@
             ContentTemplate="{DataTemplate activeRequests:ServiceProviderStartingPage}"
             Icon="home.svg"
             Route="ServiceProviderStartingPage" />
+        <ShellContent
+            Title="Requests"
+            ContentTemplate="{DataTemplate providerRequests:ServiceProviderRequestsPage}"
+            Icon="requests.svg"
+            IsVisible="{Binding IsServiceProviderTabBarVisible}"
+            Route="ServiceProviderRequestsPage" />
         <ShellContent
             Title="Profile"
             ContentTemplate="{DataTemplate profile:ServiceProviderProfilePage}"
