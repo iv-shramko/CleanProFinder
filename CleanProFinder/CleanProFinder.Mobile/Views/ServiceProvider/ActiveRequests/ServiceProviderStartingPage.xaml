@@ -8,7 +8,7 @@
     xmlns:requests="clr-namespace:CleanProFinder.Shared.Dto.Requests;assembly=CleanProFinder.Shared"
     xmlns:requests1="clr-namespace:CleanProFinder.Mobile.ViewModels.ServiceUser.Requests"
     xmlns:services="clr-namespace:CleanProFinder.Shared.Dto.CleaningServices;assembly=CleanProFinder.Shared"
-    Title="Active requests"
+    Title="Active Requests"
     x:DataType="activeRequests:ServiceProviderStartingViewModel"
     Background="{StaticResource Secondary}">
 
