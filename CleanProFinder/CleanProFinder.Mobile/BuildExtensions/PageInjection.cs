@@ -124,5 +124,8 @@ internal static class PageInjection
 
         services.AddTransient<ServiceProviderRequestPage>();
         services.AddTransient<ServiceProviderRequestViewModel>();
+
+        services.AddTransient<ServiceProviderRequestNextPage>();
+        services.AddTransient<ServiceProviderRequestNextViewModel>();
     }
 }
