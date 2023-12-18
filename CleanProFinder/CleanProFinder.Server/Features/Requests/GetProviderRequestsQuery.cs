@@ -56,9 +56,11 @@ namespace CleanProFinder.Server.Features.Requests
                 var requests = await _context
                     .Requests
                     .Include(r => r.Interactions)
+                    .Include(r => r.Premise)
+                    .Include(r => r.Services)
                     .Where(r => r.Interactions.Any(i => i.ProviderId == userId))
                     .ToListAsync();
-                
+
 
 
                 var dto = _mapper.Map<List<RequestShortInfoDto>>(requests);
