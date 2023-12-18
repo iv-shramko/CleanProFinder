@@ -14,5 +14,7 @@ namespace CleanProFinder.Shared.Dto.Requests
         public string Address { get; set; }
 
         public List<CleaningServiceDto> Services { get; set; }
+
+        public string Status { get; set; }
     }
 }
