@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="CleanProFinder.Mobile.Views.ServiceProvider.ActiveRequests.ServiceProviderStartingPage"
+    x:Class="CleanProFinder.Mobile.Views.ServiceProvider.Requests.ServiceProviderRequestsPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:activeRequests="clr-namespace:CleanProFinder.Mobile.ViewModels.ServiceProvider.ActiveRequests"
     xmlns:converters="clr-namespace:CleanProFinder.Mobile.Converters"
+    xmlns:providerRequests="clr-namespace:CleanProFinder.Mobile.ViewModels.ServiceProvider.Requests"
     xmlns:requests="clr-namespace:CleanProFinder.Shared.Dto.Requests;assembly=CleanProFinder.Shared"
     xmlns:requests1="clr-namespace:CleanProFinder.Mobile.ViewModels.ServiceUser.Requests"
     xmlns:services="clr-namespace:CleanProFinder.Shared.Dto.CleaningServices;assembly=CleanProFinder.Shared"
-    Title="Active Requests"
-    x:DataType="activeRequests:ServiceProviderStartingViewModel"
+    Title="Your Requests"
+    x:DataType="providerRequests:ServiceProviderRequestsViewModel"
     Background="{StaticResource Secondary}">
 
     <ContentPage.Resources>
@@ -78,15 +78,19 @@
                                         TextColor="White" />
                                     <Border
                                         Grid.Column="1"
-                                        Background="{StaticResource Tertiary}"
-                                        Stroke="{StaticResource Tertiary}">
+                                        Margin="5,6,5,4"
+                                        Background="{Binding Status, Converter={StaticResource StatusToColorConverter}}"
+                                        HeightRequest="35"
+                                        Stroke="{StaticResource Tertiary}"
+                                        StrokeShape="RoundRectangle 10,10,10,10"
+                                        VerticalOptions="Start">
                                         <Label
-                                            Margin="0,11,9,2"
-                                            FontFamily="OpenSans"
-                                            FontSize="18"
-                                            HorizontalOptions="End"
-                                            Text="{Binding Square, StringFormat='{0} m^2'}"
-                                            TextColor="{StaticResource Secondary}" />
+                                            Margin="0"
+                                            HorizontalOptions="Center"
+                                            Style="{StaticResource labelPropertyStyle}"
+                                            Text="{Binding Status, Converter={StaticResource StatusToStringConverter}}"
+                                            TextColor="White"
+                                            VerticalOptions="Center" />
                                     </Border>
                                     <FlexLayout
                                         Grid.Row="1"
@@ -120,7 +124,7 @@
                                 </Grid>
                                 <Border.GestureRecognizers>
                                     <TapGestureRecognizer
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type activeRequests:ServiceProviderStartingViewModel}}, Path=ViewActiveRequestCommand}"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type providerRequests:ServiceProviderRequestsViewModel}}, Path=ViewRequestCommand}"
                                         CommandParameter="{Binding .}"
                                         NumberOfTapsRequired="1" />
                                 </Border.GestureRecognizers>
@@ -137,7 +141,7 @@
                                     FontAttributes="Bold"
                                     FontSize="20"
                                     HorizontalTextAlignment="Center"
-                                    Text="There are no active requests"
+                                    Text="There are no requests"
                                     TextColor="{StaticResource Tertiary}" />
                                 <Label
                                     FontSize="16"

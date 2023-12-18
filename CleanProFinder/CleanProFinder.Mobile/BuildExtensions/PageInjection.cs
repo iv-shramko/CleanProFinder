@@ -4,6 +4,7 @@ using CleanProFinder.Mobile.ViewModels.Info;
 using CleanProFinder.Mobile.ViewModels.ServiceProvider.ActiveRequests;
 using CleanProFinder.Mobile.ViewModels.ServiceProvider.Profile;
 using CleanProFinder.Mobile.ViewModels.ServiceProvider.Services;
+using CleanProFinder.Mobile.ViewModels.ServiceProvider.Requests;
 using CleanProFinder.Mobile.ViewModels.ServiceUser;
 using CleanProFinder.Mobile.ViewModels.ServiceUser.Premises;
 using CleanProFinder.Mobile.ViewModels.ServiceUser.Profile;
@@ -15,6 +16,7 @@ using CleanProFinder.Mobile.Views.Info;
 using CleanProFinder.Mobile.Views.ServiceProvider.ActiveRequests;
 using CleanProFinder.Mobile.Views.ServiceProvider.Profile;
 using CleanProFinder.Mobile.Views.ServiceProvider.Services;
+using CleanProFinder.Mobile.Views.ServiceProvider.Requests;
 using CleanProFinder.Mobile.Views.ServiceUser;
 using CleanProFinder.Mobile.Views.ServiceUser.Premises;
 using CleanProFinder.Mobile.Views.ServiceUser.Profile;
@@ -116,5 +118,14 @@ internal static class PageInjection
 
         services.AddTransient<ServiceUserSavedProvidersPage>();
         services.AddTransient<ServiceUserSavedProvidersViewModel>();
+
+        services.AddTransient<ServiceProviderRequestsPage>();
+        services.AddTransient<ServiceProviderRequestsViewModel>();
+
+        services.AddTransient<ServiceProviderRequestPage>();
+        services.AddTransient<ServiceProviderRequestViewModel>();
+
+        services.AddTransient<ServiceProviderRequestNextPage>();
+        services.AddTransient<ServiceProviderRequestNextViewModel>();
     }
 }

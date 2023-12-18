@@ -15,6 +15,7 @@ public class RequestService : IRequestService
     private const string AssignRequestsEndpoint = "api/request/assign-request";
     private const string ProviderGetRequestEndpoint = "api/request/request";
     private const string AcceptProviderForRequestEndpoint = "api/request/accept-provider";
+    private const string GetRequestsEndpoint = "api/request/provider-requests";
 
     private readonly IHttpService _httpService;
 
@@ -88,5 +89,10 @@ public class RequestService : IRequestService
         };
         
         return await _httpService.SendAsync(HttpMethod.Post, AcceptProviderForRequestEndpoint, acceptProviderForRequestCommand);
+    }
+
+    public async Task<ServiceResponse<IEnumerable<RequestShortInfoDto>>> GetRequestsAsync()
+    {
+        return await _httpService.SendAsync<IEnumerable<RequestShortInfoDto>>(HttpMethod.Get, GetRequestsEndpoint);
     }
 }
