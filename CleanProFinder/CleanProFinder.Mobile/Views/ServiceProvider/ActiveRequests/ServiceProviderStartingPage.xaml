@@ -78,19 +78,15 @@
                                         TextColor="White" />
                                     <Border
                                         Grid.Column="1"
-                                        Margin="5,6,5,4"
-                                        Background="{Binding Status, Converter={StaticResource StatusToColorConverter}}"
-                                        HeightRequest="35"
-                                        Stroke="{StaticResource Tertiary}"
-                                        StrokeShape="RoundRectangle 10,10,10,10"
-                                        VerticalOptions="Start">
+                                        Background="{StaticResource Tertiary}"
+                                        Stroke="{StaticResource Tertiary}">
                                         <Label
-                                            Margin="0"
-                                            HorizontalOptions="Center"
-                                            Style="{StaticResource labelPropertyStyle}"
-                                            Text="{Binding Status, Converter={StaticResource StatusToStringConverter}}"
-                                            TextColor="White"
-                                            VerticalOptions="Center" />
+                                            Margin="0,11,9,2"
+                                            FontFamily="OpenSans"
+                                            FontSize="18"
+                                            HorizontalOptions="End"
+                                            Text="{Binding Square, StringFormat='{0} m^2'}"
+                                            TextColor="{StaticResource Secondary}" />
                                     </Border>
                                     <FlexLayout
                                         Grid.Row="1"
