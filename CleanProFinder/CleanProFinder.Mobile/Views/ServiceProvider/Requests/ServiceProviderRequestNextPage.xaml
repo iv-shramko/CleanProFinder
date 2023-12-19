@@ -18,7 +18,7 @@
     </ContentPage.Resources>
 
     <Grid RowDefinitions="145, 476, auto" RowSpacing="5">
-        <Label Style="{StaticResource Key=labelTitleStyle}" Text="Assign for Request" />
+        <Label Style="{StaticResource Key=labelTitleStyle}" Text="Edit Request" />
         <VerticalStackLayout
             Grid.Row="1"
             Margin="0,60,0,0"
@@ -35,7 +35,7 @@
                         Text="{Binding Request.Description}" />
                 </Border>
             </VerticalStackLayout>
-            <Grid ColumnDefinitions=".55*,.45*" IsVisible="{Binding IsConcluded, Converter={StaticResource InvertedBoolConverter}}">
+            <Grid ColumnDefinitions=".55*,.45*" IsVisible="{Binding IsWaitingForAssign}">
                 <Label
                     Margin="0,0,30,0"
                     FontSize="24"
@@ -62,8 +62,21 @@
         <VerticalStackLayout Grid.Row="2">
             <Button
                 Command="{Binding AssignForRequestCommand}"
+                IsVisible="{Binding IsWaitingForAssign}"
                 Style="{StaticResource buttonStyle}"
                 Text="Assign for Request"
+                TextColor="White" />
+            <Button
+                Command="{Binding SetNextStatusForRequestCommand}"
+                IsVisible="{Binding IsWaitingForStart}"
+                Style="{StaticResource buttonStyle}"
+                Text="Start Cleaning"
+                TextColor="White" />
+            <Button
+                Command="{Binding SetNextStatusForRequestCommand}"
+                IsVisible="{Binding IsWaitingForFinish}"
+                Style="{StaticResource buttonStyle}"
+                Text="Finish Cleaning"
                 TextColor="White" />
         </VerticalStackLayout>
     </Grid>
