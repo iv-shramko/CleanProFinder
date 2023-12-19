@@ -77,7 +77,6 @@ public partial class ServiceProviderRequestViewModel : ObservableObject, IQueryA
         {
             { nameof(ServiceProviderRequestNextViewModel.Request), Request },
             { nameof(ServiceProviderRequestNextViewModel.Price), Price },
-            { nameof(ServiceProviderRequestNextViewModel.IsConcluded), IsConcluded },
         };
 
         await Shell.Current.GoToAsync(nameof(ServiceProviderRequestNextPage), navigationParameters);

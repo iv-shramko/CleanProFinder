@@ -16,6 +16,7 @@ public class RequestService : IRequestService
     private const string ProviderGetRequestEndpoint = "api/request/request";
     private const string AcceptProviderForRequestEndpoint = "api/request/accept-provider";
     private const string GetRequestsEndpoint = "api/request/provider-requests";
+    private const string SetRequestNextStatusEndpoint = "api/request/set-next-status";
 
     private readonly IHttpService _httpService;
 
@@ -94,5 +95,15 @@ public class RequestService : IRequestService
     public async Task<ServiceResponse<IEnumerable<RequestShortInfoDto>>> GetRequestsAsync()
     {
         return await _httpService.SendAsync<IEnumerable<RequestShortInfoDto>>(HttpMethod.Get, GetRequestsEndpoint);
+    }
+
+    public async Task<ServiceResponse<RequestFullInfoDto>> SetRequestNextStatusAsync(Guid requestId)
+    {
+        var changeRequestStatusCommand = new ChangeRequestStatusCommandDto
+        {
+            RequestId = requestId
+        };
+
+        return await _httpService.SendAsync<RequestFullInfoDto>(HttpMethod.Post, SetRequestNextStatusEndpoint, changeRequestStatusCommand);
     }
 }

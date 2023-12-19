@@ -12,10 +12,8 @@ using CleanProFinder.Shared.Enums;
 
 namespace CleanProFinder.Server.Features.Requests
 {
-    public class ChangeRequestStatusCommand : IRequest<ServiceResponse<RequestFullInfoDto>>
+    public class ChangeRequestStatusCommand : ChangeRequestStatusCommandDto, IRequest<ServiceResponse<RequestFullInfoDto>>
     {
-        public Guid RequestId { get; set; }
-
         public class ChangeRequestStatusCommandHandler : BaseHandler<ChangeRequestStatusCommand, ServiceResponse<RequestFullInfoDto>>
         {
             private readonly ILogger<ChangeRequestStatusCommandHandler> _logger;

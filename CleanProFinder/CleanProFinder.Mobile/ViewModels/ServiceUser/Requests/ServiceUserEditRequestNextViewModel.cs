@@ -40,7 +40,7 @@ public partial class ServiceUserEditRequestNextViewModel : ObservableObject, IQu
         {
             Request = (RequestFullInfoDto)newRequest;
             IsCanceled = Request.Status == RequestStatus.Canceled;
-            IsConcluded = Request.Status == RequestStatus.Concluded;
+            IsConcluded = Request.Status >= RequestStatus.Concluded;
             SelectedServiceProvider =
                 Request.ProvidersInteractions.FirstOrDefault(i =>
                     i.InteractionStatus == RequestInteractionStatus.Accepted);

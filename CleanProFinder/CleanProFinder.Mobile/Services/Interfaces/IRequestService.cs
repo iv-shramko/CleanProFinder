@@ -16,4 +16,5 @@ public interface IRequestService
     Task<ServiceResponse<RequestFullInfoProviderViewDto>> GetRequestAsync(Guid requestId);
     Task<ServiceResponse> AcceptProviderForRequestAsync(Guid providerId, Guid requestId);
     Task<ServiceResponse<IEnumerable<RequestShortInfoDto>>> GetRequestsAsync();
+    Task<ServiceResponse<RequestFullInfoDto>> SetRequestNextStatusAsync(Guid requestId);
 }
