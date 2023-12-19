@@ -5,7 +5,9 @@
         Placed,
         Sent,
         HasAnswers,
-        Concluded,
         Canceled,
+        Concluded,
+        Started,
+        Finished,
     }
 }
