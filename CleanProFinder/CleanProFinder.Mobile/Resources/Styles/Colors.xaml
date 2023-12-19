@@ -11,6 +11,8 @@
     <Color x:Key="Magic Potion">#F54C64</Color>
     <Color x:Key="Pastel Brown">#7E6B5A</Color>
     <Color x:Key="Purple (X11)">#9631F5</Color>
+    <Color x:Key="Bright Navy Blue">#1580CD</Color>
+    <Color x:Key="UFO Green">#2FD181</Color>
 
     <Color x:Key="White">White</Color>
     <Color x:Key="Black">Black</Color>

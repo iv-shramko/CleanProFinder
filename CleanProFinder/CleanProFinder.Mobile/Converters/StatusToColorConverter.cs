@@ -11,7 +11,9 @@ public class StatusToColorConverter : IValueConverter
         { RequestStatus.Sent, "Philippine Yellow" },
         { RequestStatus.Canceled, "Magic Potion" },
         { RequestStatus.Concluded, "Pastel Brown" },
-        { RequestStatus.HasAnswers, "Purple (X11)" }
+        { RequestStatus.HasAnswers, "Purple (X11)" },
+        { RequestStatus.Started, "Bright Navy Blue" },
+        { RequestStatus.Finished, "UFO Green" }
     };
 
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
