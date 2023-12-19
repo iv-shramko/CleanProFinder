@@ -86,7 +86,7 @@ namespace CleanProFinder.Server.Features.Requests
                 _context.RequestInteractions.Add(interaction);
 
                 var statusChanged = false;
-                if(request.Status == RequestStatus.Placed)
+                if(request.Status == RequestStatus.Placed || request.Status == RequestStatus.Sent)
                 {
                     request.Status = RequestStatus.HasAnswers;
                     statusChanged = true;
