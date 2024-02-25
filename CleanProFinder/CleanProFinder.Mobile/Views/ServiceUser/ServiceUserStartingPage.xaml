@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CleanProFinder.Mobile.Views.ServiceUser.ServiceUserStartingPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:profile="clr-namespace:CleanProFinder.Shared.Dto.Profile;assembly=CleanProFinder.Shared"
+    xmlns:serviceUser="clr-namespace:CleanProFinder.Mobile.ViewModels.ServiceUser"
+    xmlns:services="clr-namespace:CleanProFinder.Shared.Dto.CleaningServices;assembly=CleanProFinder.Shared"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    Title="Service Providers"
+    x:DataType="serviceUser:ServiceUserStartingViewModel"
+    Background="{StaticResource Secondary}">
+
+    <ContentPage.Resources>
+        <Style x:Key="borderStyle" TargetType="Border">
+            <Setter Property="Stroke" Value="Transparent" />
+            <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+            <Setter Property="Margin" Value="0,5,0,5" />
+            <Setter Property="Padding" Value="15, 10" />
+            <Setter Property="StrokeShape" Value="RoundRectangle 10" />
+        </Style>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Border
+            Grid.Row="0"
+            Background="{StaticResource Secondary}"
+            Stroke="{StaticResource Tertiary}"
+            StrokeShape="RoundRectangle 10,10,10,10"
+            StrokeThickness="2.4">
+            <Grid ColumnDefinitions=".7*,.3*">
+                <Entry
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Margin="10"
+                    FontFamily="OpenSans"
+                    FontSize="16"
+                    Placeholder="Type to search"
+                    PlaceholderColor="{x:StaticResource Primary}"
+                    Text="{Binding SearchQuery}"
+                    TextColor="{StaticResource Primary}" />
+                <Button
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="0,10,10,10"
+                    Command="{Binding SearchCommand}"
+                    FontAttributes="Bold"
+                    FontFamily="OpenSans"
+                    FontSize="16"
+                    Text="Search" />
+            </Grid>
+        </Border>
+        <Label
+            Grid.Row="1"
+            Style="{StaticResource labelLinkStyle}"
+            Text="Show favorites">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type serviceUser:ServiceUserStartingViewModel}}, Path=GoToSavedProvidersCommand}" NumberOfTapsRequired="1" />
+            </Label.GestureRecognizers>
+        </Label>
+        <RefreshView
+            Grid.Row="2"
+            Command="{Binding LoadServiceProvidersCommand}"
+            IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}">
+            <CollectionView ItemsSource="{Binding ServiceProviders}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="profile:ProviderPreviewDto">
+                        <Border Style="{StaticResource borderStyle}">
+                            <Grid ColumnDefinitions=".7*, .3*" RowDefinitions="auto, auto">
+                                <FlexLayout
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    AlignContent="Start"
+                                    AlignItems="Start"
+                                    BindableLayout.ItemsSource="{Binding Services}"
+                                    JustifyContent="SpaceBetween"
+                                    Wrap="Wrap">
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate x:DataType="{x:Type services:CleaningServiceDto}">
+                                            <Grid>
+                                                <Border
+                                                    Margin="0,2"
+                                                    Padding="0"
+                                                    Background="{StaticResource Tertiary}"
+                                                    HeightRequest="35"
+                                                    Stroke="Transparent"
+                                                    StrokeShape="RoundRectangle 10">
+                                                    <Label
+                                                        Margin="5,0,5,0"
+                                                        HorizontalOptions="Center"
+                                                        Style="{StaticResource labelPropertyStyle}"
+                                                        Text="{Binding Name}"
+                                                        TextColor="White"
+                                                        VerticalOptions="Center" />
+                                                </Border>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>
+                                </FlexLayout>
+                                <toolkit:AvatarView
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    HeightRequest="70"
+                                    ImageSource="dotnet_bot.png"
+                                    Style="{StaticResource logoAvatarStyle}"
+                                    WidthRequest="70" />
+                                <VerticalStackLayout
+                                    Grid.Row="1"
+                                    Grid.ColumnSpan="2"
+                                    Margin="0,5">
+                                    <FlexLayout JustifyContent="SpaceBetween">
+                                        <Label
+                                            Margin="2,0,2,5"
+                                            FontAttributes="Bold"
+                                            FontSize="24"
+                                            Style="{StaticResource labelPropertyStyle}"
+                                            Text="{Binding Name}"
+                                            TextColor="White" />
+                                        <Image
+                                            IsVisible="{Binding IsSaved, Converter={StaticResource InvertedBoolConverter}}"
+                                            Source="save_provider_inactive.png"
+                                            WidthRequest="30">
+                                            <Image.GestureRecognizers>
+                                                <TapGestureRecognizer
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type serviceUser:ServiceUserStartingViewModel}}, Path=SaveProviderCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    NumberOfTapsRequired="1" />
+                                            </Image.GestureRecognizers>
+                                        </Image>
+                                        <Image
+                                            IsVisible="{Binding IsSaved}"
+                                            Source="save_provider_active.png"
+                                            WidthRequest="30">
+                                            <Image.GestureRecognizers>
+                                                <TapGestureRecognizer
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type serviceUser:ServiceUserStartingViewModel}}, Path=DeleteSavedProviderCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    NumberOfTapsRequired="1" />
+                                            </Image.GestureRecognizers>
+                                        </Image>
+                                    </FlexLayout>
+                                    <Label
+                                        Margin="0"
+                                        Style="{StaticResource labelPropertyStyle}"
+                                        Text="{Binding Description}"
+                                        TextColor="White" />
+                                </VerticalStackLayout>
+                            </Grid>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type serviceUser:ServiceUserStartingViewModel}}, Path=ViewProviderDetailsCommand}"
+                                    CommandParameter="{Binding .}"
+                                    NumberOfTapsRequired="1" />
+                            </Border.GestureRecognizers>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </Grid>
+</ContentPage>

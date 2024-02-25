@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CleanProFinder.Mobile.Views.ServiceUser.Premises.ServiceUserConfirmPremiseSelectionPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:premises="clr-namespace:CleanProFinder.Mobile.ViewModels.ServiceUser.Premises"
+    x:DataType="premises:ServiceUserConfirmPremiseSelectionViewModel"
+    Background="{StaticResource Secondary}">
+
+    <ContentPage.Content>
+        <Grid RowDefinitions="140, auto, auto">
+            <Label Style="{StaticResource Key=labelTitleStyle}" Text="Select premise" />
+            <VerticalStackLayout Grid.Row="1" Padding="10,0">
+                <Label Style="{StaticResource labelPropertyStyle}" Text="Building address" />
+                <Border Style="{StaticResource borderStyle}">
+                    <Editor
+                        AutoSize="TextChanges"
+                        IsReadOnly="True"
+                        MaximumHeightRequest="100"
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding SelectedPremise.Address}" />
+                </Border>
+                <Label Style="{StaticResource labelPropertyStyle}" Text="Square" />
+                <Border Style="{StaticResource borderStyle}">
+                    <Entry
+                        IsReadOnly="True"
+                        Keyboard="Numeric"
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding SelectedPremise.Square}" />
+                </Border>
+                <Label Style="{StaticResource labelPropertyStyle}" Text="Description" />
+                <Border Style="{StaticResource borderStyle}">
+                    <Editor
+                        AutoSize="TextChanges"
+                        IsReadOnly="True"
+                        MaximumHeightRequest="290"
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding SelectedPremise.Description}" />
+                </Border>
+            </VerticalStackLayout>
+            <VerticalStackLayout
+                Grid.Row="2"
+                Padding="10,10"
+                Spacing="15">
+                <Button
+                    Command="{Binding ConfirmPremiseSelectionCommand}"
+                    Style="{StaticResource buttonStyle}"
+                    Text="Confirm Premise Selection"
+                    TextColor="White" />
+            </VerticalStackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

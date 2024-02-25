@@ -1,0 +1,229 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
+    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
+    <!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+    <!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
+    <OutputType>Exe</OutputType>
+    <RootNamespace>CleanProFinder.Mobile</RootNamespace>
+    <UseMaui>true</UseMaui>
+    <SingleProject>true</SingleProject>
+    <ImplicitUsings>enable</ImplicitUsings>
+
+    <!-- Display name -->
+    <ApplicationTitle>CleanProFinder.Mobile</ApplicationTitle>
+
+    <!-- App Identifier -->
+    <ApplicationId>com.companyname.cleanprofinder.mobile</ApplicationId>
+    <ApplicationIdGuid>71cb8cdd-6225-4f29-b998-c391414c1b6d</ApplicationIdGuid>
+
+    <!-- Versions -->
+    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+    <ApplicationVersion>1</ApplicationVersion>
+
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+    <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- App Icon -->
+    <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+
+    <!-- Splash Screen -->
+    <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+
+    <!-- Images -->
+    <MauiImage Include="Resources\Images\*" />
+    <MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
+
+    <!-- Custom Fonts -->
+    <MauiFont Include="Resources\Fonts\*" />
+
+    <!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+    <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Properties\appsettings.json" />
+    <None Remove="Resources\Fonts\Chillax-Semibold.ttf" />
+    <None Remove="Resources\Images\home.svg" />
+    <None Remove="Resources\Images\photo_placeholder.svg" />
+    <None Remove="Resources\Images\premises.svg" />
+    <None Remove="Resources\Images\profile.svg" />
+    <None Remove="Resources\Images\requests.svg" />
+    <None Remove="Resources\Images\save_provider_active.svg" />
+    <None Remove="Resources\Images\save_provider_inactive.svg" />
+    <None Remove="Resources\Images\selected_icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Maui" Version="6.0.0" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Plugin.LocalNotification" Version="10.1.8" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CleanProFinder.Shared\CleanProFinder.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <MauiXaml Update="Views\ServiceProvider\ActiveRequests\ServiceProviderActiveRequestNextPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\ServiceProvider\ActiveRequests\ServiceProviderActiveRequestPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\ServiceProvider\Requests\ServiceProviderRequestNextPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\ServiceProvider\Requests\ServiceProviderRequestPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\ServiceProvider\Requests\ServiceProviderRequestsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\ServiceProvider\Profile\ServiceProviderInitialEditProfilePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\ServiceProvider\Services\ServiceProviderSelectServicesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\ServiceUser\Premises\ServiceUserConfirmPremiseSelectionPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\Info\PremiseInfoPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\ServiceUser\Premises\ServiceUserSelectPremisePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\ServiceUser\Profile\ServiceUserProfilePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\Authentication\RolePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <Compile Update="Views\Info\ServiceProviderInfoPage.xaml.cs">
+      <DependentUpon>ServiceProviderInfoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ServiceProvider\ActiveRequests\ServiceProviderActiveRequestNextPage.xaml.cs">
+      <DependentUpon>ServiceProviderActiveRequestNextPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ServiceProvider\ActiveRequests\ServiceProviderActiveRequestPage.xaml.cs">
+      <DependentUpon>ServiceProviderActiveRequestPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ServiceProvider\Requests\ServiceProviderRequestNextPage.xaml.cs">
+      <DependentUpon>ServiceProviderRequestNextPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ServiceProvider\Requests\ServiceProviderRequestPage.xaml.cs">
+      <DependentUpon>ServiceProviderRequestPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ServiceProvider\Requests\ServiceProviderRequestsPage.xaml.cs">
+      <DependentUpon>ServiceProviderRequestsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ServiceProvider\Services\ServiceProviderEditServicesPage.xaml.cs">
+      <DependentUpon>ServiceProviderEditServicesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ServiceProvider\Profile\ServiceProviderInitialEditProfilePage.xaml.cs">
+      <DependentUpon>ServiceProviderInitialEditProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ServiceProvider\Services\ServiceProviderSelectServicesPage.xaml.cs">
+      <DependentUpon>ServiceProviderSelectServicesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ServiceUser\Premises\ServiceUserConfirmPremiseSelectionPage.xaml.cs">
+      <DependentUpon>ServiceUserConfirmPremiseSelectionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Info\PremiseInfoPage.xaml.cs">
+      <DependentUpon>PremiseInfoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ServiceUser\Premises\ServiceUserSelectPremisePage.xaml.cs">
+      <DependentUpon>ServiceUserSelectPremisePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ServiceUser\Profile\ServiceUserInitialEditProfilePage.xaml.cs">
+      <DependentUpon>ServiceUserInitialEditProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ServiceUser\Profile\ServiceUserProfilePage.xaml.cs">
+      <DependentUpon>ServiceUserProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ServiceProvider\Profile\ServiceProviderProfilePage.xaml.cs">
+      <DependentUpon>ServiceProviderProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ServiceUser\Premises\ServiceUserPremisesPage.xaml.cs">
+      <DependentUpon>ServiceUserPremisesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ServiceUser\Providers\ServiceUserSelectProviderOfferPage.xaml.cs">
+      <DependentUpon>ServiceUserSelectProviderOfferPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ServiceUser\Providers\ServiceUserSavedProvidersPage.xaml.cs">
+      <DependentUpon>ServiceUserSavedProvidersPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ServiceUser\Requests\ServiceUserEditRequestNextPage.xaml.cs">
+      <DependentUpon>ServiceUserEditRequestNextPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ServiceUser\Requests\ServiceUserAddRequestNextPage.xaml.cs">
+      <DependentUpon>ServiceUserAddRequestNextPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+	<ItemGroup>
+	<MauiXaml Update="Views\Authentication\RolePage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</MauiXaml>
+	<MauiXaml Update="Views\ServiceProvider\Profile\ServiceProviderProfilePage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</MauiXaml>
+	<MauiXaml Update="Views\ServiceUser\Premises\ServiceUserAddPremisePage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</MauiXaml>
+	<MauiXaml Update="Views\ServiceUser\Premises\ServiceUserEditPremisePage.xaml">
+	  <Generator>MSBuild:Compile</Generator>
+	</MauiXaml>
+    <MauiXaml Update="Views\CustomerStartingPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\ServiceProvider\ActiveRequests\ServiceProviderStartingPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\ServiceUser\Providers\ServiceUserSelectProviderOfferPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\ServiceUser\Providers\ServiceUserSavedProvidersPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\ServiceUser\Requests\ServiceUserEditRequestNextPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\ServiceUser\Requests\ServiceUserAddRequestNextPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\ServiceUser\Requests\ServiceUserAddRequestPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\ServiceUser\Requests\ServiceUserEditRequestPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\ServiceUser\Requests\ServiceUserRequestsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\ServiceUser\Services\ServiceUserSelectServicesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+  </ItemGroup>
+
+</Project>

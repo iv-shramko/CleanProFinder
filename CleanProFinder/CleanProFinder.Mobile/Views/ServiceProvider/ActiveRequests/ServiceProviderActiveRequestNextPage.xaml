@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CleanProFinder.Mobile.Views.ServiceProvider.ActiveRequests.ServiceProviderActiveRequestNextPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:activeRequests="clr-namespace:CleanProFinder.Mobile.ViewModels.ServiceProvider.ActiveRequests"
+    xmlns:requests1="clr-namespace:CleanProFinder.Shared.Dto.Requests;assembly=CleanProFinder.Shared"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:DataType="activeRequests:ServiceProviderActiveRequestNextViewModel"
+    Background="{StaticResource Secondary}"
+    Shell.BackButtonBehavior="{x:StaticResource BackButtonBehavior}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <BackButtonBehavior x:Key="BackButtonBehavior" Command="{Binding GoBackToPreviousStepCommand}" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="145, 476, auto" RowSpacing="5">
+        <Label Style="{StaticResource Key=labelTitleStyle}" Text="Assign for Request" />
+        <VerticalStackLayout
+            Grid.Row="1"
+            Margin="0,60,0,0"
+            Spacing="80">
+            <VerticalStackLayout>
+                <Label Style="{StaticResource labelPropertyStyle}" Text="Description" />
+                <Border Style="{StaticResource borderStyle}">
+                    <Editor
+                        AutoSize="TextChanges"
+                        HeightRequest="104"
+                        IsReadOnly="True"
+                        Placeholder="No description provided."
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding Request.Description}" />
+                </Border>
+            </VerticalStackLayout>
+            <Grid ColumnDefinitions=".55*,.45*">
+                <Label
+                    Margin="0,0,30,0"
+                    FontSize="24"
+                    HorizontalOptions="End"
+                    Style="{StaticResource labelPropertyStyle}"
+                    Text="Set a price"
+                    VerticalOptions="Center" />
+                <Border
+                    Grid.Column="1"
+                    Margin="0"
+                    HorizontalOptions="Start"
+                    Style="{StaticResource borderStyle}"
+                    VerticalOptions="Center"
+                    WidthRequest="100">
+                    <Entry
+                        FontSize="24"
+                        Keyboard="Numeric"
+                        Placeholder=""
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding Price}" />
+                </Border>
+            </Grid>
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="2">
+            <Button
+                Command="{Binding AssignForRequestCommand}"
+                Style="{StaticResource buttonStyle}"
+                Text="Assign for Request"
+                TextColor="White" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CleanProFinder.Mobile.Views.ServiceUser.Requests.ServiceUserEditRequestNextPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:requests="clr-namespace:CleanProFinder.Mobile.ViewModels.ServiceUser.Requests"
+    xmlns:requests1="clr-namespace:CleanProFinder.Shared.Dto.Requests;assembly=CleanProFinder.Shared"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:DataType="requests:ServiceUserEditRequestNextViewModel"
+    Background="{StaticResource Secondary}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:IsNotNullConverter x:Key="IsNotNullConverter" />
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="145, 150, 262, auto" RowSpacing="5">
+        <Label
+            Grid.Row="0"
+            Style="{StaticResource Key=labelTitleStyle}"
+            Text="Edit Request" />
+        <VerticalStackLayout Grid.Row="1">
+            <Label Style="{StaticResource labelPropertyStyle}" Text="Description" />
+            <Border Style="{StaticResource borderStyle}">
+                <Editor
+                    AutoSize="TextChanges"
+                    HeightRequest="104"
+                    IsReadOnly="True"
+                    Placeholder="No description provided."
+                    Style="{StaticResource entryStyle}"
+                    Text="{Binding Request.Description}" />
+            </Border>
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="2">
+            <Label Style="{StaticResource labelPropertyStyle}" Text="Chosen service provider" />
+            <Border
+                Margin="10,5,10,3"
+                Background="{StaticResource Tertiary}"
+                IsVisible="{Binding SelectedServiceProvider, Converter={StaticResource IsNotNullConverter}}"
+                Stroke="{StaticResource Tertiary}"
+                StrokeShape="RoundRectangle 10,10,10,10">
+                <FlexLayout JustifyContent="SpaceBetween">
+                    <HorizontalStackLayout>
+                        <toolkit:AvatarView
+                            Margin="10"
+                            CornerRadius="100"
+                            HeightRequest="60"
+                            ImageSource="dotnet_bot.png"
+                            Style="{StaticResource logoAvatarStyle}"
+                            WidthRequest="60" />
+                        <Label
+                            Margin="10,0"
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            Style="{StaticResource labelPropertyStyle}"
+                            Text="{Binding SelectedServiceProvider.ProviderName}"
+                            TextColor="White"
+                            VerticalTextAlignment="Center" />
+                    </HorizontalStackLayout>
+                    <Label
+                        Margin="10,0"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        Style="{StaticResource labelPropertyStyle}"
+                        Text="{Binding SelectedServiceProvider.Price, StringFormat='{0}$'}"
+                        TextColor="White"
+                        VerticalTextAlignment="Center" />
+                </FlexLayout>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type requests:ServiceUserEditRequestNextViewModel}}, Path=ViewProviderDetailsCommand}"
+                        CommandParameter="{Binding SelectedServiceProvider}"
+                        NumberOfTapsRequired="1" />
+                </Border.GestureRecognizers>
+            </Border>
+            <Button
+                Margin="10"
+                Command="{Binding SelectServiceProviderCommand}"
+                IsVisible="{Binding IsConcluded, Converter={StaticResource InvertedBoolConverter}}"
+                Style="{StaticResource buttonStyle}"
+                Text="Select Service Provider"
+                TextColor="White">
+                <Button.Triggers>
+                    <DataTrigger
+                        Binding="{Binding SelectedServiceProvider, Converter={StaticResource IsNotNullConverter}}"
+                        TargetType="Button"
+                        Value="True">
+                        <Setter Property="Text" Value="Change Service Provider" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="3" Spacing="10">
+            <Button
+                Command="{Binding SaveChangesCommand}"
+                IsVisible="{Binding IsCanceled, Converter={StaticResource InvertedBoolConverter}}"
+                Style="{StaticResource buttonStyle}"
+                Text="Save Changes"
+                TextColor="White" />
+            <Button
+                Command="{Binding GoBackToRequestsCommand}"
+                Style="{StaticResource buttonStyle}"
+                Text="Go back"
+                TextColor="White">
+                <Button.Triggers>
+                    <DataTrigger
+                        Binding="{Binding IsCanceled}"
+                        TargetType="Button"
+                        Value="False">
+                        <Setter Property="Text" Value="Cancel Request" />
+                        <Setter Property="Command" Value="{Binding CancelRequestCommand}" />
+                        <Setter Property="Background" Value="DarkRed" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

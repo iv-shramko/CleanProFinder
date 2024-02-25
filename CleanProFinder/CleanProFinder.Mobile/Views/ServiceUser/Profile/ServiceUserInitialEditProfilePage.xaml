@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CleanProFinder.Mobile.Views.ServiceUser.Profile.ServiceUserInitialEditProfilePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:profile="clr-namespace:CleanProFinder.Mobile.ViewModels.ServiceUser.Profile"
+    x:DataType="profile:ServiceUserInitialEditProfileViewModel"
+    Background="{StaticResource Secondary}">
+
+    <ContentPage.Content>
+        <Grid RowDefinitions="140, auto, auto">
+            <Label Style="{StaticResource Key=labelTitleStyle}" Text="Edit account information" />
+            <VerticalStackLayout Grid.Row="1" Padding="10,0">
+                <Label Style="{StaticResource labelPropertyStyle}" Text="First name" />
+                <Border Style="{StaticResource borderStyle}">
+                    <Entry Style="{StaticResource entryStyle}" Text="{Binding FirstName}" />
+                </Border>
+                <Label Style="{StaticResource labelPropertyStyle}" Text="Last name" />
+                <Border Style="{StaticResource borderStyle}">
+                    <Entry Style="{StaticResource entryStyle}" Text="{Binding LastName}" />
+                </Border>
+                <Label Style="{StaticResource labelPropertyStyle}" Text="Phone number" />
+                <Border Style="{StaticResource borderStyle}">
+                    <Entry
+                        Keyboard="Numeric"
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding PhoneNumber}" />
+                </Border>
+            </VerticalStackLayout>
+            <VerticalStackLayout
+                Grid.Row="2"
+                Margin="10,15,10,0"
+                Spacing="15">
+                <Button
+                    Command="{Binding UpdateProfileCommand}"
+                    Style="{StaticResource buttonStyle}"
+                    Text="Update Profile" />
+                <Button
+                    Background="Transparent"
+                    BorderColor="{StaticResource Primary}"
+                    BorderWidth="2"
+                    Command="{Binding GoBackCommand}"
+                    Style="{StaticResource buttonStyle}"
+                    Text="Go Back"
+                    TextColor="{StaticResource Primary}" />
+            </VerticalStackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

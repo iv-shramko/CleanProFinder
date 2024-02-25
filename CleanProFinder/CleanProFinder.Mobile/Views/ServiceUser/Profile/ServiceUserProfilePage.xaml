@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CleanProFinder.Mobile.Views.ServiceUser.Profile.ServiceUserProfilePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:profile="clr-namespace:CleanProFinder.Mobile.ViewModels.ServiceUser.Profile"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    Title="Profile"
+    x:DataType="profile:ServiceUserProfileViewModel"
+    Background="{StaticResource Secondary}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <VerticalStackLayout
+            Padding="8,0"
+            Spacing="17"
+            VerticalOptions="Center">
+            <VerticalStackLayout>
+                <Label Style="{StaticResource labelPropertyStyle}" Text="Email" />
+                <Border Style="{StaticResource borderStyle}">
+                    <Entry
+                        IsReadOnly="True"
+                        Placeholder="Type here..."
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding Email}" />
+                </Border>
+                <Label Style="{StaticResource labelPropertyStyle}" Text="First name" />
+                <Border Style="{StaticResource borderStyle}">
+                    <Entry
+                        IsReadOnly="{Binding IsEditing, Converter={StaticResource InvertedBoolConverter}}"
+                        Placeholder="Type here..."
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding FirstName}" />
+                </Border>
+                <Label Style="{StaticResource labelPropertyStyle}" Text="Last name" />
+                <Border Style="{StaticResource borderStyle}">
+                    <Entry
+                        IsReadOnly="{Binding IsEditing, Converter={StaticResource InvertedBoolConverter}}"
+                        Placeholder="Type here..."
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding LastName}" />
+                </Border>
+                <Label Style="{StaticResource labelPropertyStyle}" Text="Phone Number" />
+                <Border Style="{StaticResource borderStyle}">
+                    <Entry
+                        IsReadOnly="{Binding IsEditing, Converter={StaticResource InvertedBoolConverter}}"
+                        Keyboard="Numeric"
+                        Placeholder="Type here..."
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding PhoneNumber}" />
+                </Border>
+            </VerticalStackLayout>
+            <VerticalStackLayout Padding="10,0" Spacing="15">
+                <Button
+                    Background="{StaticResource Primary}"
+                    Command="{Binding StartEditingCommand}"
+                    FontAttributes="Bold"
+                    FontFamily="OpenSans"
+                    FontSize="20"
+                    IsVisible="{Binding IsEditing, Converter={StaticResource InvertedBoolConverter}}"
+                    Text="Edit Profile"
+                    TextColor="White" />
+                <Button
+                    Background="{StaticResource Tertiary}"
+                    Command="{Binding UpdateProfileCommand}"
+                    FontAttributes="Bold"
+                    FontFamily="OpenSans"
+                    FontSize="20"
+                    IsVisible="{Binding IsEditing}"
+                    Text="Update Profile"
+                    TextColor="White" />
+                <Button
+                    Background="{StaticResource Primary}"
+                    Command="{Binding LogoutCommand}"
+                    FontAttributes="Bold"
+                    FontFamily="OpenSans"
+                    FontSize="20"
+                    Text="Logout"
+                    TextColor="White" />
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ContentPage.Content>
+</ContentPage>

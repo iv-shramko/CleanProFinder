@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="CleanProFinder.Mobile.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:activeRequests="clr-namespace:CleanProFinder.Mobile.Views.ServiceProvider.ActiveRequests"
+    xmlns:authentication="clr-namespace:CleanProFinder.Mobile.Views.Authentication"
+    xmlns:premises="clr-namespace:CleanProFinder.Mobile.Views.ServiceUser.Premises"
+    xmlns:profile="clr-namespace:CleanProFinder.Mobile.Views.ServiceProvider.Profile"
+    xmlns:profile1="clr-namespace:CleanProFinder.Mobile.Views.ServiceUser.Profile"
+    xmlns:providerRequests="clr-namespace:CleanProFinder.Mobile.Views.ServiceProvider.Requests"
+    xmlns:requests="clr-namespace:CleanProFinder.Mobile.Views.ServiceUser.Requests"
+    xmlns:serviceUser="clr-namespace:CleanProFinder.Mobile.Views.ServiceUser"
+    xmlns:viewModels="clr-namespace:CleanProFinder.Mobile.ViewModels"
+    x:DataType="viewModels:AppShellViewModel"
+    FlyoutBehavior="Disabled">
+
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="Shell.ForegroundColor" Value="White" />
+                <Setter Property="Shell.TitleColor" Value="White" />
+                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="White" />
+                <Setter Property="Shell.TabBarUnselectedColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.TabBarTitleColor" Value="White" />
+            </Style>
+            <Style BasedOn="{StaticResource BaseStyle}" TargetType="TabBar" />
+            <Style BasedOn="{StaticResource BaseStyle}" TargetType="FlyoutItem" />
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <TabBar IsVisible="{Binding IsServiceUserTabBarVisible}">
+        <ShellContent
+            Title="Home"
+            ContentTemplate="{DataTemplate serviceUser:ServiceUserStartingPage}"
+            Icon="home.svg"
+            Route="ServiceUserStartingPage" />
+        <ShellContent
+            Title="Premises"
+            ContentTemplate="{DataTemplate premises:ServiceUserPremisesPage}"
+            Icon="premises.svg"
+            IsVisible="{Binding IsServiceUserTabBarVisible}"
+            Route="ServiceUserPremiseListPage" />
+        <ShellContent
+            Title="Requests"
+            ContentTemplate="{DataTemplate requests:ServiceUserRequestsPage}"
+            Icon="requests.svg"
+            IsVisible="{Binding IsServiceUserTabBarVisible}"
+            Route="ServiceUserRequestsPage" />
+        <ShellContent
+            Title="Profile"
+            ContentTemplate="{DataTemplate profile1:ServiceUserProfilePage}"
+            Icon="profile.svg"
+            Route="ServiceUserProfilePage" />
+    </TabBar>
+
+    <TabBar IsVisible="{Binding IsServiceProviderTabBarVisible}">
+        <ShellContent
+            Title="Home"
+            ContentTemplate="{DataTemplate activeRequests:ServiceProviderStartingPage}"
+            Icon="home.svg"
+            Route="ServiceProviderStartingPage" />
+        <ShellContent
+            Title="Requests"
+            ContentTemplate="{DataTemplate providerRequests:ServiceProviderRequestsPage}"
+            Icon="requests.svg"
+            IsVisible="{Binding IsServiceProviderTabBarVisible}"
+            Route="ServiceProviderRequestsPage" />
+        <ShellContent
+            Title="Profile"
+            ContentTemplate="{DataTemplate profile:ServiceProviderProfilePage}"
+            Icon="profile.svg"
+            Route="ServiceProviderProfilePage" />
+    </TabBar>
+
+    <TabBar>
+        <ShellContent ContentTemplate="{DataTemplate authentication:RolePage}" Route="RolePage" />
+    </TabBar>
+
+</Shell>

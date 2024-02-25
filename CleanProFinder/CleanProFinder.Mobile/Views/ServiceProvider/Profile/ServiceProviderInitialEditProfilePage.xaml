@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CleanProFinder.Mobile.Views.ServiceProvider.Profile.ServiceProviderInitialEditProfilePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:profile="clr-namespace:CleanProFinder.Mobile.ViewModels.ServiceProvider.Profile"
+    x:DataType="profile:ServiceProviderInitialEditProfileViewModel"
+    Background="{StaticResource Secondary}">
+
+    <ContentPage.Content>
+        <Grid RowDefinitions="140, auto, auto">
+            <Label Style="{StaticResource Key=labelTitleStyle}" Text="Edit account information" />
+            <VerticalStackLayout Grid.Row="1" Padding="10,0">
+                <Label Style="{StaticResource labelPropertyStyle}" Text="Service provider name" />
+                <Border Style="{StaticResource borderStyle}">
+                    <Entry Style="{StaticResource entryStyle}" Text="{Binding Name}" />
+                </Border>
+                <Label Style="{StaticResource labelPropertyStyle}" Text="Phone number" />
+                <Border Style="{StaticResource borderStyle}">
+                    <Entry
+                        Keyboard="Numeric"
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding PhoneNumber}" />
+                </Border>
+                <Label Style="{StaticResource labelPropertyStyle}" Text="Website URL" />
+                <Border Style="{StaticResource borderStyle}">
+                    <Entry Style="{StaticResource entryStyle}" Text="{Binding WebsiteUrl}" />
+                </Border>
+            </VerticalStackLayout>
+            <FlexLayout
+                Grid.Row="2"
+                Margin="8"
+                HeightRequest="107"
+                JustifyContent="SpaceBetween">
+                <Border
+                    Margin="10,0"
+                    Style="{StaticResource logoPlaceholderStyle}"
+                    WidthRequest="130">
+                    <VerticalStackLayout>
+                        <Label
+                            FontSize="40"
+                            HorizontalOptions="Center"
+                            Text="+"
+                            TextColor="{StaticResource Primary}" />
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="15"
+                            HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center"
+                            LineBreakMode="WordWrap"
+                            Text="Add logo image (optional)"
+                            TextColor="{StaticResource Primary}" />
+                    </VerticalStackLayout>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding AddLogoImageCommand}" NumberOfTapsRequired="1" />
+                    </Border.GestureRecognizers>
+                </Border>
+                <VerticalStackLayout Spacing="10" WidthRequest="215">
+                    <Button
+                        Command="{Binding UpdateProfileCommand}"
+                        Style="{StaticResource buttonStyle}"
+                        Text="Update Profile" />
+                    <Button
+                        Background="Transparent"
+                        BorderColor="{StaticResource Primary}"
+                        BorderWidth="2"
+                        Command="{Binding GoBackCommand}"
+                        Style="{StaticResource buttonStyle}"
+                        Text="Go Back"
+                        TextColor="{StaticResource Primary}" />
+                </VerticalStackLayout>
+            </FlexLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
